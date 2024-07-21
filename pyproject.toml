@@ -41,7 +41,7 @@ dependencies = [
 
 [project.urls]
 Repository = "https://github.com/python-project-templates/yardang"
-Homepage = "https://github.com/python-project-templates/yardang"
+Homepage = "https://yardang.python-templates.dev/"
 
 [project.optional-dependencies]
 develop = [
