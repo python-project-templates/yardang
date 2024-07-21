@@ -1,0 +1,148 @@
+[build-system]
+requires = ["hatchling"]
+build-backend="hatchling.build"
+
+[project]
+name = "yardang"
+authors = [{name = "the yardang authors", email = "t.paine154@gmail.com"}]
+description="Easily generate sphinx documentation"
+readme = "README.md"
+license = { text = "Apache-2.0" }
+version = "0.1.0"
+requires-python = ">=3.9"
+keywords = []
+
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Programming Language :: Python :: Implementation :: PyPy",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "autodoc-pydantic",
+    "furo",
+    "myst-parser",
+    "packaging",
+    "rich",
+    "ruff",
+    "sphinx==7.2.6",
+    "sphinx-autoapi",
+    "sphinx-copybutton",
+    "sphinx-design",
+    "toml",
+    "typer",
+]
+
+[project.urls]
+Repository = "https://github.com/python-project-templates/yardang"
+Homepage = "https://github.com/python-project-templates/yardang"
+
+[project.optional-dependencies]
+develop = [
+    "build",
+    "bump-my-version",
+    "check-manifest",
+    "hatchling",
+    "pytest",
+    "pytest-cov",
+    "ruff",
+    "twine",
+    "wheel",
+]
+
+[project.scripts]
+yardang = "yardang.cli:main"
+
+[tool.bumpversion]
+current_version = "0.1.0"
+commit = true
+tag = true
+
+[[tool.bumpversion.files]]
+filename = "yardang/__init__.py"
+search = '__version__ = "{current_version}"'
+replace = '__version__ = "{new_version}"'
+
+[[tool.bumpversion.files]]
+filename = "pyproject.toml"
+search = 'version = "{current_version}"'
+replace = 'version = "{new_version}"'
+
+[tool.check-manifest]
+ignore = [
+    ".copier-answers.yml",
+    "docs/*",
+    "docs/src/*",
+    "Makefile",
+    "setup.py",
+]
+
+[tool.hatch.build]
+artifacts = []
+
+[tool.hatch.build.sources]
+src = "/"
+
+[tool.hatch.build.targets.sdist]
+include = [
+    "/yardang",
+    "LICENSE",
+    "README.md",
+]
+exclude = [
+    "/.github",
+    "/.gitattributes",
+    "/.gitignore",
+    "/docs",
+]
+
+[tool.hatch.build.targets.wheel]
+include = [
+    "/yardang",
+]
+exclude = [
+    "/.github",
+    "/.gitattributes",
+    "/.gitignore",
+    "/docs",
+    "/pyproject.toml",
+]
+
+[tool.hatch.build.targets.wheel.shared-data]
+
+[tool.pytest.ini_options]
+asyncio_mode = "strict"
+testpaths = "yardang/tests"
+
+[tool.ruff]
+line-length = 150
+
+[tool.ruff.lint.isort]
+combine-as-imports = true
+default-section = "third-party"
+known-first-party = ["yardang"]
+section-order = [
+    "future",
+    "third-party",
+    "first-party",
+    "local-folder",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+
+[tool.yardang]
+root = "docs/src/home.md"
+cname = "yardang.python-templates.dev"
+pages = [
+    "docs/src/overview.md",
+    "docs/src/installation.md",
+    "docs/src/configuration.md",
+]
+use-autoapi = true

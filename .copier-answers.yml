@@ -1,0 +1,10 @@
+# Changes here will be overwritten by Copier
+_commit: a84eb20
+_src_path: ../../templates/base
+add_extension: python
+email: t.paine154@gmail.com
+github: python-project-templates
+project_description: Easily generate sphinx documentation
+project_name: yardang
+python_version_primary: '3.11'
+team: the yardang authors
