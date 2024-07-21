@@ -5,6 +5,7 @@
   <h1 style="margin-left: 20px;">yardang</h1>
 </div>
 
+[![GitHub](https://img.shields.io/badge/repo-github-181717?logo=github&logoColor=white)](https://github.com/python-project-templates/yardang)
 [![Build Status](https://github.com/python-project-templates/yardang/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/yardang/actions/workflows/build.yml)
 [![codecov](https://codecov.io/gh/python-project-templates/yardang/branch/main/graph/badge.svg)](https://codecov.io/gh/python-project-templates/yardang)
 [![License](https://img.shields.io/github/license/python-project-templates/yardang)](https://github.com/python-project-templates/yardang)
