@@ -31,7 +31,7 @@ dependencies = [
     "packaging",
     "rich",
     "ruff",
-    "sphinx==7.2.6",
+    "sphinx==7.4.7",
     "sphinx-autoapi",
     "sphinx-copybutton",
     "sphinx-design",
