@@ -61,7 +61,7 @@ yardang = "yardang.cli:main"
 [tool.bumpversion]
 current_version = "0.1.2"
 commit = true
-tag = true
+tag = false
 
 [[tool.bumpversion.files]]
 filename = "yardang/__init__.py"
