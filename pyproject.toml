@@ -30,7 +30,6 @@ dependencies = [
     "myst-parser",
     "packaging",
     "rich",
-    "ruff",
     "sphinx>=7.2.6,<8.1",
     "sphinx-autoapi",
     "sphinx-copybutton",
