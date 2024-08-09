@@ -36,6 +36,7 @@ def generate_docs_configuration(
     module: str = "",
     description: str = "",
     author: str = "",
+    copyright: str = "",
     version: str = "",
     theme: str = "furo",
     docs_root: str = "",
@@ -59,6 +60,9 @@ def generate_docs_configuration(
             author = author[0]
         else:
             author = f"The {project} authors"
+        if isinstance(author, dict):
+            author = author["name"]
+        copyright = copyright or author
         theme = theme or get_config(section="theme")
         version = version or get_config(section="version", base="project")
         docs_root = (
@@ -102,6 +106,7 @@ def generate_docs_configuration(
                 module=module,
                 description=description,
                 author=author,
+                copyright=copyright,
                 version=version,
                 theme=theme,
                 docs_root=docs_root,
