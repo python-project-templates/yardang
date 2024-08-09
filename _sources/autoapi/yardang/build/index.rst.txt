@@ -1,0 +1,57 @@
+yardang.build
+=============
+
+.. py:module:: yardang.build
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   yardang.build.CUSTOM_CSS
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   yardang.build.generate_docs_configuration
+
+
+Module Contents
+---------------
+
+.. py:data:: CUSTOM_CSS
+   :value: Multiline-String
+
+   .. raw:: html
+
+      <details><summary>Show Value</summary>
+
+   .. code-block:: python
+
+      """
+      /* Wide main page */
+      .content {
+          flex: 1;
+      }
+      aside.sidebar-drawer {
+          width: unset;
+      }
+      
+      /* Left-align tables */
+      article table.align-default {
+          margin-left: 0;
+      }
+      """
+
+   .. raw:: html
+
+      </details>
+
+
+
+.. py:function:: generate_docs_configuration(*, project: str = '', title: str = '', module: str = '', description: str = '', author: str = '', copyright: str = '', version: str = '', theme: str = 'furo', docs_root: str = '', root: str = '', cname: str = '', pages: Optional[List] = None, use_autoapi: Optional[bool] = None)
+

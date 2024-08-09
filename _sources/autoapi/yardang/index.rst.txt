@@ -1,0 +1,32 @@
+yardang
+=======
+
+.. py:module:: yardang
+
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 1
+
+   /autoapi/yardang/build/index
+   /autoapi/yardang/cli/index
+   /autoapi/yardang/utils/index
+
+
+Attributes
+----------
+
+.. autoapisummary::
+
+   yardang.__version__
+
+
+Package Contents
+----------------
+
+.. py:data:: __version__
+   :value: '0.1.3'
+
+

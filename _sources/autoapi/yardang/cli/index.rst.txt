@@ -1,0 +1,25 @@
+yardang.cli
+===========
+
+.. py:module:: yardang.cli
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   yardang.cli.build
+   yardang.cli.debug
+   yardang.cli.main
+
+
+Module Contents
+---------------
+
+.. py:function:: build(quiet: bool = False, debug: bool = False)
+
+.. py:function:: debug()
+
+.. py:function:: main()
+
