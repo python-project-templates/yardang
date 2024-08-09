@@ -11,6 +11,22 @@
 
 [`yardang`](https://www.britannica.com/science/yardang) makes building [Sphinx](https://www.sphinx-doc.org/en/master/) easy.
 
+## Configuration
+
+Here is `yardang`'s own configuration, in `pyproject.toml`
+
+```toml
+[tool.yardang]
+root = "docs/src/home.md"
+cname = "yardang.python-templates.dev"
+pages = [
+    "docs/src/overview.md",
+    "docs/src/installation.md",
+    "docs/src/configuration.md",
+]
+use-autoapi = true
+```
+
 ## Installation
 You can install from PyPI via `pip`:
 

@@ -3,6 +3,19 @@
 Configuration for `yardang` is driven from the `pyproject.toml`, either via standard sections like `project` or from the dedicated `tool.yardang` section.
 Each option below corresponds to the [Sphinx configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
 
+Here is `yardang`'s own configuration, in `pyproject.toml`
+
+```toml
+[tool.yardang]
+root = "docs/src/home.md"
+cname = "yardang.python-templates.dev"
+pages = [
+    "docs/src/overview.md",
+    "docs/src/installation.md",
+    "docs/src/configuration.md",
+]
+use-autoapi = true
+```
 ## [`name`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project)
 
 The project name is taken from the standard section, or from the `cwd`.
