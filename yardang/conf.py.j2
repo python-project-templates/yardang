@@ -29,8 +29,7 @@ use_autoapi = {{use_autoapi}}  # noqa: F821
 # Standardized below #
 ######################
 extensions = [
-    "myst_parser",
-    "sphinx.ext.viewcode",
+    "myst_nb",
     "sphinx.ext.napoleon",
     "sphinx_design",
     "sphinx_copybutton",
@@ -41,7 +40,19 @@ extensions = [
 ]
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
-    extensions.append("autoapi.extension")
+    # NOTE: bug in autoapi that requires
+    # viewcode to come after
+    extensions.extend([
+        "autoapi.extension",
+        "sphinx.ext.viewcode",
+    ])
+else:
+    # NOTE: bug in autoapi that requires
+    # viewcode to come after
+    extensions.append([
+        "sphinx.ext.viewcode",
+    ])
+
 
 os.environ["SPHINX_BUILDING"] = "1"
 html_theme = "{{theme}}"
@@ -50,19 +61,32 @@ html_static_path = []
 html_css_files = [
     "styles/custom.css",
 ]
+html_js_files = [
+    "js/custom.js",
+]
+
 master_doc = "index"
 templates_path = ["_templates"]
 source_suffix = [".rst", ".md"]
 exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*"]
 language = "en"
 pygments_style = "sphinx"
+
+# myst / myst-nb
+myst_enable_extensions = ["colon_fence"]
+jupyter_execute_notebooks = "{{jupyter_execute_notebooks}}"
+execution_excludepatterns = {{execution_excludepatterns}}
+
+# autosummary
 autosummary_generate = True
+
+# autoapi
 autoapi_dirs = [module]
 autoapi_python_class_content = "both"
-myst_enable_extensions = ["colon_fence"]
-autodoc_default_options = {
-    "show-inheritance": True,
-}
+autoapi_add_toctree_entry = use_autoapi is True
+
+# autodoc/autodoc-pydantic
+autodoc_default_options = {"show-inheritance": True}
 autodoc_pydantic_model_show_config_summary = {{autodoc_pydantic_model_show_config_summary}}  # noqa: F821
 autodoc_pydantic_model_show_validator_summary = {{autodoc_pydantic_model_show_validator_summary}}  # noqa: F821
 autodoc_pydantic_model_show_validator_members = {{autodoc_pydantic_model_show_validator_members}}  # noqa: F821
@@ -71,7 +95,7 @@ autodoc_pydantic_field_show_constraints = {{autodoc_pydantic_field_show_constrai
 autodoc_pydantic_model_member_order = {{autodoc_pydantic_model_member_order}}  # noqa: F821
 autodoc_pydantic_model_show_json = {{autodoc_pydantic_model_show_json}}  # noqa: F821
 autodoc_pydantic_settings_show_json = {{autodoc_pydantic_settings_show_json}}  # noqa: F821
-autoapi_add_toctree_entry = use_autoapi is True
+
 toctree_base = """{toctree}
 ---
 caption: ""
@@ -94,36 +118,12 @@ def run_copycname(_):
     if cname:
         out.write_text(cname)
 
-def run_create_version_marker_to_be_committed(_):
+def run_create_previous_version_markdown(_):
     versions_folder = Path("{{source_dir}}") / "docs" / "versions"
     if not versions_folder.exists():
         versions_folder.mkdir(parents=True, exist_ok=True)
-    version_file = versions_folder / f"{version}.txt"
-    version_file.write_text("commit this file to ensure these docs can be referenced in the future")
-
-def run_create_older_version_docs(_):
-    versions_folder = Path("{{source_dir}}") / "docs" / "versions"
-    if not versions_folder.exists():
-        # no older versions yet
-        return
-    all_versions = [f.replace(".txt", "") for f in os.listdir(str(versions_folder)) if f.endswith(".txt")]
-    all_versions_as_versions = []
-    invalid_version = Version("999.999.999")
-    for version in all_versions:
-        try:
-            all_versions_as_versions.append(Version(version))
-        except BaseException:
-            all_versions_as_versions.append(invalid_version)
-    all_versions_as_versions.sort(reverse=True)
-    out = Path("{{source_dir}}") / "docs" / "versions" / "versions.md"
-    out.write_text("# Previous Versions\n\n")
-    for i, older_version in enumerate(all_versions_as_versions):
-        if older_version != invalid_version and str(older_version) in all_versions:
-            older_version_literal = str(older_version)
-            with out.open("a") as outfile:
-                outfile.write(f"- [{older_version_literal}]({docs_host_root}/{name}/{older_version_literal}/)\n")
-    with out.open("a") as outfile:
-        outfile.write("\n")
+    version_file = versions_folder / "version.md"
+    version_file.write_text("# Previous Versions")
 
 def run_add_version_links_to_toctree(app, doctree):
     from sphinx.addnodes import toctree
@@ -148,8 +148,7 @@ def run_add_version_links_to_toctree(app, doctree):
             nodes[-1]["includefiles"].append(toc_entry)
 
 def setup(app):
-    {# app.connect("builder-inited", run_create_older_version_docs) #}
-    {# app.connect("builder-inited", run_create_version_marker_to_be_committed) #}
+    {# app.connect("builder-inited", run_create_previous_version_markdown) #}
     app.connect("builder-inited", run_copyreadme)
     app.connect("builder-inited", run_copycname)
     {# app.connect("doctree-read", run_add_version_links_to_toctree, priority=500) #}
