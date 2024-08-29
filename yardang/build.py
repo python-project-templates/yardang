@@ -6,26 +6,7 @@ from tempfile import TemporaryDirectory
 from typing import List, Optional
 from .utils import get_config
 
-__all__ = (
-    "generate_docs_configuration",
-    "CUSTOM_CSS",
-)
-
-# Wider screen for furo
-CUSTOM_CSS = """
-/* Wide main page */
-.content {
-    flex: 1;
-}
-aside.sidebar-drawer {
-    width: unset;
-}
-
-/* Left-align tables */
-article table.align-default {
-    margin-left: 0;
-}
-"""
+__all__ = ("generate_docs_configuration",)
 
 
 @contextmanager
@@ -44,6 +25,8 @@ def generate_docs_configuration(
     cname: str = "",
     pages: Optional[List] = None,
     use_autoapi: Optional[bool] = None,
+    custom_css: Optional[Path] = None,
+    custom_js: Optional[Path] = None,
 ):
     if os.path.exists("conf.py"):
         # yield folder path to sphinx build
@@ -80,9 +63,15 @@ def generate_docs_configuration(
         cname = cname or get_config(section="cname")
         pages = pages or get_config(section="pages") or []
         use_autoapi = use_autoapi or get_config(section="use-autoapi")
+
+        custom_css = custom_css or get_config(section="custom-css") or (Path(__file__).parent / "custom.css")
+        custom_js = custom_js or get_config(section="custom-js") or (Path(__file__).parent / "custom.js")
+
         source_dir = os.path.curdir
-        autodoc_pydantic_args = {}
+
+        configuration_args = {}
         for f in (
+            # autodoc/autodoc-pydantic
             "autodoc_pydantic_model_show_config_summary",
             "autodoc_pydantic_model_show_validator_summary",
             "autodoc_pydantic_model_show_validator_members",
@@ -92,10 +81,20 @@ def generate_docs_configuration(
             "autodoc_pydantic_model_show_json",
             "autodoc_pydantic_settings_show_json",
             "autodoc_pydantic_model_show_field_summary",
+            # myst/myst-nb
+            "jupyter_execute_notebooks",
+            "execution_excludepatterns",
         ):
-            default_value = {"autodoc_pydantic_model_member_order": '"bysource"', "autodoc_pydantic_model_show_json": True}.get(f, False)
+            default_value = {
+                # autodoc/autodoc-pydantic
+                "autodoc_pydantic_model_member_order": '"bysource"',
+                "autodoc_pydantic_model_show_json": True,
+                # myst/myst-nb
+                "execution_excludepatterns": [],
+                "jupyter_execute_notebooks": "off",
+            }.get(f, False)
             config_value = get_config(section=f"{f}")
-            autodoc_pydantic_args[f] = default_value if config_value is None else config_value
+            configuration_args[f] = default_value if config_value is None else config_value
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -115,11 +114,17 @@ def generate_docs_configuration(
                 pages=pages,
                 use_autoapi=use_autoapi,
                 source_dir=source_dir,
-                **autodoc_pydantic_args,
+                **configuration_args,
             )
             # dump to file
             template_file = Path(td) / "conf.py"
             template_file.write_text(template)
+
+            # write custom css and customjs
+            Path("docs/html/_static/styles").mkdir(parents=True, exist_ok=True)
+            Path("docs/html/_static/styles/custom.css").write_text(custom_css.read_text())
+            Path("docs/html/_static/js").mkdir(parents=True, exist_ok=True)
+            Path("docs/html/_static/js/custom.js").write_text(custom_js.read_text())
 
             # append docs-specific ignores to gitignore
             if Path(".gitignore").exists():

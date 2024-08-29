@@ -129,3 +129,31 @@ autodoc_pydantic_model_show_json = true
 autodoc_pydantic_settings_show_json = false
 autodoc_pydantic_model_show_field_summary = false
 ```
+
+## Myst-NB
+
+```toml
+[tool.yardang]
+jupyter_execute_notebooks = "off"
+execution_excludepatterns = []
+```
+
+Notebooks can be included with:
+
+````raw
+```{eval-rst}
+.. toctree::
+  :maxdepth: 1
+
+  ../notebooks/example
+```
+````
+
+An example follows:
+
+```{eval-rst}
+.. toctree::
+  :maxdepth: 1
+
+  ../notebooks/example
+```

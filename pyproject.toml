@@ -27,7 +27,7 @@ classifiers = [
 dependencies = [
     "autodoc-pydantic",
     "furo",
-    "myst-parser",
+    "myst-nb",
     "packaging",
     "rich",
     "sphinx>=7.2.6,<8.1",
@@ -77,7 +77,7 @@ replace = 'version = "{new_version}"'
 ignore = [
     ".copier-answers.yml",
     "docs/*",
-    "docs/src/*",
+    "docs/**/*",
     "Makefile",
     "setup.py",
 ]

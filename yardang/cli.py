@@ -1,19 +1,12 @@
 from sys import executable
-from pathlib import Path
 from subprocess import Popen, PIPE
 from typer import Typer
 
-from .build import generate_docs_configuration, CUSTOM_CSS
+from .build import generate_docs_configuration
 
 
 def build(quiet: bool = False, debug: bool = False):
     with generate_docs_configuration() as file:
-        folder = Path("docs/html/_static/styles")
-        css = folder / "custom.css"
-        if not css.exists():
-            folder.mkdir(parents=True, exist_ok=True)
-            css.write_text(CUSTOM_CSS)
-
         build_cmd = [
             executable,
             "-m",
