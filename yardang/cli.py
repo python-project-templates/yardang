@@ -1,5 +1,6 @@
-from sys import executable
-from subprocess import Popen, PIPE
+from sys import executable, stderr, stdout
+from subprocess import Popen
+from time import sleep
 from typer import Typer
 
 from .build import generate_docs_configuration
@@ -19,15 +20,12 @@ def build(quiet: bool = False, debug: bool = False):
 
         if debug:
             print(" ".join(build_cmd))
-
-        process = Popen(build_cmd, stdout=PIPE)
+        if quiet:
+            process = Popen(build_cmd)
+        else:
+            process = Popen(build_cmd, stderr=stderr, stdout=stdout)
         while process.poll() is None:
-            text = process.stdout.readline().decode("utf-8")
-            if text and not quiet:
-                print(text)
-        text = process.stdout.readline().decode("utf-8")
-        if text and not quiet:
-            print(text)
+            sleep(0.1)
 
 
 def debug():

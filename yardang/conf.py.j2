@@ -36,6 +36,7 @@ extensions = [
     "sphinx.ext.autodoc",
     "sphinx.ext.autosummary",
     "sphinx.ext.inheritance_diagram",
+    "sphinxcontrib.mermaid",
     "sphinxcontrib.autodoc_pydantic",
 ]
 if use_autoapi in (True, None):
@@ -74,8 +75,9 @@ pygments_style = "sphinx"
 
 # myst / myst-nb
 myst_enable_extensions = ["colon_fence"]
-jupyter_execute_notebooks = "{{jupyter_execute_notebooks}}"
-execution_excludepatterns = {{execution_excludepatterns}}
+myst_fence_as_directive = ["mermaid"]
+nb_execution_mode = "{{nb_execution_mode}}"
+nb_execution_excludepatterns = {{nb_execution_excludepatterns}}
 
 # autosummary
 autosummary_generate = True
