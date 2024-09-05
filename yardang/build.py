@@ -82,16 +82,16 @@ def generate_docs_configuration(
             "autodoc_pydantic_settings_show_json",
             "autodoc_pydantic_model_show_field_summary",
             # myst/myst-nb
-            "jupyter_execute_notebooks",
-            "execution_excludepatterns",
+            "nb_execution_mode",
+            "nb_execution_excludepatterns",
         ):
             default_value = {
                 # autodoc/autodoc-pydantic
                 "autodoc_pydantic_model_member_order": '"bysource"',
                 "autodoc_pydantic_model_show_json": True,
                 # myst/myst-nb
-                "execution_excludepatterns": [],
-                "jupyter_execute_notebooks": "off",
+                "nb_execution_excludepatterns": [],
+                "nb_execution_mode": "off",
             }.get(f, False)
             config_value = get_config(section=f"{f}")
             configuration_args[f] = default_value if config_value is None else config_value

@@ -134,8 +134,8 @@ autodoc_pydantic_model_show_field_summary = false
 
 ```toml
 [tool.yardang]
-jupyter_execute_notebooks = "off"
-execution_excludepatterns = []
+nb_execution_mode = "off"
+nb_execution_excludepatterns = []
 ```
 
 Notebooks can be included with:
@@ -156,4 +156,15 @@ An example follows:
   :maxdepth: 1
 
   ../notebooks/example
+```
+
+
+## Mermaid
+
+```mermaid
+graph TD;
+  A-->B;
+  A-->C;
+  B-->D;
+  C-->D;
 ```
