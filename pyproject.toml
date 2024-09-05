@@ -8,7 +8,7 @@ authors = [{name = "the yardang authors", email = "t.paine154@gmail.com"}]
 description="Easily generate sphinx documentation"
 readme = "README.md"
 license = { text = "Apache-2.0" }
-version = "0.1.4"
+version = "0.1.5"
 requires-python = ">=3.9"
 keywords = []
 
@@ -60,7 +60,7 @@ develop = [
 yardang = "yardang.cli:main"
 
 [tool.bumpversion]
-current_version = "0.1.4"
+current_version = "0.1.5"
 commit = true
 tag = false
 
