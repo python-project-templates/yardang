@@ -168,3 +168,42 @@ graph TD;
   B-->D;
   C-->D;
 ```
+
+```mermaid
+%%{init: {"flowchart": {"defaultRenderer": "elk"}} }%%
+
+graph TD
+  A[\Replenish Value Add stock/] --->C
+  B(Order product with Value Add) --->C
+  C{Frequent process?} --->|Yes|D 
+  C --->|No|F
+  D{New template?} --->|Yes|E 
+  D --->|No|G
+  E(Create work order template) --->G
+  F(Create work order) --->H
+  G(Copy template to work order) --->I
+  H(Add materials to work order processes) --->J
+  I(Adjust material quantities) --->J
+  J(Monitor work orders) --->K
+  K{Material quantities in stock?} --->|No|L 
+  K --->|Yes|M
+  L(Procure materials) --->M
+  M(Change status to In Progress) --->N
+  N{External Vendor to perform step?} --->|Yes|O 
+  N --->|No|P
+  O(Add vendor costs) --->Q
+  P[\Perform work order step/] --->R
+  Q([Ship materials to Vendor]) --->S --->X
+  R{Additional processing required?} --->|Yes|N 
+  R--->|No|T
+  S[\Perform work order step/] --->U
+  T(Receive final stock) --->V
+  U(Receive product from vendor) --->W
+  V(Ship product on order) --->Y
+  W{Partial quantity received?} --->|Yes|X 
+  W --->|No|Z
+  X[Create work order backorder] ---> J
+  Y(Change status to complete) --->AA
+  Z(Pay vendor invoice) --->R
+  AA([Finish])
+```
