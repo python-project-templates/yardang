@@ -1,7 +1,8 @@
-from sys import executable, stderr, stdout
 from subprocess import Popen
+from sys import executable, stderr, stdout
 from time import sleep
-from typer import Typer
+
+from typer import Exit, Typer
 
 from .build import generate_docs_configuration
 
@@ -26,6 +27,8 @@ def build(quiet: bool = False, debug: bool = False):
             process = Popen(build_cmd, stderr=stderr, stdout=stdout)
         while process.poll() is None:
             sleep(0.1)
+        if process.returncode != 0:
+            raise Exit(process.returncode)
 
 
 def debug():

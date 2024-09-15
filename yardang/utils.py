@@ -1,7 +1,7 @@
 import os
-import toml
 from pathlib import Path
 
+import toml
 
 __all__ = ("get_config",)
 

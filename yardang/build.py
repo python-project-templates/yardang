@@ -1,9 +1,11 @@
 import os.path
 from contextlib import contextmanager
-from jinja2 import Environment, FileSystemLoader
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Optional
+
+from jinja2 import Environment, FileSystemLoader
+
 from .utils import get_config
 
 __all__ = ("generate_docs_configuration",)
