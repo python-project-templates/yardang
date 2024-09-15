@@ -50,9 +50,7 @@ if use_autoapi in (True, None):
 else:
     # NOTE: bug in autoapi that requires
     # viewcode to come after
-    extensions.append([
-        "sphinx.ext.viewcode",
-    ])
+    extensions.append("sphinx.ext.viewcode")
 
 
 os.environ["SPHINX_BUILDING"] = "1"
