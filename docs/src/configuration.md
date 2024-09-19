@@ -168,3 +168,26 @@ graph TD;
   B-->D;
   C-->D;
 ```
+
+
+## GitHub Admonitions
+
+GitHub admonitions are automatically translated to sphinx.
+
+> [!NOTE]
+> Note content
+
+> [!TIP]
+> Tip content
+
+> [!IMPORTANT]
+> Important content
+
+> [!WARNING]
+> Warning content
+
+> [!CAUTION]
+> Caution content
+
+
+
