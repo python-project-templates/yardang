@@ -144,3 +144,31 @@ pages = [
     "docs/src/configuration.md",
 ]
 use-autoapi = true
+
+# Below are defaults, just to ensure working
+# sphinx
+html_theme_options = {"switcher" = { "json_url" = "https://mysite.org/en/latest/_static/switcher.json"}}
+html_static_path = ["test"]
+html_css_files = []
+html_js_files = []
+source_suffix = []
+exclude_patterns = []
+language = "en"
+pygments_style = "sphinx"
+
+# myst/myst-nb
+myst_enable_extensions = ["colon_fence"]
+myst_fence_as_directive = ["mermaid"]
+nb_execution_mode = "off"
+nb_execution_excludepatterns = []
+
+# autodoc/autodoc-pydantic
+autodoc_pydantic_model_show_config_summary = false
+autodoc_pydantic_model_show_validator_summary = false
+autodoc_pydantic_model_show_validator_members = false
+autodoc_pydantic_field_list_validators = false
+autodoc_pydantic_field_show_constraints = false
+autodoc_pydantic_model_member_order = "bysource"
+autodoc_pydantic_model_show_json = true
+autodoc_pydantic_settings_show_json = false
+autodoc_pydantic_model_show_field_summary = false

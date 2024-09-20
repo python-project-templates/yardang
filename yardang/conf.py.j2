@@ -55,25 +55,27 @@ else:
 
 os.environ["SPHINX_BUILDING"] = "1"
 html_theme = "{{theme}}"
-html_theme_options = {}
-html_static_path = []
+html_theme_options = {{html_theme_options}}
+html_static_path = {{html_static_path}}
 html_css_files = [
     "styles/custom.css",
+    *{{html_css_files}},
 ]
 html_js_files = [
     "js/custom.js",
+    *{{html_js_files}}
 ]
 
 master_doc = "index"
 templates_path = ["_templates"]
-source_suffix = [".rst", ".md"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*"]
-language = "en"
-pygments_style = "sphinx"
+source_suffix = [".rst", ".md", *{{source_suffix}}]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*", *{{exclude_patterns}}]
+language = "{{language}}"
+pygments_style = "{{pygments_style}}"
 
 # myst / myst-nb
-myst_enable_extensions = ["colon_fence"]
-myst_fence_as_directive = ["mermaid"]
+myst_enable_extensions = {{myst_enable_extensions}}
+myst_fence_as_directive = {{myst_fence_as_directive}}
 nb_execution_mode = "{{nb_execution_mode}}"
 nb_execution_excludepatterns = {{nb_execution_excludepatterns}}
 
@@ -92,7 +94,7 @@ autodoc_pydantic_model_show_validator_summary = {{autodoc_pydantic_model_show_va
 autodoc_pydantic_model_show_validator_members = {{autodoc_pydantic_model_show_validator_members}}  # noqa: F821
 autodoc_pydantic_field_list_validators = {{autodoc_pydantic_field_list_validators}}  # noqa: F821
 autodoc_pydantic_field_show_constraints = {{autodoc_pydantic_field_show_constraints}}  # noqa: F821
-autodoc_pydantic_model_member_order = {{autodoc_pydantic_model_member_order}}  # noqa: F821
+autodoc_pydantic_model_member_order = "{{autodoc_pydantic_model_member_order}}"  # noqa: F821
 autodoc_pydantic_model_show_json = {{autodoc_pydantic_model_show_json}}  # noqa: F821
 autodoc_pydantic_settings_show_json = {{autodoc_pydantic_settings_show_json}}  # noqa: F821
 
