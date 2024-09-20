@@ -72,31 +72,33 @@ def generate_docs_configuration(
         source_dir = os.path.curdir
 
         configuration_args = {}
-        for f in (
-            # autodoc/autodoc-pydantic
-            "autodoc_pydantic_model_show_config_summary",
-            "autodoc_pydantic_model_show_validator_summary",
-            "autodoc_pydantic_model_show_validator_members",
-            "autodoc_pydantic_field_list_validators",
-            "autodoc_pydantic_field_show_constraints",
-            "autodoc_pydantic_model_member_order",
-            "autodoc_pydantic_model_show_json",
-            "autodoc_pydantic_settings_show_json",
-            "autodoc_pydantic_model_show_field_summary",
+        for config_option, default in {
+            # sphinx generic
+            "html_theme_options": {},
+            "html_static_path": [],
+            "html_css_files": [],
+            "html_js_files": [],
+            "source_suffix": [],
+            "exclude_patterns": [],
+            "language": "en",
+            "pygments_style": "sphinx",
             # myst/myst-nb
-            "nb_execution_mode",
-            "nb_execution_excludepatterns",
-        ):
-            default_value = {
-                # autodoc/autodoc-pydantic
-                "autodoc_pydantic_model_member_order": '"bysource"',
-                "autodoc_pydantic_model_show_json": True,
-                # myst/myst-nb
-                "nb_execution_excludepatterns": [],
-                "nb_execution_mode": "off",
-            }.get(f, False)
-            config_value = get_config(section=f"{f}")
-            configuration_args[f] = default_value if config_value is None else config_value
+            "myst_enable_extensions": ["colon_fence"],
+            "myst_fence_as_directive": ["mermaid"],
+            "nb_execution_mode": "off",
+            "nb_execution_excludepatterns": [],
+            # autodoc/autodoc-pydantic
+            "autodoc_pydantic_model_show_config_summary": None,
+            "autodoc_pydantic_model_show_validator_summary": None,
+            "autodoc_pydantic_model_show_validator_members": None,
+            "autodoc_pydantic_field_list_validators": None,
+            "autodoc_pydantic_field_show_constraints": None,
+            "autodoc_pydantic_model_member_order": "bysource",
+            "autodoc_pydantic_model_show_json": True,
+            "autodoc_pydantic_settings_show_json": None,
+            "autodoc_pydantic_model_show_field_summary": None,
+        }.items():
+            configuration_args[config_option] = get_config(section=config_option) or default
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
