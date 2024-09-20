@@ -43,4 +43,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions-ext/yardang@main
+        with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
 ```
