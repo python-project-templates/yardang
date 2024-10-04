@@ -50,32 +50,32 @@ if use_autoapi in (True, None):
 else:
     # NOTE: bug in autoapi that requires
     # viewcode to come after
-    extensions.append([
-        "sphinx.ext.viewcode",
-    ])
+    extensions.append("sphinx.ext.viewcode")
 
 
 os.environ["SPHINX_BUILDING"] = "1"
 html_theme = "{{theme}}"
-html_theme_options = {}
-html_static_path = []
+html_theme_options = {{html_theme_options}}
+html_static_path = {{html_static_path}}
 html_css_files = [
     "styles/custom.css",
+    *{{html_css_files}},
 ]
 html_js_files = [
     "js/custom.js",
+    *{{html_js_files}}
 ]
 
 master_doc = "index"
 templates_path = ["_templates"]
-source_suffix = [".rst", ".md"]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*"]
-language = "en"
-pygments_style = "sphinx"
+source_suffix = [".rst", ".md", *{{source_suffix}}]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*", *{{exclude_patterns}}]
+language = "{{language}}"
+pygments_style = "{{pygments_style}}"
 
 # myst / myst-nb
-myst_enable_extensions = ["colon_fence"]
-myst_fence_as_directive = ["mermaid"]
+myst_enable_extensions = {{myst_enable_extensions}}
+myst_fence_as_directive = {{myst_fence_as_directive}}
 nb_execution_mode = "{{nb_execution_mode}}"
 nb_execution_excludepatterns = {{nb_execution_excludepatterns}}
 
@@ -97,7 +97,7 @@ autodoc_pydantic_model_show_validator_summary = {{autodoc_pydantic_model_show_va
 autodoc_pydantic_model_show_validator_members = {{autodoc_pydantic_model_show_validator_members}}  # noqa: F821
 autodoc_pydantic_field_list_validators = {{autodoc_pydantic_field_list_validators}}  # noqa: F821
 autodoc_pydantic_field_show_constraints = {{autodoc_pydantic_field_show_constraints}}  # noqa: F821
-autodoc_pydantic_model_member_order = {{autodoc_pydantic_model_member_order}}  # noqa: F821
+autodoc_pydantic_model_member_order = "{{autodoc_pydantic_model_member_order}}"  # noqa: F821
 autodoc_pydantic_model_show_json = {{autodoc_pydantic_model_show_json}}  # noqa: F821
 autodoc_pydantic_settings_show_json = {{autodoc_pydantic_settings_show_json}}  # noqa: F821
 
@@ -152,8 +152,45 @@ def run_add_version_links_to_toctree(app, doctree):
             nodes[-1]["entries"].append((None, toc_entry))
             nodes[-1]["includefiles"].append(toc_entry)
 
+
+_GITHUB_ADMONITIONS = {
+    "> [!NOTE]": "note",
+    "> [!TIP]": "tip",
+    "> [!IMPORTANT]": "important",
+    "> [!WARNING]": "warning",
+    "> [!CAUTION]": "caution",
+}
+
+def run_convert_github_admonitions_to_rst(app, filename, lines):
+    # loop through lines, replace github admonitions
+    for i, orig_line in enumerate(lines):
+        orig_line_splits = orig_line.split("\n")
+        replacing = False
+        for j, line in enumerate(orig_line_splits):
+            # look for admonition key
+            for admonition_key in _GITHUB_ADMONITIONS:
+                if admonition_key in line:
+                    line = line.replace(admonition_key, "\n```{}\n.. {}::\n".format("{eval-rst}", _GITHUB_ADMONITIONS[admonition_key]))
+                    # start replacing quotes in subsequent lines
+                    replacing = True
+                    break
+            else:
+                # replace indent to match directive
+                if replacing and "> " in line:
+                    line = line.replace("> ", "  ")
+                elif replacing:
+                    # missing "> ", so stop replacing and terminate directive
+                    line = f"\n```\n{line}"
+                    replacing = False
+            # swap line back in splits
+            orig_line_splits[j] = line
+        # swap line back in original
+        lines[i] = "\n".join(orig_line_splits)
+
+
 def setup(app):
     {# app.connect("builder-inited", run_create_previous_version_markdown) #}
     app.connect("builder-inited", run_copyreadme)
     app.connect("builder-inited", run_copycname)
+    app.connect("source-read", run_convert_github_admonitions_to_rst)
     {# app.connect("doctree-read", run_add_version_links_to_toctree, priority=500) #}

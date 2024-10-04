@@ -113,24 +113,30 @@ Whether or not to use [Sphinx AutoAPI](https://sphinx-autoapi.readthedocs.io/en/
 use-autoapi = true
 ```
 
-## [Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html) arguments
-
-[Configuration for Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html).
+## Sphinx Options
 
 ```toml
 [tool.yardang]
-autodoc_pydantic_model_show_config_summary = false
-autodoc_pydantic_model_show_validator_summary = false
-autodoc_pydantic_model_show_validator_members = false
-autodoc_pydantic_field_list_validators = false
-autodoc_pydantic_field_show_constraints = false
-autodoc_pydantic_model_member_order = "bysource"
-autodoc_pydantic_model_show_json = true
-autodoc_pydantic_settings_show_json = false
-autodoc_pydantic_model_show_field_summary = false
+html_theme_options = {}
+html_static_path = []
+html_css_files = []
+html_js_files = []
+source_suffix = []
+exclude_patterns = []
+language = "en"
+pygments_style = "sphinx"
 ```
 
-## Myst-NB
+
+## [Myst](https://myst-parser.readthedocs.io/en/latest/#)
+
+```toml
+[tool.yardang]
+myst_enable_extensions = ["colon_fence"]
+myst_fence_as_directive = ["mermaid"]
+```
+
+## [Myst-NB](https://myst-nb.readthedocs.io/en/latest/#)
 
 ```toml
 [tool.yardang]
@@ -158,6 +164,22 @@ An example follows:
   ../notebooks/example
 ```
 
+## [Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html) arguments
+
+[Configuration for Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html).
+
+```toml
+[tool.yardang]
+autodoc_pydantic_model_show_config_summary = false
+autodoc_pydantic_model_show_validator_summary = false
+autodoc_pydantic_model_show_validator_members = false
+autodoc_pydantic_field_list_validators = false
+autodoc_pydantic_field_show_constraints = false
+autodoc_pydantic_model_member_order = "bysource"
+autodoc_pydantic_model_show_json = true
+autodoc_pydantic_settings_show_json = false
+autodoc_pydantic_model_show_field_summary = false
+```
 
 ## Mermaid
 
@@ -207,3 +229,23 @@ graph TD
   Z(Pay vendor invoice) --->R
   AA([Finish])
 ```
+
+## GitHub Admonitions
+
+GitHub admonitions are automatically translated to sphinx.
+
+> [!NOTE]
+> Note content
+
+> [!TIP]
+> Tip content
+
+> [!IMPORTANT]
+> Important content
+
+> [!WARNING]
+> Warning content
+
+> [!CAUTION]
+> Caution content
+

@@ -33,25 +33,17 @@ The following yaml should be all it takes to integrate your project with GitHub 
 name: Docs
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
+    tags: ["v*"]
+    paths-ignore: ["LICENSE", "README.md"]
 permissions:
-  contents: write
+    contents: write
 jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions-ext/yardang@main
         with:
-          python-version: 3.11
-      - run: pip install .
-      - run: pip install yardang
-      - run: yardang build
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          publish_branch: gh-pages
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs/html
+        token: ${{ secrets.GITHUB_TOKEN }}
+
 ```
