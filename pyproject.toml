@@ -157,7 +157,7 @@ language = "en"
 pygments_style = "sphinx"
 
 # myst/myst-nb
-myst_enable_extensions = ["colon_fence"]
+myst_enable_extensions = ["amsmath", "colon_fence", "dollarmath", "html_image"]
 myst_fence_as_directive = ["mermaid"]
 nb_execution_mode = "off"
 nb_execution_excludepatterns = []

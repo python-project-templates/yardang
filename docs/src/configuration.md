@@ -132,7 +132,7 @@ pygments_style = "sphinx"
 
 ```toml
 [tool.yardang]
-myst_enable_extensions = ["colon_fence"]
+myst_enable_extensions = ["amsmath", "colon_fence", "dollarmath", "html_image"]
 myst_fence_as_directive = ["mermaid"]
 ```
 
