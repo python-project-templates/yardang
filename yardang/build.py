@@ -38,7 +38,7 @@ def generate_docs_configuration(
         default_data = os.path.split(os.getcwd())[-1]
         project = project or get_config(section="name", base="project") or default_data.replace("_", "-")
         title = title or get_config(section="title") or default_data.replace("_", "-")
-        module = module or project.replace("-", "_") or default_data.replace("-", "_")
+        module = module or get_config(section="module") or project.replace("-", "_") or default_data.replace("-", "_")
         description = description or get_config(section="name", base="description") or default_data.replace("_", " ").replace("-", " ")
         author = author or get_config(section="authors", base="project")
         if isinstance(author, list) and len(author) > 0:

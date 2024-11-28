@@ -114,7 +114,7 @@ toctree_root = f"""```{toctree_base}
 
 def run_copyreadme(_):
     out = Path("{{source_dir}}") / "index.md"
-    readme = Path(root) if root else Path("{{source_dir}}") / "README.md"
+    readme = Path(root) if (root != "" and root != "None") else Path("{{source_dir}}") / "README.md"
     if "index.md" not in pages:
         out.write_text(toctree_root + "\n" + readme.read_text())
 
