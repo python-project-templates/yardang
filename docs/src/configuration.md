@@ -235,7 +235,7 @@ graph TD
 GitHub admonitions are automatically translated to sphinx.
 
 > [!NOTE]
-> Note content
+> Note `markdown` content
 
 > [!TIP]
 > Tip content
