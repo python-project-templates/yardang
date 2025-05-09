@@ -4,13 +4,13 @@
 .PHONY: develop build install
 
 develop:  ## install dependencies and build library
-	python -m pip install -e .[develop]
+	uv pip install -e .[develop]
 
 build:  ## build the python library
-	python setup.py build build_ext --inplace
+	python -m build -n
 
 install:  ## install library
-	python -m pip install .
+	uv pip install .
 
 #########
 # LINTS #
@@ -34,7 +34,7 @@ format: fix
 ################
 # Other Checks #
 ################
-.PHONY: check-manifest checks check annotate
+.PHONY: check-manifest checks check
 
 check-manifest:  ## check python sdist manifest with check-manifest
 	check-manifest -v
@@ -44,19 +44,16 @@ checks: check-manifest
 # Alias
 check: checks
 
-annotate:  ## run python type annotation checks with mypy
-	python -m mypy ./yardang
-
 #########
 # TESTS #
 #########
 .PHONY: test coverage tests
 
 test:  ## run python tests
-	python -m pytest -v yardang/tests --junitxml=junit.xml
+	python -m pytest -v yardang/tests
 
 coverage:  ## run tests and collect test coverage
-	python -m pytest -v yardang/tests --junitxml=junit.xml --cov=yardang --cov-branch --cov-fail-under=1 --cov-report term-missing --cov-report xml
+	python -m pytest -v yardang/tests --cov=yardang --cov-report term-missing --cov-report xml
 
 # Alias
 tests: test
@@ -97,7 +94,7 @@ dist-build:  # build python dists
 dist-check:  ## run python dist checker with twine
 	python -m twine check dist/*
 
-dist: clean build dist-build dist-check  ## build all dists
+dist: clean dist-build dist-check  ## build all dists
 
 publish: dist  # publish python assets
 
