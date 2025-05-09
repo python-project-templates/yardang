@@ -5,7 +5,7 @@ build-backend="hatchling.build"
 [project]
 name = "yardang"
 authors = [{name = "the yardang authors", email = "t.paine154@gmail.com"}]
-description="Easily generate sphinx documentation"
+description = "Easily generate sphinx documentation"
 readme = "README.md"
 license = { text = "Apache-2.0" }
 version = "0.2.3"
@@ -14,14 +14,15 @@ keywords = []
 
 classifiers = [
     "Development Status :: 3 - Alpha",
+    "Programming Language :: Python",
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
 ]
 
 dependencies = [
@@ -39,10 +40,6 @@ dependencies = [
     "typer",
 ]
 
-[project.urls]
-Repository = "https://github.com/python-project-templates/yardang"
-Homepage = "https://yardang.python-templates.dev/"
-
 [project.optional-dependencies]
 develop = [
     "build",
@@ -53,16 +50,21 @@ develop = [
     "pytest-cov",
     "ruff",
     "twine",
+    "uv",
     "wheel",
 ]
 
 [project.scripts]
 yardang = "yardang.cli:main"
 
+[project.urls]
+Repository = "https://github.com/python-project-templates/yardang"
+Homepage = "https://github.com/python-project-templates/yardang"
+
 [tool.bumpversion]
 current_version = "0.2.3"
 commit = true
-tag = false
+tag = true
 
 [[tool.bumpversion.files]]
 filename = "yardang/__init__.py"
@@ -77,11 +79,23 @@ replace = 'version = "{new_version}"'
 [tool.check-manifest]
 ignore = [
     ".copier-answers.yml",
-    "docs/*",
-    "docs/**/*",
     "Makefile",
-    "setup.py",
+    "docs/**/*",
 ]
+
+[tool.coverage.run]
+branch = true
+omit = [
+    "yardang/tests/integration/",
+]
+[tool.coverage.report]
+exclude_also = [
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "@(abc\\.)?abstractmethod",
+]
+ignore_errors = true
+fail_under = 50
 
 [tool.hatch.build]
 artifacts = []
@@ -90,34 +104,15 @@ artifacts = []
 src = "/"
 
 [tool.hatch.build.targets.sdist]
-include = [
-    "/yardang",
-    "LICENSE",
-    "README.md",
-]
-exclude = [
-    "/.github",
-    "/.gitattributes",
-    "/.gitignore",
-    "/docs",
-]
+packages = ["yardang"]
 
 [tool.hatch.build.targets.wheel]
-include = [
-    "/yardang",
-]
-exclude = [
-    "/.github",
-    "/.gitattributes",
-    "/.gitignore",
-    "/docs",
-    "/pyproject.toml",
-]
+packages = ["yardang"]
 
 [tool.hatch.build.targets.wheel.shared-data]
 
 [tool.pytest.ini_options]
-asyncio_mode = "strict"
+addopts = ["-vvv", "--junitxml=junit.xml"]
 testpaths = "yardang/tests"
 
 [tool.ruff]
