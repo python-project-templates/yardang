@@ -2,7 +2,7 @@
 
 # yardang
 
-[![Build Status](https://github.com/python-project-templates/yardang/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/yardang/actions/workflows/build.yml)
+[![Build Status](https://github.com/python-project-templates/yardang/actions/workflows/build.yaml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/yardang/actions/workflows/build.yaml)
 [![codecov](https://codecov.io/gh/python-project-templates/yardang/branch/main/graph/badge.svg)](https://codecov.io/gh/python-project-templates/yardang)
 [![License](https://img.shields.io/github/license/python-project-templates/yardang)](https://github.com/python-project-templates/yardang)
 [![PyPI](https://img.shields.io/pypi/v/yardang.svg)](https://pypi.python.org/pypi/yardang)
