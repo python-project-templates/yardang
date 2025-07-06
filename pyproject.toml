@@ -128,6 +128,7 @@ known-first-party = ["yardang"]
 section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
 
 [tool.ruff.lint.per-file-ignores]
+<<<<<<< before updating
 "__init__.py" = ["F401"]
 
 [tool.yardang]
@@ -167,3 +168,6 @@ autodoc_pydantic_model_member_order = "bysource"
 autodoc_pydantic_model_show_json = true
 autodoc_pydantic_settings_show_json = false
 autodoc_pydantic_model_show_field_summary = false
+=======
+"__init__.py" = ["F401", "F403"]
+>>>>>>> after updating
