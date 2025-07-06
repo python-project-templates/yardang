@@ -128,7 +128,7 @@ known-first-party = ["yardang"]
 section-order = ["future", "standard-library", "third-party", "first-party", "local-folder"]
 
 [tool.ruff.lint.per-file-ignores]
-"__init__.py" = ["F401"]
+"__init__.py" = ["F401", "F403"]
 
 [tool.yardang]
 root = "docs/src/home.md"
