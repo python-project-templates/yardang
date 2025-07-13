@@ -189,7 +189,8 @@ def run_convert_github_admonitions_to_rst(app, filename, lines):
 
 
 def setup(app):
-    {# app.connect("builder-inited", run_create_previous_version_markdown) #}
+    if {{previous_versions}}:
+        app.connect("builder-inited", run_create_previous_version_markdown)
     app.connect("builder-inited", run_copyreadme)
     app.connect("builder-inited", run_copycname)
     app.connect("source-read", run_convert_github_admonitions_to_rst)
