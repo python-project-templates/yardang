@@ -29,6 +29,8 @@ def build(
     use_autoapi: Optional[bool] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
+    config_base: Optional[str] = "tool.yardang",
+    previous_versions: Optional[bool] = False,
 ):
     with generate_docs_configuration(
         project=project,
@@ -46,6 +48,8 @@ def build(
         use_autoapi=use_autoapi,
         custom_css=custom_css,
         custom_js=custom_js,
+        config_base=config_base,
+        previous_versions=previous_versions,
     ) as file:
         build_cmd = [
             executable,

@@ -2,7 +2,7 @@ import os.path
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import List, Optional
+from typing import Callable, List, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -29,6 +29,10 @@ def generate_docs_configuration(
     use_autoapi: Optional[bool] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
+    config_base: str = "tool.yardang",
+    previous_versions: Optional[bool] = False,
+    adjust_arguments: Callable = None,
+    adjust_template: Callable = None,
 ):
     if os.path.exists("conf.py"):
         # yield folder path to sphinx build
@@ -37,8 +41,8 @@ def generate_docs_configuration(
         # load configuration
         default_data = os.path.split(os.getcwd())[-1]
         project = project or get_config(section="name", base="project") or default_data.replace("_", "-")
-        title = title or get_config(section="title") or default_data.replace("_", "-")
-        module = module or get_config(section="module") or project.replace("-", "_") or default_data.replace("-", "_")
+        title = title or get_config(section="title", base=config_base) or default_data.replace("_", "-")
+        module = module or get_config(section="module", base=config_base) or project.replace("-", "_") or default_data.replace("-", "_")
         description = description or get_config(section="name", base="description") or default_data.replace("_", " ").replace("-", " ")
         author = author or get_config(section="authors", base="project")
         if isinstance(author, list) and len(author) > 0:
@@ -48,11 +52,11 @@ def generate_docs_configuration(
         if isinstance(author, dict):
             author = author["name"]
         copyright = copyright or author
-        theme = theme or get_config(section="theme")
+        theme = theme or get_config(section="theme", base=config_base)
         version = version or get_config(section="version", base="project")
         docs_root = (
             docs_root
-            or get_config(section="docs-host")
+            or get_config(section="docs-host", base=config_base)
             or get_config(section="urls.Homepage", base="project")
             or get_config(section="urls.homepage", base="project")
             or get_config(section="urls.Documentation", base="project")
@@ -61,13 +65,13 @@ def generate_docs_configuration(
             or get_config(section="urls.source", base="project")
             or ""
         )
-        root = root or get_config(section="root")
-        cname = cname or get_config(section="cname")
-        pages = pages or get_config(section="pages") or []
-        use_autoapi = use_autoapi or get_config(section="use-autoapi")
+        root = root or get_config(section="root", base=config_base)
+        cname = cname or get_config(section="cname", base=config_base)
+        pages = pages or get_config(section="pages", base=config_base) or []
+        use_autoapi = use_autoapi or get_config(section="use-autoapi", base=config_base)
 
-        custom_css = custom_css or get_config(section="custom-css") or (Path(__file__).parent / "custom.css")
-        custom_js = custom_js or get_config(section="custom-js") or (Path(__file__).parent / "custom.js")
+        custom_css = custom_css or get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css")
+        custom_js = custom_js or get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js")
 
         source_dir = os.path.curdir
 
@@ -113,12 +117,13 @@ def generate_docs_configuration(
             "autodoc_pydantic_settings_show_json": None,
             "autodoc_pydantic_model_show_field_summary": None,
         }.items():
-            configuration_args[config_option] = get_config(section=config_option) or default
+            configuration_args[config_option] = get_config(section=config_option, base=config_base) or default
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
-            # load the templatized conf.py file
-            template = templateEnv.get_template("conf.py.j2").render(
+
+            args = dict(
                 project=project,
                 title=title,
                 module=module,
@@ -133,8 +138,24 @@ def generate_docs_configuration(
                 pages=pages,
                 use_autoapi=use_autoapi,
                 source_dir=source_dir,
+                previous_versions=previous_versions,
                 **configuration_args,
             )
+
+            # adjust arguments if a callable is provided
+            if adjust_arguments:
+                args = adjust_arguments(args)
+
+            # load the templatized conf.py file
+            template = templateEnv.get_template("conf.py.j2")
+
+            # adjust the template if a callable is provided
+            if adjust_template:
+                template = adjust_template(template)
+
+            # Render
+            template = template.render(**args)
+
             # dump to file
             template_file = Path(td) / "conf.py"
             template_file.write_text(template)
