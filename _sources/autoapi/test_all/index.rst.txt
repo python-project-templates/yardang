@@ -1,0 +1,22 @@
+test_all
+========
+
+.. py:module:: test_all
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   test_all.test_build
+   test_all.test_cli
+
+
+Module Contents
+---------------
+
+.. py:function:: test_build()
+
+.. py:function:: test_cli()
+
