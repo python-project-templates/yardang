@@ -28,6 +28,7 @@ use-autoapi = true
 ```
 
 ## Installation
+
 You can install from PyPI via `pip`:
 
 ```bash
