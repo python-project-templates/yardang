@@ -139,10 +139,13 @@ js/dist
 js/lib
 js/node_modules
 js/*.tgz
+yardang/extension
 
 # Jupyter
 .ipynb_checkpoints
 .autoversion
+!yardang/extension/yardang.json
+!yardang/extension/install.json
 yardang/nbextension
 yardang/labextension
 
