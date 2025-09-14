@@ -146,6 +146,7 @@ yardang/extension
 # Jupyter
 .ipynb_checkpoints
 .autoversion
+Untitled*.ipynb
 !yardang/extension/yardang.json
 !yardang/extension/install.json
 yardang/nbextension
