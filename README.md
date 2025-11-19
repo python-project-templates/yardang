@@ -41,5 +41,27 @@ Or from `conda-forge` via `conda`:
 conda install yardang -c conda-forge
 ```
 
+## GitHub Action
+
+A convenient [github action](https://github.com/actions-ext/yardang) is provided to publish documentation automatically in CI.
+
+```yaml
+name: Docs
+on:
+  push:
+    branches: ["main"]
+    tags: ["v*"]
+  workflow_dispatch:
+permissions:
+    contents: write
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ext/yardang@main
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+```
+
 > [!NOTE]
 > This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).
