@@ -116,6 +116,8 @@ def generate_docs_configuration(
             "autodoc_pydantic_model_show_json": True,
             "autodoc_pydantic_settings_show_json": None,
             "autodoc_pydantic_model_show_field_summary": None,
+            # sphinx-reredirects
+            "redirects": {},
         }.items():
             configuration_args[config_option] = get_config(section=config_option, base=config_base) or default
 
