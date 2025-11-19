@@ -70,8 +70,8 @@ def generate_docs_configuration(
         pages = pages or get_config(section="pages", base=config_base) or []
         use_autoapi = use_autoapi or get_config(section="use-autoapi", base=config_base)
 
-        custom_css = custom_css or get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css")
-        custom_js = custom_js or get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js")
+        custom_css = custom_css or Path(get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
+        custom_js = custom_js or Path(get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
 
         source_dir = os.path.curdir
 
