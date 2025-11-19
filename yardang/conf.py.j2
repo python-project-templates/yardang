@@ -38,6 +38,7 @@ extensions = [
     "sphinx.ext.inheritance_diagram",
     "sphinxcontrib.mermaid",
     "sphinxcontrib.autodoc_pydantic",
+    "sphinx_reredirects",
 ]
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
@@ -81,6 +82,9 @@ nb_execution_excludepatterns = {{nb_execution_excludepatterns}}
 
 #sphinxcontrib.mermaid
 mermaid_d3_zoom = True
+
+# redirects
+redirects = {{redirects}}
 
 # autosummary
 autosummary_generate = True

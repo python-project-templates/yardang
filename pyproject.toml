@@ -172,3 +172,6 @@ autodoc_pydantic_model_member_order = "bysource"
 autodoc_pydantic_model_show_json = true
 autodoc_pydantic_settings_show_json = false
 autodoc_pydantic_model_show_field_summary = false
+
+# redirects
+redirects = {"docs/src/testredirect"="home.html", "toplevel"="docs/src/home.html"}
