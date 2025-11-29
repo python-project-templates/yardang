@@ -35,7 +35,7 @@ dependencies = [
     "sphinx-autoapi",
     "sphinx-copybutton",
     "sphinx-design",
-    "sphinxcontrib-mermaid>=1.1,<2",
+    "sphinxcontrib-mermaid>=2.0.0rc0,<2.1",
     "sphinx-reredirects",
     "toml",
     "typer",
