@@ -1,0 +1,19 @@
+yardang.utils
+=============
+
+.. py:module:: yardang.utils
+
+
+Functions
+---------
+
+.. autoapisummary::
+
+   yardang.utils.get_config
+
+
+Module Contents
+---------------
+
+.. py:function:: get_config(section='', base='tool.yardang')
+
