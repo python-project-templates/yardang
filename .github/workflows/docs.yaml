@@ -29,3 +29,13 @@ jobs:
       - uses: actions-ext/yardang@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Wiki
+        run: |
+          pip install -e .
+          yardang wiki --output-dir docs/wiki
+
+      - name: Upload Documentation to Wiki
+        uses: Andrew-Chen-Wang/github-wiki-action@v5
+        with:
+          path: docs/wiki

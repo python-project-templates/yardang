@@ -677,3 +677,170 @@ Then in your documentation files, you can use sphinx-js directives:
 \`\`\`{js:automodule} myModule
 \`\`\`
 ````
+
+## GitHub Wiki Integration
+
+Yardang can generate GitHub Wiki compatible markdown documentation using [sphinx-markdown-builder](https://github.com/liran-funaro/sphinx-markdown-builder). This allows you to publish your documentation to a GitHub Wiki in addition to (or instead of) a static HTML site.
+
+To generate wiki output, use the `yardang wiki` command instead of `yardang build`.
+
+Wiki output is configured in the `[tool.yardang.wiki]` section:
+
+```toml
+[tool.yardang.wiki]
+enabled = true
+output-dir = "docs/wiki"
+generate-sidebar = true
+generate-footer = true
+fix-links = true
+footer-docs-url = "https://your-project.dev"
+footer-repo-url = "https://github.com/your-org/your-project"
+markdown-flavor = "github"
+```
+
+### `enabled`
+
+Enable the markdown builder extension. Must be `true` to use `yardang wiki`. Defaults to `false`.
+
+```toml
+[tool.yardang.wiki]
+enabled = true
+```
+
+### `output-dir`
+
+Output directory for the generated markdown files. Defaults to `"docs/wiki"`.
+
+```toml
+[tool.yardang.wiki]
+output-dir = "docs/wiki"
+```
+
+### `generate-sidebar`
+
+Generate a `_Sidebar.md` file for wiki navigation. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki]
+generate-sidebar = true
+```
+
+### `generate-footer`
+
+Generate a `_Footer.md` file with links to docs and repo. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki]
+generate-footer = true
+```
+
+### `fix-links`
+
+Fix internal markdown links for GitHub Wiki compatibility. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki]
+fix-links = true
+```
+
+### `footer-docs-url`
+
+URL to the full documentation site (for the footer).
+
+```toml
+[tool.yardang.wiki]
+footer-docs-url = "https://your-project.dev"
+```
+
+### `footer-repo-url`
+
+URL to the repository (for the footer).
+
+```toml
+[tool.yardang.wiki]
+footer-repo-url = "https://github.com/your-org/your-project"
+```
+
+### `markdown-flavor`
+
+Markdown flavor to use. Set to `"github"` for GitHub-flavored markdown. Defaults to `"github"`.
+
+```toml
+[tool.yardang.wiki]
+markdown-flavor = "github"
+```
+
+### `markdown-anchor-sections`
+
+Add anchors before each section. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki]
+markdown-anchor-sections = true
+```
+
+### `markdown-anchor-signatures`
+
+Add anchors before each function/class signature. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki]
+markdown-anchor-signatures = true
+```
+
+### `markdown-bullet`
+
+Bullet character to use for lists. Defaults to `"-"`.
+
+```toml
+[tool.yardang.wiki]
+markdown-bullet = "-"
+```
+
+### Complete Example
+
+```toml
+[tool.yardang]
+title = "My Project"
+root = "docs/index.md"
+pages = ["docs/overview.md", "docs/api.md"]
+
+[tool.yardang.wiki]
+enabled = true
+output-dir = "docs/wiki"
+generate-sidebar = true
+generate-footer = true
+footer-docs-url = "https://myproject.dev"
+footer-repo-url = "https://github.com/myorg/myproject"
+markdown-flavor = "github"
+```
+
+### Usage
+
+Generate GitHub Wiki output:
+
+```bash
+yardang wiki
+```
+
+The output will be in the `docs/wiki/` directory (or the configured output directory). To publish to your GitHub Wiki:
+
+```bash
+# Clone your wiki repository
+git clone https://github.com/YOUR-ORG/YOUR-REPO.wiki.git
+
+# Copy the generated markdown files
+cp -r docs/wiki/* YOUR-REPO.wiki/
+
+# Commit and push
+cd YOUR-REPO.wiki
+git add .
+git commit -m "Update wiki documentation"
+git push
+```
+
+The generated wiki includes:
+- `Home.md` - The main landing page (converted from index.md)
+- `_Sidebar.md` - Navigation sidebar with links to all pages
+- `_Footer.md` - Footer with links to documentation and repository
+- All documentation pages converted to GitHub-flavored markdown
