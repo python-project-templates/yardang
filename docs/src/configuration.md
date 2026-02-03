@@ -278,3 +278,195 @@ GitHub admonitions are automatically translated to sphinx.
 > [!CAUTION]
 > Caution content
 
+## Breathe/Doxygen Integration
+
+Yardang provides integration with [Breathe](https://breathe.readthedocs.io/) for documenting C/C++ code using Doxygen. To use this feature, install yardang with the breathe extra:
+
+```bash
+pip install yardang[breathe]
+```
+
+All breathe configuration is under `[tool.yardang.breathe]`.
+
+### `projects`
+
+A dictionary mapping project names to their Doxygen XML output directories.
+
+```toml
+[tool.yardang.breathe]
+projects = { myproject = "docs/doxygen/xml", another = "path/to/xml" }
+```
+
+### `default-project`
+
+The default project to use when no project is specified in breathe directives.
+
+```toml
+[tool.yardang.breathe]
+default-project = "myproject"
+```
+
+### `domain-by-extension`
+
+Map file extensions to Sphinx domains.
+
+```toml
+[tool.yardang.breathe]
+domain-by-extension = { "hpp" = "cpp", "h" = "cpp", "py" = "py" }
+```
+
+### `domain-by-file-pattern`
+
+Map file patterns to Sphinx domains.
+
+```toml
+[tool.yardang.breathe]
+domain-by-file-pattern = { "*.hpp" = "cpp" }
+```
+
+### `projects-source`
+
+Configure source files for automatic Doxygen XML generation.
+
+```toml
+[tool.yardang.breathe]
+projects-source = { auto = ["src", ["file1.hpp", "file2.hpp"]] }
+```
+
+### `build-directory`
+
+The directory where Doxygen XML is built.
+
+```toml
+[tool.yardang.breathe]
+build-directory = "build/doxygen"
+```
+
+### `default-members`
+
+Default member visibility for doxygenclass directives.
+
+```toml
+[tool.yardang.breathe]
+default-members = ["members", "protected-members", "private-members"]
+```
+
+### `show-define-initializer`
+
+Show the initializer value for #define macros.
+
+```toml
+[tool.yardang.breathe]
+show-define-initializer = true
+```
+
+### `show-enumvalue-initializer`
+
+Show the initializer value for enum values.
+
+```toml
+[tool.yardang.breathe]
+show-enumvalue-initializer = true
+```
+
+### `show-include`
+
+Show the #include directive for documented entities.
+
+```toml
+[tool.yardang.breathe]
+show-include = true
+```
+
+### `implementation-filename-extensions`
+
+List of file extensions considered as implementation files.
+
+```toml
+[tool.yardang.breathe]
+implementation-filename-extensions = [".c", ".cc", ".cpp"]
+```
+
+### `doxygen-config-options`
+
+Additional Doxygen configuration options for auto-generated XML.
+
+```toml
+[tool.yardang.breathe]
+doxygen-config-options = { EXTRACT_ALL = "YES", QUIET = "YES" }
+```
+
+### `doxygen-aliases`
+
+Doxygen aliases for custom commands.
+
+```toml
+[tool.yardang.breathe]
+doxygen-aliases = { "myalias" = "Custom documentation text" }
+```
+
+### `use-project-refids`
+
+Use project-qualified reference IDs to avoid conflicts.
+
+```toml
+[tool.yardang.breathe]
+use-project-refids = true
+```
+
+### `order-parameters-first`
+
+Order function parameters before other members in documentation.
+
+```toml
+[tool.yardang.breathe]
+order-parameters-first = true
+```
+
+### `separate-member-pages`
+
+Generate separate pages for each class member.
+
+```toml
+[tool.yardang.breathe]
+separate-member-pages = false
+```
+
+### Complete Example
+
+Here's a complete example configuration for a C++ project:
+
+```toml
+[tool.yardang]
+title = "My C++ Library"
+root = "docs/index.md"
+pages = ["docs/api.md", "docs/examples.md"]
+use-autoapi = false
+
+[tool.yardang.breathe]
+projects = { mylib = "docs/doxygen/xml" }
+default-project = "mylib"
+domain-by-extension = { "hpp" = "cpp", "cpp" = "cpp", "h" = "cpp" }
+show-define-initializer = true
+show-enumvalue-initializer = true
+show-include = true
+use-project-refids = true
+```
+
+Then in your documentation files, you can use breathe directives:
+
+```markdown
+# API Reference
+
+## MyClass
+
+\`\`\`{doxygenclass} MyNamespace::MyClass
+:members:
+:protected-members:
+\`\`\`
+
+## Functions
+
+\`\`\`{doxygenfunction} MyNamespace::myFunction
+\`\`\`
+```

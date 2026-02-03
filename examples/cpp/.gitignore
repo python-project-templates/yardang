@@ -1,0 +1,15 @@
+# Generated files
+xml/
+docs/html/
+
+# Build artifacts
+*.o
+*.a
+*.so
+*.dylib
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo

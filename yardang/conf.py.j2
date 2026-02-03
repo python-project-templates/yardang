@@ -41,6 +41,7 @@ pages = """
 {% endfor %}
 """
 use_autoapi = {{use_autoapi}}  # noqa: F821
+use_breathe = {{use_breathe}}  # noqa: F821
 
 #############################################################################################################
 #  _____                        _                           _ _  __            _          _                 #
@@ -68,6 +69,11 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "sphinx_reredirects",
 ]
+
+# Add breathe extension if configured
+if use_breathe:
+    extensions.append("breathe")
+
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
     # NOTE: bug in autoapi that requires
@@ -126,6 +132,25 @@ mermaid_include_zenuml = True
 
 # redirects
 redirects = {{redirects}}
+
+# breathe/doxygen configuration
+if use_breathe:
+    breathe_projects = {{breathe_projects}}
+    breathe_default_project = "{{breathe_default_project}}"
+    breathe_domain_by_extension = {{breathe_domain_by_extension}}
+    breathe_domain_by_file_pattern = {{breathe_domain_by_file_pattern}}
+    breathe_projects_source = {{breathe_projects_source}}
+    breathe_build_directory = "{{breathe_build_directory}}"
+    breathe_default_members = {{breathe_default_members}}
+    breathe_show_define_initializer = {{breathe_show_define_initializer}}
+    breathe_show_enumvalue_initializer = {{breathe_show_enumvalue_initializer}}
+    breathe_show_include = {{breathe_show_include}}
+    breathe_implementation_filename_extensions = {{breathe_implementation_filename_extensions}}
+    breathe_doxygen_config_options = {{breathe_doxygen_config_options}}
+    breathe_doxygen_aliases = {{breathe_doxygen_aliases}}
+    breathe_use_project_refids = {{breathe_use_project_refids}}
+    breathe_order_parameters_first = {{breathe_order_parameters_first}}
+    breathe_separate_member_pages = {{breathe_separate_member_pages}}
 
 # autosummary
 autosummary_generate = True  # if using autosummary, autogenerate
