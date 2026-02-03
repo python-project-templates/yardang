@@ -44,6 +44,7 @@ use_autoapi = {{use_autoapi}}  # noqa: F821
 use_breathe = {{use_breathe}}  # noqa: F821
 use_sphinx_rust = {{use_sphinx_rust}}  # noqa: F821
 use_sphinx_js = {{use_sphinx_js}}  # noqa: F821
+use_wiki = {{use_wiki}}  # noqa: F821
 
 #############################################################################################################
 #  _____                        _                           _ _  __            _          _                 #
@@ -83,6 +84,10 @@ if use_sphinx_rust:
 # Add sphinx-js extension if configured
 if use_sphinx_js:
     extensions.append("sphinx_js")
+
+# Add sphinx-markdown-builder extension if wiki mode is enabled
+if use_wiki:
+    extensions.append("sphinx_markdown_builder")
 
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
@@ -188,6 +193,18 @@ if use_sphinx_js:
     jsdoc_tsconfig_path = "{{jsdoc_tsconfig_path}}"
     {% endif %}
     ts_type_bold = {{ts_type_bold}}
+
+# sphinx-markdown-builder configuration for GitHub Wiki
+if use_wiki:
+    markdown_anchor_sections = {{markdown_anchor_sections}}
+    markdown_anchor_signatures = {{markdown_anchor_signatures}}
+    markdown_docinfo = {{markdown_docinfo}}
+    {% if markdown_http_base %}
+    markdown_http_base = "{{markdown_http_base}}"
+    {% endif %}
+    markdown_uri_doc_suffix = "{{markdown_uri_doc_suffix}}"
+    markdown_bullet = "{{markdown_bullet}}"
+    markdown_flavor = "{{markdown_flavor}}"
 
 # autosummary
 autosummary_generate = True  # if using autosummary, autogenerate

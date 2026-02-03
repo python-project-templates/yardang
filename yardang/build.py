@@ -10,7 +10,7 @@ from jinja2 import Environment, FileSystemLoader
 
 from .utils import get_config
 
-__all__ = ("generate_docs_configuration", "run_doxygen_if_needed")
+__all__ = ("generate_docs_configuration", "run_doxygen_if_needed", "generate_wiki_configuration")
 
 
 def run_doxygen_if_needed(
@@ -448,6 +448,39 @@ def generate_docs_configuration(
         if js_args["root_for_relative_js_paths"]:
             js_args["root_for_relative_js_paths"] = str(Path(js_args["root_for_relative_js_paths"]).resolve())
 
+        # Load wiki configuration from tool.yardang.wiki
+        wiki_config_base = f"{config_base}.wiki"
+        wiki_args = {}
+        for config_option, default in {
+            # wiki/markdown builder
+            "wiki_enabled": False,
+            "wiki_output_dir": "docs/wiki",
+            "wiki_generate_sidebar": True,
+            "wiki_generate_footer": True,
+            "wiki_fix_links": True,
+            "wiki_footer_docs_url": "",
+            "wiki_footer_repo_url": "",
+            # sphinx-markdown-builder options
+            "markdown_anchor_sections": True,
+            "markdown_anchor_signatures": True,
+            "markdown_docinfo": False,
+            "markdown_http_base": "",
+            "markdown_uri_doc_suffix": ".md",
+            "markdown_bullet": "-",
+            "markdown_flavor": "github",
+        }.items():
+            # config keys in toml use hyphens, not underscores, and no wiki_ prefix for wiki-specific options
+            if config_option.startswith("wiki_"):
+                toml_key = config_option.replace("wiki_", "").replace("_", "-")
+            else:
+                toml_key = config_option.replace("_", "-")
+            wiki_args[config_option] = get_config(section=toml_key, base=wiki_config_base)
+            if wiki_args[config_option] is None:
+                wiki_args[config_option] = default
+
+        # Determine if wiki/markdown output should be generated
+        use_wiki = wiki_args["wiki_enabled"]
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -472,9 +505,11 @@ def generate_docs_configuration(
                 use_breathe=use_breathe,
                 use_sphinx_rust=use_sphinx_rust,
                 use_sphinx_js=use_sphinx_js,
+                use_wiki=use_wiki,
                 **breathe_args,
                 **rust_args,
                 **js_args,
+                **wiki_args,
                 **configuration_args,
             )
 
@@ -520,3 +555,115 @@ def generate_docs_configuration(
                             fp.write("index.md\n")
             # yield folder path to sphinx build
             yield td
+
+
+@contextmanager
+def generate_wiki_configuration(
+    *,
+    project: str = "",
+    title: str = "",
+    module: str = "",
+    description: str = "",
+    author: str = "",
+    copyright: str = "",
+    version: str = "",
+    theme: str = "furo",
+    docs_root: str = "",
+    root: str = "",
+    cname: str = "",
+    pages: Optional[List] = None,
+    use_autoapi: Optional[bool] = None,
+    autoapi_ignore: Optional[List] = None,
+    custom_css: Optional[Path] = None,
+    custom_js: Optional[Path] = None,
+    config_base: str = "tool.yardang",
+    previous_versions: Optional[bool] = False,
+    adjust_arguments: Callable = None,
+    adjust_template: Callable = None,
+):
+    """Generate Sphinx configuration for GitHub Wiki markdown output.
+
+    A context manager similar to generate_docs_configuration, but configured
+    for building markdown output suitable for GitHub Wiki using
+    sphinx-markdown-builder.
+
+    This adds the sphinx_markdown_builder extension and sets appropriate
+    options for GitHub-flavored markdown output.
+
+    Args:
+        project: Project name. Falls back to ``[project].name`` or directory name.
+        title: Documentation title. Falls back to ``[tool.yardang].title`` or project name.
+        module: Python module name for autoapi. Falls back to project name with
+            hyphens replaced by underscores.
+        description: Project description for metadata.
+        author: Author name. Falls back to first entry in ``[project].authors``.
+        copyright: Copyright string. Falls back to author name.
+        version: Version string. Falls back to ``[project].version``.
+        theme: Sphinx theme name. Defaults to ``"furo"``.
+        docs_root: Base URL for hosted documentation. Used for canonical URLs.
+        root: Path to README or index file to use as documentation root.
+        cname: Custom domain name for GitHub Pages CNAME file.
+        pages: List of page paths to include in the toctree.
+        use_autoapi: Whether to use sphinx-autoapi for Python API docs.
+        custom_css: Path to custom CSS file.
+        custom_js: Path to custom JavaScript file.
+        config_base: Base key in pyproject.toml for configuration.
+        previous_versions: Whether to generate previous versions documentation.
+        adjust_arguments: Callback to modify template arguments before rendering.
+        adjust_template: Callback to modify the Jinja2 template before rendering.
+
+    Yields:
+        tuple: (config_dir, wiki_args) where config_dir is the path to the directory
+            containing the generated conf.py file, and wiki_args is a dict with
+            wiki configuration for post-processing.
+    """
+
+    def add_markdown_builder(args):
+        # Enable wiki mode
+        args["use_wiki"] = True
+        # Call original adjust_arguments if provided
+        if adjust_arguments:
+            args = adjust_arguments(args)
+        return args
+
+    with generate_docs_configuration(
+        project=project,
+        title=title,
+        module=module,
+        description=description,
+        author=author,
+        copyright=copyright,
+        version=version,
+        theme=theme,
+        docs_root=docs_root,
+        root=root,
+        cname=cname,
+        pages=pages,
+        use_autoapi=use_autoapi,
+        autoapi_ignore=autoapi_ignore,
+        custom_css=custom_css,
+        custom_js=custom_js,
+        config_base=config_base,
+        previous_versions=previous_versions,
+        adjust_arguments=add_markdown_builder,
+        adjust_template=adjust_template,
+    ) as config_dir:
+        # Read wiki args from config
+        wiki_config_base = f"{config_base}.wiki"
+        wiki_args = {
+            "wiki_output_dir": get_config(section="output-dir", base=wiki_config_base) or "docs/wiki",
+            "wiki_generate_sidebar": get_config(section="generate-sidebar", base=wiki_config_base),
+            "wiki_generate_footer": get_config(section="generate-footer", base=wiki_config_base),
+            "wiki_fix_links": get_config(section="fix-links", base=wiki_config_base),
+            "wiki_footer_docs_url": get_config(section="footer-docs-url", base=wiki_config_base) or "",
+            "wiki_footer_repo_url": get_config(section="footer-repo-url", base=wiki_config_base) or "",
+        }
+        # Apply defaults
+        if wiki_args["wiki_generate_sidebar"] is None:
+            wiki_args["wiki_generate_sidebar"] = True
+        if wiki_args["wiki_generate_footer"] is None:
+            wiki_args["wiki_generate_footer"] = True
+        if wiki_args["wiki_fix_links"] is None:
+            wiki_args["wiki_fix_links"] = True
+
+        yield config_dir, wiki_args
