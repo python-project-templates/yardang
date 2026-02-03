@@ -78,16 +78,23 @@ def generate_docs_configuration(
         # if custom_css and custom_js are strings and they exist as paths, read them as Paths
         # otherwise, assume the content is directly provided
         if isinstance(custom_css, str):
-            css_path = Path(custom_css)
-            if css_path.exists():
-                custom_css = css_path.read_text()
-        elif isinstance(custom_css, Path):
+            custom_css_path = Path(custom_css)
+            # if the path is too long, it will throw
+            try:
+                if custom_css_path.exists():
+                    custom_css = custom_css_path.read_text()
+            except OSError:
+                pass
+        else:
             custom_css = custom_css.read_text()
         if isinstance(custom_js, str):
-            js_path = Path(custom_js)
-            if js_path.exists():
-                custom_js = js_path.read_text()
-        elif isinstance(custom_js, Path):
+            custom_js_path = Path(custom_js)
+            try:
+                if custom_js_path.exists():
+                    custom_js = custom_js_path.read_text()
+            except OSError:
+                pass
+        else:
             custom_js = custom_js.read_text()
 
         source_dir = os.path.curdir
