@@ -27,6 +27,7 @@ def generate_docs_configuration(
     cname: str = "",
     pages: Optional[List] = None,
     use_autoapi: Optional[bool] = None,
+    autoapi_ignore: Optional[List] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
     config_base: str = "tool.yardang",
@@ -69,9 +70,25 @@ def generate_docs_configuration(
         cname = cname or get_config(section="cname", base=config_base)
         pages = pages or get_config(section="pages", base=config_base) or []
         use_autoapi = use_autoapi or get_config(section="use-autoapi", base=config_base)
+        autoapi_ignore = autoapi_ignore or get_config(section="docs.autoapi-ignore")
 
         custom_css = custom_css or Path(get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
         custom_js = custom_js or Path(get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
+
+        # if custom_css and custom_js are strings and they exist as paths, read them as Paths
+        # otherwise, assume the content is directly provided
+        if isinstance(custom_css, str):
+            css_path = Path(custom_css)
+            if css_path.exists():
+                custom_css = css_path.read_text()
+        elif isinstance(custom_css, Path):
+            custom_css = custom_css.read_text()
+        if isinstance(custom_js, str):
+            js_path = Path(custom_js)
+            if js_path.exists():
+                custom_js = js_path.read_text()
+        elif isinstance(custom_js, Path):
+            custom_js = custom_js.read_text()
 
         source_dir = os.path.curdir
 
@@ -107,15 +124,15 @@ def generate_docs_configuration(
             "nb_execution_mode": "off",
             "nb_execution_excludepatterns": [],
             # autodoc/autodoc-pydantic
-            "autodoc_pydantic_model_show_config_summary": None,
-            "autodoc_pydantic_model_show_validator_summary": None,
-            "autodoc_pydantic_model_show_validator_members": None,
             "autodoc_pydantic_field_list_validators": None,
             "autodoc_pydantic_field_show_constraints": None,
             "autodoc_pydantic_model_member_order": "bysource",
-            "autodoc_pydantic_model_show_json": True,
-            "autodoc_pydantic_settings_show_json": None,
+            "autodoc_pydantic_model_show_config_summary": None,
             "autodoc_pydantic_model_show_field_summary": None,
+            "autodoc_pydantic_model_show_json": True,
+            "autodoc_pydantic_model_show_validator_summary": None,
+            "autodoc_pydantic_model_show_validator_members": None,
+            "autodoc_pydantic_settings_show_json": None,
             # sphinx-reredirects
             "redirects": {},
         }.items():
@@ -139,6 +156,7 @@ def generate_docs_configuration(
                 cname=cname,
                 pages=pages,
                 use_autoapi=use_autoapi,
+                autoapi_ignore=autoapi_ignore,
                 source_dir=source_dir,
                 previous_versions=previous_versions,
                 **configuration_args,
@@ -164,9 +182,9 @@ def generate_docs_configuration(
 
             # write custom css and customjs
             Path("docs/html/_static/styles").mkdir(parents=True, exist_ok=True)
-            Path("docs/html/_static/styles/custom.css").write_text(custom_css.read_text())
+            Path("docs/html/_static/styles/custom.css").write_text(custom_css)
             Path("docs/html/_static/js").mkdir(parents=True, exist_ok=True)
-            Path("docs/html/_static/js/custom.js").write_text(custom_js.read_text())
+            Path("docs/html/_static/js/custom.js").write_text(custom_js)
 
             # append docs-specific ignores to gitignore
             if Path(".gitignore").exists():
