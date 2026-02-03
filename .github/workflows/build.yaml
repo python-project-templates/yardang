@@ -39,6 +39,9 @@ jobs:
       with:
         version: ${{ matrix.python-version }}
 
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
 

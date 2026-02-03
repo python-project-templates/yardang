@@ -40,6 +40,13 @@ Use `doxygenindex` to document all symbols from Doxygen XML:
 ```doxygenindex
 ```
 
+```{toctree}
+:hidden:
+:maxdepth: 2
+
+/examples/cpp/docs/api
+```
+
 ### Document Individual Classes
 
 Or document specific classes with `doxygenclass`:
@@ -60,22 +67,39 @@ This is an example of documenting Rust code using sphinx-rust integration.
 
 Use `rust:crate` to document an entire Rust crate:
 
-```rust:crate calculator
+```{eval-rst}
+.. rust:crate:: calculator
+
+```
+
+```{toctree}
+:hidden:
+:maxdepth: 2
+
+/api/crates/calculator/index
 ```
 
 ### Document Individual Items
 
 Or document specific structs, enums, and functions:
 
-```rust:struct calculator::Calculator
+```{eval-rst}
+.. rust:struct:: calculator::Calculator
+
 ```
 
-```rust:struct calculator::ScientificCalculator
+```{eval-rst}
+.. rust:struct:: calculator::ScientificCalculator
+
 ```
 
-```rust:enum calculator::Operation
+```{eval-rst}
+.. rust:enum:: calculator::Operation
+
 ```
 
-```rust:enum calculator::CalculatorError
+```{eval-rst}
+.. rust:enum:: calculator::CalculatorError
+
 ```
 

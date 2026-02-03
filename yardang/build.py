@@ -319,7 +319,6 @@ def generate_docs_configuration(
                 "toctree",
                 "literalinclude",
                 "include",
-                "eval-rst",
             ],
             "nb_execution_mode": "off",
             "nb_execution_excludepatterns": [],

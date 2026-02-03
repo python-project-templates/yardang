@@ -195,6 +195,7 @@ projects = { calculator = "examples/cpp/xml" }
 default-project = "calculator"
 
 [tool.yardang.sphinx-rust]
-rust_crates = [
+crates = [
     "examples/rust",
 ]
+doc-formats = { calculator = "myst-nb" }

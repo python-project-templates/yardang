@@ -470,3 +470,95 @@ Then in your documentation files, you can use breathe directives:
 \`\`\`{doxygenfunction} MyNamespace::myFunction
 \`\`\`
 ```
+
+## Sphinx-Rust Integration
+
+Yardang provides integration with [sphinx-rust](https://sphinx-rust.readthedocs.io/) for documenting Rust code. To use this feature, install yardang with the sphinx-rust extra:
+
+```bash
+pip install yardang[sphinx-rust]
+```
+
+All sphinx-rust configuration is under `[tool.yardang.sphinx-rust]`.
+
+### `crates`
+
+A list of paths to Rust crates to document.
+
+```toml
+[tool.yardang.sphinx-rust]
+crates = [
+    "path/to/crate1",
+    "path/to/crate2",
+]
+```
+
+### `doc-formats`
+
+A dictionary mapping crate names to their docstring format. Valid values are `"restructuredtext"` (default) or `"myst-nb"` (for markdown docstrings).
+
+```toml
+[tool.yardang.sphinx-rust]
+doc-formats = { mycrate = "myst-nb" }
+```
+
+**Note:** When using `myst_nb` as your Sphinx parser (which yardang uses by default), use `"myst-nb"` instead of `"markdown"` for markdown docstrings.
+
+### `viewcode`
+
+Enable links to the source code for documented items. Defaults to `true`.
+
+```toml
+[tool.yardang.sphinx-rust]
+viewcode = true
+```
+
+### Complete Example
+
+Here's a complete example configuration for a Rust project:
+
+```toml
+[tool.yardang]
+title = "My Rust Library"
+root = "docs/index.md"
+pages = ["docs/api.md", "docs/examples.md"]
+use-autoapi = false
+
+[tool.yardang.sphinx-rust]
+crates = [
+    "crates/mylib",
+    "crates/mylib-utils",
+]
+doc-formats = { mylib = "myst-nb", "mylib-utils" = "restructuredtext" }
+viewcode = true
+```
+
+Then in your documentation files, you can use sphinx-rust directives:
+
+````markdown
+# API Reference
+
+## Document a Crate
+
+\`\`\`{eval-rst}
+.. rust:crate:: mylib
+
+\`\`\`
+
+## Document Individual Items
+
+\`\`\`{eval-rst}
+.. rust:struct:: mylib::MyStruct
+
+\`\`\`
+
+\`\`\`{eval-rst}
+.. rust:enum:: mylib::MyEnum
+
+\`\`\`
+
+\`\`\`{eval-rst}
+.. rust:function:: mylib::my_function
+
+\`\`\`
+````

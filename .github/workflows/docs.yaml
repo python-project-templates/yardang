@@ -12,6 +12,9 @@ jobs:
     steps:
       - uses: actions/checkout@v6
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
       - name: Install doxygen
         run: sudo apt-get install -y doxygen
 
