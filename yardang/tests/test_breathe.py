@@ -619,3 +619,154 @@ use-autoapi = false
                 assert "use_sphinx_rust = False" in conf_content
         finally:
             os.chdir(original_cwd)
+
+
+class TestSphinxJsConfiguration:
+    """Tests for sphinx-js configuration loading and generation."""
+
+    def test_sphinx_js_config_loading_from_pyproject(self, tmp_path):
+        """Test that sphinx-js configuration is loaded from pyproject.toml."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+
+[tool.yardang.sphinx-js]
+js-language = "typescript"
+js-source-path = ["src"]
+jsdoc-config-path = "jsdoc.json"
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.utils import get_config
+
+            js_language = get_config(section="js-language", base="tool.yardang.sphinx-js")
+            assert js_language == "typescript"
+
+            js_source_path = get_config(section="js-source-path", base="tool.yardang.sphinx-js")
+            assert js_source_path == ["src"]
+
+            jsdoc_config_path = get_config(section="jsdoc-config-path", base="tool.yardang.sphinx-js")
+            assert jsdoc_config_path == "jsdoc.json"
+        finally:
+            os.chdir(original_cwd)
+
+    def test_sphinx_js_config_defaults(self, tmp_path):
+        """Test that sphinx-js configuration returns None when not specified."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.utils import get_config
+
+            js_source_path = get_config(section="js-source-path", base="tool.yardang.sphinx-js")
+            assert js_source_path is None
+
+            js_language = get_config(section="js-language", base="tool.yardang.sphinx-js")
+            assert js_language is None
+        finally:
+            os.chdir(original_cwd)
+
+    def test_generate_docs_with_sphinx_js_config(self, tmp_path):
+        """Test that generate_docs_configuration includes sphinx-js settings."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+
+[tool.yardang.sphinx-js]
+js-language = "typescript"
+js-source-path = ["src"]
+jsdoc-tsconfig-path = "tsconfig.json"
+ts-type-bold = true
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.build import generate_docs_configuration
+
+            with generate_docs_configuration() as conf_dir:
+                conf_path = Path(conf_dir) / "conf.py"
+                conf_content = conf_path.read_text()
+
+                # Verify sphinx-js is enabled
+                assert "use_sphinx_js = True" in conf_content
+                assert 'extensions.append("sphinx_js")' in conf_content
+                assert 'js_language = "typescript"' in conf_content
+                assert "js_source_path = " in conf_content
+                assert "ts_type_bold = True" in conf_content
+        finally:
+            os.chdir(original_cwd)
+
+    def test_sphinx_js_disabled_when_not_configured(self, tmp_path):
+        """Test that sphinx-js is disabled when no source path is configured."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.build import generate_docs_configuration
+
+            with generate_docs_configuration() as conf_dir:
+                conf_path = Path(conf_dir) / "conf.py"
+                conf_content = conf_path.read_text()
+
+                # Verify sphinx-js is disabled
+                assert "use_sphinx_js = False" in conf_content
+        finally:
+            os.chdir(original_cwd)

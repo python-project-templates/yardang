@@ -562,3 +562,118 @@ Then in your documentation files, you can use sphinx-rust directives:
 
 \`\`\`
 ````
+
+## Sphinx-JS Integration
+
+Yardang provides integration with [sphinx-js](https://pypi.org/project/sphinx-js/) for documenting JavaScript and TypeScript code. To use this feature, you also need JSDoc or TypeDoc installed:
+
+```bash
+# For JavaScript projects
+npm install jsdoc
+
+# For TypeScript projects
+npm install typedoc
+```
+
+All sphinx-js configuration is under `[tool.yardang.sphinx-js]`.
+
+### `js-source-path`
+
+A list of directories containing your JS/TS source files, relative to the project root. This is required to enable sphinx-js.
+
+```toml
+[tool.yardang.sphinx-js]
+js-source-path = ["src", "lib"]
+```
+
+Or as a single path:
+
+```toml
+[tool.yardang.sphinx-js]
+js-source-path = "src"
+```
+
+### `js-language`
+
+The language of your source files. Use `"javascript"` (default) or `"typescript"`.
+
+```toml
+[tool.yardang.sphinx-js]
+js-language = "typescript"
+```
+
+### `root-for-relative-js-paths`
+
+The root directory for resolving relative JS entity paths. Required if you have multiple `js-source-path` entries.
+
+```toml
+[tool.yardang.sphinx-js]
+root-for-relative-js-paths = "src"
+```
+
+### `jsdoc-config-path`
+
+Path to a JSDoc configuration file.
+
+```toml
+[tool.yardang.sphinx-js]
+jsdoc-config-path = "jsdoc.json"
+```
+
+### `jsdoc-tsconfig-path`
+
+Path to a TypeScript configuration file (for TypeDoc).
+
+```toml
+[tool.yardang.sphinx-js]
+jsdoc-tsconfig-path = "tsconfig.json"
+```
+
+### `ts-type-bold`
+
+Make TypeScript types bold in the output. Defaults to `false`.
+
+```toml
+[tool.yardang.sphinx-js]
+ts-type-bold = true
+```
+
+### Complete Example
+
+Here's a complete example configuration for a TypeScript project:
+
+```toml
+[tool.yardang]
+title = "My TypeScript Library"
+root = "docs/index.md"
+pages = ["docs/api.md", "docs/examples.md"]
+use-autoapi = false
+
+[tool.yardang.sphinx-js]
+js-language = "typescript"
+js-source-path = ["src"]
+jsdoc-tsconfig-path = "tsconfig.json"
+ts-type-bold = true
+```
+
+Then in your documentation files, you can use sphinx-js directives:
+
+````markdown
+# API Reference
+
+## Functions
+
+\`\`\`{js:autofunction} myFunction
+\`\`\`
+
+## Classes
+
+\`\`\`{js:autoclass} MyClass
+:members:
+\`\`\`
+
+## Modules
+
+\`\`\`{js:automodule} myModule
+\`\`\`
+````

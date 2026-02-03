@@ -15,6 +15,14 @@ jobs:
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install JSDoc/TypeDoc
+        run: npm install -g jsdoc typedoc
+
       - name: Install doxygen
         run: sudo apt-get install -y doxygen
 

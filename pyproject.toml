@@ -47,6 +47,7 @@ dependencies = [
     # Extensions
     "breathe>=4.35.0",
     "sphinx-rust",
+    "sphinx-js>=5.0.0",
 ]
 
 [project.optional-dependencies]
@@ -199,3 +200,7 @@ crates = [
     "examples/rust",
 ]
 doc-formats = { calculator = "myst-nb" }
+
+[tool.yardang.sphinx-js]
+js-language = "javascript"
+js-source-path = "examples/js/src"

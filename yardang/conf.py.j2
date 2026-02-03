@@ -43,6 +43,7 @@ pages = """
 use_autoapi = {{use_autoapi}}  # noqa: F821
 use_breathe = {{use_breathe}}  # noqa: F821
 use_sphinx_rust = {{use_sphinx_rust}}  # noqa: F821
+use_sphinx_js = {{use_sphinx_js}}  # noqa: F821
 
 #############################################################################################################
 #  _____                        _                           _ _  __            _          _                 #
@@ -78,6 +79,10 @@ if use_breathe:
 # Add sphinx-rust extension if configured
 if use_sphinx_rust:
     extensions.append("sphinx_rust")
+
+# Add sphinx-js extension if configured
+if use_sphinx_js:
+    extensions.append("sphinx_js")
 
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
@@ -162,6 +167,27 @@ if use_sphinx_rust:
     rust_crates = {{rust_crates}}
     rust_doc_formats = {{rust_doc_formats}}
     rust_viewcode = {{rust_viewcode}}
+
+# sphinx-js configuration
+if use_sphinx_js:
+    js_language = "{{js_language}}"
+    {% if js_source_path %}
+    {% if js_source_path is string %}
+    js_source_path = "{{js_source_path}}"
+    {% else %}
+    js_source_path = {{js_source_path}}
+    {% endif %}
+    {% endif %}
+    {% if root_for_relative_js_paths %}
+    root_for_relative_js_paths = "{{root_for_relative_js_paths}}"
+    {% endif %}
+    {% if jsdoc_config_path %}
+    jsdoc_config_path = "{{jsdoc_config_path}}"
+    {% endif %}
+    {% if jsdoc_tsconfig_path %}
+    jsdoc_tsconfig_path = "{{jsdoc_tsconfig_path}}"
+    {% endif %}
+    ts_type_bold = {{ts_type_bold}}
 
 # autosummary
 autosummary_generate = True  # if using autosummary, autogenerate
