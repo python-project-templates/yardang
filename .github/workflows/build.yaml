@@ -42,6 +42,9 @@ jobs:
     - name: Install doxygen
       run: sudo apt-get install -y doxygen
 
+    - name: Clean up problematic directories
+      run: rm -rf docs/jupyter_execute
+
     - name: Install dependencies
       run: make develop
 

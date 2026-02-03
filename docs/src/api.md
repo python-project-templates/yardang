@@ -52,3 +52,30 @@ Or document specific classes with `doxygenclass`:
 :members:
 ```
 
+## Rust Example
+
+This is an example of documenting Rust code using sphinx-rust integration.
+
+### Document a Crate
+
+Use `rust:crate` to document an entire Rust crate:
+
+```rust:crate calculator
+```
+
+### Document Individual Items
+
+Or document specific structs, enums, and functions:
+
+```rust:struct calculator::Calculator
+```
+
+```rust:struct calculator::ScientificCalculator
+```
+
+```rust:enum calculator::Operation
+```
+
+```rust:enum calculator::CalculatorError
+```
+

@@ -46,11 +46,15 @@ dependencies = [
     "typer",
     # Extensions
     "breathe>=4.35.0",
+    "sphinx-rust",
 ]
 
 [project.optional-dependencies]
 breathe = [
     "breathe>=4.35.0",
+]
+sphinx-rust = [
+    "sphinx-rust",
 ]
 develop = [
     "build",
@@ -189,3 +193,8 @@ use-autoapi = false
 [tool.yardang.breathe]
 projects = { calculator = "examples/cpp/xml" }
 default-project = "calculator"
+
+[tool.yardang.sphinx-rust]
+rust_crates = [
+    "examples/rust",
+]

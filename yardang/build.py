@@ -302,6 +302,19 @@ def generate_docs_configuration(
                 "doxygendefine",
                 "doxygenunion",
                 "doxygenvariable",
+                # sphinx-rust directives
+                "rust:crate",
+                "rust:module",
+                "rust:struct",
+                "rust:enum",
+                "rust:function",
+                "rust:method",
+                "rust:trait",
+                "rust:impl",
+                "rust:type",
+                "rust:const",
+                "rust:static",
+                "rust:macro",
                 # common sphinx directives
                 "toctree",
                 "literalinclude",
@@ -370,6 +383,28 @@ def generate_docs_configuration(
                 name: str(Path(path).resolve()) if not Path(path).is_absolute() else path for name, path in breathe_args["breathe_projects"].items()
             }
 
+        # Load sphinx-rust configuration from tool.yardang.sphinx-rust
+        rust_config_base = f"{config_base}.sphinx-rust"
+        rust_args = {}
+        for config_option, default in {
+            # sphinx-rust
+            "rust_crates": [],
+            "rust_doc_formats": {},
+            "rust_viewcode": True,
+        }.items():
+            # config keys in toml use hyphens, not underscores, and no rust_ prefix
+            toml_key = config_option.replace("rust_", "").replace("_", "-")
+            rust_args[config_option] = get_config(section=toml_key, base=rust_config_base)
+            if rust_args[config_option] is None:
+                rust_args[config_option] = default
+
+        # Determine if sphinx-rust should be used
+        use_sphinx_rust = bool(rust_args["rust_crates"])
+
+        # Convert relative paths in rust_crates to absolute paths
+        if rust_args["rust_crates"]:
+            rust_args["rust_crates"] = [str(Path(path).resolve()) if not Path(path).is_absolute() else path for path in rust_args["rust_crates"]]
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -392,7 +427,9 @@ def generate_docs_configuration(
                 source_dir=source_dir,
                 previous_versions=previous_versions,
                 use_breathe=use_breathe,
+                use_sphinx_rust=use_sphinx_rust,
                 **breathe_args,
+                **rust_args,
                 **configuration_args,
             )
 

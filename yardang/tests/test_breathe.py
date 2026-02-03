@@ -469,3 +469,153 @@ auto-run-doxygen = false
             assert auto_run is False
         finally:
             os.chdir(original_cwd)
+
+
+class TestSphinxRustConfiguration:
+    """Tests for sphinx-rust configuration loading and generation."""
+
+    def test_sphinx_rust_config_loading_from_pyproject(self, tmp_path):
+        """Test that sphinx-rust configuration is loaded from pyproject.toml."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+
+[tool.yardang.sphinx-rust]
+crates = ["crates/mylib", "crates/otherlib"]
+doc-formats = { "mylib" = "markdown", "otherlib" = "restructuredtext" }
+viewcode = true
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.utils import get_config
+
+            rust_crates = get_config(section="crates", base="tool.yardang.sphinx-rust")
+            assert rust_crates == ["crates/mylib", "crates/otherlib"]
+
+            doc_formats = get_config(section="doc-formats", base="tool.yardang.sphinx-rust")
+            assert doc_formats == {"mylib": "markdown", "otherlib": "restructuredtext"}
+
+            viewcode = get_config(section="viewcode", base="tool.yardang.sphinx-rust")
+            assert viewcode is True
+        finally:
+            os.chdir(original_cwd)
+
+    def test_sphinx_rust_config_defaults(self, tmp_path):
+        """Test that sphinx-rust configuration has sensible defaults when not specified."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.utils import get_config
+
+            rust_crates = get_config(section="crates", base="tool.yardang.sphinx-rust")
+            assert rust_crates is None
+
+            doc_formats = get_config(section="doc-formats", base="tool.yardang.sphinx-rust")
+            assert doc_formats is None
+        finally:
+            os.chdir(original_cwd)
+
+    def test_generate_docs_with_sphinx_rust_config(self, tmp_path):
+        """Test that generate_docs_configuration includes sphinx-rust settings."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+
+[tool.yardang.sphinx-rust]
+crates = ["crates/mylib"]
+doc-formats = { "mylib" = "markdown" }
+viewcode = true
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.build import generate_docs_configuration
+
+            with generate_docs_configuration() as conf_dir:
+                conf_path = Path(conf_dir) / "conf.py"
+                conf_content = conf_path.read_text()
+
+                # Verify sphinx-rust is enabled
+                assert "use_sphinx_rust = True" in conf_content
+                assert 'extensions.append("sphinx_rust")' in conf_content
+                assert "rust_crates = " in conf_content
+                assert "rust_doc_formats = " in conf_content
+                assert "rust_viewcode = True" in conf_content
+        finally:
+            os.chdir(original_cwd)
+
+    def test_sphinx_rust_disabled_when_not_configured(self, tmp_path):
+        """Test that sphinx-rust is disabled when no crates are configured."""
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+"""
+        pyproject_path = tmp_path / "pyproject.toml"
+        pyproject_path.write_text(pyproject_content)
+
+        readme_path = tmp_path / "README.md"
+        readme_path.write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+
+            from yardang.build import generate_docs_configuration
+
+            with generate_docs_configuration() as conf_dir:
+                conf_path = Path(conf_dir) / "conf.py"
+                conf_content = conf_path.read_text()
+
+                # Verify sphinx-rust is disabled
+                assert "use_sphinx_rust = False" in conf_content
+        finally:
+            os.chdir(original_cwd)

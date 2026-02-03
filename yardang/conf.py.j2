@@ -42,6 +42,7 @@ pages = """
 """
 use_autoapi = {{use_autoapi}}  # noqa: F821
 use_breathe = {{use_breathe}}  # noqa: F821
+use_sphinx_rust = {{use_sphinx_rust}}  # noqa: F821
 
 #############################################################################################################
 #  _____                        _                           _ _  __            _          _                 #
@@ -73,6 +74,10 @@ extensions = [
 # Add breathe extension if configured
 if use_breathe:
     extensions.append("breathe")
+
+# Add sphinx-rust extension if configured
+if use_sphinx_rust:
+    extensions.append("sphinx_rust")
 
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
@@ -151,6 +156,12 @@ if use_breathe:
     breathe_use_project_refids = {{breathe_use_project_refids}}
     breathe_order_parameters_first = {{breathe_order_parameters_first}}
     breathe_separate_member_pages = {{breathe_separate_member_pages}}
+
+# sphinx-rust configuration
+if use_sphinx_rust:
+    rust_crates = {{rust_crates}}
+    rust_doc_formats = {{rust_doc_formats}}
+    rust_viewcode = {{rust_viewcode}}
 
 # autosummary
 autosummary_generate = True  # if using autosummary, autogenerate
