@@ -315,6 +315,12 @@ def generate_docs_configuration(
                 "rust:const",
                 "rust:static",
                 "rust:macro",
+                # sphinx-js directives
+                "js:autofunction",
+                "js:autoclass",
+                "js:autoattribute",
+                "js:automodule",
+                "js:autosummary",
                 # common sphinx directives
                 "toctree",
                 "literalinclude",
@@ -404,6 +410,44 @@ def generate_docs_configuration(
         if rust_args["rust_crates"]:
             rust_args["rust_crates"] = [str(Path(path).resolve()) if not Path(path).is_absolute() else path for path in rust_args["rust_crates"]]
 
+        # Load sphinx-js configuration from tool.yardang.sphinx-js
+        js_config_base = f"{config_base}.sphinx-js"
+        js_args = {}
+        for config_option, default in {
+            # sphinx-js
+            "js_language": "javascript",
+            "js_source_path": [],
+            "root_for_relative_js_paths": "",
+            "jsdoc_config_path": "",
+            "jsdoc_tsconfig_path": "",
+            "ts_type_bold": False,
+        }.items():
+            # config keys in toml use hyphens, not underscores, and no js_ prefix for some
+            toml_key = config_option.replace("_", "-")
+            js_args[config_option] = get_config(section=toml_key, base=js_config_base)
+            if js_args[config_option] is None:
+                js_args[config_option] = default
+
+        # Determine if sphinx-js should be used
+        use_sphinx_js = bool(js_args["js_source_path"])
+
+        # Convert relative paths in js_source_path to absolute paths
+        if js_args["js_source_path"]:
+            if isinstance(js_args["js_source_path"], str):
+                js_args["js_source_path"] = str(Path(js_args["js_source_path"]).resolve())
+            else:
+                js_args["js_source_path"] = [
+                    str(Path(path).resolve()) if not Path(path).is_absolute() else path for path in js_args["js_source_path"]
+                ]
+
+        # Convert relative paths for jsdoc config files
+        if js_args["jsdoc_config_path"]:
+            js_args["jsdoc_config_path"] = str(Path(js_args["jsdoc_config_path"]).resolve())
+        if js_args["jsdoc_tsconfig_path"]:
+            js_args["jsdoc_tsconfig_path"] = str(Path(js_args["jsdoc_tsconfig_path"]).resolve())
+        if js_args["root_for_relative_js_paths"]:
+            js_args["root_for_relative_js_paths"] = str(Path(js_args["root_for_relative_js_paths"]).resolve())
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -427,8 +471,10 @@ def generate_docs_configuration(
                 previous_versions=previous_versions,
                 use_breathe=use_breathe,
                 use_sphinx_rust=use_sphinx_rust,
+                use_sphinx_js=use_sphinx_js,
                 **breathe_args,
                 **rust_args,
+                **js_args,
                 **configuration_args,
             )
 

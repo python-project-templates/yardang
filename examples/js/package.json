@@ -1,0 +1,16 @@
+{
+  "name": "calculator",
+  "version": "1.0.0",
+  "description": "A simple calculator library demonstrating JavaScript documentation with sphinx-js",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "docs": "jsdoc src -d docs"
+  },
+  "keywords": ["calculator", "math", "example"],
+  "author": "yardang authors",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "jsdoc": "^4.0.0"
+  }
+}

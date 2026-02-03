@@ -103,3 +103,47 @@ Or document specific structs, enums, and functions:
 
 ```
 
+## JavaScript Example
+
+This is an example of documenting JavaScript code using sphinx-js integration.
+
+### Document Functions
+
+Use `js:autofunction` to document individual functions:
+
+```{eval-rst}
+.. js:autofunction:: add
+
+```
+
+```{eval-rst}
+.. js:autofunction:: subtract
+
+```
+
+```{eval-rst}
+.. js:autofunction:: multiply
+
+```
+
+```{eval-rst}
+.. js:autofunction:: divide
+
+```
+
+### Document Classes
+
+Use `js:autoclass` to document classes:
+
+```{eval-rst}
+.. js:autoclass:: Calculator
+   :members:
+
+```
+
+```{eval-rst}
+.. js:autoclass:: ScientificCalculator
+   :members:
+
+```
+
