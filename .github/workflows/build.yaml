@@ -39,6 +39,15 @@ jobs:
       with:
         version: ${{ matrix.python-version }}
 
+    - name: Install Rust
+      uses: dtolnay/rust-toolchain@stable
+
+    - name: Install doxygen
+      run: sudo apt-get install -y doxygen
+
+    - name: Clean up problematic directories
+      run: rm -rf docs/jupyter_execute
+
     - name: Install dependencies
       run: make develop
 

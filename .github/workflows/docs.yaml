@@ -10,6 +10,14 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install doxygen
+        run: sudo apt-get install -y doxygen
+
       - uses: actions-ext/yardang@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

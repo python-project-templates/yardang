@@ -1,0 +1,10 @@
+[package]
+name = "calculator"
+version = "0.1.0"
+edition = "2021"
+description = "A simple calculator library demonstrating Rust documentation"
+license = "Apache-2.0"
+
+[lib]
+name = "calculator"
+path = "src/lib.rs"

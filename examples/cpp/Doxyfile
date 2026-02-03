@@ -1,0 +1,26 @@
+# Doxyfile for the Calculator example project
+# This configuration generates XML output for use with Breathe
+
+PROJECT_NAME           = "Calculator Library"
+PROJECT_NUMBER         = "1.0.0"
+PROJECT_BRIEF          = "A simple C++ calculator library"
+OUTPUT_DIRECTORY       = xml
+GENERATE_XML           = YES
+GENERATE_HTML          = NO
+GENERATE_LATEX         = NO
+INPUT                  = include src
+RECURSIVE              = YES
+FILE_PATTERNS          = *.hpp *.cpp *.h *.c
+EXTRACT_ALL            = YES
+EXTRACT_PRIVATE        = YES
+EXTRACT_STATIC         = YES
+EXTRACT_LOCAL_CLASSES  = YES
+CASE_SENSE_NAMES       = NO
+QUIET                  = YES
+WARN_IF_UNDOCUMENTED   = YES
+WARN_IF_DOC_ERROR      = YES
+JAVADOC_AUTOBRIEF      = YES
+QT_AUTOBRIEF           = YES
+BUILTIN_STL_SUPPORT    = YES
+XML_OUTPUT             = .
+XML_PROGRAMLISTING     = YES
