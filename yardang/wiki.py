@@ -127,6 +127,47 @@ def fix_wiki_links(content: str, all_pages: Dict[str, str]) -> str:
     return content
 
 
+def cleanup_markdown(content: str) -> str:
+    """Clean up markdown content for better GitHub Wiki rendering.
+
+    Fixes common issues from sphinx-markdown-builder output:
+    - Expands collapsed HTML tags onto multiple lines
+    - Removes anchor tags before headings
+    - Fixes collapsed badge lines
+    - Cleans up extra whitespace
+
+    Args:
+        content: Raw markdown content.
+
+    Returns:
+        Cleaned markdown content.
+    """
+    # Remove anchor tags before headings (e.g., <a id="overview"></a>)
+    content = re.sub(r'<a id="[^"]+"></a>\s*\n?', "", content)
+
+    # Fix collapsed div tags - add newlines after > and before <
+    # Match: <div ...>   content   </div> and expand it
+    def expand_div(match):
+        full = match.group(0)
+        # Add newlines for readability
+        full = re.sub(r">\s+<", ">\n<", full)
+        return full
+
+    content = re.sub(r"<div[^>]*>.*?</div>", expand_div, content, flags=re.DOTALL)
+
+    # Fix collapsed badge lines - ensure badges are on separate lines
+    # Match multiple consecutive badges and separate them
+    content = re.sub(r"\]\)\s*\[!\[", "])\n\n[![", content)
+
+    # Remove excessive blank lines (more than 2)
+    content = re.sub(r"\n{4,}", "\n\n\n", content)
+
+    # Clean up lines that are just whitespace
+    content = re.sub(r"\n[ \t]+\n", "\n\n", content)
+
+    return content
+
+
 def extract_toctree_entries(content: str) -> List[Tuple[str, str]]:
     """Extract toctree entries from markdown content.
 
@@ -175,6 +216,7 @@ def generate_sidebar(
     project_name: str = "",
     *,
     include_home: bool = True,
+    include_extra_pages: bool = False,
 ) -> str:
     """Generate a _Sidebar.md file for GitHub Wiki.
 
@@ -185,11 +227,24 @@ def generate_sidebar(
         pages: List of page paths from the yardang configuration.
         project_name: Project name for the sidebar header.
         include_home: Whether to include a Home link at the top.
+        include_extra_pages: Whether to include pages not in the explicit list.
 
     Returns:
         The generated sidebar content.
     """
     lines = []
+
+    # Patterns to exclude from sidebar (internal/generated pages)
+    exclude_patterns = [
+        ".github-",
+        "api-crates-",
+        "docs-src-",
+        "docs-notebooks-",
+        "examples-",
+        ".doctrees",
+        "_static",
+        "_sphinx",
+    ]
 
     if project_name:
         lines.append(f"### {project_name}")
@@ -198,38 +253,57 @@ def generate_sidebar(
     if include_home:
         lines.append("* [Home](Home)")
 
-    # Build navigation from pages
+    # Track what we've added
+    added_pages = {"home"}
+
+    # Build navigation from explicit pages list
     for page_path in pages:
-        # Get the wiki filename
+        # Get the wiki filename - try to match the flattened name
         wiki_name = convert_filename_to_wiki_format(page_path)
 
-        # Try to extract title from the file
-        md_file = output_dir / f"{wiki_name}.md"
-        if md_file.exists():
+        # Also try the flattened format (docs-src-overview instead of overview)
+        flattened_name = page_path.replace("/", "-").replace(".md", "")
+        if flattened_name.startswith("docs-src-"):
+            flattened_name = flattened_name[9:]  # Remove docs-src- prefix for cleaner names
+
+        # Try to find the file - check both formats
+        md_file = None
+        actual_wiki_name = wiki_name
+        for candidate in [wiki_name, flattened_name, f"docs-src-{wiki_name}"]:
+            candidate_file = output_dir / f"{candidate}.md"
+            if candidate_file.exists():
+                md_file = candidate_file
+                actual_wiki_name = candidate
+                break
+
+        if md_file and md_file.exists():
             title = get_page_title(md_file)
         else:
             title = wiki_name.replace("-", " ").replace("_", " ").title()
 
-        lines.append(f"* [{title}]({wiki_name})")
+        lines.append(f"* [{title}]({actual_wiki_name})")
+        added_pages.add(actual_wiki_name.lower())
+        added_pages.add(wiki_name.lower())
 
-    # Check for additional pages not in the explicit list
-    for md_file in sorted(output_dir.glob("*.md")):
-        if md_file.name.startswith("_"):
-            continue
-        wiki_name = md_file.stem
-        if wiki_name.lower() == "home":
-            continue
+    # Optionally check for additional pages not in the explicit list
+    if include_extra_pages:
+        for md_file in sorted(output_dir.glob("*.md")):
+            if md_file.name.startswith("_"):
+                continue
 
-        # Check if already included
-        already_included = False
-        for page_path in pages:
-            if convert_filename_to_wiki_format(page_path) == wiki_name:
-                already_included = True
-                break
+            wiki_name = md_file.stem
 
-        if not already_included:
+            # Skip if matches exclude patterns
+            should_skip = any(pattern in wiki_name.lower() for pattern in exclude_patterns)
+            if should_skip:
+                continue
+
+            if wiki_name.lower() in added_pages:
+                continue
+
             title = get_page_title(md_file)
             lines.append(f"* [{title}]({wiki_name})")
+            added_pages.add(wiki_name.lower())
 
     content = "\n".join(lines)
 
@@ -435,6 +509,9 @@ def process_wiki_output(
                 continue
 
             content = md_file.read_text(encoding="utf-8")
+            # Clean up markdown formatting issues
+            content = cleanup_markdown(content)
+            # Fix internal links for wiki
             fixed_content = fix_wiki_links(content, page_map)
             md_file.write_text(fixed_content, encoding="utf-8")
 
