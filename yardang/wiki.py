@@ -134,6 +134,8 @@ def cleanup_markdown(content: str) -> str:
     - Expands collapsed HTML tags onto multiple lines
     - Removes anchor tags before headings
     - Fixes collapsed badge lines
+    - Fixes collapsed code blocks
+    - Reduces large image sizes
     - Cleans up extra whitespace
 
     Args:
@@ -144,6 +146,14 @@ def cleanup_markdown(content: str) -> str:
     """
     # Remove anchor tags before headings (e.g., <a id="overview"></a>)
     content = re.sub(r'<a id="[^"]+"></a>\s*\n?', "", content)
+
+    # Reduce image widths by 50% for wiki (GitHub wiki renders larger)
+    def reduce_image_width(match):
+        width = int(match.group(1))
+        new_width = max(16, width // 2)  # Reduce by 50%, minimum 16px
+        return f'width="{new_width}"'
+
+    content = re.sub(r'width="(\d+)"', reduce_image_width, content)
 
     # Fix collapsed div tags - add newlines after > and before <
     # Match: <div ...>   content   </div> and expand it
@@ -158,6 +168,38 @@ def cleanup_markdown(content: str) -> str:
     # Fix collapsed badge lines - ensure badges are on separate lines
     # Match multiple consecutive badges and separate them
     content = re.sub(r"\]\)\s*\[!\[", "])\n\n[![", content)
+
+    # Fix collapsed code blocks - the sphinx-markdown-builder collapses
+    # multi-line code into single lines with multiple spaces
+    def fix_code_block(match):
+        lang = match.group(1) or ""
+        code = match.group(2)
+
+        # Replace 2+ spaces with newlines, being careful about context
+        # First, handle obvious statement boundaries
+
+        # Python: statement followed by spaces then new statement
+        code = re.sub(
+            r"([\)\]\"\'])\s{2,}(def |class |import |from |with |if |elif |else:|for |while |return |raise |try:|except|finally:|#|@\w)",
+            r"\1\n\2",
+            code,
+        )
+
+        # Python: assignment or call followed by new statement
+        code = re.sub(r"(\w)\s{2,}(def |class |import |from |with |if |for |while |return |#)", r"\1\n\2", code)
+
+        # YAML: value followed by new key at same or lower indent level
+        code = re.sub(r"(\]|\"|\'|\w)\s{2,}(\w+:)", r"\1\n\2", code)
+
+        # YAML: list item followed by another list item or key
+        code = re.sub(r"(-\s+\S[^\n]*)\s{2,}(-\s+|\w+:)", r"\1\n\2", code)
+
+        # Generic: detect lines that got merged (4+ spaces often indicates this)
+        code = re.sub(r"(\S)\s{4,}(\S)", r"\1\n\2", code)
+
+        return f"```{lang}\n{code}\n```"
+
+    content = re.sub(r"```(\w*)\n?(.*?)\n?```", fix_code_block, content, flags=re.DOTALL)
 
     # Remove excessive blank lines (more than 2)
     content = re.sub(r"\n{4,}", "\n\n\n", content)
