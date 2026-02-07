@@ -231,6 +231,24 @@ def cleanup_markdown(content: str) -> str:
         # Python: assignment or call followed by new statement
         code = re.sub(r"(\w)\s{2,}(def |class |import |from |with |if |for |while |return |#)", r"\1\n\2", code)
 
+        # TOML: section header [xxx] followed by key (even single space)
+        code = re.sub(r"(\])\s+(\w[\w-]*\s*=)", r"\1\n\2", code)
+
+        # TOML: section header [xxx] followed by another section [xxx]
+        code = re.sub(r"(\])\s+(\[)", r"\1\n\n\2", code)
+
+        # TOML: key = "value" followed by another key
+        code = re.sub(r'(")\s+(\w[\w-]*\s*=)', r"\1\n\2", code)
+
+        # TOML: key = true/false/number followed by another key
+        code = re.sub(r"(true|false|\d)\s+(\w[\w-]*\s*=)", r"\1\n\2", code)
+
+        # TOML: array items - string in array followed by string
+        code = re.sub(r'(",)\s+(")', r"\1\n\2", code)
+
+        # TOML: closing array ] followed by key
+        code = re.sub(r"(\])\s+(\w[\w-]*\s*=)", r"\1\n\2", code)
+
         # YAML: value followed by new key at same or lower indent level
         code = re.sub(r"(\]|\"|\'|\w)\s{2,}(\w+:)", r"\1\n\2", code)
 
@@ -257,8 +275,8 @@ def cleanup_api_docs(content: str) -> str:
     """Clean up API documentation for better readability.
 
     Reformats dense sphinx-markdown-builder API output:
-    - Breaks long function signatures into multiple lines
-    - Removes escaped underscores in code contexts
+    - Removes escaped characters
+    - Cleans up function signature formatting
     - Improves parameter list formatting
 
     Args:
@@ -267,26 +285,34 @@ def cleanup_api_docs(content: str) -> str:
     Returns:
         Cleaned API documentation content.
     """
-    # Remove escaped underscores in code/function contexts
-    # Match: word\_word patterns and unescape them
-    content = re.sub(r"(\w)\\_(\w)", r"\1_\2", content)
+    # Remove ALL escaped underscores - they don't render well in GitHub Wiki
+    content = re.sub(r"\\_", "_", content)
 
-    # Format long function signatures - break parameters onto separate lines
-    def format_signature(match):
-        prefix = match.group(1)  # ### module.function(
-        params = match.group(2)  # parameters
-        suffix = match.group(3)  # )
+    # Remove escaped asterisks in signatures (e.g., \* for *args)
+    content = re.sub(r"\\(\*+)", r"\1", content)
 
-        # If signature is short enough, keep it
-        if len(match.group(0)) < 80:
-            return match.group(0)
+    # Fix function signatures that got broken across lines badly
+    # For long signatures, use function name as heading + signature in code block
+    def format_function_signature(match):
+        func_name = match.group(1)  # e.g., "yardang.build.generate_docs_configuration"
+        sig_content = match.group(2)  # everything between ( and )
 
-        # Parse parameters and format them
-        # Split on ", " but be careful about nested brackets
+        # Collapse any existing newlines/whitespace in signature
+        sig_content = re.sub(r"\s+", " ", sig_content).strip()
+
+        # Build the full signature
+        full_sig = f"{func_name}({sig_content})"
+
+        # If short enough, keep as simple heading
+        if len(full_sig) < 80:
+            return f"### {full_sig}"
+
+        # For long signatures: function name as heading, full signature in code block
+        # Parse parameters for nice formatting
         param_list = []
         current = ""
         bracket_depth = 0
-        for char in params:
+        for char in sig_content:
             if char in "([{":
                 bracket_depth += 1
                 current += char
@@ -302,18 +328,20 @@ def cleanup_api_docs(content: str) -> str:
         if current.strip():
             param_list.append(current.strip())
 
-        # If few parameters, keep on one line
-        if len(param_list) <= 2:
-            return match.group(0)
+        # Format params with nice indentation in code block
+        if param_list:
+            formatted_params = ",\n    ".join(param_list)
+            code_block = f"```python\n{func_name}(\n    {formatted_params}\n)\n```"
+        else:
+            code_block = f"```python\n{func_name}()\n```"
 
-        # Format with line breaks
-        formatted_params = ",\n    ".join(param_list)
-        return f"{prefix}\n    {formatted_params}\n{suffix}"
+        return f"### `{func_name}()`\n\n{code_block}"
 
-    # Match function/method signatures: ### name(params)
+    # Match ### header with function signature (handles multi-line)
+    # This pattern matches: ### name(\n    params...\n) or ### name(params)
     content = re.sub(
-        r"(###\s+[\w.]+\()((?:[^()]+|\([^()]*\))*?)(\))",
-        format_signature,
+        r"###\s+([\w.]+)\(\s*\n?([\s\S]*?)\n?\s*\)",
+        format_function_signature,
         content,
     )
 
@@ -372,8 +400,19 @@ def cleanup_api_docs(content: str) -> str:
         content,
     )
 
-    # Fix "#### NOTE" / "#### WARNING" etc to be more prominent
-    content = re.sub(r"####\s+(NOTE|WARNING|SEE ALSO|IMPORTANT)", r"> **\1**", content)
+    # Fix "#### NOTE" / "#### WARNING" etc to use GitHub Flavored Markdown alerts
+    def _to_gfm_alert(match: re.Match) -> str:
+        alert_type = match.group(1).upper()
+        # Map to GFM alert types
+        gfm_type = {
+            "NOTE": "NOTE",
+            "WARNING": "WARNING",
+            "IMPORTANT": "IMPORTANT",
+            "SEE ALSO": "TIP",
+        }.get(alert_type, "NOTE")
+        return f"> [!{gfm_type}]"
+
+    content = re.sub(r"####\s+(NOTE|WARNING|SEE ALSO|IMPORTANT)", _to_gfm_alert, content)
 
     return content
 
@@ -737,6 +776,19 @@ def process_wiki_output(
 
     if not output_dir.exists():
         raise FileNotFoundError(f"Output directory not found: {output_dir}")
+
+    # Remove sphinx build artifacts that shouldn't be in the wiki
+    cruft_dirs = [
+        ".doctrees",
+        "_static",
+        "_sphinx_design_static",
+        "_images",
+        "_sources",
+    ]
+    for cruft_dir in cruft_dirs:
+        cruft_path = output_dir / cruft_dir
+        if cruft_path.exists() and cruft_path.is_dir():
+            shutil.rmtree(cruft_path)
 
     # Flatten directory structure
     page_map = flatten_directory_structure(output_dir)
