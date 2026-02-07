@@ -129,7 +129,7 @@ html_js_files = [
 master_doc = "index"
 templates_path = ["_templates"]
 source_suffix = [".rst", ".md", *{{source_suffix}}]
-exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*", *{{exclude_patterns}}]
+exclude_patterns = ["_build", "Thumbs.db", ".DS_Store", "node_modules", "_skbuild", ".pytest_cache", "js/*", "*.wiki", "*.wiki/*", "docs/wiki", "docs/wiki/*", *{{exclude_patterns}}]
 language = "{{language}}"
 pygments_style = "{{pygments_style}}"
 
