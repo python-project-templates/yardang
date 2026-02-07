@@ -147,13 +147,56 @@ def cleanup_markdown(content: str) -> str:
     # Remove anchor tags before headings (e.g., <a id="overview"></a>)
     content = re.sub(r'<a id="[^"]+"></a>\s*\n?', "", content)
 
-    # Reduce image widths by 50% for wiki (GitHub wiki renders larger)
-    def reduce_image_width(match):
-        width = int(match.group(1))
-        new_width = max(16, width // 2)  # Reduce by 50%, minimum 16px
-        return f'width="{new_width}"'
+    # Badge URL patterns to skip (don't resize badges)
+    badge_patterns = [
+        r"shields\.io",
+        r"badge\.svg",
+        r"codecov\.io",
+        r"github\.com/.+/actions/workflows/.+/badge",
+        r"img\.shields\.io",
+        r"coveralls\.io",
+        r"travis-ci\.org",
+        r"circleci\.com",
+        r"appveyor\.com",
+        r"readthedocs\.org",
+    ]
 
-    content = re.sub(r'width="(\d+)"', reduce_image_width, content)
+    def is_badge_url(url):
+        """Check if URL looks like a badge image."""
+        return any(re.search(pattern, url) for pattern in badge_patterns)
+
+    # Convert large images to HTML img tags with constrained width
+    # Match: <a href="...">![alt](url)</a> pattern (linked images)
+    def resize_linked_image(match):
+        href = match.group(1)
+        alt = match.group(2)
+        src = match.group(3)
+        # Skip badges - they should stay at natural size
+        if is_badge_url(src):
+            return match.group(0)
+        return f'<a href="{href}"><img src="{src}" alt="{alt}" width="120"></a>'
+
+    content = re.sub(
+        r'<a href="([^"]+)">\!\[([^\]]*)\]\(([^)]+)\)</a>',
+        resize_linked_image,
+        content,
+    )
+
+    # Match: ![alt](url) pattern (standalone images, not inside links like [![]()])
+    # Skip images that are inside markdown links (preceded by [)
+    def resize_standalone_image(match):
+        alt = match.group(1)
+        src = match.group(2)
+        # Skip badges - they should stay at natural size
+        if is_badge_url(src):
+            return match.group(0)
+        return f'<img src="{src}" alt="{alt}" width="120">'
+
+    content = re.sub(
+        r'(?<!["\(\[])\!\[([^\]]*)\]\(([^)]+)\)(?!["\)])',
+        resize_standalone_image,
+        content,
+    )
 
     # Fix collapsed div tags - add newlines after > and before <
     # Match: <div ...>   content   </div> and expand it
@@ -208,6 +251,168 @@ def cleanup_markdown(content: str) -> str:
     content = re.sub(r"\n[ \t]+\n", "\n\n", content)
 
     return content
+
+
+def cleanup_api_docs(content: str) -> str:
+    """Clean up API documentation for better readability.
+
+    Reformats dense sphinx-markdown-builder API output:
+    - Breaks long function signatures into multiple lines
+    - Removes escaped underscores in code contexts
+    - Improves parameter list formatting
+
+    Args:
+        content: Markdown content with API documentation.
+
+    Returns:
+        Cleaned API documentation content.
+    """
+    # Remove escaped underscores in code/function contexts
+    # Match: word\_word patterns and unescape them
+    content = re.sub(r"(\w)\\_(\w)", r"\1_\2", content)
+
+    # Format long function signatures - break parameters onto separate lines
+    def format_signature(match):
+        prefix = match.group(1)  # ### module.function(
+        params = match.group(2)  # parameters
+        suffix = match.group(3)  # )
+
+        # If signature is short enough, keep it
+        if len(match.group(0)) < 80:
+            return match.group(0)
+
+        # Parse parameters and format them
+        # Split on ", " but be careful about nested brackets
+        param_list = []
+        current = ""
+        bracket_depth = 0
+        for char in params:
+            if char in "([{":
+                bracket_depth += 1
+                current += char
+            elif char in ")]}":
+                bracket_depth -= 1
+                current += char
+            elif char == "," and bracket_depth == 0:
+                if current.strip():
+                    param_list.append(current.strip())
+                current = ""
+            else:
+                current += char
+        if current.strip():
+            param_list.append(current.strip())
+
+        # If few parameters, keep on one line
+        if len(param_list) <= 2:
+            return match.group(0)
+
+        # Format with line breaks
+        formatted_params = ",\n    ".join(param_list)
+        return f"{prefix}\n    {formatted_params}\n{suffix}"
+
+    # Match function/method signatures: ### name(params)
+    content = re.sub(
+        r"(###\s+[\w.]+\()((?:[^()]+|\([^()]*\))*?)(\))",
+        format_signature,
+        content,
+    )
+
+    # Clean up parameter descriptions - ensure proper list formatting
+    # Match: *   **param** – description that may wrap
+    content = re.sub(
+        r"\*\s+\*\*(\w+)\*\*\s*[–-]\s*",
+        r"- **\1**: ",
+        content,
+    )
+
+    # Clean up "Parameters:" sections - convert to simpler format
+    content = re.sub(
+        r"\*\s+\*\*Parameters:\*\*",
+        "\n**Parameters:**",
+        content,
+    )
+    content = re.sub(
+        r"\*\s+\*\*Returns:\*\*",
+        "\n**Returns:**",
+        content,
+    )
+    content = re.sub(
+        r"\*\s+\*\*Raises:\*\*",
+        "\n**Raises:**",
+        content,
+    )
+    content = re.sub(
+        r"\*\s+\*\*Yields:\*\*",
+        "\n**Yields:**",
+        content,
+    )
+    content = re.sub(
+        r"\*\s+\*\*Arguments:\*\*",
+        "\n**Arguments:**",
+        content,
+    )
+    content = re.sub(
+        r"\*\s+\*\*Throws:\*\*",
+        "\n**Throws:**",
+        content,
+    )
+
+    # Fix nested list items under Parameters/Returns etc
+    # Convert *   * to proper nested -
+    content = re.sub(r"^\s*\*\s+\*\s+", "  - ", content, flags=re.MULTILINE)
+
+    # Remove orphaned list markers
+    content = re.sub(r"^\s*\*\s*$", "", content, flags=re.MULTILINE)
+
+    # Clean up type annotations in returns
+    # Match: *type* – and convert to: (*type*)
+    content = re.sub(
+        r"\n\s+\*(\w+)\*\s*[–-]\s*\n",
+        r"\n  - *\1*: ",
+        content,
+    )
+
+    # Fix "#### NOTE" / "#### WARNING" etc to be more prominent
+    content = re.sub(r"####\s+(NOTE|WARNING|SEE ALSO|IMPORTANT)", r"> **\1**", content)
+
+    return content
+
+
+def _is_api_page(filename: str, content: str) -> bool:
+    """Detect if a markdown file is an API documentation page.
+
+    Args:
+        filename: Name of the markdown file.
+        content: Content of the file.
+
+    Returns:
+        True if this appears to be API documentation.
+    """
+    # Check filename patterns
+    api_filename_patterns = [
+        "api",
+        "autoapi",
+        "reference",
+    ]
+    filename_lower = filename.lower()
+    if any(pattern in filename_lower for pattern in api_filename_patterns):
+        return True
+
+    # Check content patterns that indicate API docs
+    api_content_indicators = [
+        "**Parameters:**",
+        "*   **Parameters:**",
+        "**Returns:**",
+        "*   **Returns:**",
+        "**Raises:**",
+        "*   **Raises:**",
+        "**Arguments:**",
+        "*   **Arguments:**",
+    ]
+
+    indicator_count = sum(1 for ind in api_content_indicators if ind in content)
+    # If multiple API-style sections, treat as API docs
+    return indicator_count >= 2
 
 
 def extract_toctree_entries(content: str) -> List[Tuple[str, str]]:
@@ -553,6 +758,9 @@ def process_wiki_output(
             content = md_file.read_text(encoding="utf-8")
             # Clean up markdown formatting issues
             content = cleanup_markdown(content)
+            # Clean up API documentation formatting if this looks like an API page
+            if _is_api_page(md_file.name, content):
+                content = cleanup_api_docs(content)
             # Fix internal links for wiki
             fixed_content = fix_wiki_links(content, page_map)
             md_file.write_text(fixed_content, encoding="utf-8")
