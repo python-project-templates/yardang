@@ -2,11 +2,7 @@
 requires = [
     "hatchling",
 ]
-<<<<<<< before updating
 build-backend = "hatchling.build"
-=======
-build-backend="hatchling.build"
->>>>>>> after updating
 
 [project]
 name = "yardang"
@@ -135,25 +131,19 @@ src = "/"
 packages = [
     "yardang",
 ]
-<<<<<<< before updating
 exclude = [
     "docs/*",
     "examples/*",
 ]
-=======
->>>>>>> after updating
 
 [tool.hatch.build.targets.wheel]
 packages = [
     "yardang",
 ]
-<<<<<<< before updating
 exclude = [
     "docs/*",
     "examples/*",
 ]
-=======
->>>>>>> after updating
 
 [tool.hatch.build.targets.wheel.shared-data]
 
@@ -191,7 +181,6 @@ section-order = [
     "F401",
     "F403",
 ]
-<<<<<<< before updating
 
 [tool.yardang]
 root = "docs/src/home.md"
@@ -226,5 +215,3 @@ generate-footer = true
 footer-docs-url = "https://yardang.python-templates.dev"
 footer-repo-url = "https://github.com/python-project-templates/yardang"
 markdown-flavor = "github"
-=======
->>>>>>> after updating
