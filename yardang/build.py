@@ -201,23 +201,32 @@ def generate_docs_configuration(
     else:
         # load configuration
         default_data = os.path.split(os.getcwd())[-1]
-        project = project or get_config(section="name", base="project") or default_data.replace("_", "-")
-        title = title or get_config(section="title", base=config_base) or default_data.replace("_", "-")
-        module = module or get_config(section="module", base=config_base) or project.replace("-", "_") or default_data.replace("-", "_")
-        description = description or get_config(section="name", base="description") or default_data.replace("_", " ").replace("-", " ")
-        author = author or get_config(section="authors", base="project")
+        project = project if project is not None else get_config(section="name", base="project") or default_data.replace("_", "-")
+        title = title if title is not None else get_config(section="title", base=config_base) or default_data.replace("_", "-")
+        module = (
+            module
+            if module is not None
+            else get_config(section="module", base=config_base) or project.replace("-", "_") or default_data.replace("-", "_")
+        )
+        description = (
+            description
+            if description is not None
+            else get_config(section="name", base="description") or default_data.replace("_", " ").replace("-", " ")
+        )
+        author = author if author is not None else get_config(section="authors", base="project")
         if isinstance(author, list) and len(author) > 0:
             author = author[0]
         else:
             author = f"The {project} authors"
         if isinstance(author, dict):
             author = author["name"]
-        copyright = copyright or author
-        theme = theme or get_config(section="theme", base=config_base)
-        version = version or get_config(section="version", base="project")
+        copyright = copyright if copyright is not None else author
+        theme = theme if theme is not None else get_config(section="theme", base=config_base)
+        version = version if version is not None else get_config(section="version", base="project")
         docs_root = (
             docs_root
-            or get_config(section="docs-host", base=config_base)
+            if docs_root is not None
+            else get_config(section="docs-host", base=config_base)
             or get_config(section="urls.Homepage", base="project")
             or get_config(section="urls.homepage", base="project")
             or get_config(section="urls.Documentation", base="project")
@@ -226,14 +235,20 @@ def generate_docs_configuration(
             or get_config(section="urls.source", base="project")
             or ""
         )
-        root = root or get_config(section="root", base=config_base)
-        cname = cname or get_config(section="cname", base=config_base)
-        pages = pages or get_config(section="pages", base=config_base) or []
-        use_autoapi = use_autoapi or get_config(section="use-autoapi", base=config_base)
-        autoapi_ignore = autoapi_ignore or get_config(section="docs.autoapi-ignore")
+        root = root if root is not None else get_config(section="root", base=config_base)
+        cname = cname if cname is not None else get_config(section="cname", base=config_base)
+        pages = pages if pages is not None else get_config(section="pages", base=config_base) or []
+        use_autoapi = use_autoapi if use_autoapi is not None else get_config(section="use-autoapi", base=config_base)
+        autoapi_ignore = autoapi_ignore if autoapi_ignore is not None else get_config(section="docs.autoapi-ignore")
 
-        custom_css = custom_css or Path(get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
-        custom_js = custom_js or Path(get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
+        custom_css = (
+            custom_css
+            if custom_css is not None
+            else Path(get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
+        )
+        custom_js = (
+            custom_js if custom_js is not None else Path(get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
+        )
 
         # if custom_css and custom_js are strings and they exist as paths, read them as Paths
         # otherwise, assume the content is directly provided
