@@ -101,23 +101,23 @@ def run_doxygen_if_needed(
 @contextmanager
 def generate_docs_configuration(
     *,
-    project: str = "",
-    title: str = "",
-    module: str = "",
-    description: str = "",
-    author: str = "",
-    copyright: str = "",
-    version: str = "",
-    theme: str = "furo",
-    docs_root: str = "",
-    root: str = "",
-    cname: str = "",
+    project: Optional[str] = None,
+    title: Optional[str] = None,
+    module: Optional[str] = None,
+    description: Optional[str] = None,
+    author: Optional[str] = None,
+    copyright: Optional[str] = None,
+    version: Optional[str] = None,
+    theme: Optional[str] = None,
+    docs_root: Optional[str] = None,
+    root: Optional[str] = None,
+    cname: Optional[str] = None,
     pages: Optional[List] = None,
     use_autoapi: Optional[bool] = None,
     autoapi_ignore: Optional[List] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
-    config_base: str = "tool.yardang",
+    config_base: Optional[str] = None,
     previous_versions: Optional[bool] = False,
     adjust_arguments: Callable = None,
     adjust_template: Callable = None,
@@ -195,6 +195,7 @@ def generate_docs_configuration(
         - ``show-include``: Show #include directives (default: True)
         - ``use-project-refids``: Prefix refids with project name (default: True)
     """
+    config_base = config_base if config_base is not None else "tool.yardang"
     if os.path.exists("conf.py"):
         # yield folder path to sphinx build
         yield os.path.curdir
@@ -221,7 +222,7 @@ def generate_docs_configuration(
         if isinstance(author, dict):
             author = author["name"]
         copyright = copyright if copyright is not None else author
-        theme = theme if theme is not None else get_config(section="theme", base=config_base)
+        theme = theme if theme is not None else get_config(section="theme", base=config_base) or "furo"
         version = version if version is not None else get_config(section="version", base="project")
         docs_root = (
             docs_root
