@@ -98,17 +98,6 @@ filename = "pyproject.toml"
 search = 'version = "{current_version}"'
 replace = 'version = "{new_version}"'
 
-<<<<<<< before updating
-[tool.check-manifest]
-ignore = [
-    ".copier-answers.yaml",
-    "Makefile",
-    "docs/**/*",
-    "examples/**/*",
-]
-
-=======
->>>>>>> after updating
 [tool.coverage.run]
 branch = true
 omit = [
