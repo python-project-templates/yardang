@@ -26,14 +26,15 @@ jobs:
       - name: Install doxygen
         run: sudo apt-get install -y doxygen
 
+      - name: Install self
+        run: pip install -e .[develop]
+
       - uses: actions-ext/yardang@main
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Wiki
-        run: |
-          pip install -e .[develop]
-          yardang wiki --output-dir docs/wiki
+        run: yardang wiki --output-dir docs/wiki
 
       - name: Upload Documentation to Wiki
         uses: Andrew-Chen-Wang/github-wiki-action@v5
