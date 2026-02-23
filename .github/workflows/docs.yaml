@@ -32,7 +32,7 @@ jobs:
 
       - name: Build Wiki
         run: |
-          pip install -e .
+          pip install -e .[develop]
           yardang wiki --output-dir docs/wiki
 
       - name: Upload Documentation to Wiki
