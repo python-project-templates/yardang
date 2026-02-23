@@ -271,7 +271,7 @@ def run_create_previous_version_markdown(_):
     versions_folder = Path("{{source_dir}}") / "docs" / "versions"
     if not versions_folder.exists():
         versions_folder.mkdir(parents=True, exist_ok=True)
-    version_file = versions_folder / "version.md"
+    version_file = versions_folder / "versions.md"
     version_file.write_text("# Previous Versions")
 
 def run_add_version_links_to_toctree(app, doctree):
@@ -335,6 +335,7 @@ def run_convert_github_admonitions_to_rst(app, filename, lines):
 def setup(app):
     if {{previous_versions}}:
         app.connect("builder-inited", run_create_previous_version_markdown)
+        app.connect("doctree-read", run_add_version_links_to_toctree, priority=500)
     app.connect("builder-inited", run_copyreadme)
     app.connect("builder-inited", run_copycname)
     app.connect("source-read", run_convert_github_admonitions_to_rst)
