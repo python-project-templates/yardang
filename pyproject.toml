@@ -44,19 +44,21 @@ dependencies = [
     "sphinx-reredirects",
     "toml",
     "typer",
-    # Extensions
-    "breathe>=4.35.0",
-    "sphinx-rust",
-    "sphinx-js>=5.0.0",
-    "sphinx-markdown-builder>=0.6.9",
 ]
 
 [project.optional-dependencies]
 breathe = [
     "breathe>=4.35.0",
 ]
-sphinx-rust = [
+rust = [
     "sphinx-rust",
+]
+js = [
+    "sphinx-js>=5.0.0",
+]
+wiki = [
+    "sphinx-markdown-builder>=0.6.9",
+
 ]
 develop = [
     "build",
@@ -73,6 +75,11 @@ develop = [
     "ty",
     "uv",
     "wheel",
+    # Extensions
+    "breathe>=4.35.0",
+    "sphinx-rust",
+    "sphinx-js>=5.0.0",
+    "sphinx-markdown-builder>=0.6.9",
 ]
 
 [project.scripts]
