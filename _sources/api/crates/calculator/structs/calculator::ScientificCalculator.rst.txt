@@ -1,0 +1,4 @@
+Struct ``calculator::ScientificCalculator``
+===========================================
+
+.. rust:struct:: calculator::ScientificCalculator

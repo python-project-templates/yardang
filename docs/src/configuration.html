@@ -1,0 +1,1622 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html"><link rel="next" title="Example Notebook" href="../notebooks/example.html"><link rel="prev" title="Installation" href="installation.html">
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
+        <title>Configuration - yardang v0.5.2</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_js.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=890fd012" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.5.2</code></div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.5.2</code></span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">Configuration</a><input aria-label="Toggle navigation of Configuration" checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/example.html">Example Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="api.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/cpp/docs/api.html">Calculator C++ API Documentation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/crates/calculator/index.html">Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code></a><input aria-label="Toggle navigation of Crate calculator" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../api/crates/calculator/structs/index.html">Structs</a><input aria-label="Toggle navigation of Structs" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3ACalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::Calculator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3AScientificCalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::ScientificCalculator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../api/crates/calculator/enums/index.html">Enums</a><input aria-label="Toggle navigation of Enums" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/enums/calculator%3A%3ACalculatorError.html">Enum <code class="docutils literal notranslate"><span class="pre">calculator::CalculatorError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="../../_sources/docs/src/configuration.md.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section class="tex2jax_ignore mathjax_ignore" id="configuration">
+<h1>Configuration<a class="headerlink" href="#configuration" title="Link to this heading">¶</a></h1>
+<p>Configuration for <code class="docutils literal notranslate"><span class="pre">yardang</span></code> is driven from the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>, either via standard sections like <code class="docutils literal notranslate"><span class="pre">project</span></code> or from the dedicated <code class="docutils literal notranslate"><span class="pre">tool.yardang</span></code> section.
+Each option below corresponds to the <a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html">Sphinx configuration</a>.</p>
+<p>Here is <code class="docutils literal notranslate"><span class="pre">yardang</span></code>’s own configuration, in <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code></p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/src/home.md&quot;</span>
+<span class="n">cname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;yardang.python-templates.dev&quot;</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/overview.md&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/installation.md&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/configuration.md&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">use-autoapi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<section id="name">
+<h2><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project"><code class="docutils literal notranslate"><span class="pre">name</span></code></a><a class="headerlink" href="#name" title="Link to this heading">¶</a></h2>
+<p>The project name is taken from the standard section, or from the <code class="docutils literal notranslate"><span class="pre">cwd</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;your project name&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="title">
+<h2><code class="docutils literal notranslate"><span class="pre">title</span></code><a class="headerlink" href="#title" title="Link to this heading">¶</a></h2>
+<p>Same as <code class="docutils literal notranslate"><span class="pre">name</span></code></p>
+</section>
+<section id="module">
+<h2><code class="docutils literal notranslate"><span class="pre">module</span></code><a class="headerlink" href="#module" title="Link to this heading">¶</a></h2>
+<p>The module title is taken from the <code class="docutils literal notranslate"><span class="pre">name</span></code>, replacing <code class="docutils literal notranslate"><span class="pre">-</span></code> with <code class="docutils literal notranslate"><span class="pre">_</span></code>, or from the <code class="docutils literal notranslate"><span class="pre">cwd</span></code> doing the same.</p>
+</section>
+<section id="description">
+<h2><code class="docutils literal notranslate"><span class="pre">description</span></code><a class="headerlink" href="#description" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;your project description&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="author">
+<h2><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a><a class="headerlink" href="#author" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">authors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;your project authors&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="version">
+<h2><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a><a class="headerlink" href="#version" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[project]</span>
+<span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;0.1.0&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="theme">
+<h2><code class="docutils literal notranslate"><span class="pre">theme</span></code><a class="headerlink" href="#theme" title="Link to this heading">¶</a></h2>
+<p>Defaults to <code class="docutils literal notranslate"><span class="pre">furo</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;furo&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h2><a class="reference external" href="https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_theme"><code class="docutils literal notranslate"><span class="pre">theme</span></code></a><a class="headerlink" href="#id1" title="Link to this heading">¶</a></h2>
+<p>Defaults to <code class="docutils literal notranslate"><span class="pre">furo</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">theme</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;furo&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="root">
+<h2><code class="docutils literal notranslate"><span class="pre">root</span></code><a class="headerlink" href="#root" title="Link to this heading">¶</a></h2>
+<p>The root page to use, defaults to <code class="docutils literal notranslate"><span class="pre">README.md</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/src/index.md&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="cname">
+<h2><code class="docutils literal notranslate"><span class="pre">cname</span></code><a class="headerlink" href="#cname" title="Link to this heading">¶</a></h2>
+<p>If set, will generate a <code class="docutils literal notranslate"><span class="pre">CNAME</span></code> file for GitHub Pages custom domains.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">cname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;yardang.python-templates.dev&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="pages">
+<h2><code class="docutils literal notranslate"><span class="pre">pages</span></code><a class="headerlink" href="#pages" title="Link to this heading">¶</a></h2>
+<p>Pages to include in the contents tree.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/overview.md&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/installation.md&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;docs/src/configuration.md&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="use-autoapi">
+<h2><code class="docutils literal notranslate"><span class="pre">use_autoapi</span></code><a class="headerlink" href="#use-autoapi" title="Link to this heading">¶</a></h2>
+<p>Whether or not to use <a class="reference external" href="https://sphinx-autoapi.readthedocs.io/en/latest/">Sphinx AutoAPI</a>.
+<strong>NOTE:</strong> it is recommended to manually autodoc your code.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">use-autoapi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="sphinx-options">
+<h2>Sphinx Options<a class="headerlink" href="#sphinx-options" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">html_theme_options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{}</span>
+<span class="n">html_static_path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">html_css_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">html_js_files</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">source_suffix</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">exclude_patterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+<span class="n">language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;en&quot;</span>
+<span class="n">pygments_style</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;sphinx&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="myst">
+<h2><a class="reference external" href="https://myst-parser.readthedocs.io/en/latest/#">Myst</a><a class="headerlink" href="#myst" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">myst_enable_extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;amsmath&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;colon_fence&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;dollarmath&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;html_image&quot;</span><span class="p">]</span>
+<span class="n">myst_fence_as_directive</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;mermaid&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="myst-nb">
+<h2><a class="reference external" href="https://myst-nb.readthedocs.io/en/latest/#">Myst-NB</a><a class="headerlink" href="#myst-nb" title="Link to this heading">¶</a></h2>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">nb_execution_mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;off&quot;</span>
+<span class="n">nb_execution_excludepatterns</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[]</span>
+</pre></div>
+</div>
+<p>Notebooks can be included with:</p>
+<div class="highlight-raw notranslate"><div class="highlight"><pre><span></span>```{eval-rst}
+.. toctree::
+  :maxdepth: 1
+
+  ../notebooks/example
+```
+</pre></div>
+</div>
+<p>An example follows:</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../notebooks/example.html">Example Notebook</a></li>
+</ul>
+</div>
+</section>
+<section id="autodoc-pydantic-arguments">
+<h2><a class="reference external" href="https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html">Autodoc Pydantic</a> arguments<a class="headerlink" href="#autodoc-pydantic-arguments" title="Link to this heading">¶</a></h2>
+<p><a class="reference external" href="https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html">Configuration for Autodoc Pydantic</a>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">autodoc_pydantic_model_show_config_summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_model_show_validator_summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_model_show_validator_members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_field_list_validators</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_field_show_constraints</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_model_member_order</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;bysource&quot;</span>
+<span class="n">autodoc_pydantic_model_show_json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">autodoc_pydantic_settings_show_json</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+<span class="n">autodoc_pydantic_model_show_field_summary</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</pre></div>
+</div>
+</section>
+<section id="mermaid">
+<h2>Mermaid<a class="headerlink" href="#mermaid" title="Link to this heading">¶</a></h2>
+<pre  class="mermaid">
+        graph TD;
+  A--&gt;B;
+  A--&gt;C;
+  B--&gt;D;
+  C--&gt;D;
+    </pre><pre  class="mermaid">
+        %%{init: {&quot;flowchart&quot;: {&quot;defaultRenderer&quot;: &quot;elk&quot;}} }%%
+
+graph TD
+  A[\Replenish Value Add stock/] ---&gt;C
+  B(Order product with Value Add) ---&gt;C
+  C{Frequent process?} ---&gt;|Yes|D
+  C ---&gt;|No|F
+  D{New template?} ---&gt;|Yes|E
+  D ---&gt;|No|G
+  E(Create work order template) ---&gt;G
+  F(Create work order) ---&gt;H
+  G(Copy template to work order) ---&gt;I
+  H(Add materials to work order processes) ---&gt;J
+  I(Adjust material quantities) ---&gt;J
+  J(Monitor work orders) ---&gt;K
+  K{Material quantities in stock?} ---&gt;|No|L
+  K ---&gt;|Yes|M
+  L(Procure materials) ---&gt;M
+  M(Change status to In Progress) ---&gt;N
+  N{External Vendor to perform step?} ---&gt;|Yes|O
+  N ---&gt;|No|P
+  O(Add vendor costs) ---&gt;Q
+  P[\Perform work order step/] ---&gt;R
+  Q([Ship materials to Vendor]) ---&gt;S ---&gt;X
+  R{Additional processing required?} ---&gt;|Yes|N
+  R---&gt;|No|T
+  S[\Perform work order step/] ---&gt;U
+  T(Receive final stock) ---&gt;V
+  U(Receive product from vendor) ---&gt;W
+  V(Ship product on order) ---&gt;Y
+  W{Partial quantity received?} ---&gt;|Yes|X
+  W ---&gt;|No|Z
+  X[Create work order backorder] ---&gt; J
+  Y(Change status to complete) ---&gt;AA
+  Z(Pay vendor invoice) ---&gt;R
+  AA([Finish])
+    </pre><pre  class="mermaid">
+        zenuml
+    title Demo
+    Alice-&gt;John: Hello John, how are you?
+    John-&gt;Alice: Great!
+    Alice-&gt;John: See you later!
+    </pre><pre  class="mermaid">
+        mindmap
+  root((mindmap))
+    Origins
+      Long history
+      ::icon(fa fa-book)
+      Popularisation
+        British popular psychology author Tony Buzan
+    Research
+      On effectiveness&lt;br/&gt;and features
+      On Automatic creation
+        Uses
+            Creative techniques
+            Strategic planning
+            Argument mapping
+    Tools
+      Pen and paper
+      Mermaid
+    </pre></section>
+<section id="github-admonitions">
+<h2>GitHub Admonitions<a class="headerlink" href="#github-admonitions" title="Link to this heading">¶</a></h2>
+<p>GitHub admonitions are automatically translated to sphinx.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Note <code class="docutils literal notranslate"><span class="pre">markdown</span></code> content</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Tip content</p>
+</div>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>Important content</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Warning content</p>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">Caution</p>
+<p>Caution content</p>
+</div>
+</section>
+<section id="breathe-doxygen-integration">
+<h2>Breathe/Doxygen Integration<a class="headerlink" href="#breathe-doxygen-integration" title="Link to this heading">¶</a></h2>
+<p>Yardang provides integration with <a class="reference external" href="https://breathe.readthedocs.io/">Breathe</a> for documenting C/C++ code using Doxygen. To use this feature, install yardang with the breathe extra:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>yardang<span class="o">[</span>breathe<span class="o">]</span>
+</pre></div>
+</div>
+<p>All breathe configuration is under <code class="docutils literal notranslate"><span class="pre">[tool.yardang.breathe]</span></code>.</p>
+<section id="projects">
+<h3><code class="docutils literal notranslate"><span class="pre">projects</span></code><a class="headerlink" href="#projects" title="Link to this heading">¶</a></h3>
+<p>A dictionary mapping project names to their Doxygen XML output directories.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">projects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">myproject</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;docs/doxygen/xml&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;path/to/xml&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="default-project">
+<h3><code class="docutils literal notranslate"><span class="pre">default-project</span></code><a class="headerlink" href="#default-project" title="Link to this heading">¶</a></h3>
+<p>The default project to use when no project is specified in breathe directives.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">default-project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;myproject&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="domain-by-extension">
+<h3><code class="docutils literal notranslate"><span class="pre">domain-by-extension</span></code><a class="headerlink" href="#domain-by-extension" title="Link to this heading">¶</a></h3>
+<p>Map file extensions to Sphinx domains.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">domain-by-extension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;hpp&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;h&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;py&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;py&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="domain-by-file-pattern">
+<h3><code class="docutils literal notranslate"><span class="pre">domain-by-file-pattern</span></code><a class="headerlink" href="#domain-by-file-pattern" title="Link to this heading">¶</a></h3>
+<p>Map file patterns to Sphinx domains.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">domain-by-file-pattern</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;*.hpp&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="projects-source">
+<h3><code class="docutils literal notranslate"><span class="pre">projects-source</span></code><a class="headerlink" href="#projects-source" title="Link to this heading">¶</a></h3>
+<p>Configure source files for automatic Doxygen XML generation.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">projects-source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">auto</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;file1.hpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;file2.hpp&quot;</span><span class="p">]]</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="build-directory">
+<h3><code class="docutils literal notranslate"><span class="pre">build-directory</span></code><a class="headerlink" href="#build-directory" title="Link to this heading">¶</a></h3>
+<p>The directory where Doxygen XML is built.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">build-directory</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;build/doxygen&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="default-members">
+<h3><code class="docutils literal notranslate"><span class="pre">default-members</span></code><a class="headerlink" href="#default-members" title="Link to this heading">¶</a></h3>
+<p>Default member visibility for doxygenclass directives.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">default-members</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;members&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;protected-members&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;private-members&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="show-define-initializer">
+<h3><code class="docutils literal notranslate"><span class="pre">show-define-initializer</span></code><a class="headerlink" href="#show-define-initializer" title="Link to this heading">¶</a></h3>
+<p>Show the initializer value for #define macros.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">show-define-initializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="show-enumvalue-initializer">
+<h3><code class="docutils literal notranslate"><span class="pre">show-enumvalue-initializer</span></code><a class="headerlink" href="#show-enumvalue-initializer" title="Link to this heading">¶</a></h3>
+<p>Show the initializer value for enum values.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">show-enumvalue-initializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="show-include">
+<h3><code class="docutils literal notranslate"><span class="pre">show-include</span></code><a class="headerlink" href="#show-include" title="Link to this heading">¶</a></h3>
+<p>Show the #include directive for documented entities.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">show-include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="implementation-filename-extensions">
+<h3><code class="docutils literal notranslate"><span class="pre">implementation-filename-extensions</span></code><a class="headerlink" href="#implementation-filename-extensions" title="Link to this heading">¶</a></h3>
+<p>List of file extensions considered as implementation files.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">implementation-filename-extensions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;.c&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.cc&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;.cpp&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="doxygen-config-options">
+<h3><code class="docutils literal notranslate"><span class="pre">doxygen-config-options</span></code><a class="headerlink" href="#doxygen-config-options" title="Link to this heading">¶</a></h3>
+<p>Additional Doxygen configuration options for auto-generated XML.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">doxygen-config-options</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">EXTRACT_ALL</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;YES&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">QUIET</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;YES&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="doxygen-aliases">
+<h3><code class="docutils literal notranslate"><span class="pre">doxygen-aliases</span></code><a class="headerlink" href="#doxygen-aliases" title="Link to this heading">¶</a></h3>
+<p>Doxygen aliases for custom commands.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">doxygen-aliases</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;myalias&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;Custom documentation text&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="use-project-refids">
+<h3><code class="docutils literal notranslate"><span class="pre">use-project-refids</span></code><a class="headerlink" href="#use-project-refids" title="Link to this heading">¶</a></h3>
+<p>Use project-qualified reference IDs to avoid conflicts.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">use-project-refids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="order-parameters-first">
+<h3><code class="docutils literal notranslate"><span class="pre">order-parameters-first</span></code><a class="headerlink" href="#order-parameters-first" title="Link to this heading">¶</a></h3>
+<p>Order function parameters before other members in documentation.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">order-parameters-first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="separate-member-pages">
+<h3><code class="docutils literal notranslate"><span class="pre">separate-member-pages</span></code><a class="headerlink" href="#separate-member-pages" title="Link to this heading">¶</a></h3>
+<p>Generate separate pages for each class member.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.breathe]</span>
+<span class="n">separate-member-pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+</pre></div>
+</div>
+</section>
+<section id="complete-example">
+<h3>Complete Example<a class="headerlink" href="#complete-example" title="Link to this heading">¶</a></h3>
+<p>Here’s a complete example configuration for a C++ project:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My C++ Library&quot;</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/index.md&quot;</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;docs/api.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;docs/examples.md&quot;</span><span class="p">]</span>
+<span class="n">use-autoapi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="k">[tool.yardang.breathe]</span>
+<span class="n">projects</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mylib</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;docs/doxygen/xml&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">default-project</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;mylib&quot;</span>
+<span class="n">domain-by-extension</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="s2">&quot;hpp&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;h&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;cpp&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">show-define-initializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">show-enumvalue-initializer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">show-include</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">use-project-refids</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<p>Then in your documentation files, you can use breathe directives:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># API Reference</span>
+
+<span class="gu">## MyClass</span>
+
+\`\`\`{doxygenclass} MyNamespace::MyClass
+:members:
+:protected-members:
+\`\`\`
+
+<span class="gu">## Functions</span>
+
+\`\`\`{doxygenfunction} MyNamespace::myFunction
+\`\`\`
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sphinx-rust-integration">
+<h2>Sphinx-Rust Integration<a class="headerlink" href="#sphinx-rust-integration" title="Link to this heading">¶</a></h2>
+<p>Yardang provides integration with <a class="reference external" href="https://sphinx-rust.readthedocs.io/">sphinx-rust</a> for documenting Rust code. To use this feature, install yardang with the sphinx-rust extra:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>yardang<span class="o">[</span>sphinx-rust<span class="o">]</span>
+</pre></div>
+</div>
+<p>All sphinx-rust configuration is under <code class="docutils literal notranslate"><span class="pre">[tool.yardang.sphinx-rust]</span></code>.</p>
+<section id="crates">
+<h3><code class="docutils literal notranslate"><span class="pre">crates</span></code><a class="headerlink" href="#crates" title="Link to this heading">¶</a></h3>
+<p>A list of paths to Rust crates to document.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-rust]</span>
+<span class="n">crates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;path/to/crate1&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;path/to/crate2&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</section>
+<section id="doc-formats">
+<h3><code class="docutils literal notranslate"><span class="pre">doc-formats</span></code><a class="headerlink" href="#doc-formats" title="Link to this heading">¶</a></h3>
+<p>A dictionary mapping crate names to their docstring format. Valid values are <code class="docutils literal notranslate"><span class="pre">&quot;restructuredtext&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;myst-nb&quot;</span></code> (for markdown docstrings).</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-rust]</span>
+<span class="n">doc-formats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mycrate</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;myst-nb&quot;</span><span class="w"> </span><span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>Note:</strong> When using <code class="docutils literal notranslate"><span class="pre">myst_nb</span></code> as your Sphinx parser (which yardang uses by default), use <code class="docutils literal notranslate"><span class="pre">&quot;myst-nb&quot;</span></code> instead of <code class="docutils literal notranslate"><span class="pre">&quot;markdown&quot;</span></code> for markdown docstrings.</p>
+</section>
+<section id="viewcode">
+<h3><code class="docutils literal notranslate"><span class="pre">viewcode</span></code><a class="headerlink" href="#viewcode" title="Link to this heading">¶</a></h3>
+<p>Enable links to the source code for documented items. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-rust]</span>
+<span class="n">viewcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Complete Example<a class="headerlink" href="#id2" title="Link to this heading">¶</a></h3>
+<p>Here’s a complete example configuration for a Rust project:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My Rust Library&quot;</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/index.md&quot;</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;docs/api.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;docs/examples.md&quot;</span><span class="p">]</span>
+<span class="n">use-autoapi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="k">[tool.yardang.sphinx-rust]</span>
+<span class="n">crates</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="s2">&quot;crates/mylib&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="s2">&quot;crates/mylib-utils&quot;</span><span class="p">,</span>
+<span class="p">]</span>
+<span class="n">doc-formats</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">mylib</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;myst-nb&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;mylib-utils&quot;</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s2">&quot;restructuredtext&quot;</span><span class="w"> </span><span class="p">}</span>
+<span class="n">viewcode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<p>Then in your documentation files, you can use sphinx-rust directives:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># API Reference</span>
+
+<span class="gu">## Document a Crate</span>
+
+\`\`\`{eval-rst}
+.. rust:crate:: mylib
+
+\`\`\`
+
+<span class="gu">## Document Individual Items</span>
+
+\`\`\`{eval-rst}
+.. rust:struct:: mylib::MyStruct
+
+\`\`\`
+
+\`\`\`{eval-rst}
+.. rust:enum:: mylib::MyEnum
+
+\`\`\`
+
+\`\`\`{eval-rst}
+.. rust:function:: mylib::my_function
+
+\`\`\`
+</pre></div>
+</div>
+</section>
+</section>
+<section id="sphinx-js-integration">
+<h2>Sphinx-JS Integration<a class="headerlink" href="#sphinx-js-integration" title="Link to this heading">¶</a></h2>
+<p>Yardang provides integration with <a class="reference external" href="https://pypi.org/project/sphinx-js/">sphinx-js</a> for documenting JavaScript and TypeScript code. To use this feature, you also need JSDoc or TypeDoc installed:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># For JavaScript projects</span>
+npm<span class="w"> </span>install<span class="w"> </span>jsdoc
+
+<span class="c1"># For TypeScript projects</span>
+npm<span class="w"> </span>install<span class="w"> </span>typedoc
+</pre></div>
+</div>
+<p>All sphinx-js configuration is under <code class="docutils literal notranslate"><span class="pre">[tool.yardang.sphinx-js]</span></code>.</p>
+<section id="js-source-path">
+<h3><code class="docutils literal notranslate"><span class="pre">js-source-path</span></code><a class="headerlink" href="#js-source-path" title="Link to this heading">¶</a></h3>
+<p>A list of directories containing your JS/TS source files, relative to the project root. This is required to enable sphinx-js.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">js-source-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;lib&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Or as a single path:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">js-source-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="js-language">
+<h3><code class="docutils literal notranslate"><span class="pre">js-language</span></code><a class="headerlink" href="#js-language" title="Link to this heading">¶</a></h3>
+<p>The language of your source files. Use <code class="docutils literal notranslate"><span class="pre">&quot;javascript&quot;</span></code> (default) or <code class="docutils literal notranslate"><span class="pre">&quot;typescript&quot;</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">js-language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;typescript&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="root-for-relative-js-paths">
+<h3><code class="docutils literal notranslate"><span class="pre">root-for-relative-js-paths</span></code><a class="headerlink" href="#root-for-relative-js-paths" title="Link to this heading">¶</a></h3>
+<p>The root directory for resolving relative JS entity paths. Required if you have multiple <code class="docutils literal notranslate"><span class="pre">js-source-path</span></code> entries.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">root-for-relative-js-paths</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;src&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="jsdoc-config-path">
+<h3><code class="docutils literal notranslate"><span class="pre">jsdoc-config-path</span></code><a class="headerlink" href="#jsdoc-config-path" title="Link to this heading">¶</a></h3>
+<p>Path to a JSDoc configuration file.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">jsdoc-config-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;jsdoc.json&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="jsdoc-tsconfig-path">
+<h3><code class="docutils literal notranslate"><span class="pre">jsdoc-tsconfig-path</span></code><a class="headerlink" href="#jsdoc-tsconfig-path" title="Link to this heading">¶</a></h3>
+<p>Path to a TypeScript configuration file (for TypeDoc).</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">jsdoc-tsconfig-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tsconfig.json&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="ts-type-bold">
+<h3><code class="docutils literal notranslate"><span class="pre">ts-type-bold</span></code><a class="headerlink" href="#ts-type-bold" title="Link to this heading">¶</a></h3>
+<p>Make TypeScript types bold in the output. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">ts-type-bold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="id3">
+<h3>Complete Example<a class="headerlink" href="#id3" title="Link to this heading">¶</a></h3>
+<p>Here’s a complete example configuration for a TypeScript project:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My TypeScript Library&quot;</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/index.md&quot;</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;docs/api.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;docs/examples.md&quot;</span><span class="p">]</span>
+<span class="n">use-autoapi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span>
+
+<span class="k">[tool.yardang.sphinx-js]</span>
+<span class="n">js-language</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;typescript&quot;</span>
+<span class="n">js-source-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;src&quot;</span><span class="p">]</span>
+<span class="n">jsdoc-tsconfig-path</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;tsconfig.json&quot;</span>
+<span class="n">ts-type-bold</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+<p>Then in your documentation files, you can use sphinx-js directives:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span><span class="gh"># API Reference</span>
+
+<span class="gu">## Functions</span>
+
+\`\`\`{js:autofunction} myFunction
+\`\`\`
+
+<span class="gu">## Classes</span>
+
+\`\`\`{js:autoclass} MyClass
+:members:
+\`\`\`
+
+<span class="gu">## Modules</span>
+
+\`\`\`{js:automodule} myModule
+\`\`\`
+</pre></div>
+</div>
+</section>
+</section>
+<section id="github-wiki-integration">
+<h2>GitHub Wiki Integration<a class="headerlink" href="#github-wiki-integration" title="Link to this heading">¶</a></h2>
+<p>Yardang can generate GitHub Wiki compatible markdown documentation using <a class="reference external" href="https://github.com/liran-funaro/sphinx-markdown-builder">sphinx-markdown-builder</a>. This allows you to publish your documentation to a GitHub Wiki in addition to (or instead of) a static HTML site.</p>
+<p>To generate wiki output, use the <code class="docutils literal notranslate"><span class="pre">yardang</span> <span class="pre">wiki</span></code> command instead of <code class="docutils literal notranslate"><span class="pre">yardang</span> <span class="pre">build</span></code>.</p>
+<p>Wiki output is configured in the <code class="docutils literal notranslate"><span class="pre">[tool.yardang.wiki]</span></code> section:</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">output-dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/wiki&quot;</span>
+<span class="n">generate-sidebar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">generate-footer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">fix-links</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">footer-docs-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://your-project.dev&quot;</span>
+<span class="n">footer-repo-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/your-org/your-project&quot;</span>
+<span class="n">markdown-flavor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;github&quot;</span>
+</pre></div>
+</div>
+<section id="enabled">
+<h3><code class="docutils literal notranslate"><span class="pre">enabled</span></code><a class="headerlink" href="#enabled" title="Link to this heading">¶</a></h3>
+<p>Enable the markdown builder extension. Must be <code class="docutils literal notranslate"><span class="pre">true</span></code> to use <code class="docutils literal notranslate"><span class="pre">yardang</span> <span class="pre">wiki</span></code>. Defaults to <code class="docutils literal notranslate"><span class="pre">false</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="output-dir">
+<h3><code class="docutils literal notranslate"><span class="pre">output-dir</span></code><a class="headerlink" href="#output-dir" title="Link to this heading">¶</a></h3>
+<p>Output directory for the generated markdown files. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;docs/wiki&quot;</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">output-dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/wiki&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-sidebar">
+<h3><code class="docutils literal notranslate"><span class="pre">generate-sidebar</span></code><a class="headerlink" href="#generate-sidebar" title="Link to this heading">¶</a></h3>
+<p>Generate a <code class="docutils literal notranslate"><span class="pre">_Sidebar.md</span></code> file for wiki navigation. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">generate-sidebar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="generate-footer">
+<h3><code class="docutils literal notranslate"><span class="pre">generate-footer</span></code><a class="headerlink" href="#generate-footer" title="Link to this heading">¶</a></h3>
+<p>Generate a <code class="docutils literal notranslate"><span class="pre">_Footer.md</span></code> file with links to docs and repo. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">generate-footer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="fix-links">
+<h3><code class="docutils literal notranslate"><span class="pre">fix-links</span></code><a class="headerlink" href="#fix-links" title="Link to this heading">¶</a></h3>
+<p>Fix internal markdown links for GitHub Wiki compatibility. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">fix-links</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="footer-docs-url">
+<h3><code class="docutils literal notranslate"><span class="pre">footer-docs-url</span></code><a class="headerlink" href="#footer-docs-url" title="Link to this heading">¶</a></h3>
+<p>URL to the full documentation site (for the footer).</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">footer-docs-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://your-project.dev&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="footer-repo-url">
+<h3><code class="docutils literal notranslate"><span class="pre">footer-repo-url</span></code><a class="headerlink" href="#footer-repo-url" title="Link to this heading">¶</a></h3>
+<p>URL to the repository (for the footer).</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">footer-repo-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/your-org/your-project&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="markdown-flavor">
+<h3><code class="docutils literal notranslate"><span class="pre">markdown-flavor</span></code><a class="headerlink" href="#markdown-flavor" title="Link to this heading">¶</a></h3>
+<p>Markdown flavor to use. Set to <code class="docutils literal notranslate"><span class="pre">&quot;github&quot;</span></code> for GitHub-flavored markdown. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;github&quot;</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">markdown-flavor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;github&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="markdown-anchor-sections">
+<h3><code class="docutils literal notranslate"><span class="pre">markdown-anchor-sections</span></code><a class="headerlink" href="#markdown-anchor-sections" title="Link to this heading">¶</a></h3>
+<p>Add anchors before each section. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">markdown-anchor-sections</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="markdown-anchor-signatures">
+<h3><code class="docutils literal notranslate"><span class="pre">markdown-anchor-signatures</span></code><a class="headerlink" href="#markdown-anchor-signatures" title="Link to this heading">¶</a></h3>
+<p>Add anchors before each function/class signature. Defaults to <code class="docutils literal notranslate"><span class="pre">true</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">markdown-anchor-signatures</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</pre></div>
+</div>
+</section>
+<section id="markdown-bullet">
+<h3><code class="docutils literal notranslate"><span class="pre">markdown-bullet</span></code><a class="headerlink" href="#markdown-bullet" title="Link to this heading">¶</a></h3>
+<p>Bullet character to use for lists. Defaults to <code class="docutils literal notranslate"><span class="pre">&quot;-&quot;</span></code>.</p>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang.wiki]</span>
+<span class="n">markdown-bullet</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;-&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Complete Example<a class="headerlink" href="#id4" title="Link to this heading">¶</a></h3>
+<div class="highlight-toml notranslate"><div class="highlight"><pre><span></span><span class="k">[tool.yardang]</span>
+<span class="n">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;My Project&quot;</span>
+<span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/index.md&quot;</span>
+<span class="n">pages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;docs/overview.md&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;docs/api.md&quot;</span><span class="p">]</span>
+
+<span class="k">[tool.yardang.wiki]</span>
+<span class="n">enabled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">output-dir</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;docs/wiki&quot;</span>
+<span class="n">generate-sidebar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">generate-footer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+<span class="n">footer-docs-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://myproject.dev&quot;</span>
+<span class="n">footer-repo-url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://github.com/myorg/myproject&quot;</span>
+<span class="n">markdown-flavor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;github&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="usage">
+<h3>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h3>
+<p>Generate GitHub Wiki output:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>yardang<span class="w"> </span>wiki
+</pre></div>
+</div>
+<p>The output will be in the <code class="docutils literal notranslate"><span class="pre">docs/wiki/</span></code> directory (or the configured output directory). To publish to your GitHub Wiki:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Clone your wiki repository</span>
+git<span class="w"> </span>clone<span class="w"> </span>https://github.com/YOUR-ORG/YOUR-REPO.wiki.git
+
+<span class="c1"># Copy the generated markdown files</span>
+cp<span class="w"> </span>-r<span class="w"> </span>docs/wiki/*<span class="w"> </span>YOUR-REPO.wiki/
+
+<span class="c1"># Commit and push</span>
+<span class="nb">cd</span><span class="w"> </span>YOUR-REPO.wiki
+git<span class="w"> </span>add<span class="w"> </span>.
+git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;Update wiki documentation&quot;</span>
+git<span class="w"> </span>push
+</pre></div>
+</div>
+<p>The generated wiki includes:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Home.md</span></code> - The main landing page (converted from index.md)</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Sidebar.md</span></code> - Navigation sidebar with links to all pages</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">_Footer.md</span></code> - Footer with links to documentation and repository</p></li>
+<li><p>All documentation pages converted to GitHub-flavored markdown</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="../notebooks/example.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Example Notebook</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="installation.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Installation</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; the yardang authors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Configuration</a><ul>
+<li><a class="reference internal" href="#name"><code class="docutils literal notranslate"><span class="pre">name</span></code></a></li>
+<li><a class="reference internal" href="#title"><code class="docutils literal notranslate"><span class="pre">title</span></code></a></li>
+<li><a class="reference internal" href="#module"><code class="docutils literal notranslate"><span class="pre">module</span></code></a></li>
+<li><a class="reference internal" href="#description"><code class="docutils literal notranslate"><span class="pre">description</span></code></a></li>
+<li><a class="reference internal" href="#author"><code class="docutils literal notranslate"><span class="pre">author</span></code></a></li>
+<li><a class="reference internal" href="#version"><code class="docutils literal notranslate"><span class="pre">version</span></code></a></li>
+<li><a class="reference internal" href="#theme"><code class="docutils literal notranslate"><span class="pre">theme</span></code></a></li>
+<li><a class="reference internal" href="#id1"><code class="docutils literal notranslate"><span class="pre">theme</span></code></a></li>
+<li><a class="reference internal" href="#root"><code class="docutils literal notranslate"><span class="pre">root</span></code></a></li>
+<li><a class="reference internal" href="#cname"><code class="docutils literal notranslate"><span class="pre">cname</span></code></a></li>
+<li><a class="reference internal" href="#pages"><code class="docutils literal notranslate"><span class="pre">pages</span></code></a></li>
+<li><a class="reference internal" href="#use-autoapi"><code class="docutils literal notranslate"><span class="pre">use_autoapi</span></code></a></li>
+<li><a class="reference internal" href="#sphinx-options">Sphinx Options</a></li>
+<li><a class="reference internal" href="#myst">Myst</a></li>
+<li><a class="reference internal" href="#myst-nb">Myst-NB</a></li>
+<li><a class="reference internal" href="#autodoc-pydantic-arguments">Autodoc Pydantic arguments</a></li>
+<li><a class="reference internal" href="#mermaid">Mermaid</a></li>
+<li><a class="reference internal" href="#github-admonitions">GitHub Admonitions</a></li>
+<li><a class="reference internal" href="#breathe-doxygen-integration">Breathe/Doxygen Integration</a><ul>
+<li><a class="reference internal" href="#projects"><code class="docutils literal notranslate"><span class="pre">projects</span></code></a></li>
+<li><a class="reference internal" href="#default-project"><code class="docutils literal notranslate"><span class="pre">default-project</span></code></a></li>
+<li><a class="reference internal" href="#domain-by-extension"><code class="docutils literal notranslate"><span class="pre">domain-by-extension</span></code></a></li>
+<li><a class="reference internal" href="#domain-by-file-pattern"><code class="docutils literal notranslate"><span class="pre">domain-by-file-pattern</span></code></a></li>
+<li><a class="reference internal" href="#projects-source"><code class="docutils literal notranslate"><span class="pre">projects-source</span></code></a></li>
+<li><a class="reference internal" href="#build-directory"><code class="docutils literal notranslate"><span class="pre">build-directory</span></code></a></li>
+<li><a class="reference internal" href="#default-members"><code class="docutils literal notranslate"><span class="pre">default-members</span></code></a></li>
+<li><a class="reference internal" href="#show-define-initializer"><code class="docutils literal notranslate"><span class="pre">show-define-initializer</span></code></a></li>
+<li><a class="reference internal" href="#show-enumvalue-initializer"><code class="docutils literal notranslate"><span class="pre">show-enumvalue-initializer</span></code></a></li>
+<li><a class="reference internal" href="#show-include"><code class="docutils literal notranslate"><span class="pre">show-include</span></code></a></li>
+<li><a class="reference internal" href="#implementation-filename-extensions"><code class="docutils literal notranslate"><span class="pre">implementation-filename-extensions</span></code></a></li>
+<li><a class="reference internal" href="#doxygen-config-options"><code class="docutils literal notranslate"><span class="pre">doxygen-config-options</span></code></a></li>
+<li><a class="reference internal" href="#doxygen-aliases"><code class="docutils literal notranslate"><span class="pre">doxygen-aliases</span></code></a></li>
+<li><a class="reference internal" href="#use-project-refids"><code class="docutils literal notranslate"><span class="pre">use-project-refids</span></code></a></li>
+<li><a class="reference internal" href="#order-parameters-first"><code class="docutils literal notranslate"><span class="pre">order-parameters-first</span></code></a></li>
+<li><a class="reference internal" href="#separate-member-pages"><code class="docutils literal notranslate"><span class="pre">separate-member-pages</span></code></a></li>
+<li><a class="reference internal" href="#complete-example">Complete Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sphinx-rust-integration">Sphinx-Rust Integration</a><ul>
+<li><a class="reference internal" href="#crates"><code class="docutils literal notranslate"><span class="pre">crates</span></code></a></li>
+<li><a class="reference internal" href="#doc-formats"><code class="docutils literal notranslate"><span class="pre">doc-formats</span></code></a></li>
+<li><a class="reference internal" href="#viewcode"><code class="docutils literal notranslate"><span class="pre">viewcode</span></code></a></li>
+<li><a class="reference internal" href="#id2">Complete Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#sphinx-js-integration">Sphinx-JS Integration</a><ul>
+<li><a class="reference internal" href="#js-source-path"><code class="docutils literal notranslate"><span class="pre">js-source-path</span></code></a></li>
+<li><a class="reference internal" href="#js-language"><code class="docutils literal notranslate"><span class="pre">js-language</span></code></a></li>
+<li><a class="reference internal" href="#root-for-relative-js-paths"><code class="docutils literal notranslate"><span class="pre">root-for-relative-js-paths</span></code></a></li>
+<li><a class="reference internal" href="#jsdoc-config-path"><code class="docutils literal notranslate"><span class="pre">jsdoc-config-path</span></code></a></li>
+<li><a class="reference internal" href="#jsdoc-tsconfig-path"><code class="docutils literal notranslate"><span class="pre">jsdoc-tsconfig-path</span></code></a></li>
+<li><a class="reference internal" href="#ts-type-bold"><code class="docutils literal notranslate"><span class="pre">ts-type-bold</span></code></a></li>
+<li><a class="reference internal" href="#id3">Complete Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#github-wiki-integration">GitHub Wiki Integration</a><ul>
+<li><a class="reference internal" href="#enabled"><code class="docutils literal notranslate"><span class="pre">enabled</span></code></a></li>
+<li><a class="reference internal" href="#output-dir"><code class="docutils literal notranslate"><span class="pre">output-dir</span></code></a></li>
+<li><a class="reference internal" href="#generate-sidebar"><code class="docutils literal notranslate"><span class="pre">generate-sidebar</span></code></a></li>
+<li><a class="reference internal" href="#generate-footer"><code class="docutils literal notranslate"><span class="pre">generate-footer</span></code></a></li>
+<li><a class="reference internal" href="#fix-links"><code class="docutils literal notranslate"><span class="pre">fix-links</span></code></a></li>
+<li><a class="reference internal" href="#footer-docs-url"><code class="docutils literal notranslate"><span class="pre">footer-docs-url</span></code></a></li>
+<li><a class="reference internal" href="#footer-repo-url"><code class="docutils literal notranslate"><span class="pre">footer-repo-url</span></code></a></li>
+<li><a class="reference internal" href="#markdown-flavor"><code class="docutils literal notranslate"><span class="pre">markdown-flavor</span></code></a></li>
+<li><a class="reference internal" href="#markdown-anchor-sections"><code class="docutils literal notranslate"><span class="pre">markdown-anchor-sections</span></code></a></li>
+<li><a class="reference internal" href="#markdown-anchor-signatures"><code class="docutils literal notranslate"><span class="pre">markdown-anchor-signatures</span></code></a></li>
+<li><a class="reference internal" href="#markdown-bullet"><code class="docutils literal notranslate"><span class="pre">markdown-bullet</span></code></a></li>
+<li><a class="reference internal" href="#id4">Complete Example</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8e576371"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"
+
+
+
+import zenumlLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/mermaid-zenuml@0.2.2/dist/mermaid-zenuml.esm.min.mjs"
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("True" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll(".mermaid svg");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("True" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+mermaid.registerLayoutLoaders(elkLayouts);
+
+
+
+mermaid.registerExternalDiagrams([zenumlLayouts]);
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);</script>
+    <script src="../../_static/js/custom.js?v=956e5d78"></script>
+    </body>
+</html>

@@ -1,0 +1,1433 @@
+<!doctype html>
+<html class="no-js" lang="en" data-content_root="../../">
+  <head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><link rel="index" title="Index" href="../../genindex.html"><link rel="search" title="Search" href="../../search.html">
+
+    <!-- Generated with Sphinx 7.4.7 and Furo 2025.12.19 -->
+        <title>yardang.build - yardang v0.5.2</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo.css?v=7bdb33bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_js.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/furo-extensions.css?v=8dab3a3b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=890fd012" />
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #202020;
+  --color-code-foreground: #d0d0d0;
+  
+      }
+    }
+  }
+</style></head>
+  <body>
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z" />
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"/>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"/>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"/>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"/>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"/>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"/>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"/>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"/>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"/>
+      <circle cx="14.5" cy="9.55" r="3.6"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round"
+      class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"/>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"/>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"/>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"/>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"/>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"/>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"/>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"/>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"/>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4" />
+      <path d="M13.5 6.5l4 4" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0" />
+      <path
+        d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008" />
+      <path d="M20 21l2 -2l-2 -2" />
+      <path d="M17 17l-2 2l2 2" />
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation" aria-label="Toggle site navigation sidebar">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc" aria-label="Toggle table of contents sidebar">
+<label class="overlay sidebar-overlay" for="__navigation"></label>
+<label class="overlay toc-overlay" for="__toc"></label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <span class="icon"><svg><use href="#svg-menu"></use></svg></span>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../index.html"><div class="brand">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.5.2</code></div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../index.html">
+  
+  <span class="sidebar-brand-text">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.5.2</code></span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/src/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/src/installation.html">Installation</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/src/configuration.html">Configuration</a><input aria-label="Toggle navigation of Configuration" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../docs/notebooks/example.html">Example Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../docs/src/api.html">API Reference</a><input aria-label="Toggle navigation of API Reference" class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" role="switch" type="checkbox"/><label for="toctree-checkbox-2"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/cpp/docs/api.html">Calculator C++ API Documentation</a></li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../../api/crates/calculator/index.html">Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code></a><input aria-label="Toggle navigation of Crate calculator" class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" role="switch" type="checkbox"/><label for="toctree-checkbox-3"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../api/crates/calculator/structs/index.html">Structs</a><input aria-label="Toggle navigation of Structs" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" role="switch" type="checkbox"/><label for="toctree-checkbox-4"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3ACalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::Calculator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3AScientificCalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::ScientificCalculator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3 has-children"><a class="reference internal" href="../../api/crates/calculator/enums/index.html">Enums</a><input aria-label="Toggle navigation of Enums" class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" role="switch" type="checkbox"/><label for="toctree-checkbox-5"><span class="icon"><svg><use href="#svg-arrow-right"></use></svg></span></label><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/enums/calculator%3A%3ACalculatorError.html">Enum <code class="docutils literal notranslate"><span class="pre">calculator::CalculatorError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle" aria-label="Toggle Light / Dark / Auto color theme">
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <span class="icon"><svg><use href="#svg-toc"></use></svg></span>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for yardang.build</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os.path</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">contextlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">tempfile</span><span class="w"> </span><span class="kn">import</span> <span class="n">TemporaryDirectory</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">List</span><span class="p">,</span> <span class="n">Optional</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jinja2</span><span class="w"> </span><span class="kn">import</span> <span class="n">Environment</span><span class="p">,</span> <span class="n">FileSystemLoader</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_config</span>
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;generate_docs_configuration&quot;</span><span class="p">,</span> <span class="s2">&quot;run_doxygen_if_needed&quot;</span><span class="p">,</span> <span class="s2">&quot;generate_wiki_configuration&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="run_doxygen_if_needed">
+<a class="viewcode-back" href="../../docs/src/api.html#yardang.build.run_doxygen_if_needed">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">run_doxygen_if_needed</span><span class="p">(</span>
+    <span class="n">breathe_projects</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">force</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">quiet</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Run doxygen for breathe projects if needed.</span>
+
+<span class="sd">    For each project in breathe_projects, checks if the XML output directory</span>
+<span class="sd">    exists. If not, attempts to find a Doxyfile in the parent directory and</span>
+<span class="sd">    runs doxygen to generate the XML.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        breathe_projects: Dict mapping project names to XML output directories.</span>
+<span class="sd">        force: If True, run doxygen even if XML directory already exists.</span>
+<span class="sd">        quiet: If True, suppress doxygen output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Dict mapping project names to whether doxygen was run successfully.</span>
+<span class="sd">        Returns empty dict if doxygen is not installed.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; results = run_doxygen_if_needed({&quot;mylib&quot;: &quot;docs/xml&quot;})</span>
+<span class="sd">        &gt;&gt;&gt; if results.get(&quot;mylib&quot;):</span>
+<span class="sd">        ...     print(&quot;Doxygen ran successfully&quot;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Check if doxygen is available</span>
+    <span class="n">doxygen_path</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="s2">&quot;doxygen&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">doxygen_path</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">{}</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">project_name</span><span class="p">,</span> <span class="n">xml_path</span> <span class="ow">in</span> <span class="n">breathe_projects</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">xml_dir</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">xml_path</span><span class="p">)</span>
+
+        <span class="c1"># Check if XML already exists (unless force is True)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">force</span> <span class="ow">and</span> <span class="n">xml_dir</span><span class="o">.</span><span class="n">exists</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">xml_dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s2">&quot;*.xml&quot;</span><span class="p">)):</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">project_name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Try to find Doxyfile in parent directory of XML output</span>
+        <span class="c1"># Common patterns: xml is in same dir as Doxyfile, or xml/ subdir</span>
+        <span class="n">search_dirs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="n">xml_dir</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span>  <span class="c1"># xml is a subdirectory</span>
+            <span class="n">xml_dir</span><span class="p">,</span>  <span class="c1"># xml output is in same directory as Doxyfile</span>
+        <span class="p">]</span>
+
+        <span class="n">doxyfile_path</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">search_dir</span> <span class="ow">in</span> <span class="n">search_dirs</span><span class="p">:</span>
+            <span class="n">candidate</span> <span class="o">=</span> <span class="n">search_dir</span> <span class="o">/</span> <span class="s2">&quot;Doxyfile&quot;</span>
+            <span class="k">if</span> <span class="n">candidate</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">doxyfile_path</span> <span class="o">=</span> <span class="n">candidate</span>
+                <span class="k">break</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">doxyfile_path</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Warning: No Doxyfile found for project &#39;</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">project_name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Run doxygen</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Running doxygen for project &#39;</span><span class="si">{</span><span class="n">project_name</span><span class="si">}</span><span class="s2">&#39;...&quot;</span><span class="p">)</span>
+
+            <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;cwd&quot;</span><span class="p">:</span> <span class="n">doxyfile_path</span><span class="o">.</span><span class="n">parent</span><span class="p">}</span>
+            <span class="k">if</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;stdout&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span>
+                <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;stderr&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">DEVNULL</span>
+
+            <span class="n">result</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="n">doxygen_path</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">project_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span> <span class="ow">and</span> <span class="n">result</span><span class="o">.</span><span class="n">returncode</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Generated XML documentation in </span><span class="si">{</span><span class="n">xml_dir</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Doxygen failed with return code </span><span class="si">{</span><span class="n">result</span><span class="o">.</span><span class="n">returncode</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">quiet</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  Error running doxygen: </span><span class="si">{</span><span class="n">e</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">results</span><span class="p">[</span><span class="n">project_name</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">results</span></div>
+
+
+
+<div class="viewcode-block" id="generate_docs_configuration">
+<a class="viewcode-back" href="../../docs/src/api.html#yardang.build.generate_docs_configuration">[docs]</a>
+<span class="nd">@contextmanager</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_docs_configuration</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">project</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">module</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">author</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">copyright</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">docs_root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">root</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">cname</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">pages</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_autoapi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">autoapi_ignore</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_css</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_js</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">config_base</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">previous_versions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">adjust_arguments</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">adjust_template</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate Sphinx documentation configuration from pyproject.toml.</span>
+
+<span class="sd">    A context manager that creates a temporary Sphinx configuration (conf.py)</span>
+<span class="sd">    based on settings from pyproject.toml and yields the configuration directory</span>
+<span class="sd">    path for use with sphinx-build. If a conf.py already exists in the current</span>
+<span class="sd">    directory, it yields the current directory instead.</span>
+
+<span class="sd">    Configuration is read from the ``[tool.yardang]`` section of pyproject.toml</span>
+<span class="sd">    by default, with breathe/doxygen settings in ``[tool.yardang.breathe]``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        project: Project name. Falls back to ``[project].name`` or directory name.</span>
+<span class="sd">        title: Documentation title. Falls back to ``[tool.yardang].title`` or project name.</span>
+<span class="sd">        module: Python module name for autoapi. Falls back to project name with</span>
+<span class="sd">            hyphens replaced by underscores.</span>
+<span class="sd">        description: Project description for metadata.</span>
+<span class="sd">        author: Author name. Falls back to first entry in ``[project].authors``.</span>
+<span class="sd">        copyright: Copyright string. Falls back to author name.</span>
+<span class="sd">        version: Version string. Falls back to ``[project].version``.</span>
+<span class="sd">        theme: Sphinx theme name. Defaults to ``&quot;furo&quot;``.</span>
+<span class="sd">        docs_root: Base URL for hosted documentation. Used for canonical URLs.</span>
+<span class="sd">        root: Path to README or index file to use as documentation root.</span>
+<span class="sd">        cname: Custom domain name for GitHub Pages CNAME file.</span>
+<span class="sd">        pages: List of page paths to include in the toctree.</span>
+<span class="sd">        use_autoapi: Whether to use sphinx-autoapi for Python API docs.</span>
+<span class="sd">            Defaults to ``None`` (auto-detect).</span>
+<span class="sd">        custom_css: Path to custom CSS file. Defaults to bundled custom.css.</span>
+<span class="sd">        custom_js: Path to custom JavaScript file. Defaults to bundled custom.js.</span>
+<span class="sd">        config_base: Base key in pyproject.toml for configuration.</span>
+<span class="sd">            Defaults to ``&quot;tool.yardang&quot;``.</span>
+<span class="sd">        previous_versions: Whether to generate previous versions documentation.</span>
+<span class="sd">        adjust_arguments: Callback to modify template arguments before rendering.</span>
+<span class="sd">            Receives the args dict and should return the modified dict.</span>
+<span class="sd">        adjust_template: Callback to modify the Jinja2 template before rendering.</span>
+<span class="sd">            Receives the template and should return the modified template.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        str: Path to directory containing the generated conf.py file,</span>
+<span class="sd">            or the current directory if conf.py already exists.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        FileNotFoundError: If custom_css or custom_js paths don&#39;t exist.</span>
+<span class="sd">        toml.TomlDecodeError: If pyproject.toml is malformed.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        Basic usage with sphinx-build::</span>
+
+<span class="sd">            from yardang import generate_docs_configuration</span>
+
+<span class="sd">            with generate_docs_configuration() as config_dir:</span>
+<span class="sd">                subprocess.run([&quot;sphinx-build&quot;, &quot;-c&quot;, config_dir, &quot;.&quot;, &quot;docs/html&quot;])</span>
+
+<span class="sd">        With custom arguments callback::</span>
+
+<span class="sd">            def customize(args):</span>
+<span class="sd">                args[&quot;html_theme_options&quot;][&quot;sidebar_hide_name&quot;] = True</span>
+<span class="sd">                return args</span>
+
+<span class="sd">            with generate_docs_configuration(adjust_arguments=customize) as config_dir:</span>
+<span class="sd">                # build docs...</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Breathe/Doxygen configuration is loaded from ``[tool.yardang.breathe]``</span>
+<span class="sd">        with the following options:</span>
+
+<span class="sd">        - ``projects``: Dict mapping project names to Doxygen XML directories</span>
+<span class="sd">        - ``default-project``: Default project for breathe directives</span>
+<span class="sd">        - ``domain-by-extension``: Map file extensions to Sphinx domains</span>
+<span class="sd">        - ``show-define-initializer``: Show macro initializer values (default: True)</span>
+<span class="sd">        - ``show-enumvalue-initializer``: Show enum value initializers (default: True)</span>
+<span class="sd">        - ``show-include``: Show #include directives (default: True)</span>
+<span class="sd">        - ``use-project-refids``: Prefix refids with project name (default: True)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">config_base</span> <span class="o">=</span> <span class="n">config_base</span> <span class="k">if</span> <span class="n">config_base</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot;tool.yardang&quot;</span>
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="s2">&quot;conf.py&quot;</span><span class="p">):</span>
+        <span class="c1"># yield folder path to sphinx build</span>
+        <span class="k">yield</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">curdir</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># load configuration</span>
+        <span class="n">default_data</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">project</span> <span class="o">=</span> <span class="n">project</span> <span class="k">if</span> <span class="n">project</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">default_data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="n">title</span> <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;title&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="n">default_data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">module</span>
+            <span class="k">if</span> <span class="n">module</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;module&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="n">project</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">default_data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">description</span>
+            <span class="k">if</span> <span class="n">description</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;name&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;description&quot;</span><span class="p">)</span> <span class="ow">or</span> <span class="n">default_data</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">author</span> <span class="o">=</span> <span class="n">author</span> <span class="k">if</span> <span class="n">author</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;authors&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">list</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">author</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">author</span> <span class="o">=</span> <span class="n">author</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">author</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;The </span><span class="si">{</span><span class="n">project</span><span class="si">}</span><span class="s2"> authors&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">author</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="n">author</span> <span class="o">=</span> <span class="n">author</span><span class="p">[</span><span class="s2">&quot;name&quot;</span><span class="p">]</span>
+        <span class="n">copyright</span> <span class="o">=</span> <span class="n">copyright</span> <span class="k">if</span> <span class="n">copyright</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">author</span>
+        <span class="n">theme</span> <span class="o">=</span> <span class="n">theme</span> <span class="k">if</span> <span class="n">theme</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;theme&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;furo&quot;</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">version</span> <span class="k">if</span> <span class="n">version</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;version&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+        <span class="n">docs_root</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">docs_root</span>
+            <span class="k">if</span> <span class="n">docs_root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;docs-host&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.Homepage&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.homepage&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.Documentation&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.documentation&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.Source&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;urls.source&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="s2">&quot;project&quot;</span><span class="p">)</span>
+            <span class="ow">or</span> <span class="s2">&quot;&quot;</span>
+        <span class="p">)</span>
+        <span class="n">root</span> <span class="o">=</span> <span class="n">root</span> <span class="k">if</span> <span class="n">root</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;root&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span>
+        <span class="n">cname</span> <span class="o">=</span> <span class="n">cname</span> <span class="k">if</span> <span class="n">cname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;cname&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span>
+        <span class="n">pages</span> <span class="o">=</span> <span class="n">pages</span> <span class="k">if</span> <span class="n">pages</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;pages&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+        <span class="n">use_autoapi</span> <span class="o">=</span> <span class="n">use_autoapi</span> <span class="k">if</span> <span class="n">use_autoapi</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;use-autoapi&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span>
+        <span class="n">autoapi_ignore</span> <span class="o">=</span> <span class="n">autoapi_ignore</span> <span class="k">if</span> <span class="n">autoapi_ignore</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;docs.autoapi-ignore&quot;</span><span class="p">)</span>
+
+        <span class="n">custom_css</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">custom_css</span>
+            <span class="k">if</span> <span class="n">custom_css</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+            <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;custom-css&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;custom.css&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+        <span class="n">custom_js</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">custom_js</span> <span class="k">if</span> <span class="n">custom_js</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">Path</span><span class="p">(</span><span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;custom-js&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span> <span class="o">/</span> <span class="s2">&quot;custom.js&quot;</span><span class="p">))</span>
+        <span class="p">)</span>
+
+        <span class="c1"># if custom_css and custom_js are strings and they exist as paths, read them as Paths</span>
+        <span class="c1"># otherwise, assume the content is directly provided</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">custom_css</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">custom_css_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">custom_css</span><span class="p">)</span>
+            <span class="c1"># if the path is too long, it will throw</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">custom_css_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                    <span class="n">custom_css</span> <span class="o">=</span> <span class="n">custom_css_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">custom_css</span> <span class="o">=</span> <span class="n">custom_css</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">custom_js</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">custom_js_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">custom_js</span><span class="p">)</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">custom_js_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                    <span class="n">custom_js</span> <span class="o">=</span> <span class="n">custom_js_path</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+            <span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">custom_js</span> <span class="o">=</span> <span class="n">custom_js</span><span class="o">.</span><span class="n">read_text</span><span class="p">()</span>
+
+        <span class="n">source_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">curdir</span>
+
+        <span class="n">configuration_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">config_option</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="c1"># sphinx generic</span>
+            <span class="s2">&quot;html_theme_options&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;html_static_path&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;html_css_files&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;html_js_files&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;source_suffix&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;exclude_patterns&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;language&quot;</span><span class="p">:</span> <span class="s2">&quot;en&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;pygments_style&quot;</span><span class="p">:</span> <span class="s2">&quot;sphinx&quot;</span><span class="p">,</span>
+            <span class="c1"># myst/myst-nb</span>
+            <span class="s2">&quot;myst_enable_extensions&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;amsmath&quot;</span><span class="p">,</span>
+                <span class="c1"># &quot;attrs_inline&quot;,</span>
+                <span class="s2">&quot;colon_fence&quot;</span><span class="p">,</span>
+                <span class="c1"># &quot;deflist&quot;,</span>
+                <span class="s2">&quot;dollarmath&quot;</span><span class="p">,</span>
+                <span class="c1"># &quot;fieldlist&quot;,</span>
+                <span class="c1"># &quot;html_admonition&quot;,</span>
+                <span class="s2">&quot;html_image&quot;</span><span class="p">,</span>
+                <span class="c1"># &quot;linkify&quot;,</span>
+                <span class="c1"># &quot;replacements&quot;,</span>
+                <span class="c1"># &quot;smartquotes&quot;,</span>
+                <span class="c1"># &quot;strikethrough&quot;,</span>
+                <span class="c1"># &quot;substitution&quot;,</span>
+                <span class="c1"># &quot;tasklist&quot;,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;myst_fence_as_directive&quot;</span><span class="p">:</span> <span class="p">[</span>
+                <span class="s2">&quot;mermaid&quot;</span><span class="p">,</span>
+                <span class="c1"># breathe/doxygen directives</span>
+                <span class="s2">&quot;doxygenindex&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenfunction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenstruct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenclass&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygennamespace&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygengroup&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygentypedef&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenenum&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenfile&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygendefine&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenunion&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;doxygenvariable&quot;</span><span class="p">,</span>
+                <span class="c1"># sphinx-rust directives</span>
+                <span class="s2">&quot;rust:crate&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:module&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:struct&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:enum&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:function&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:method&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:trait&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:impl&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:type&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:const&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:static&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;rust:macro&quot;</span><span class="p">,</span>
+                <span class="c1"># sphinx-js directives</span>
+                <span class="s2">&quot;js:autofunction&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;js:autoclass&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;js:autoattribute&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;js:automodule&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;js:autosummary&quot;</span><span class="p">,</span>
+                <span class="c1"># common sphinx directives</span>
+                <span class="s2">&quot;toctree&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;literalinclude&quot;</span><span class="p">,</span>
+                <span class="s2">&quot;include&quot;</span><span class="p">,</span>
+            <span class="p">],</span>
+            <span class="s2">&quot;nb_execution_mode&quot;</span><span class="p">:</span> <span class="s2">&quot;off&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;nb_execution_excludepatterns&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="c1"># autodoc/autodoc-pydantic</span>
+            <span class="s2">&quot;autodoc_pydantic_field_list_validators&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_field_show_constraints&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_member_order&quot;</span><span class="p">:</span> <span class="s2">&quot;bysource&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_show_config_summary&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_show_field_summary&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_show_json&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_show_validator_summary&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_model_show_validator_members&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s2">&quot;autodoc_pydantic_settings_show_json&quot;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="c1"># sphinx-reredirects</span>
+            <span class="s2">&quot;redirects&quot;</span><span class="p">:</span> <span class="p">{},</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">configuration_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">config_option</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="n">default</span>
+
+        <span class="c1"># Load breathe/doxygen configuration from tool.yardang.breathe</span>
+        <span class="n">breathe_config_base</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config_base</span><span class="si">}</span><span class="s2">.breathe&quot;</span>
+        <span class="n">breathe_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">config_option</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="c1"># breathe/doxygen</span>
+            <span class="s2">&quot;breathe_projects&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;breathe_default_project&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_domain_by_extension&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;h&quot;</span><span class="p">:</span> <span class="s2">&quot;cpp&quot;</span><span class="p">,</span> <span class="s2">&quot;hpp&quot;</span><span class="p">:</span> <span class="s2">&quot;cpp&quot;</span><span class="p">,</span> <span class="s2">&quot;cpp&quot;</span><span class="p">:</span> <span class="s2">&quot;cpp&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">:</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;py&quot;</span><span class="p">:</span> <span class="s2">&quot;py&quot;</span><span class="p">,</span> <span class="s2">&quot;cs&quot;</span><span class="p">:</span> <span class="s2">&quot;cs&quot;</span><span class="p">},</span>
+            <span class="s2">&quot;breathe_domain_by_file_pattern&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;breathe_projects_source&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;breathe_build_directory&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_default_members&quot;</span><span class="p">:</span> <span class="p">(),</span>
+            <span class="s2">&quot;breathe_show_define_initializer&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_show_enumvalue_initializer&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_show_include&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_implementation_filename_extensions&quot;</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;.c&quot;</span><span class="p">,</span> <span class="s2">&quot;.cc&quot;</span><span class="p">,</span> <span class="s2">&quot;.cpp&quot;</span><span class="p">],</span>
+            <span class="s2">&quot;breathe_doxygen_config_options&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;breathe_doxygen_aliases&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;breathe_use_project_refids&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_order_parameters_first&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;breathe_separate_member_pages&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># config keys in toml use hyphens, not underscores, and no breathe_ prefix</span>
+            <span class="n">toml_key</span> <span class="o">=</span> <span class="n">config_option</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;breathe_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="n">breathe_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">toml_key</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">breathe_config_base</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">breathe_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">breathe_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+
+        <span class="c1"># Determine if breathe should be used</span>
+        <span class="n">use_breathe</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects_source&quot;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_default_project&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Auto-run doxygen if configured and projects exist</span>
+        <span class="n">auto_run_doxygen</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;auto-run-doxygen&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">breathe_config_base</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">auto_run_doxygen</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">auto_run_doxygen</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Default to True</span>
+        <span class="k">if</span> <span class="n">use_breathe</span> <span class="ow">and</span> <span class="n">auto_run_doxygen</span> <span class="ow">and</span> <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">]:</span>
+            <span class="n">run_doxygen_if_needed</span><span class="p">(</span><span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Convert relative paths in breathe_projects to absolute paths</span>
+        <span class="c1"># This is needed because the conf.py is generated in a temp directory</span>
+        <span class="k">if</span> <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">]:</span>
+            <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">()</span> <span class="k">else</span> <span class="n">path</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">breathe_args</span><span class="p">[</span><span class="s2">&quot;breathe_projects&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+            <span class="p">}</span>
+
+        <span class="c1"># Load sphinx-rust configuration from tool.yardang.sphinx-rust</span>
+        <span class="n">rust_config_base</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config_base</span><span class="si">}</span><span class="s2">.sphinx-rust&quot;</span>
+        <span class="n">rust_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">config_option</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="c1"># sphinx-rust</span>
+            <span class="s2">&quot;rust_crates&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;rust_doc_formats&quot;</span><span class="p">:</span> <span class="p">{},</span>
+            <span class="s2">&quot;rust_viewcode&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># config keys in toml use hyphens, not underscores, and no rust_ prefix</span>
+            <span class="n">toml_key</span> <span class="o">=</span> <span class="n">config_option</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;rust_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="n">rust_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">toml_key</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">rust_config_base</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">rust_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">rust_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+
+        <span class="c1"># Determine if sphinx-rust should be used</span>
+        <span class="n">use_sphinx_rust</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">rust_args</span><span class="p">[</span><span class="s2">&quot;rust_crates&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Convert relative paths in rust_crates to absolute paths</span>
+        <span class="k">if</span> <span class="n">rust_args</span><span class="p">[</span><span class="s2">&quot;rust_crates&quot;</span><span class="p">]:</span>
+            <span class="n">rust_args</span><span class="p">[</span><span class="s2">&quot;rust_crates&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">()</span> <span class="k">else</span> <span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">rust_args</span><span class="p">[</span><span class="s2">&quot;rust_crates&quot;</span><span class="p">]]</span>
+
+        <span class="c1"># Load sphinx-js configuration from tool.yardang.sphinx-js</span>
+        <span class="n">js_config_base</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config_base</span><span class="si">}</span><span class="s2">.sphinx-js&quot;</span>
+        <span class="n">js_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">config_option</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="c1"># sphinx-js</span>
+            <span class="s2">&quot;js_language&quot;</span><span class="p">:</span> <span class="s2">&quot;javascript&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;js_source_path&quot;</span><span class="p">:</span> <span class="p">[],</span>
+            <span class="s2">&quot;root_for_relative_js_paths&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;jsdoc_config_path&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;jsdoc_tsconfig_path&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;ts_type_bold&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># config keys in toml use hyphens, not underscores, and no js_ prefix for some</span>
+            <span class="n">toml_key</span> <span class="o">=</span> <span class="n">config_option</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="n">js_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">toml_key</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">js_config_base</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">js_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">js_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+
+        <span class="c1"># Determine if sphinx-js should be used</span>
+        <span class="n">use_sphinx_js</span> <span class="o">=</span> <span class="nb">bool</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">])</span>
+
+        <span class="c1"># Convert relative paths in js_source_path to absolute paths</span>
+        <span class="k">if</span> <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">],</span> <span class="nb">str</span><span class="p">):</span>
+                <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span>
+                    <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">Path</span><span class="p">(</span><span class="n">path</span><span class="p">)</span><span class="o">.</span><span class="n">is_absolute</span><span class="p">()</span> <span class="k">else</span> <span class="n">path</span> <span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;js_source_path&quot;</span><span class="p">]</span>
+                <span class="p">]</span>
+
+        <span class="c1"># Convert relative paths for jsdoc config files</span>
+        <span class="k">if</span> <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_config_path&quot;</span><span class="p">]:</span>
+            <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_config_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_config_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_tsconfig_path&quot;</span><span class="p">]:</span>
+            <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_tsconfig_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;jsdoc_tsconfig_path&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+        <span class="k">if</span> <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;root_for_relative_js_paths&quot;</span><span class="p">]:</span>
+            <span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;root_for_relative_js_paths&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="n">js_args</span><span class="p">[</span><span class="s2">&quot;root_for_relative_js_paths&quot;</span><span class="p">])</span><span class="o">.</span><span class="n">resolve</span><span class="p">())</span>
+
+        <span class="c1"># Load wiki configuration from tool.yardang.wiki</span>
+        <span class="n">wiki_config_base</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config_base</span><span class="si">}</span><span class="s2">.wiki&quot;</span>
+        <span class="n">wiki_args</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">config_option</span><span class="p">,</span> <span class="n">default</span> <span class="ow">in</span> <span class="p">{</span>
+            <span class="c1"># wiki/markdown builder</span>
+            <span class="s2">&quot;wiki_enabled&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_output_dir&quot;</span><span class="p">:</span> <span class="s2">&quot;docs/wiki&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_generate_sidebar&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_generate_footer&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_fix_links&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_footer_docs_url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_footer_repo_url&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="c1"># sphinx-markdown-builder options</span>
+            <span class="s2">&quot;markdown_anchor_sections&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_anchor_signatures&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_docinfo&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_http_base&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_uri_doc_suffix&quot;</span><span class="p">:</span> <span class="s2">&quot;.md&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_bullet&quot;</span><span class="p">:</span> <span class="s2">&quot;-&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;markdown_flavor&quot;</span><span class="p">:</span> <span class="s2">&quot;github&quot;</span><span class="p">,</span>
+        <span class="p">}</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="c1"># config keys in toml use hyphens, not underscores, and no wiki_ prefix for wiki-specific options</span>
+            <span class="k">if</span> <span class="n">config_option</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;wiki_&quot;</span><span class="p">):</span>
+                <span class="n">toml_key</span> <span class="o">=</span> <span class="n">config_option</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;wiki_&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">toml_key</span> <span class="o">=</span> <span class="n">config_option</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">,</span> <span class="s2">&quot;-&quot;</span><span class="p">)</span>
+            <span class="n">wiki_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="n">toml_key</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">wiki_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">wiki_args</span><span class="p">[</span><span class="n">config_option</span><span class="p">]</span> <span class="o">=</span> <span class="n">default</span>
+
+        <span class="c1"># Determine if wiki/markdown output should be generated</span>
+        <span class="n">use_wiki</span> <span class="o">=</span> <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_enabled&quot;</span><span class="p">]</span>
+
+        <span class="c1"># create a temporary directory to store the conf.py file in</span>
+        <span class="k">with</span> <span class="n">TemporaryDirectory</span><span class="p">()</span> <span class="k">as</span> <span class="n">td</span><span class="p">:</span>
+            <span class="n">templateEnv</span> <span class="o">=</span> <span class="n">Environment</span><span class="p">(</span><span class="n">loader</span><span class="o">=</span><span class="n">FileSystemLoader</span><span class="p">(</span><span class="n">searchpath</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">Path</span><span class="p">(</span><span class="vm">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">resolve</span><span class="p">())))</span>
+
+            <span class="n">args</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+                <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span>
+                <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+                <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+                <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+                <span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span>
+                <span class="n">copyright</span><span class="o">=</span><span class="n">copyright</span><span class="p">,</span>
+                <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+                <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+                <span class="n">docs_root</span><span class="o">=</span><span class="n">docs_root</span><span class="p">,</span>
+                <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+                <span class="n">cname</span><span class="o">=</span><span class="n">cname</span><span class="p">,</span>
+                <span class="n">pages</span><span class="o">=</span><span class="n">pages</span><span class="p">,</span>
+                <span class="n">use_autoapi</span><span class="o">=</span><span class="n">use_autoapi</span><span class="p">,</span>
+                <span class="n">autoapi_ignore</span><span class="o">=</span><span class="n">autoapi_ignore</span><span class="p">,</span>
+                <span class="n">source_dir</span><span class="o">=</span><span class="n">source_dir</span><span class="p">,</span>
+                <span class="n">previous_versions</span><span class="o">=</span><span class="n">previous_versions</span><span class="p">,</span>
+                <span class="n">use_breathe</span><span class="o">=</span><span class="n">use_breathe</span><span class="p">,</span>
+                <span class="n">use_sphinx_rust</span><span class="o">=</span><span class="n">use_sphinx_rust</span><span class="p">,</span>
+                <span class="n">use_sphinx_js</span><span class="o">=</span><span class="n">use_sphinx_js</span><span class="p">,</span>
+                <span class="n">use_wiki</span><span class="o">=</span><span class="n">use_wiki</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">breathe_args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">rust_args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">js_args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">wiki_args</span><span class="p">,</span>
+                <span class="o">**</span><span class="n">configuration_args</span><span class="p">,</span>
+            <span class="p">)</span>
+
+            <span class="c1"># adjust arguments if a callable is provided</span>
+            <span class="k">if</span> <span class="n">adjust_arguments</span><span class="p">:</span>
+                <span class="n">args</span> <span class="o">=</span> <span class="n">adjust_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+
+            <span class="c1"># load the templatized conf.py file</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">templateEnv</span><span class="o">.</span><span class="n">get_template</span><span class="p">(</span><span class="s2">&quot;conf.py.j2&quot;</span><span class="p">)</span>
+
+            <span class="c1"># adjust the template if a callable is provided</span>
+            <span class="k">if</span> <span class="n">adjust_template</span><span class="p">:</span>
+                <span class="n">template</span> <span class="o">=</span> <span class="n">adjust_template</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+            <span class="c1"># Render</span>
+            <span class="n">template</span> <span class="o">=</span> <span class="n">template</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+            <span class="c1"># dump to file</span>
+            <span class="n">template_file</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">td</span><span class="p">)</span> <span class="o">/</span> <span class="s2">&quot;conf.py&quot;</span>
+            <span class="n">template_file</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">template</span><span class="p">)</span>
+
+            <span class="c1"># write custom css and customjs</span>
+            <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/html/_static/styles&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/html/_static/styles/custom.css&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">custom_css</span><span class="p">)</span>
+            <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/html/_static/js&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;docs/html/_static/js/custom.js&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">write_text</span><span class="p">(</span><span class="n">custom_js</span><span class="p">)</span>
+
+            <span class="c1"># append docs-specific ignores to gitignore</span>
+            <span class="k">if</span> <span class="n">Path</span><span class="p">(</span><span class="s2">&quot;.gitignore&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
+                <span class="n">has_html_build_folder</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">has_index_md</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;.gitignore&quot;</span><span class="p">,</span> <span class="s2">&quot;r+&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">fp</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fp</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="s2">&quot;docs/html&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                            <span class="n">has_html_build_folder</span> <span class="o">=</span> <span class="kc">True</span>
+                        <span class="k">if</span> <span class="s2">&quot;index.md&quot;</span> <span class="ow">in</span> <span class="n">line</span><span class="p">:</span>
+                            <span class="n">has_index_md</span> <span class="o">=</span> <span class="kc">True</span>
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">has_html_build_folder</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">has_index_md</span><span class="p">:</span>
+                        <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_html_build_folder</span><span class="p">:</span>
+                            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;docs/html</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">has_index_md</span><span class="p">:</span>
+                            <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;index.md</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="c1"># yield folder path to sphinx build</span>
+            <span class="k">yield</span> <span class="n">td</span></div>
+
+
+
+<div class="viewcode-block" id="generate_wiki_configuration">
+<a class="viewcode-back" href="../../docs/src/api.html#yardang.build.generate_wiki_configuration">[docs]</a>
+<span class="nd">@contextmanager</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">generate_wiki_configuration</span><span class="p">(</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">project</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">module</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">description</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">author</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">copyright</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">version</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">theme</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;furo&quot;</span><span class="p">,</span>
+    <span class="n">docs_root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">root</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">cname</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+    <span class="n">pages</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">use_autoapi</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">autoapi_ignore</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">List</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_css</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">custom_js</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">config_base</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;tool.yardang&quot;</span><span class="p">,</span>
+    <span class="n">previous_versions</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+    <span class="n">adjust_arguments</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">adjust_template</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate Sphinx configuration for GitHub Wiki markdown output.</span>
+
+<span class="sd">    A context manager similar to generate_docs_configuration, but configured</span>
+<span class="sd">    for building markdown output suitable for GitHub Wiki using</span>
+<span class="sd">    sphinx-markdown-builder.</span>
+
+<span class="sd">    This adds the sphinx_markdown_builder extension and sets appropriate</span>
+<span class="sd">    options for GitHub-flavored markdown output.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        project: Project name. Falls back to ``[project].name`` or directory name.</span>
+<span class="sd">        title: Documentation title. Falls back to ``[tool.yardang].title`` or project name.</span>
+<span class="sd">        module: Python module name for autoapi. Falls back to project name with</span>
+<span class="sd">            hyphens replaced by underscores.</span>
+<span class="sd">        description: Project description for metadata.</span>
+<span class="sd">        author: Author name. Falls back to first entry in ``[project].authors``.</span>
+<span class="sd">        copyright: Copyright string. Falls back to author name.</span>
+<span class="sd">        version: Version string. Falls back to ``[project].version``.</span>
+<span class="sd">        theme: Sphinx theme name. Defaults to ``&quot;furo&quot;``.</span>
+<span class="sd">        docs_root: Base URL for hosted documentation. Used for canonical URLs.</span>
+<span class="sd">        root: Path to README or index file to use as documentation root.</span>
+<span class="sd">        cname: Custom domain name for GitHub Pages CNAME file.</span>
+<span class="sd">        pages: List of page paths to include in the toctree.</span>
+<span class="sd">        use_autoapi: Whether to use sphinx-autoapi for Python API docs.</span>
+<span class="sd">        custom_css: Path to custom CSS file.</span>
+<span class="sd">        custom_js: Path to custom JavaScript file.</span>
+<span class="sd">        config_base: Base key in pyproject.toml for configuration.</span>
+<span class="sd">        previous_versions: Whether to generate previous versions documentation.</span>
+<span class="sd">        adjust_arguments: Callback to modify template arguments before rendering.</span>
+<span class="sd">        adjust_template: Callback to modify the Jinja2 template before rendering.</span>
+
+<span class="sd">    Yields:</span>
+<span class="sd">        tuple: (config_dir, wiki_args) where config_dir is the path to the directory</span>
+<span class="sd">            containing the generated conf.py file, and wiki_args is a dict with</span>
+<span class="sd">            wiki configuration for post-processing.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_markdown_builder</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>
+        <span class="c1"># Enable wiki mode</span>
+        <span class="n">args</span><span class="p">[</span><span class="s2">&quot;use_wiki&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="c1"># Call original adjust_arguments if provided</span>
+        <span class="k">if</span> <span class="n">adjust_arguments</span><span class="p">:</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">adjust_arguments</span><span class="p">(</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">args</span>
+
+    <span class="k">with</span> <span class="n">generate_docs_configuration</span><span class="p">(</span>
+        <span class="n">project</span><span class="o">=</span><span class="n">project</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">title</span><span class="p">,</span>
+        <span class="n">module</span><span class="o">=</span><span class="n">module</span><span class="p">,</span>
+        <span class="n">description</span><span class="o">=</span><span class="n">description</span><span class="p">,</span>
+        <span class="n">author</span><span class="o">=</span><span class="n">author</span><span class="p">,</span>
+        <span class="n">copyright</span><span class="o">=</span><span class="n">copyright</span><span class="p">,</span>
+        <span class="n">version</span><span class="o">=</span><span class="n">version</span><span class="p">,</span>
+        <span class="n">theme</span><span class="o">=</span><span class="n">theme</span><span class="p">,</span>
+        <span class="n">docs_root</span><span class="o">=</span><span class="n">docs_root</span><span class="p">,</span>
+        <span class="n">root</span><span class="o">=</span><span class="n">root</span><span class="p">,</span>
+        <span class="n">cname</span><span class="o">=</span><span class="n">cname</span><span class="p">,</span>
+        <span class="n">pages</span><span class="o">=</span><span class="n">pages</span><span class="p">,</span>
+        <span class="n">use_autoapi</span><span class="o">=</span><span class="n">use_autoapi</span><span class="p">,</span>
+        <span class="n">autoapi_ignore</span><span class="o">=</span><span class="n">autoapi_ignore</span><span class="p">,</span>
+        <span class="n">custom_css</span><span class="o">=</span><span class="n">custom_css</span><span class="p">,</span>
+        <span class="n">custom_js</span><span class="o">=</span><span class="n">custom_js</span><span class="p">,</span>
+        <span class="n">config_base</span><span class="o">=</span><span class="n">config_base</span><span class="p">,</span>
+        <span class="n">previous_versions</span><span class="o">=</span><span class="n">previous_versions</span><span class="p">,</span>
+        <span class="n">adjust_arguments</span><span class="o">=</span><span class="n">add_markdown_builder</span><span class="p">,</span>
+        <span class="n">adjust_template</span><span class="o">=</span><span class="n">adjust_template</span><span class="p">,</span>
+    <span class="p">)</span> <span class="k">as</span> <span class="n">config_dir</span><span class="p">:</span>
+        <span class="c1"># Read wiki args from config</span>
+        <span class="n">wiki_config_base</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">config_base</span><span class="si">}</span><span class="s2">.wiki&quot;</span>
+        <span class="n">wiki_args</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;wiki_output_dir&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;output-dir&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;docs/wiki&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_generate_sidebar&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;generate-sidebar&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">),</span>
+            <span class="s2">&quot;wiki_generate_footer&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;generate-footer&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">),</span>
+            <span class="s2">&quot;wiki_fix_links&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;fix-links&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">),</span>
+            <span class="s2">&quot;wiki_footer_docs_url&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;footer-docs-url&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;wiki_footer_repo_url&quot;</span><span class="p">:</span> <span class="n">get_config</span><span class="p">(</span><span class="n">section</span><span class="o">=</span><span class="s2">&quot;footer-repo-url&quot;</span><span class="p">,</span> <span class="n">base</span><span class="o">=</span><span class="n">wiki_config_base</span><span class="p">)</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># Apply defaults</span>
+        <span class="k">if</span> <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_generate_sidebar&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_generate_sidebar&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_generate_footer&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_generate_footer&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_fix_links&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">wiki_args</span><span class="p">[</span><span class="s2">&quot;wiki_fix_links&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+        <span class="k">yield</span> <span class="n">config_dir</span><span class="p">,</span> <span class="n">wiki_args</span></div>
+
+</pre></div>
+        </article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright &#169; the yardang authors
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../_static/documentation_options.js?v=8e576371"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/scripts/furo.js?v=46bd48cc"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7.9.0/dist/d3.min.js"></script>
+    <script type="module">import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11.12.1/dist/mermaid.esm.min.mjs";
+
+
+import elkLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/layout-elk@0.2.0/dist/mermaid-layout-elk.esm.min.mjs"
+
+
+
+import zenumlLayouts from "https://cdn.jsdelivr.net/npm/@mermaid-js/mermaid-zenuml@0.2.2/dist/mermaid-zenuml.esm.min.mjs"
+
+
+const initStyles = () => {
+    const defaultStyle = document.createElement('style');
+    defaultStyle.textContent = `pre.mermaid {
+    /* Same as .mermaid-container > pre */
+    display: block;
+    width: 100%;
+}
+
+pre.mermaid > svg {
+    /* Same as .mermaid-container > pre > svg */
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}`;
+    document.head.appendChild(defaultStyle);
+
+    const fullscreenStyle = document.createElement('style');
+    fullscreenStyle.textContent = `.mermaid-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+
+.mermaid-container > pre {
+    display: block;
+    width: 100%;
+}
+
+.mermaid-container > pre > svg {
+    height: 500px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.mermaid-fullscreen-btn {
+    width: 28px;
+    height: 28px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    font-size: 14px;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+}
+
+.mermaid-fullscreen-btn:hover {
+    opacity: 100% !important;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-btn.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-btn.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal {
+    display: none;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 95vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.98);
+    z-index: 9999;
+    padding: 20px;
+    overflow: auto;
+}
+
+.mermaid-fullscreen-modal.dark-theme {
+    background: rgba(0, 0, 0, 0.98);
+}
+
+.mermaid-fullscreen-modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen {
+    position: relative;
+    width: 95vw;
+    height: 90vh;
+    max-width: 95vw;
+    max-height: 90vh;
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    overflow: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen.dark-theme {
+    background: #1a1a1a;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+}
+
+.mermaid-container-fullscreen pre.mermaid {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mermaid-container-fullscreen .mermaid svg {
+    height: 100% !important;
+    width: 100% !important;
+    cursor: grab;
+}
+
+.mermaid-fullscreen-close {
+    position: fixed !important;
+    top: 20px !important;
+    right: 20px !important;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s;
+    font-size: 24px;
+    line-height: 1;
+    color: #333;
+}
+
+.mermaid-fullscreen-close:hover {
+    background: white;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
+}
+
+.mermaid-fullscreen-close.dark-theme {
+    background: rgba(50, 50, 50, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #e0e0e0;
+}
+
+.mermaid-fullscreen-close.dark-theme:hover {
+    background: rgba(60, 60, 60, 1);
+    box-shadow: 0 6px 16px rgba(255, 255, 255, 0.2);
+}
+
+.mermaid-fullscreen-modal .mermaid-fullscreen-btn {
+    display: none !important;
+}`;
+    document.head.appendChild(fullscreenStyle);
+}
+
+// Detect if page has dark background
+const isDarkTheme = () => {
+    // We use a set of heuristics:
+    // 1. Check for common dark mode classes or attributes
+    // 2. Check computed background color brightness
+    if (document.documentElement.classList.contains('dark') ||
+        document.documentElement.getAttribute('data-theme') === 'dark' ||
+        document.body.classList.contains('dark') ||
+        document.body.getAttribute('data-theme') === 'dark') {
+        // console.log("Dark theme detected via class/attribute");
+        return true;
+    }
+    if (document.documentElement.classList.contains('light') ||
+        document.documentElement.getAttribute('data-theme') === 'light' ||
+        document.body.classList.contains('light') ||
+        document.body.getAttribute('data-theme') === 'light') {
+        // console.log("Light theme detected via class/attribute");
+        return false;
+    }
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        // console.log("Dark theme detected via prefers-color-scheme");
+        return true;
+    }
+    const bgColor = window.getComputedStyle(document.body).backgroundColor;
+    const match = bgColor.match(/rgb\((\d+),\s*(\d+),\s*(\d+)/);
+    if (match) {
+        const r = parseInt(match[1]);
+        const g = parseInt(match[2]);
+        const b = parseInt(match[3]);
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+        // console.log("Background color brightness:", brightness);
+        return brightness < 128;
+    }
+    // console.log("No dark or light theme detected, defaulting to light theme");
+    return false;
+};
+
+let darkTheme = isDarkTheme();
+let modal = null;
+let modalContent = null;
+let previousScrollOffset = [window.scrollX, window.scrollY];
+
+const runMermaid = async (rerun) => {
+    console.log("Running mermaid diagrams, rerun =", rerun);
+    // clear all existing mermaid charts
+    let all_mermaids = document.querySelectorAll(".mermaid");
+
+    if (rerun) {
+        all_mermaids.forEach((el) => {
+            if(!el.hasAttribute("data-original-code")) {
+                // store original code
+                // console.log(`Storing original code for first run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+            if(el.getAttribute("data-processed") === "true") {
+                // remove and restore original
+                el.removeAttribute("data-processed");
+                // console.log(`Restoring original code for re-run: `, el.getAttribute('data-original-code'));
+                el.innerHTML = el.getAttribute('data-original-code');
+            } else {
+                // store original code
+                // console.log(`Storing original code for re-run: `, el.innerHTML);
+                el.setAttribute('data-original-code', el.innerHTML);
+            }
+        });
+        await mermaid.run();
+    }
+
+    all_mermaids = document.querySelectorAll(".mermaid");
+    const mermaids_processed = document.querySelectorAll(".mermaid[data-processed='true']");
+
+    if ("True" === "True") {
+        const mermaids_to_add_zoom = -1 === -1 ? all_mermaids.length : -1;
+        if(mermaids_to_add_zoom > 0) {
+            var svgs = d3.selectAll(".mermaid svg");
+            if(all_mermaids.length !== mermaids_processed.length) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else if(svgs.size() !== mermaids_to_add_zoom) {
+                setTimeout(() => runMermaid(false), 200);
+                return;
+            } else {
+                svgs.each(function() {
+                    var svg = d3.select(this);
+                    svg.html("<g class='wrapper'>" + svg.html() + "</g>");
+                    var inner = svg.select("g");
+                    var zoom = d3.zoom().on("zoom", function(event) {
+                        inner.attr("transform", event.transform);
+                    });
+                    svg.call(zoom);
+                });
+            }
+        }
+    } else if(all_mermaids.length !== mermaids_processed.length) {
+        // Wait for mermaid to process all diagrams
+        setTimeout(() => runMermaid(false), 200);
+        return;
+    }
+
+    // Stop here if not adding fullscreen capability
+    if ("True" !== "True") return;
+
+    if (modal !== null ) {
+        // Destroy existing modal
+        modal.remove();
+        modal = null;
+        modalContent = null;
+    }
+
+    modal = document.createElement('div');
+    modal.className = 'mermaid-fullscreen-modal' + (darkTheme ? ' dark-theme' : '');
+    modal.setAttribute('role', 'dialog');
+    modal.setAttribute('aria-modal', 'true');
+    modal.setAttribute('aria-label', 'Fullscreen diagram viewer');
+    modal.innerHTML = `
+        <button class="mermaid-fullscreen-close${darkTheme ? ' dark-theme' : ''}" aria-label="Close fullscreen">✕</button>
+        <div class="mermaid-container-fullscreen${darkTheme ? ' dark-theme' : ''}"></div>
+    `;
+    document.body.appendChild(modal);
+
+    modalContent = modal.querySelector('.mermaid-container-fullscreen');
+    const closeBtn = modal.querySelector('.mermaid-fullscreen-close');
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        modalContent.innerHTML = '';
+        document.body.style.overflow = ''
+        window.scrollTo({left: previousScrollOffset[0], top: previousScrollOffset[1], behavior: 'instant'});
+    };
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    document.querySelectorAll('.mermaid').forEach((mermaidDiv) => {
+        if (mermaidDiv.parentNode.classList.contains('mermaid-container') ||
+            mermaidDiv.closest('.mermaid-fullscreen-modal')) {
+            // Already processed, adjust button class if needed
+            const existingBtn = mermaidDiv.parentNode.querySelector('.mermaid-fullscreen-btn');
+            if (existingBtn) {
+                existingBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+            }
+            return;
+        }
+
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        mermaidDiv.parentNode.insertBefore(container, mermaidDiv);
+        container.appendChild(mermaidDiv);
+
+        const fullscreenBtn = document.createElement('button');
+        fullscreenBtn.className = 'mermaid-fullscreen-btn' + (darkTheme ? ' dark-theme' : '');
+        fullscreenBtn.setAttribute('aria-label', 'View diagram in fullscreen');
+        fullscreenBtn.textContent = '⛶';
+        fullscreenBtn.style.opacity = '50%';
+
+        // Calculate dynamic position based on diagram's margin and padding
+        const diagramStyle = window.getComputedStyle(mermaidDiv);
+        const marginTop = parseFloat(diagramStyle.marginTop) || 0;
+        const marginRight = parseFloat(diagramStyle.marginRight) || 0;
+        const paddingTop = parseFloat(diagramStyle.paddingTop) || 0;
+        const paddingRight = parseFloat(diagramStyle.paddingRight) || 0;
+        fullscreenBtn.style.top = `${marginTop + paddingTop + 4}px`;
+        fullscreenBtn.style.right = `${marginRight + paddingRight + 4}px`;
+
+        fullscreenBtn.addEventListener('click', () => {
+            previousScrollOffset = [window.scroll, window.scrollY];
+            const clone = mermaidDiv.cloneNode(true);
+            modalContent.innerHTML = '';
+            modalContent.appendChild(clone);
+
+            const svg = clone.querySelector('svg');
+            if (svg) {
+                svg.removeAttribute('width');
+                svg.removeAttribute('height');
+                svg.style.width = '100%';
+                svg.style.height = 'auto';
+                svg.style.maxWidth = '100%';
+                svg.style.sdisplay = 'block';
+
+                if ("True" === "True") {
+                    setTimeout(() => {
+                        const g = svg.querySelector('g');
+                        if (g) {
+                            var svgD3 = d3.select(svg);
+                            svgD3.html("<g class='wrapper'>" + svgD3.html() + "</g>");
+                            var inner = svgD3.select("g");
+                            var zoom = d3.zoom().on("zoom", function(event) {
+                                inner.attr("transform", event.transform);
+                            });
+                            svgD3.call(zoom);
+                        }
+                    }, 100);
+                }
+            }
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        container.appendChild(fullscreenBtn);
+    });
+};
+
+const load = async () => {
+    initStyles();
+
+    await runMermaid(true);
+
+    const reRunIfThemeChanges = async () => {
+        const newDarkTheme = isDarkTheme();
+        if (newDarkTheme !== darkTheme) {
+            darkTheme = newDarkTheme;
+            console.log("Theme change detected, re-running mermaid with", darkTheme ? "dark" : "default", "theme");
+            await mermaid.initialize(
+                {...JSON.parse(
+                    `{"startOnLoad": false}`
+                ),
+                ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+                }
+            );
+            await runMermaid(true);
+        }
+    };
+
+    // Update theme classes when theme changes
+    const themeObserver = new MutationObserver(reRunIfThemeChanges);
+    themeObserver.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+    themeObserver.observe(document.body, {
+        attributes: true,
+        attributeFilter: ['class', 'style', 'data-theme']
+    });
+};
+
+
+mermaid.registerLayoutLoaders(elkLayouts);
+
+
+
+mermaid.registerExternalDiagrams([zenumlLayouts]);
+
+
+console.log("Initializing mermaid with", darkTheme ? "dark" : "default", "theme");
+mermaid.initialize(
+    {...JSON.parse(
+        `{"startOnLoad": false}`
+    ),
+    ...{ darkMode: darkTheme, theme: darkTheme ? 'dark' : 'default' },
+    }
+);
+
+window.addEventListener("load", load);</script>
+    <script src="../../_static/js/custom.js?v=956e5d78"></script>
+    </body>
+</html>
