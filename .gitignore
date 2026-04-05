@@ -112,12 +112,16 @@ dmypy.json
 /site
 index.md
 docs/_build/
-docs/src/_build/
 docs/api
-docs/index.md
 docs/html
+<<<<<<< before updating
 docs/wiki
+=======
+docs/index.md
+>>>>>>> after updating
 docs/jupyter_execute
+docs/src/_build/
+docs/superpowers
 index.md
 
 # JS
