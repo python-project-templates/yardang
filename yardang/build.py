@@ -353,7 +353,7 @@ def generate_docs_configuration(
             "autodoc_pydantic_model_member_order": "bysource",
             "autodoc_pydantic_model_show_config_summary": None,
             "autodoc_pydantic_model_show_field_summary": None,
-            "autodoc_pydantic_model_show_json": True,
+            "autodoc_pydantic_model_show_json": False,
             "autodoc_pydantic_model_show_validator_summary": None,
             "autodoc_pydantic_model_show_validator_members": None,
             "autodoc_pydantic_settings_show_json": None,
