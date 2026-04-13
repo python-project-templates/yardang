@@ -192,6 +192,7 @@ pages = [
     "docs/src/api.md",
 ]
 use-autoapi = false
+html_extra_path = ["docs/examples"]
 
 [tool.yardang.breathe]
 projects = { calculator = "examples/cpp/xml" }

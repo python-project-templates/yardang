@@ -8,7 +8,7 @@ from typing import Callable, Dict, List, Optional
 
 from jinja2 import Environment, FileSystemLoader
 
-from .utils import get_config
+from .utils import get_config, get_config_flex
 
 __all__ = ("generate_docs_configuration", "run_doxygen_if_needed", "generate_wiki_configuration")
 
@@ -239,16 +239,18 @@ def generate_docs_configuration(
         root = root if root is not None else get_config(section="root", base=config_base)
         cname = cname if cname is not None else get_config(section="cname", base=config_base)
         pages = pages if pages is not None else get_config(section="pages", base=config_base) or []
-        use_autoapi = use_autoapi if use_autoapi is not None else get_config(section="use-autoapi", base=config_base)
-        autoapi_ignore = autoapi_ignore if autoapi_ignore is not None else get_config(section="docs.autoapi-ignore")
+        use_autoapi = use_autoapi if use_autoapi is not None else get_config_flex(section="use-autoapi", base=config_base)
+        autoapi_ignore = autoapi_ignore if autoapi_ignore is not None else get_config_flex(section="autoapi-ignore", base=config_base)
 
         custom_css = (
             custom_css
             if custom_css is not None
-            else Path(get_config(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
+            else Path(get_config_flex(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
         )
         custom_js = (
-            custom_js if custom_js is not None else Path(get_config(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
+            custom_js
+            if custom_js is not None
+            else Path(get_config_flex(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
         )
 
         # if custom_css and custom_js are strings and they exist as paths, read them as Paths
@@ -280,6 +282,7 @@ def generate_docs_configuration(
             # sphinx generic
             "html_theme_options": {},
             "html_static_path": [],
+            "html_extra_path": [],
             "html_css_files": [],
             "html_js_files": [],
             "source_suffix": [],
@@ -357,7 +360,9 @@ def generate_docs_configuration(
             # sphinx-reredirects
             "redirects": {},
         }.items():
-            configuration_args[config_option] = get_config(section=config_option, base=config_base) or default
+            configuration_args[config_option] = get_config_flex(section=config_option, base=config_base)
+            if configuration_args[config_option] is None:
+                configuration_args[config_option] = default
 
         # Load breathe/doxygen configuration from tool.yardang.breathe
         breathe_config_base = f"{config_base}.breathe"
@@ -396,6 +401,13 @@ def generate_docs_configuration(
             auto_run_doxygen = True  # Default to True
         if use_breathe and auto_run_doxygen and breathe_args["breathe_projects"]:
             run_doxygen_if_needed(breathe_args["breathe_projects"])
+
+        # Convert relative paths in html_extra_path to absolute paths
+        # This is needed because the conf.py is generated in a temp directory
+        if configuration_args["html_extra_path"]:
+            configuration_args["html_extra_path"] = [
+                str(Path(path).resolve()) if not Path(path).is_absolute() else path for path in configuration_args["html_extra_path"]
+            ]
 
         # Convert relative paths in breathe_projects to absolute paths
         # This is needed because the conf.py is generated in a temp directory
