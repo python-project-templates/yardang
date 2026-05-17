@@ -1,0 +1,8 @@
+Structs
+=======
+
+.. toctree::
+    :maxdepth: 1
+
+    calculator::Calculator
+    calculator::ScientificCalculator

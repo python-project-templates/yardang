@@ -1,0 +1,4 @@
+Enum ``calculator::CalculatorError``
+====================================
+
+.. rust:enum:: calculator::CalculatorError

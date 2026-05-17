@@ -1,0 +1,1 @@
+{"path":["calculator","CalculatorError"],"docstring":"Errors that can occur during calculator operations.","variants":[{"path":["calculator","CalculatorError","DivisionByZero"],"docstring":"Attempted to divide by zero.","discriminant":null,"fields":[]},{"path":["calculator","CalculatorError","Overflow"],"docstring":"The result overflowed.","discriminant":null,"fields":[]}]}
