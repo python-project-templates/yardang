@@ -34,7 +34,7 @@ release = "{{version}}"
 html_title = """{{title}} <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v{{version}}</code>"""
 docs_host_root = "{{docs_root}}"
 root = "{{root}}"
-cname = "{{cname}}"
+cname = "{{ cname or '' }}"
 pages = """
 {% for page in pages %}
 {{ page }}
