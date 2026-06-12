@@ -348,15 +348,15 @@ def generate_docs_configuration(
             "nb_execution_mode": "off",
             "nb_execution_excludepatterns": [],
             # autodoc/autodoc-pydantic
-            "autodoc_pydantic_field_list_validators": None,
-            "autodoc_pydantic_field_show_constraints": None,
+            "autodoc_pydantic_field_list_validators": False,
+            "autodoc_pydantic_field_show_constraints": False,
             "autodoc_pydantic_model_member_order": "bysource",
-            "autodoc_pydantic_model_show_config_summary": None,
-            "autodoc_pydantic_model_show_field_summary": None,
+            "autodoc_pydantic_model_show_config_summary": False,
+            "autodoc_pydantic_model_show_field_summary": False,
             "autodoc_pydantic_model_show_json": False,
-            "autodoc_pydantic_model_show_validator_summary": None,
-            "autodoc_pydantic_model_show_validator_members": None,
-            "autodoc_pydantic_settings_show_json": None,
+            "autodoc_pydantic_model_show_validator_summary": False,
+            "autodoc_pydantic_model_show_validator_members": False,
+            "autodoc_pydantic_settings_show_json": False,
             # sphinx-reredirects
             "redirects": {},
         }.items():

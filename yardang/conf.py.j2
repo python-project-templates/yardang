@@ -137,11 +137,21 @@ exclude_patterns = [
     "node_modules",
     "_skbuild",
     ".pytest_cache",
+    ".github",
+    ".github/*",
+    "AGENTS.md",
+    "CLAUDE.md",
+    "README.md",
+    "ROADMAP.md",
     "js/*",
     "*.wiki",
     "*.wiki/*",
+    "docs/.jupyter_cache",
+    "docs/.jupyter_cache/*",
     "docs/wiki",
     "docs/wiki/*",
+    "docs/html",
+    "docs/html/*",
     "emsdk",
     "target",
     *{{exclude_patterns}}
@@ -258,7 +268,6 @@ autodoc_pydantic_settings_show_json = {{autodoc_pydantic_settings_show_json}}  #
 # standard table of contents configuration
 toctree_base = """{toctree}
 ---
-caption: ""
 maxdepth: 2
 hidden: true
 ---"""
