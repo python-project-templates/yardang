@@ -85,6 +85,56 @@ use-autoapi = true
             os.chdir(original_cwd)
 
 
+class TestGeneratedDefaults:
+    """Tests for warning-free generated Sphinx defaults."""
+
+    def test_default_excludes_cover_generated_and_repo_docs(self, tmp_path):
+        pyproject_content = """
+[project]
+name = "test-project"
+version = "1.0.0"
+
+[tool.yardang]
+title = "Test Project"
+root = "README.md"
+use-autoapi = false
+"""
+        (tmp_path / "pyproject.toml").write_text(pyproject_content)
+        (tmp_path / "README.md").write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration() as conf_dir:
+                conf_content = (Path(conf_dir) / "conf.py").read_text()
+                assert '"README.md"' in conf_content
+                assert '"AGENTS.md"' in conf_content
+                assert '"docs/.jupyter_cache"' in conf_content
+                assert '"docs/html"' in conf_content
+        finally:
+            os.chdir(original_cwd)
+
+    def test_default_autodoc_pydantic_values_are_booleans(self, tmp_path):
+        (tmp_path / "pyproject.toml").write_text('[project]\nname = "test-project"\nversion = "1.0.0"\n')
+        (tmp_path / "README.md").write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration() as conf_dir:
+                conf_content = (Path(conf_dir) / "conf.py").read_text()
+                assert "autodoc_pydantic_field_list_validators = False" in conf_content
+                assert "autodoc_pydantic_field_show_constraints = False" in conf_content
+                assert "autodoc_pydantic_model_show_config_summary = False" in conf_content
+                assert "autodoc_pydantic_model_show_field_summary = False" in conf_content
+                assert "autodoc_pydantic_model_show_validator_summary = False" in conf_content
+                assert "autodoc_pydantic_model_show_validator_members = False" in conf_content
+                assert "autodoc_pydantic_settings_show_json = False" in conf_content
+                assert 'caption: ""' not in conf_content
+        finally:
+            os.chdir(original_cwd)
+
+
 class TestGetConfigFlex:
     """Tests for get_config_flex accepting both hyphens and underscores."""
 
