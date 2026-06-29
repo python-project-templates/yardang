@@ -4,13 +4,47 @@ import subprocess
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Callable, Dict, List, Optional
+from typing import Callable, Dict, List, Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
 
 from .utils import get_config, get_config_flex
 
-__all__ = ("generate_docs_configuration", "run_doxygen_if_needed", "generate_wiki_configuration")
+__all__ = ("generate_docs_configuration", "run_doxygen_if_needed", "generate_wiki_configuration", "BUNDLED_THEMES")
+
+# Themes for which yardang ships per-theme defaults (a bundled ``{theme}.css`` and/or
+# an optional dependency). Used as the default set for ``yardang preview``.
+BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya")
+
+
+def _resolve_custom_asset(value: Optional[Union[str, Path]], theme: Optional[str], extension: str, *, assets_dir: Path) -> Optional[str]:
+    """Resolve custom CSS/JS content for the docs build.
+
+    Resolution precedence:
+
+    1. An explicit ``value`` (an existing file path is read; a path-like value
+       that does not exist is ignored; anything else is treated as raw content).
+    2. A bundled theme-specific asset named ``{theme}.{extension}``.
+    3. A bundled generic ``custom.{extension}``.
+    4. ``None`` when nothing matches.
+    """
+    if value:
+        try:
+            candidate = Path(value)
+            if candidate.is_file():
+                return candidate.read_text()
+            looks_like_path = str(value).endswith(f".{extension}")
+        except OSError:
+            looks_like_path = False
+        if not looks_like_path:
+            return str(value)
+    names = [f"{theme}.{extension}"] if theme else []
+    names.append(f"custom.{extension}")
+    for name in names:
+        asset = assets_dir / name
+        if asset.is_file():
+            return asset.read_text()
+    return None
 
 
 def run_doxygen_if_needed(
@@ -117,6 +151,7 @@ def generate_docs_configuration(
     autoapi_ignore: Optional[List] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
+    html_output_dir: Optional[str] = None,
     config_base: Optional[str] = None,
     previous_versions: Optional[bool] = False,
     adjust_arguments: Callable = None,
@@ -148,8 +183,12 @@ def generate_docs_configuration(
         pages: List of page paths to include in the toctree.
         use_autoapi: Whether to use sphinx-autoapi for Python API docs.
             Defaults to ``None`` (auto-detect).
-        custom_css: Path to custom CSS file. Defaults to bundled custom.css.
-        custom_js: Path to custom JavaScript file. Defaults to bundled custom.js.
+        custom_css: Path or raw content for custom CSS. When unset, falls back to a
+            bundled per-theme ``{theme}.css`` then the generic ``custom.css``.
+        custom_js: Path or raw content for custom JS. When unset, falls back to a
+            bundled per-theme ``{theme}.js`` then the generic ``custom.js``.
+        html_output_dir: Directory where Sphinx writes HTML output. Custom CSS/JS
+            are placed under ``<html_output_dir>/_static``. Defaults to ``docs/html``.
         config_base: Base key in pyproject.toml for configuration.
             Defaults to ``"tool.yardang"``.
         previous_versions: Whether to generate previous versions documentation.
@@ -163,7 +202,6 @@ def generate_docs_configuration(
             or the current directory if conf.py already exists.
 
     Raises:
-        FileNotFoundError: If custom_css or custom_js paths don't exist.
         toml.TomlDecodeError: If pyproject.toml is malformed.
 
     Example:
@@ -242,38 +280,11 @@ def generate_docs_configuration(
         use_autoapi = use_autoapi if use_autoapi is not None else get_config_flex(section="use-autoapi", base=config_base)
         autoapi_ignore = autoapi_ignore if autoapi_ignore is not None else get_config_flex(section="autoapi-ignore", base=config_base)
 
-        custom_css = (
-            custom_css
-            if custom_css is not None
-            else Path(get_config_flex(section="custom-css", base=config_base) or (Path(__file__).parent / "custom.css"))
-        )
-        custom_js = (
-            custom_js
-            if custom_js is not None
-            else Path(get_config_flex(section="custom-js", base=config_base) or (Path(__file__).parent / "custom.js"))
-        )
-
-        # if custom_css and custom_js are strings and they exist as paths, read them as Paths
-        # otherwise, assume the content is directly provided
-        if isinstance(custom_css, str):
-            custom_css_path = Path(custom_css)
-            # if the path is too long, it will throw
-            try:
-                if custom_css_path.exists():
-                    custom_css = custom_css_path.read_text()
-            except OSError:
-                pass
-        else:
-            custom_css = custom_css.read_text()
-        if isinstance(custom_js, str):
-            custom_js_path = Path(custom_js)
-            try:
-                if custom_js_path.exists():
-                    custom_js = custom_js_path.read_text()
-            except OSError:
-                pass
-        else:
-            custom_js = custom_js.read_text()
+        custom_css = custom_css if custom_css is not None else get_config_flex(section="custom-css", base=config_base)
+        custom_js = custom_js if custom_js is not None else get_config_flex(section="custom-js", base=config_base)
+        assets_dir = Path(__file__).parent
+        custom_css = _resolve_custom_asset(custom_css, theme, "css", assets_dir=assets_dir)
+        custom_js = _resolve_custom_asset(custom_js, theme, "js", assets_dir=assets_dir)
 
         source_dir = os.path.curdir
 
@@ -559,11 +570,14 @@ def generate_docs_configuration(
             template_file = Path(td) / "conf.py"
             template_file.write_text(template)
 
-            # write custom css and customjs
-            Path("docs/html/_static/styles").mkdir(parents=True, exist_ok=True)
-            Path("docs/html/_static/styles/custom.css").write_text(custom_css)
-            Path("docs/html/_static/js").mkdir(parents=True, exist_ok=True)
-            Path("docs/html/_static/js/custom.js").write_text(custom_js)
+            # write custom css and customjs into the html output's static dir
+            html_output = Path(html_output_dir) if html_output_dir is not None else Path("docs/html")
+            styles_dir = html_output / "_static" / "styles"
+            styles_dir.mkdir(parents=True, exist_ok=True)
+            (styles_dir / "custom.css").write_text(custom_css or "")
+            js_dir = html_output / "_static" / "js"
+            js_dir.mkdir(parents=True, exist_ok=True)
+            (js_dir / "custom.js").write_text(custom_js or "")
 
             # append docs-specific ignores to gitignore
             if Path(".gitignore").exists():

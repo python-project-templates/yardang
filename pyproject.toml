@@ -60,6 +60,10 @@ wiki = [
     "sphinx-markdown-builder>=0.6.9",
 
 ]
+themes = [
+    "shibuya",
+    "sphinxawesome-theme",
+]
 develop = [
     "build",
     "bump-my-version",
@@ -80,6 +84,9 @@ develop = [
     "sphinx-rust",
     "sphinx-js>=5.0.0",
     "sphinx-markdown-builder>=0.6.9",
+    # Themes
+    "shibuya",
+    "sphinxawesome-theme",
 ]
 
 [project.scripts]
