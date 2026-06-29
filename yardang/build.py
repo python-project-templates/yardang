@@ -520,6 +520,31 @@ def generate_docs_configuration(
         # Determine if wiki/markdown output should be generated
         use_wiki = wiki_args["wiki_enabled"]
 
+        # Load sphinx-llm (llms.txt) configuration from tool.yardang.llms
+        llms_config_base = f"{config_base}.llms"
+        llms_args = {}
+        for config_option, default in {
+            # yardang gate
+            "llms_enabled": False,
+            # sphinx-llm passthrough options
+            "llms_txt_description": "",
+            "llms_txt_build_parallel": True,
+            "llms_txt_suffix_mode": "auto",
+            "llms_txt_full_build": True,
+        }.items():
+            # config keys in toml use hyphens, not underscores, and drop the
+            # llms_/llms_txt_ prefix
+            if config_option.startswith("llms_txt_"):
+                toml_key = config_option.replace("llms_txt_", "").replace("_", "-")
+            else:
+                toml_key = config_option.replace("llms_", "").replace("_", "-")
+            llms_args[config_option] = get_config(section=toml_key, base=llms_config_base)
+            if llms_args[config_option] is None:
+                llms_args[config_option] = default
+
+        # Determine if llms.txt output should be generated
+        use_llms = llms_args["llms_enabled"]
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -545,10 +570,12 @@ def generate_docs_configuration(
                 use_sphinx_rust=use_sphinx_rust,
                 use_sphinx_js=use_sphinx_js,
                 use_wiki=use_wiki,
+                use_llms=use_llms,
                 **breathe_args,
                 **rust_args,
                 **js_args,
                 **wiki_args,
+                **llms_args,
                 **configuration_args,
             )
 

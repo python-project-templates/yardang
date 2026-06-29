@@ -60,6 +60,9 @@ wiki = [
     "sphinx-markdown-builder>=0.6.9",
 
 ]
+llms = [
+    "sphinx-llm>=0.4.1",
+]
 themes = [
     "shibuya",
     "sphinxawesome-theme",
@@ -84,6 +87,7 @@ develop = [
     "sphinx-rust",
     "sphinx-js>=5.0.0",
     "sphinx-markdown-builder>=0.6.9",
+    "sphinx-llm>=0.4.1",
     # Themes
     "shibuya",
     "sphinxawesome-theme",
@@ -223,3 +227,10 @@ generate-footer = true
 footer-docs-url = "https://yardang.python-templates.dev"
 footer-repo-url = "https://github.com/python-project-templates/yardang"
 markdown-flavor = "github"
+
+[tool.yardang.llms]
+enabled = true
+description = "Easily generate sphinx documentation"
+build-parallel = true
+suffix-mode = "auto"
+full-build = true
