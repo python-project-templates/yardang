@@ -8,6 +8,13 @@ You can install from PyPI via `pip`:
 pip install yardang
 ```
 
+The `furo` theme is included by default. To pull in the other bundled themes
+(`sphinxawesome_theme`, `shibuya`), install the `themes` extra:
+
+```bash
+pip install yardang[themes]
+```
+
 ## Conda
 
 You can install from `conda-forge` via `conda` (or `mamba`, etc):

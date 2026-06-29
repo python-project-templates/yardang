@@ -54,23 +54,68 @@ authors = "your project authors"
 version = "0.1.0"
 ```
 
-## `theme`
-
-Defaults to `furo`.
-
-```toml
-[tool.yardang]
-theme = "furo"
-```
-
 ## [`theme`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_theme)
 
-Defaults to `furo`.
+The Sphinx HTML theme to build with. Defaults to `furo`.
 
 ```toml
 [tool.yardang]
 theme = "furo"
 ```
+
+`yardang` ships per-theme defaults (sensible CSS tweaks, and an optional
+dependency) for the following themes:
+
+- [`furo`](https://github.com/pradyunsg/furo) (the default, always installed)
+- [`sphinxawesome_theme`](https://sphinxawesome.xyz/)
+- [`shibuya`](https://shibuya.lepture.com/)
+
+`furo` is always available; install the rest with `pip install yardang[themes]`.
+Any other installed Sphinx theme works too — you just won't get the bundled
+defaults. See [Previewing themes](#previewing-themes) below to compare them live.
+
+## `custom-css` / `custom-js`
+
+Inject a custom stylesheet or script. The value may be a path or raw content.
+When unset, `yardang` looks for a bundled per-theme asset named `{theme}.css` /
+`{theme}.js`, then falls back to the generic `custom.css` / `custom.js`. This lets
+each theme ship sensible defaults — for example, `sphinxawesome_theme` and
+`shibuya` hide the duplicate copy button.
+
+```toml
+[tool.yardang]
+custom-css = "docs/_static/my.css"
+```
+
+## Previewing themes
+
+Build the docs once per theme to compare them side-by-side:
+
+```bash
+yardang preview
+```
+
+This renders the documentation into `docs/html/_previews/<theme>/` for each
+bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`). Themes whose package is
+not installed are skipped. Restrict the set with `--themes`:
+
+```bash
+yardang preview --themes furo --themes shibuya
+```
+
+Install the optional themes with:
+
+```bash
+pip install yardang[themes]
+```
+
+When this runs in CI before the GitHub Pages deploy (as in `yardang`'s own
+[`docs.yaml`](https://github.com/python-project-templates/yardang/blob/main/.github/workflows/docs.yaml)),
+each theme is browsable live at a suburl of the published site:
+
+- [`/_previews/furo/`](https://yardang.python-templates.dev/_previews/furo/)
+- [`/_previews/sphinxawesome_theme/`](https://yardang.python-templates.dev/_previews/sphinxawesome_theme/)
+- [`/_previews/shibuya/`](https://yardang.python-templates.dev/_previews/shibuya/)
 
 ## `root`
 

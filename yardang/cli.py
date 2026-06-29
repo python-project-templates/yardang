@@ -1,3 +1,4 @@
+from importlib.util import find_spec
 from pathlib import Path
 from subprocess import Popen
 from sys import executable, stderr, stdout
@@ -6,7 +7,7 @@ from typing import List, Optional
 
 from typer import Exit, Typer
 
-from .build import generate_docs_configuration, generate_wiki_configuration
+from .build import BUNDLED_THEMES, generate_docs_configuration, generate_wiki_configuration
 from .utils import get_config
 from .wiki import process_wiki_output
 
@@ -31,6 +32,7 @@ def build(
     use_autoapi: Optional[bool] = None,
     custom_css: Optional[Path] = None,
     custom_js: Optional[Path] = None,
+    output: str = "docs/html",
     config_base: Optional[str] = "tool.yardang",
     previous_versions: Optional[bool] = False,
 ):
@@ -50,6 +52,7 @@ def build(
         use_autoapi=use_autoapi,
         custom_css=custom_css,
         custom_js=custom_js,
+        html_output_dir=output,
         config_base=config_base,
         previous_versions=previous_versions,
     ) as file:
@@ -58,7 +61,7 @@ def build(
             "-m",
             "sphinx",
             ".",
-            "docs/html",
+            output,
             "-c",
             file,
         ]
@@ -200,10 +203,50 @@ def wiki(
                 print("  3. Commit and push to publish")
 
 
+def preview(
+    *,
+    themes: Optional[List[str]] = None,
+    output: str = "docs/html/_previews",
+    quiet: bool = False,
+    debug: bool = False,
+    pdb: bool = False,
+):
+    """Build the documentation once per theme for side-by-side comparison.
+
+    For each theme in ``themes`` (defaulting to the themes yardang bundles
+    defaults for), the docs are rendered into ``<output>/<theme>``. Themes whose
+    Sphinx package is not installed are skipped with a warning.
+    """
+    themes = themes or list(BUNDLED_THEMES)
+    built = []
+    failed = []
+    for theme in themes:
+        if find_spec(theme) is None:
+            print(f"Skipping theme '{theme}': install it to include it in previews", file=stderr)
+            continue
+        theme_output = str(Path(output) / theme)
+        if not quiet:
+            print(f"Building preview for theme '{theme}' -> {theme_output}")
+        try:
+            build(theme=theme, output=theme_output, quiet=quiet, debug=debug, pdb=pdb)
+        except Exit as exc:
+            failed.append(theme)
+            print(f"Failed to build preview for theme '{theme}' (exit {exc.exit_code})", file=stderr)
+            continue
+        built.append((theme, theme_output))
+    if built:
+        print("\nTheme previews generated:")
+        for theme, theme_output in built:
+            print(f"  {theme}: {theme_output}/index.html")
+    if failed:
+        raise Exit(1)
+
+
 def main():
     app = Typer()
     app.command("build")(build)
     app.command("debug")(debug)
+    app.command("preview")(preview)
     app.command("wiki")(wiki)
     app()
 
