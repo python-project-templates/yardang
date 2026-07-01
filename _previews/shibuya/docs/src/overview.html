@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-accent-color="violet" data-content_root="../../">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Overview - yardang v0.6.0</title><link rel="index" title="Index" href="../../genindex.html" /><link rel="search" title="Search" href="../../search.html" /><link rel="next" title="Installation" href="installation.html" /><link rel="prev" title="&lt;no title&gt;" href="../../index.html" /><script>
+    function setColorMode(t){let e=document.documentElement;e.setAttribute("data-color-mode",t);let a=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches,s=t;"auto"===t&&(s=a?"dark":"light"),"light"===s?(e.classList.remove("dark"),e.classList.add("light")):(e.classList.remove("light"),e.classList.add("dark"))}
+    setColorMode(localStorage._theme||"auto");
+  </script><link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=ad592e98" />
+    <link rel="stylesheet" type="text/css" href="../../_static/shibuya.css?v=9454f7d5" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_js.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link media="print" rel="stylesheet" type="text/css" href="../../_static/print.css?v=20ff2c19" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=d709142f" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --sy-f-text: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+  --sy-f-heading: "Inter", var(--sy-f-sys), var(--sy-f-cjk), sans-serif;
+}
+</style>
+    
+  <meta property="og:type" content="website"/><meta property="og:title" content="Overview"/>
+    <meta name="twitter:card" content="summary"/>
+  </head>
+<body><div class="sy-head">
+  <div class="sy-head-blur"></div>
+  <div class="sy-head-inner sy-container mx-auto">
+    <a class="sy-head-brand" href="../../index.html">
+      
+      
+      <strong>yardang</strong>
+    </a>
+    <div class="sy-head-nav" id="head-nav">
+      <nav class="sy-head-links"></nav>
+      <div class="sy-head-extra flex items-center print:hidden"><form class="searchbox flex items-center" action="../../search.html" method="get">
+  <input type="text" name="q" placeholder="Search" />
+  <kbd>/</kbd>
+</form><div class="sy-head-socials"></div></div>
+    </div>
+    <div class="sy-head-actions flex items-center shrink-0 print:hidden"><button class="js-theme theme-switch flex items-center"
+data-aria-auto="Switch to light color mode"
+data-aria-light="Switch to dark color mode"
+data-aria-dark="Switch to auto color mode">
+<i class="i-lucide theme-icon"></i>
+</button><button class="md:hidden flex items-center js-menu" aria-label="Menu" type="button" aria-controls="head-nav" aria-expanded="false">
+        <div class="hamburger">
+          <span class="hamburger_1"></span>
+          <span class="hamburger_2"></span>
+          <span class="hamburger_3"></span>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<div class="sy-page sy-container flex mx-auto">
+  <aside id="lside" class="sy-lside md:w-72 md:shrink-0 print:hidden">
+    <div class="sy-lside-inner md:sticky">
+      <div class="sy-scrollbar p-6">
+        <div class="globaltoc" data-expand-depth="0"><ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../notebooks/example.html">Example Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api.html">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../examples/cpp/docs/api.html">Calculator C++ API Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../api/crates/calculator/index.html">Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../../api/crates/calculator/structs/index.html">Structs</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3ACalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::Calculator</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/structs/calculator%3A%3AScientificCalculator.html">Struct <code class="docutils literal notranslate"><span class="pre">calculator::ScientificCalculator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../api/crates/calculator/enums/index.html">Enums</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../../api/crates/calculator/enums/calculator%3A%3ACalculatorError.html">Enum <code class="docutils literal notranslate"><span class="pre">calculator::CalculatorError</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="lside-overlay js-menu" role="button" aria-label="Close left sidebar" aria-controls="lside" aria-expanded="false"></div>
+  <aside id="rside" class="sy-rside pb-3 w-64 shrink-0 order-last">
+    <button class="rside-close js-menu xl:hidden" aria-label="Close Table of Contents" type="button" aria-controls="rside" aria-expanded="false">
+      <i class="i-lucide close"></i>
+    </button>
+    <div class="sy-scrollbar sy-rside-inner px-6 xl:top-16 xl:sticky xl:pl-0 pt-6 pb-4"><div class="localtoc"><h3>On this page</h3><ul>
+<li><a class="reference internal" href="#integrations">Integrations</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#github-pages">GitHub Pages</a></li>
+</ul>
+</li>
+</ul>
+</div><div id="ethical-ad-placement" data-ea-publisher="readthedocs"></div></div>
+  </aside>
+  <div class="rside-overlay js-menu" role="button" aria-label="Close Table of Contents" aria-controls="rside" aria-expanded="false"></div>
+  <main class="sy-main w-full max-sm:max-w-full print:pt-6">
+<div class="sy-breadcrumbs" role="navigation">
+  <div class="sy-breadcrumbs-inner flex items-center">
+    <div class="md:hidden mr-3">
+      <button class="js-menu" aria-label="Menu" type="button" aria-controls="lside" aria-expanded="false">
+        <i class="i-lucide menu"></i>
+      </button>
+    </div>
+    <ol class="flex-1" itemscope itemtype="https://schema.org/BreadcrumbList"><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <a itemprop="item" href="../../index.html"><span itemprop="name">yardang</span></a>
+        <span>/</span>
+        <meta itemprop="position" content="1" />
+      </li><li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
+        <strong itemprop="name">Overview</strong>
+        <meta itemprop="position" content="2" />
+      </li></ol>
+    <div class="xl:hidden ml-1">
+      <button class="js-menu" aria-label="Show table of contents" type="button" aria-controls="rside"
+        aria-expanded="false">
+        <i class="i-lucide outdent"></i>
+      </button>
+    </div>
+  </div>
+</div><div class="flex flex-col break-words justify-between">
+      <div class="relative min-w-0 max-w-6xl px-6 pb-6 pt-8 xl:px-12">
+  <article class="yue" role="main">
+          <section class="tex2jax_ignore mathjax_ignore" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> is a tool to configure the most common <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> options directly from a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+Sphinx relies on a <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file and Makefiles, but these usually overlap a substantial amount with information already stored in the repository (e.g. in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>).
+Within an organization, these files tend to include a substantial amount of overlapping information.</p>
+<section id="integrations">
+<h2>Integrations<a class="headerlink" href="#integrations" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> takes the most important parts, like theme, title, pages, etc, and extracts them directly from the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+It creates a temporary file for the <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>, and builds the project into <code class="docutils literal notranslate"><span class="pre">docs/html</span></code>.
+Out of the box, it comes with support for several popular Sphinx frameworks:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sphinx-design.readthedocs.io/en/latest/">Sphinx Design</a></p></li>
+<li><p><a class="reference external" href="https://jupyterbook.org/en/stable/content/myst.html">Myst Markdown</a></p></li>
+<li><p><a class="reference external" href="https://sphinx-autoapi.readthedocs.io/en/latest/">Sphinx AutoAPI</a></p></li>
+<li><p><a class="reference external" href="https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html">Autodoc Pydantic</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pradyunsg/furo">Furo Theme</a> (the default), plus bundled defaults for <a class="reference external" href="https://sphinxawesome.xyz/"><code class="docutils literal notranslate"><span class="pre">sphinxawesome_theme</span></code></a> and <a class="reference external" href="https://shibuya.lepture.com/"><code class="docutils literal notranslate"><span class="pre">shibuya</span></code></a></p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span> <span class="pre">preview</span></code> builds the docs once per theme so you can compare them
+side-by-side. See <a class="reference internal" href="configuration.html#previewing-themes"><span class="std std-ref">Previewing themes</span></a> for the
+live previews.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> builds Sphinx via a CLI, which will build docs into <code class="docutils literal notranslate"><span class="pre">docs/html</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span data-line="1">yardang<span class="w"> </span>build
+</span></pre></div>
+</div>
+<section id="github-pages">
+<h3>GitHub Pages<a class="headerlink" href="#github-pages" title="Link to this heading">¶</a></h3>
+<p>The goal of this project is to make it as easy as possible to use Sphinx.
+The following yaml should be all it takes to integrate your project with GitHub Pages, <strong>without changing anything in your existing repository</strong>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span data-line="1"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Docs</span>
+</span><span data-line="2"><span class="nt">on</span><span class="p">:</span>
+</span><span data-line="3"><span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+</span><span data-line="4"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;main&quot;</span><span class="p p-Indicator">]</span>
+</span><span data-line="5"><span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;v*&quot;</span><span class="p p-Indicator">]</span>
+</span><span data-line="6"><span class="w">    </span><span class="nt">paths-ignore</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">&quot;LICENSE&quot;</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">&quot;README.md&quot;</span><span class="p p-Indicator">]</span>
+</span><span data-line="7"><span class="nt">permissions</span><span class="p">:</span>
+</span><span data-line="8"><span class="w">    </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+</span><span data-line="9"><span class="nt">jobs</span><span class="p">:</span>
+</span><span data-line="10"><span class="w">  </span><span class="nt">docs</span><span class="p">:</span>
+</span><span data-line="11"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+</span><span data-line="12"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+</span><span data-line="13"><span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions-ext/yardang@main</span>
+</span><span data-line="14"><span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+</span><span data-line="15"><span class="w">        </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+</span></pre></div>
+</div>
+</section>
+</section>
+</section>
+
+        </article><button class="back-to-top" type="button">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+  </svg>
+  <span>Back to top</span>
+</button><div class="navigation flex print:hidden"><div class="navigation-prev">
+    <a href="../../index.html">
+      <i class="i-lucide chevron-left"></i>
+      <div class="page-info">
+        <span>Previous</span><div class="title">Home</div></div>
+    </a>
+  </div><div class="navigation-next">
+    <a href="installation.html">
+      <div class="page-info">
+        <span>Next</span>
+        <div class="title">Installation</div>
+      </div>
+      <i class="i-lucide chevron-right"></i>
+    </a>
+  </div></div></div>
+    </div>
+  </main>
+</div>
+<footer class="sy-foot">
+  <div class="sy-foot-inner sy-container mx-auto">
+    <div class="sy-foot-reserved md:flex justify-between items-center">
+      <div class="sy-foot-copyright"><p>the yardang authors</p>
+  
+  <p>
+    Made with
+    
+    <a href="https://www.sphinx-doc.org/">Sphinx</a> and
+    
+    <a href="https://shibuya.lepture.com">Shibuya theme</a>.
+  </p>
+</div>
+      <div class="sy-foot-socials"></div>
+    </div>
+  </div>
+</footer>
+      <script src="../../_static/documentation_options.js?v=8fa8b3e9"></script>
+      <script src="../../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+      <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+      <script src="../../_static/shibuya.js?v=50760d75"></script>
+      <script src="../../_static/js/custom.js?v=956e5d78"></script></body>
+</html>

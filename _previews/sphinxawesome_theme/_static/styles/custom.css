@@ -1,0 +1,33 @@
+a.reference  {
+    display: inline;
+}
+
+
+a.reference > img {
+    display: inline;
+    max-width: unset;
+}
+
+
+/* Lighten code block backgrounds in dark mode */
+.dark pre,
+.dark .highlight,
+.dark .highlight pre,
+.dark div[class^="highlight"] {
+    background-color: #1e2433 !important;
+}
+
+.dark pre code,
+.dark .highlight code {
+    background-color: transparent !important;
+}
+
+/* Lighter background for inline code in dark mode */
+.dark code:not(pre code) {
+    background-color: rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Hide duplicate copybtn */
+.copybtn {
+    display: none;
+}
