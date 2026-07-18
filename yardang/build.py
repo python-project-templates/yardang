@@ -622,8 +622,19 @@ def generate_docs_configuration(
                             fp.write("docs/html\n")
                         if not has_index_md:
                             fp.write("index.md\n")
-            # yield folder path to sphinx build
-            yield td
+            # sphinx-llm starts a nested Sphinx build without forwarding the
+            # generated configuration directory. Make the same configuration
+            # available from the source directory for that build.
+            source_configuration = Path("conf.py")
+            if use_llms:
+                source_configuration.write_text(template)
+
+            try:
+                # yield folder path to sphinx build
+                yield td
+            finally:
+                if use_llms:
+                    source_configuration.unlink(missing_ok=True)
 
 
 @contextmanager
