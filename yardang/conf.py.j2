@@ -155,6 +155,15 @@ exclude_patterns = [
     "*.wiki/*",
     "docs/.jupyter_cache",
     "docs/.jupyter_cache/*",
+    # myst-nb writes executed notebooks into a ``jupyter_execute`` directory
+    # inside the source tree. With the source root at the project root, a
+    # rebuild would otherwise re-read that output as source and nest it deeper
+    # on every run (``jupyter_execute/.../jupyter_execute/...``). Exclude it at
+    # any depth.
+    "jupyter_execute",
+    "jupyter_execute/*",
+    "**/jupyter_execute",
+    "**/jupyter_execute/**",
     "docs/wiki",
     "docs/wiki/*",
     "docs/html",
