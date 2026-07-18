@@ -109,6 +109,7 @@ use-autoapi = false
                 conf_content = (Path(conf_dir) / "conf.py").read_text()
                 assert '"README.md"' in conf_content
                 assert '"AGENTS.md"' in conf_content
+                assert '".venv"' in conf_content
                 assert '"docs/.jupyter_cache"' in conf_content
                 assert '"docs/html"' in conf_content
         finally:
