@@ -1,0 +1,2578 @@
+# index.html.md
+
+<div style="display: flex; flex-direction: row; margin-top:50px;">   <a href="https://github.com/python-project-templates/yardang"><img src="https://github.com/python-project-templates/yardang/blob/main/docs/logo.png?raw=true" alt="yardang" width="120"></a>   <h1 style="margin-left: 20px;">yardang</h1> </div> 
+
+[![GitHub](https://img.shields.io/badge/repo-github-181717?logo=github&logoColor=white)](https://github.com/python-project-templates/yardang) [![Build Status](https://github.com/python-project-templates/yardang/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/yardang/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/python-project-templates/yardang/branch/main/graph/badge.svg)](https://codecov.io/gh/python-project-templates/yardang) [![License](https://img.shields.io/github/license/python-project-templates/yardang)](https://github.com/python-project-templates/yardang) [![PyPI](https://img.shields.io/pypi/v/yardang.svg)](https://pypi.python.org/pypi/yardang)
+
+`yardang` is a Python library for generating [Sphinx documentation](https://www.sphinx-doc.org/en/master/) easily, with minimal local configuration overhead.
+
+[`yardang`](https://www.britannica.com/science/yardang) makes building [Sphinx](https://www.sphinx-doc.org/en/master/) easy.
+
+About `yardang` and how it works.
+
+Install `yardang` from PyPI, Conda Forge, or build from source.
+
+Learn how to configure your repository.
+
+Star, Fork, or contribute on GitHub.
+
+---
+
+*This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).*
+
+
+# index.html.md
+
+<a id="crate-calculator"></a>
+
+# Crate `calculator`
+
+Version: 0.1.0
+
+<a id="calculator"></a>
+
+### pub mod calculator;[[source]](code/calculator.md#rust-code-calculator)
+
+<a id="calculator-library"></a>
+
+## Calculator Library
+
+A simple calculator library demonstrating Rust documentation with sphinx-rust.
+
+This crate provides basic arithmetic operations and a calculator struct that maintains a history of operations.
+
+<a id="example"></a>
+
+### Example
+
+```rust
+use calculator::{Calculator, Operation};  let mut calc = Calculator::new(); let result = calc.calculate(5.0, 3.0, Operation::Add); assert_eq!(result, 8.0); 
+```
+
+<a id="id1"></a>
+
+## Structs
+
+| [`Calculator`](structs/calculator::Calculator.md#calculator-Calculator)                               | A calculator that performs basic arithmetic operations.         |
+|-------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| [`ScientificCalculator`](structs/calculator::ScientificCalculator.md#calculator-ScientificCalculator) | A scientific calculator with additional mathematical functions. |
+
+<a id="id2"></a>
+
+## Enums
+
+| [`CalculatorError`](enums/calculator::CalculatorError.md#calculator-CalculatorError)   | Errors that can occur during calculator operations.   |
+|----------------------------------------------------------------------------------------|-------------------------------------------------------|
+
+
+# index.html.md
+
+<a id="enums"></a>
+
+# Enums
+
+- [Enum `calculator::CalculatorError`](calculator::CalculatorError.md)
+
+
+# index.html.md
+
+<a id="structs"></a>
+
+# Structs
+
+- [Struct `calculator::Calculator`](calculator::Calculator.md)
+- [Struct `calculator::ScientificCalculator`](calculator::ScientificCalculator.md)
+
+
+# README.html.md
+
+<a id="javascript-calculator-example"></a>
+
+# JavaScript Calculator Example
+
+This is an example JavaScript project demonstrating sphinx-js documentation with yardang.
+
+<a id="features"></a>
+
+## Features
+
+- Basic arithmetic operations (add, subtract, multiply, divide)
+- Calculator class with operation history
+- Scientific calculator with trigonometric functions
+- Full JSDoc documentation
+
+<a id="usage"></a>
+
+## Usage
+
+```javascript
+import { Calculator, Operation, add, multiply } from 'calculator';  // Using standalone functions const sum = add(5, 3);  // 8 const product = multiply(4, 5);  // 20  // Using the Calculator class const calc = new Calculator(); calc.calculate(10, 5, Operation.ADD);  // 15 calc.calculate(20, 4, Operation.DIVIDE);  // 5  // View history console.log(calc.getHistory()); 
+```
+
+<a id="documentation"></a>
+
+## Documentation
+
+Documentation is generated using JSDoc and integrated into the main yardang documentation using sphinx-js.
+
+
+# README.html.md
+
+<a id="calculator-library-rust"></a>
+
+# Calculator Library (Rust)
+
+A simple calculator library demonstrating Rust documentation with sphinx-rust.
+
+<a id="features"></a>
+
+## Features
+
+- Basic arithmetic operations (add, subtract, multiply, divide)
+- Scientific calculator with trigonometric and logarithmic functions
+- Operation history tracking
+- Full Rust documentation with examples
+
+<a id="usage"></a>
+
+## Usage
+
+```rust
+use calculator::{Calculator, Operation};  fn main() {     let mut calc = Calculator::new();          // Basic operations     let sum = calc.add(5.0, 3.0);     println!("5 + 3 = {}", sum);          let product = calc.multiply(4.0, 7.0);     println!("4 * 7 = {}", product);          // View history     for result in calc.history() {         println!("{}", result);     } } 
+```
+
+<a id="scientific-calculator"></a>
+
+## Scientific Calculator
+
+```rust
+use calculator::ScientificCalculator;  fn main() {     let mut sci = ScientificCalculator::new();     sci.set_use_degrees(true);          println!("sin(90°) = {}", sci.sin(90.0));     println!("sqrt(16) = {}", sci.sqrt(16.0));     println!("2^10 = {}", sci.pow(2.0, 10.0)); } 
+```
+
+
+# api.html.md
+
+<a id="calculator-c-api-documentation"></a>
+
+# Calculator C++ API Documentation
+
+This page demonstrates how to use breathe to document C++ code with yardang.
+
+<a id="calculator-class"></a>
+
+## Calculator Class
+
+<a id="_CPPv4N4calc10CalculatorE"></a>
+
+<a id="_CPPv3N4calc10CalculatorE"></a>
+
+<a id="_CPPv2N4calc10CalculatorE"></a>
+
+<a id="calc::Calculator"></a>
+
+### class Calculator
+
+A class for performing basic arithmetic operations. 
+
+The [Calculator](#calculatorclasscalc_1_1_calculator) class provides methods for addition, subtraction, multiplication, and division. It also maintains a history of operations performed.
+
+ Example usage: 
+```default
+[calc::Calculator](#calculatorclasscalc_1_1_calculator) [calc](../../../docs/src/api.md#calculatornamespacecalc); double result = [calc](../../../docs/src/api.md#calculatornamespacecalc).add(5.0, 3.0); std::cout << "Result: " << result << std::endl;
+```
+
+ #### NOTE
+This is a thread-safe implementation.
+
+Subclassed by [calc::ScientificCalculator](#calculatorclasscalc_1_1_scientific_calculator)
+
+### Public Functions
+
+<a id="_CPPv4N4calc10Calculator10CalculatorEv"></a>
+
+<a id="_CPPv3N4calc10Calculator10CalculatorEv"></a>
+
+<a id="_CPPv2N4calc10Calculator10CalculatorEv"></a>
+
+<a id="calc::Calculator::Calculator"></a>
+
+### Calculator()
+
+Default constructor. 
+
+Initializes an empty calculator with no operation history. 
+
+<a id="_CPPv4N4calc10CalculatorD0Ev"></a>
+
+<a id="_CPPv3N4calc10CalculatorD0Ev"></a>
+
+<a id="_CPPv2N4calc10CalculatorD0Ev"></a>
+
+<a id="calc::Calculator::~Calculator"></a>
+
+### virtual ~Calculator()
+
+Destructor. 
+
+<a id="_CPPv4N4calc10Calculator3addEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator3addEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator3addEdd"></a>
+
+<a id="calc::Calculator::add__double.double"></a>
+
+### double add(double a, double b)
+
+Add two numbers. 
+
+#### SEE ALSO
+[subtract()](#calculatorclasscalc_1_1_calculator_1a8a1a4353a488ca5a8e26e967df402b6c)
+
+* **Parameters:**
+  - **a** – The first operand. 
+  - **b** – The second operand. 
+* **Returns:**
+  The sum of a and b.
+
+<a id="_CPPv4N4calc10Calculator8subtractEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator8subtractEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator8subtractEdd"></a>
+
+<a id="calc::Calculator::subtract__double.double"></a>
+
+### double subtract(double a, double b)
+
+Subtract two numbers. 
+
+#### SEE ALSO
+[add()](#calculatorclasscalc_1_1_calculator_1a02adca23edb571d1230a5b053a626c9a)
+
+* **Parameters:**
+  - **a** – The minuend. 
+  - **b** – The subtrahend. 
+* **Returns:**
+  The difference (a - b).
+
+<a id="_CPPv4N4calc10Calculator8multiplyEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator8multiplyEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator8multiplyEdd"></a>
+
+<a id="calc::Calculator::multiply__double.double"></a>
+
+### double multiply(double a, double b)
+
+Multiply two numbers. 
+
+#### SEE ALSO
+[divide()](#calculatorclasscalc_1_1_calculator_1af2da2c13c4da6cffa5b1752ab581e606)
+
+* **Parameters:**
+  - **a** – The first factor. 
+  - **b** – The second factor. 
+* **Returns:**
+  The product of a and b.
+
+<a id="_CPPv4N4calc10Calculator6divideEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator6divideEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator6divideEdd"></a>
+
+<a id="calc::Calculator::divide__double.double"></a>
+
+### double divide(double a, double b)
+
+Divide two numbers. 
+
+#### SEE ALSO
+[multiply()](#calculatorclasscalc_1_1_calculator_1a530db79a3c237b4ef5721b601e8e5ae4)
+
+#### WARNING
+Division by zero will throw an exception.
+
+* **Parameters:**
+  - **a** – The dividend. 
+  - **b** – The divisor. 
+* **Throws:**
+   – if b is zero.
+* **Returns:**
+  The quotient (a / b).
+
+<a id="_CPPv4NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="_CPPv3NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="_CPPv2NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="calc::Calculator::getHistoryC"></a>
+
+### [std](../../../docs/src/api.md#_CPPv4St)::vector<[OperationResult](../../../docs/src/api.md#_CPPv4N4calc15OperationResultE)> getHistory() const
+
+Get the history of all operations. 
+
+* **Returns:**
+  A vector containing all operation results. 
+
+<a id="_CPPv4N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="_CPPv3N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="_CPPv2N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="calc::Calculator::clearHistory"></a>
+
+### void clearHistory()
+
+Clear the operation history. 
+
+<a id="_CPPv4NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="_CPPv3NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="_CPPv2NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="calc::Calculator::getOperationCountC"></a>
+
+### size_t getOperationCount() const
+
+Get the number of operations performed. 
+
+* **Returns:**
+  The count of operations in history. 
+
+### Protected Functions
+
+<a id="_CPPv4N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="_CPPv3N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="_CPPv2N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="calc::Calculator::recordOperation__OperationResultCR"></a>
+
+### void recordOperation(const [OperationResult](../../../docs/src/api.md#_CPPv4N4calc15OperationResultE) &result)
+
+Record an operation in the history. 
+
+* **Parameters:**
+  **result** – The result to record. 
+
+<a id="scientificcalculator-class"></a>
+
+## ScientificCalculator Class
+
+<a id="_CPPv4N4calc20ScientificCalculatorE"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculatorE"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculatorE"></a>
+
+<a id="calc::ScientificCalculator"></a>
+
+### class ScientificCalculator : public [calc](../../../docs/src/api.md#_CPPv44calc)::[Calculator](../../../docs/src/api.md#_CPPv4N4calc10CalculatorE)
+
+An extended calculator with scientific functions. 
+
+This class inherits from [Calculator](#calculatorclasscalc_1_1_calculator) and adds advanced mathematical operations like power and square root. 
+
+### Public Functions
+
+<a id="_CPPv4N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="calc::ScientificCalculator::power__double.double"></a>
+
+### double power(double base, double exponent)
+
+Calculate the power of a number. 
+
+* **Parameters:**
+  - **base** – The base number. 
+  - **exponent** – The exponent. 
+* **Returns:**
+  base raised to the power of exponent. 
+
+<a id="_CPPv4N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="calc::ScientificCalculator::squareRoot__double"></a>
+
+### double squareRoot(double value)
+
+Calculate the square root of a number. 
+
+* **Parameters:**
+  **value** – The number to find the square root of. 
+* **Throws:**
+   – if value is negative. 
+* **Returns:**
+  The square root of value.
+
+<a id="enumerations"></a>
+
+## Enumerations
+
+<a id="operation-enum"></a>
+
+### Operation Enum
+
+<a id="_CPPv4N4calc9OperationE"></a>
+
+<a id="_CPPv3N4calc9OperationE"></a>
+
+<a id="_CPPv2N4calc9OperationE"></a>
+
+### enum class [calc](../../../docs/src/api.md#_CPPv44calc)::Operation
+
+Enumeration of supported arithmetic operations. 
+
+*Values:*
+
+<a id="_CPPv4N4calc9Operation3ADDE"></a>
+
+<a id="_CPPv3N4calc9Operation3ADDE"></a>
+
+<a id="_CPPv2N4calc9Operation3ADDE"></a>
+
+### enumerator ADD
+
+Addition operation. 
+
+<a id="_CPPv4N4calc9Operation8SUBTRACTE"></a>
+
+<a id="_CPPv3N4calc9Operation8SUBTRACTE"></a>
+
+<a id="_CPPv2N4calc9Operation8SUBTRACTE"></a>
+
+### enumerator SUBTRACT
+
+Subtraction operation. 
+
+<a id="_CPPv4N4calc9Operation8MULTIPLYE"></a>
+
+<a id="_CPPv3N4calc9Operation8MULTIPLYE"></a>
+
+<a id="_CPPv2N4calc9Operation8MULTIPLYE"></a>
+
+### enumerator MULTIPLY
+
+Multiplication operation. 
+
+<a id="_CPPv4N4calc9Operation6DIVIDEE"></a>
+
+<a id="_CPPv3N4calc9Operation6DIVIDEE"></a>
+
+<a id="_CPPv2N4calc9Operation6DIVIDEE"></a>
+
+### enumerator DIVIDE
+
+Division operation. 
+
+<a id="structures"></a>
+
+## Structures
+
+<a id="operationresult"></a>
+
+### OperationResult
+
+<a id="_CPPv4N4calc15OperationResultE"></a>
+
+<a id="_CPPv3N4calc15OperationResultE"></a>
+
+<a id="_CPPv2N4calc15OperationResultE"></a>
+
+<a id="calc::OperationResult"></a>
+
+### struct OperationResult
+
+Structure to hold the result of a calculation. 
+
+### Public Members
+
+<a id="_CPPv4N4calc15OperationResult5valueE"></a>
+
+<a id="_CPPv3N4calc15OperationResult5valueE"></a>
+
+<a id="_CPPv2N4calc15OperationResult5valueE"></a>
+
+<a id="calc::OperationResult::value__double"></a>
+
+### double value
+
+The calculated value. 
+
+<a id="_CPPv4N4calc15OperationResult9operationE"></a>
+
+<a id="_CPPv3N4calc15OperationResult9operationE"></a>
+
+<a id="_CPPv2N4calc15OperationResult9operationE"></a>
+
+<a id="calc::OperationResult::operation__Operation"></a>
+
+### [Operation](../../../docs/src/api.md#_CPPv4N4calc9OperationE) operation
+
+The operation that was performed. 
+
+<a id="_CPPv4N4calc15OperationResult11descriptionE"></a>
+
+<a id="_CPPv3N4calc15OperationResult11descriptionE"></a>
+
+<a id="_CPPv2N4calc15OperationResult11descriptionE"></a>
+
+<a id="calc::OperationResult::description__ss"></a>
+
+### [std](../../../docs/src/api.md#_CPPv4St)::string description
+
+Human-readable description of the operation. 
+
+<a id="functions"></a>
+
+## Functions
+
+<a id="formatnumber"></a>
+
+### formatNumber
+
+<a id="_CPPv4N4calc12formatNumberEdi"></a>
+
+<a id="_CPPv3N4calc12formatNumberEdi"></a>
+
+<a id="_CPPv2N4calc12formatNumberEdi"></a>
+
+<a id="calc::formatNumber__double.i"></a>
+
+### [std](../../../docs/src/api.md#_CPPv4St)::string [calc](../../../docs/src/api.md#_CPPv44calc)::formatNumber(double value, int precision = 2)
+
+A helper function to format a number as a string. 
+
+* **Parameters:**
+  - **value** – The number to format. 
+  - **precision** – The number of decimal places. 
+* **Returns:**
+  A formatted string representation. 
+
+<a id="defines"></a>
+
+## Defines
+
+<a id="c.MAX_HISTORY_SIZE"></a>
+
+### MAX_HISTORY_SIZE 1000
+
+Maximum number of operations to store in history. 
+
+<a id="type-definitions"></a>
+
+## Type Definitions
+
+<a id="_CPPv4N4calc11HistoryListE"></a>
+
+<a id="_CPPv3N4calc11HistoryListE"></a>
+
+<a id="_CPPv2N4calc11HistoryListE"></a>
+
+<a id="calc::HistoryList"></a>
+
+### typedef [std](../../../docs/src/api.md#_CPPv4St)::vector<[OperationResult](../../../docs/src/api.md#_CPPv4N4calc15OperationResultE)> [calc](../../../docs/src/api.md#_CPPv44calc)::HistoryList
+
+Type alias for the operation history container.
+
+
+# api.html.md
+
+<a id="api-reference"></a>
+
+# API Reference
+
+<a id="python-api"></a>
+
+## Python API
+
+<a id="module-yardang.build"></a>
+
+<a id="yardang-build"></a>
+
+### yardang.build
+
+<a id="yardang.build.generate_docs_configuration"></a>
+
+### yardang.build.generate_docs_configuration(\*, project: str | None = None, title: str | None = None, module: str | None = None, description: str | None = None, author: str | None = None, copyright: str | None = None, version: str | None = None, theme: str | None = None, docs_root: str | None = None, root: str | None = None, cname: str | None = None, pages: List | None = None, use_autoapi: bool | None = None, autoapi_ignore: List | None = None, custom_css: Path | None = None, custom_js: Path | None = None, html_output_dir: str | None = None, config_base: str | None = None, previous_versions: bool | None = False, adjust_arguments: Callable = None, adjust_template: Callable = None)
+
+Generate Sphinx documentation configuration from pyproject.toml.
+
+A context manager that creates a temporary Sphinx configuration (conf.py) based on settings from pyproject.toml and yields the configuration directory path for use with sphinx-build. If a conf.py already exists in the current directory, it yields the current directory instead.
+
+Configuration is read from the `[tool.yardang]` section of pyproject.toml by default, with breathe/doxygen settings in `[tool.yardang.breathe]`.
+
+* **Parameters:**
+  - **project** – Project name. Falls back to `[project].name` or directory name.
+  - **title** – Documentation title. Falls back to `[tool.yardang].title` or project name.
+  - **module** – Python module name for autoapi. Falls back to project name with hyphens replaced by underscores.
+  - **description** – Project description for metadata.
+  - **author** – Author name. Falls back to first entry in `[project].authors`.
+  - **copyright** – Copyright string. Falls back to author name.
+  - **version** – Version string. Falls back to `[project].version`.
+  - **theme** – Sphinx theme name. Defaults to `"furo"`.
+  - **docs_root** – Base URL for hosted documentation. Used for canonical URLs.
+  - **root** – Path to README or index file to use as documentation root.
+  - **cname** – Custom domain name for GitHub Pages CNAME file.
+  - **pages** – List of page paths to include in the toctree.
+  - **use_autoapi** – Whether to use sphinx-autoapi for Python API docs. Defaults to `None` (auto-detect).
+  - **custom_css** – Path or raw content for custom CSS. When unset, falls back to a bundled per-theme `{theme}.css` then the generic `custom.css`.
+  - **custom_js** – Path or raw content for custom JS. When unset, falls back to a bundled per-theme `{theme}.js` then the generic `custom.js`.
+  - **html_output_dir** – Directory where Sphinx writes HTML output. Custom CSS/JS are placed under `<html_output_dir>/_static`. Defaults to `docs/html`.
+  - **config_base** – Base key in pyproject.toml for configuration. Defaults to `"tool.yardang"`.
+  - **previous_versions** – Whether to generate previous versions documentation.
+  - **adjust_arguments** – Callback to modify template arguments before rendering. Receives the args dict and should return the modified dict.
+  - **adjust_template** – Callback to modify the Jinja2 template before rendering. Receives the template and should return the modified template.
+* **Yields:**
+  *str* –
+
+  Path to directory containing the generated conf.py file,
+  : or the current directory if conf.py already exists.
+* **Raises:**
+  **toml.TomlDecodeError** – If pyproject.toml is malformed.
+
+### Example
+
+Basic usage with sphinx-build:
+
+```default
+from yardang import generate_docs_configuration  with generate_docs_configuration() as config_dir:     subprocess.run(["sphinx-build", "-c", config_dir, ".", "docs/html"])
+```
+
+With custom arguments callback:
+
+```default
+def customize(args):     args["html_theme_options"]["sidebar_hide_name"] = True     return args  with generate_docs_configuration(adjust_arguments=customize) as config_dir:     # build docs...
+```
+
+#### NOTE
+Breathe/Doxygen configuration is loaded from `[tool.yardang.breathe]` with the following options:
+
+- `projects`: Dict mapping project names to Doxygen XML directories
+- `default-project`: Default project for breathe directives
+- `domain-by-extension`: Map file extensions to Sphinx domains
+- `show-define-initializer`: Show macro initializer values (default: True)
+- `show-enumvalue-initializer`: Show enum value initializers (default: True)
+- `show-include`: Show #include directives (default: True)
+- `use-project-refids`: Prefix refids with project name (default: True)
+
+<a id="yardang.build.generate_wiki_configuration"></a>
+
+### yardang.build.generate_wiki_configuration(\*, project: str = '', title: str = '', module: str = '', description: str = '', author: str = '', copyright: str = '', version: str = '', theme: str = 'furo', docs_root: str = '', root: str = '', cname: str = '', pages: List | None = None, use_autoapi: bool | None = None, autoapi_ignore: List | None = None, custom_css: Path | None = None, custom_js: Path | None = None, config_base: str = 'tool.yardang', previous_versions: bool | None = False, adjust_arguments: Callable = None, adjust_template: Callable = None)
+
+Generate Sphinx configuration for GitHub Wiki markdown output.
+
+A context manager similar to generate_docs_configuration, but configured for building markdown output suitable for GitHub Wiki using sphinx-markdown-builder.
+
+This adds the sphinx_markdown_builder extension and sets appropriate options for GitHub-flavored markdown output.
+
+* **Parameters:**
+  - **project** – Project name. Falls back to `[project].name` or directory name.
+  - **title** – Documentation title. Falls back to `[tool.yardang].title` or project name.
+  - **module** – Python module name for autoapi. Falls back to project name with hyphens replaced by underscores.
+  - **description** – Project description for metadata.
+  - **author** – Author name. Falls back to first entry in `[project].authors`.
+  - **copyright** – Copyright string. Falls back to author name.
+  - **version** – Version string. Falls back to `[project].version`.
+  - **theme** – Sphinx theme name. Defaults to `"furo"`.
+  - **docs_root** – Base URL for hosted documentation. Used for canonical URLs.
+  - **root** – Path to README or index file to use as documentation root.
+  - **cname** – Custom domain name for GitHub Pages CNAME file.
+  - **pages** – List of page paths to include in the toctree.
+  - **use_autoapi** – Whether to use sphinx-autoapi for Python API docs.
+  - **custom_css** – Path to custom CSS file.
+  - **custom_js** – Path to custom JavaScript file.
+  - **config_base** – Base key in pyproject.toml for configuration.
+  - **previous_versions** – Whether to generate previous versions documentation.
+  - **adjust_arguments** – Callback to modify template arguments before rendering.
+  - **adjust_template** – Callback to modify the Jinja2 template before rendering.
+* **Yields:**
+  *tuple* –
+
+  (config_dir, wiki_args) where config_dir is the path to the directory
+  : containing the generated conf.py file, and wiki_args is a dict with wiki configuration for post-processing.
+
+<a id="yardang.build.run_doxygen_if_needed"></a>
+
+### yardang.build.run_doxygen_if_needed(breathe_projects: Dict[str, str], \*, force: bool = False, quiet: bool = False) → Dict[str, bool]
+
+Run doxygen for breathe projects if needed.
+
+For each project in breathe_projects, checks if the XML output directory exists. If not, attempts to find a Doxyfile in the parent directory and runs doxygen to generate the XML.
+
+* **Parameters:**
+  - **breathe_projects** – Dict mapping project names to XML output directories.
+  - **force** – If True, run doxygen even if XML directory already exists.
+  - **quiet** – If True, suppress doxygen output.
+* **Returns:**
+  Dict mapping project names to whether doxygen was run successfully. Returns empty dict if doxygen is not installed.
+
+### Example
+
+```pycon
+>>> results = run_doxygen_if_needed({"mylib": "docs/xml"}) >>> if results.get("mylib"): ...     print("Doxygen ran successfully")
+```
+
+<a id="module-yardang.cli"></a>
+
+<a id="yardang-cli"></a>
+
+### yardang.cli
+
+<a id="yardang.cli.build"></a>
+
+### yardang.cli.build(\*, quiet: bool = False, debug: bool = False, pdb: bool = False, project: str | None = None, title: str | None = None, module: str | None = None, description: str | None = None, author: str | None = None, copyright: str | None = None, version: str | None = None, theme: str | None = None, docs_root: str | None = None, root: str | None = None, cname: str | None = None, pages: List[Path] | None = None, use_autoapi: bool | None = None, custom_css: Path | None = None, custom_js: Path | None = None, output: str = 'docs/html', config_base: str | None = 'tool.yardang', previous_versions: bool | None = False)
+
+<a id="yardang.cli.debug"></a>
+
+### yardang.cli.debug()
+
+<a id="yardang.cli.main"></a>
+
+### yardang.cli.main()
+
+<a id="yardang.cli.preview"></a>
+
+### yardang.cli.preview(\*, themes: List[str] | None = None, output: str = 'docs/html/_previews', quiet: bool = False, debug: bool = False, pdb: bool = False)
+
+Build the documentation once per theme for side-by-side comparison.
+
+For each theme in `themes` (defaulting to the themes yardang bundles defaults for), the docs are rendered into `<output>/<theme>`. Themes whose Sphinx package is not installed are skipped with a warning.
+
+<a id="yardang.cli.wiki"></a>
+
+### yardang.cli.wiki(\*, quiet: bool = False, debug: bool = False, pdb: bool = False, project: str | None = None, title: str | None = None, module: str | None = None, description: str | None = None, author: str | None = None, copyright: str | None = None, version: str | None = None, theme: str | None = None, docs_root: str | None = None, root: str | None = None, cname: str | None = None, pages: List[Path] | None = None, use_autoapi: bool | None = None, custom_css: Path | None = None, custom_js: Path | None = None, config_base: str | None = 'tool.yardang', previous_versions: bool | None = False, output_dir: str | None = None, skip_postprocess: bool = False)
+
+Generate GitHub Wiki compatible markdown documentation.
+
+Builds markdown output using sphinx-markdown-builder and post-processes it to be compatible with GitHub Wiki format, including: - Flattening directory structure - Renaming index.md to Home.md - Generating \_Sidebar.md navigation - Generating \_Footer.md - Fixing internal links
+
+<a id="module-yardang.utils"></a>
+
+<a id="yardang-utils"></a>
+
+### yardang.utils
+
+<a id="yardang.utils.get_config"></a>
+
+### yardang.utils.get_config(section='', base='tool.yardang')
+
+<a id="yardang.utils.get_config_flex"></a>
+
+### yardang.utils.get_config_flex(section='', base='tool.yardang')
+
+Look up a config key, accepting both hyphens and underscores.
+
+Tries the hyphenated form first (TOML convention), then the underscored form (Sphinx convention). For example, looking up `html_extra_path` will try `html-extra-path` first, then `html_extra_path`.
+
+<a id="c-example"></a>
+
+## C++ Example
+
+This is an example of documenting C++ code using breathe integration.
+
+<a id="document-everything"></a>
+
+### Document Everything
+
+Use `doxygenindex` to document all symbols from Doxygen XML:
+
+<a id="_CPPv4N4calc10CalculatorE"></a>
+
+<a id="_CPPv3N4calc10CalculatorE"></a>
+
+<a id="_CPPv2N4calc10CalculatorE"></a>
+
+<a id="calc::Calculator"></a>
+
+### class Calculator
+
+ *#include <[calculator.hpp](#calculatorcalculator_8hpp)>*
+
+A class for performing basic arithmetic operations. 
+
+The [Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) class provides methods for addition, subtraction, multiplication, and division. It also maintains a history of operations performed.
+
+ Example usage: 
+```default
+[calc::Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) [calc](#calculatornamespacecalc); double result = [calc](#calculatornamespacecalc).add(5.0, 3.0); std::cout << "Result: " << result << std::endl;
+```
+
+ #### NOTE
+This is a thread-safe implementation.
+
+Subclassed by [calc::ScientificCalculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_scientific_calculator)
+
+### Public Functions
+
+<a id="_CPPv4N4calc10Calculator10CalculatorEv"></a>
+
+<a id="_CPPv3N4calc10Calculator10CalculatorEv"></a>
+
+<a id="_CPPv2N4calc10Calculator10CalculatorEv"></a>
+
+<a id="calc::Calculator::Calculator"></a>
+
+### Calculator()
+
+Default constructor. 
+
+Initializes an empty calculator with no operation history. 
+
+<a id="_CPPv4N4calc10CalculatorD0Ev"></a>
+
+<a id="_CPPv3N4calc10CalculatorD0Ev"></a>
+
+<a id="_CPPv2N4calc10CalculatorD0Ev"></a>
+
+<a id="calc::Calculator::~Calculator"></a>
+
+### virtual ~Calculator()
+
+Destructor. 
+
+<a id="_CPPv4N4calc10Calculator3addEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator3addEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator3addEdd"></a>
+
+<a id="calc::Calculator::add__double.double"></a>
+
+### double add(double a, double b)
+
+Add two numbers. 
+
+#### SEE ALSO
+[subtract()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a8a1a4353a488ca5a8e26e967df402b6c)
+
+* **Parameters:**
+  - **a** – The first operand. 
+  - **b** – The second operand. 
+* **Returns:**
+  The sum of a and b.
+
+<a id="_CPPv4N4calc10Calculator8subtractEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator8subtractEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator8subtractEdd"></a>
+
+<a id="calc::Calculator::subtract__double.double"></a>
+
+### double subtract(double a, double b)
+
+Subtract two numbers. 
+
+#### SEE ALSO
+[add()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a02adca23edb571d1230a5b053a626c9a)
+
+* **Parameters:**
+  - **a** – The minuend. 
+  - **b** – The subtrahend. 
+* **Returns:**
+  The difference (a - b).
+
+<a id="_CPPv4N4calc10Calculator8multiplyEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator8multiplyEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator8multiplyEdd"></a>
+
+<a id="calc::Calculator::multiply__double.double"></a>
+
+### double multiply(double a, double b)
+
+Multiply two numbers. 
+
+#### SEE ALSO
+[divide()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1af2da2c13c4da6cffa5b1752ab581e606)
+
+* **Parameters:**
+  - **a** – The first factor. 
+  - **b** – The second factor. 
+* **Returns:**
+  The product of a and b.
+
+<a id="_CPPv4N4calc10Calculator6divideEdd"></a>
+
+<a id="_CPPv3N4calc10Calculator6divideEdd"></a>
+
+<a id="_CPPv2N4calc10Calculator6divideEdd"></a>
+
+<a id="calc::Calculator::divide__double.double"></a>
+
+### double divide(double a, double b)
+
+Divide two numbers. 
+
+#### SEE ALSO
+[multiply()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a530db79a3c237b4ef5721b601e8e5ae4)
+
+#### WARNING
+Division by zero will throw an exception.
+
+* **Parameters:**
+  - **a** – The dividend. 
+  - **b** – The divisor. 
+* **Throws:**
+   – if b is zero.
+* **Returns:**
+  The quotient (a / b).
+
+<a id="_CPPv4NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="_CPPv3NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="_CPPv2NK4calc10Calculator10getHistoryEv"></a>
+
+<a id="calc::Calculator::getHistoryC"></a>
+
+### [std](#_CPPv4St)::vector<[OperationResult](#_CPPv4N4calc15OperationResultE)> getHistory() const
+
+Get the history of all operations. 
+
+* **Returns:**
+  A vector containing all operation results. 
+
+<a id="_CPPv4N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="_CPPv3N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="_CPPv2N4calc10Calculator12clearHistoryEv"></a>
+
+<a id="calc::Calculator::clearHistory"></a>
+
+### void clearHistory()
+
+Clear the operation history. 
+
+<a id="_CPPv4NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="_CPPv3NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="_CPPv2NK4calc10Calculator17getOperationCountEv"></a>
+
+<a id="calc::Calculator::getOperationCountC"></a>
+
+### size_t getOperationCount() const
+
+Get the number of operations performed. 
+
+* **Returns:**
+  The count of operations in history. 
+
+### Protected Functions
+
+<a id="_CPPv4N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="_CPPv3N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="_CPPv2N4calc10Calculator15recordOperationERK15OperationResult"></a>
+
+<a id="calc::Calculator::recordOperation__OperationResultCR"></a>
+
+### void recordOperation(const [OperationResult](#_CPPv4N4calc15OperationResultE) &result)
+
+Record an operation in the history. 
+
+* **Parameters:**
+  **result** – The result to record. 
+
+### Private Members
+
+<a id="_CPPv4N4calc10Calculator8history_E"></a>
+
+<a id="_CPPv3N4calc10Calculator8history_E"></a>
+
+<a id="_CPPv2N4calc10Calculator8history_E"></a>
+
+<a id="calc::Calculator::history___std::vector:OperationResult:"></a>
+
+### [std](#_CPPv4St)::vector<[OperationResult](#_CPPv4N4calc15OperationResultE)> history_
+
+History of operations. 
+
+<a id="_CPPv4N4calc15OperationResultE"></a>
+
+<a id="_CPPv3N4calc15OperationResultE"></a>
+
+<a id="_CPPv2N4calc15OperationResultE"></a>
+
+<a id="calc::OperationResult"></a>
+
+### struct OperationResult
+
+ *#include <[calculator.hpp](#calculatorcalculator_8hpp)>*
+
+Structure to hold the result of a calculation. 
+
+### Public Members
+
+<a id="_CPPv4N4calc15OperationResult5valueE"></a>
+
+<a id="_CPPv3N4calc15OperationResult5valueE"></a>
+
+<a id="_CPPv2N4calc15OperationResult5valueE"></a>
+
+<a id="calc::OperationResult::value__double"></a>
+
+### double value
+
+The calculated value. 
+
+<a id="_CPPv4N4calc15OperationResult9operationE"></a>
+
+<a id="_CPPv3N4calc15OperationResult9operationE"></a>
+
+<a id="_CPPv2N4calc15OperationResult9operationE"></a>
+
+<a id="calc::OperationResult::operation__Operation"></a>
+
+### [Operation](#_CPPv4N4calc9OperationE) operation
+
+The operation that was performed. 
+
+<a id="_CPPv4N4calc15OperationResult11descriptionE"></a>
+
+<a id="_CPPv3N4calc15OperationResult11descriptionE"></a>
+
+<a id="_CPPv2N4calc15OperationResult11descriptionE"></a>
+
+<a id="calc::OperationResult::description__ss"></a>
+
+### [std](#_CPPv4St)::string description
+
+Human-readable description of the operation. 
+
+<a id="_CPPv4N4calc20ScientificCalculatorE"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculatorE"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculatorE"></a>
+
+<a id="calc::ScientificCalculator"></a>
+
+### class ScientificCalculator : public [calc](#_CPPv44calc)::[Calculator](#_CPPv4N4calc10CalculatorE)
+
+ *#include <[calculator.hpp](#calculatorcalculator_8hpp)>*
+
+An extended calculator with scientific functions. 
+
+This class inherits from [Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) and adds advanced mathematical operations like power and square root. 
+
+### Public Functions
+
+<a id="_CPPv4N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculator5powerEdd"></a>
+
+<a id="calc::ScientificCalculator::power__double.double"></a>
+
+### double power(double base, double exponent)
+
+Calculate the power of a number. 
+
+* **Parameters:**
+  - **base** – The base number. 
+  - **exponent** – The exponent. 
+* **Returns:**
+  base raised to the power of exponent. 
+
+<a id="_CPPv4N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="_CPPv3N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="_CPPv2N4calc20ScientificCalculator10squareRootEd"></a>
+
+<a id="calc::ScientificCalculator::squareRoot__double"></a>
+
+### double squareRoot(double value)
+
+Calculate the square root of a number. 
+
+* **Parameters:**
+  **value** – The number to find the square root of. 
+* **Throws:**
+   – if value is negative. 
+* **Returns:**
+  The square root of value.
+
+<a id="_CPPv44calc"></a>
+
+<a id="_CPPv34calc"></a>
+
+<a id="_CPPv24calc"></a>
+
+<a id="calc"></a>
+
+### namespace calc
+
+The calculator namespace containing all calculator-related classes. 
+
+### Typedefs
+
+<a id="_CPPv4N4calc11HistoryListE"></a>
+
+<a id="_CPPv3N4calc11HistoryListE"></a>
+
+<a id="_CPPv2N4calc11HistoryListE"></a>
+
+<a id="calc::HistoryList"></a>
+
+### typedef [std](#_CPPv4St)::vector<[OperationResult](#_CPPv4N4calc15OperationResultE)> HistoryList
+
+Type alias for the operation history container. 
+
+### Enums
+
+<a id="_CPPv4N4calc9OperationE"></a>
+
+<a id="_CPPv3N4calc9OperationE"></a>
+
+<a id="_CPPv2N4calc9OperationE"></a>
+
+### enum class Operation
+
+Enumeration of supported arithmetic operations. 
+
+*Values:*
+
+<a id="_CPPv4N4calc9Operation3ADDE"></a>
+
+<a id="_CPPv3N4calc9Operation3ADDE"></a>
+
+<a id="_CPPv2N4calc9Operation3ADDE"></a>
+
+### enumerator ADD
+
+Addition operation. 
+
+<a id="_CPPv4N4calc9Operation8SUBTRACTE"></a>
+
+<a id="_CPPv3N4calc9Operation8SUBTRACTE"></a>
+
+<a id="_CPPv2N4calc9Operation8SUBTRACTE"></a>
+
+### enumerator SUBTRACT
+
+Subtraction operation. 
+
+<a id="_CPPv4N4calc9Operation8MULTIPLYE"></a>
+
+<a id="_CPPv3N4calc9Operation8MULTIPLYE"></a>
+
+<a id="_CPPv2N4calc9Operation8MULTIPLYE"></a>
+
+### enumerator MULTIPLY
+
+Multiplication operation. 
+
+<a id="_CPPv4N4calc9Operation6DIVIDEE"></a>
+
+<a id="_CPPv3N4calc9Operation6DIVIDEE"></a>
+
+<a id="_CPPv2N4calc9Operation6DIVIDEE"></a>
+
+### enumerator DIVIDE
+
+Division operation. 
+
+### Functions
+
+<a id="_CPPv4N4calc12formatNumberEdi"></a>
+
+<a id="_CPPv3N4calc12formatNumberEdi"></a>
+
+<a id="_CPPv2N4calc12formatNumberEdi"></a>
+
+<a id="calc::formatNumber__double.i"></a>
+
+### [std](#_CPPv4St)::string formatNumber(double value, int precision = 2)
+
+A helper function to format a number as a string. 
+
+* **Parameters:**
+  - **value** – The number to format. 
+  - **precision** – The number of decimal places. 
+* **Returns:**
+  A formatted string representation. 
+
+<a id="_CPPv4St"></a>
+
+<a id="_CPPv3St"></a>
+
+<a id="_CPPv2St"></a>
+
+<a id="std"></a>
+
+### namespace std
+
+STL namespace. 
+
+### *file* calculator.hpp
+
+ *#include <stdexcept>* *#include <string>* *#include <vector>*
+
+A simple calculator library demonstrating Doxygen documentation. 
+
+This file contains the Calculator class and related utilities for performing basic arithmetic operations. 
+
+### Defines
+
+<a id="c.MAX_HISTORY_SIZE"></a>
+
+### MAX_HISTORY_SIZE 1000
+
+Maximum number of operations to store in history. 
+
+### *file* calculator.cpp
+
+ *#include “[calculator.hpp](#calculatorcalculator_8hpp)”* *#include <cmath>* *#include <sstream>* *#include <iomanip>*
+
+Implementation of the Calculator class. 
+
+### *dir* include
+
+### *dir* src
+
+<a id="document-individual-classes"></a>
+
+### Document Individual Classes
+
+Or document specific classes with `doxygenclass`:
+
+### class Calculator
+
+A class for performing basic arithmetic operations. 
+
+The [Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) class provides methods for addition, subtraction, multiplication, and division. It also maintains a history of operations performed.
+
+ Example usage: 
+```default
+[calc::Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) [calc](#calculatornamespacecalc); double result = [calc](#calculatornamespacecalc).add(5.0, 3.0); std::cout << "Result: " << result << std::endl;
+```
+
+ #### NOTE
+This is a thread-safe implementation.
+
+Subclassed by [calc::ScientificCalculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_scientific_calculator)
+
+### Public Functions
+
+### Calculator()
+
+Default constructor. 
+
+Initializes an empty calculator with no operation history. 
+
+### virtual ~Calculator()
+
+Destructor. 
+
+### double add(double a, double b)
+
+Add two numbers. 
+
+#### SEE ALSO
+[subtract()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a8a1a4353a488ca5a8e26e967df402b6c)
+
+* **Parameters:**
+  - **a** – The first operand. 
+  - **b** – The second operand. 
+* **Returns:**
+  The sum of a and b.
+
+### double subtract(double a, double b)
+
+Subtract two numbers. 
+
+#### SEE ALSO
+[add()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a02adca23edb571d1230a5b053a626c9a)
+
+* **Parameters:**
+  - **a** – The minuend. 
+  - **b** – The subtrahend. 
+* **Returns:**
+  The difference (a - b).
+
+### double multiply(double a, double b)
+
+Multiply two numbers. 
+
+#### SEE ALSO
+[divide()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1af2da2c13c4da6cffa5b1752ab581e606)
+
+* **Parameters:**
+  - **a** – The first factor. 
+  - **b** – The second factor. 
+* **Returns:**
+  The product of a and b.
+
+### double divide(double a, double b)
+
+Divide two numbers. 
+
+#### SEE ALSO
+[multiply()](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator_1a530db79a3c237b4ef5721b601e8e5ae4)
+
+#### WARNING
+Division by zero will throw an exception.
+
+* **Parameters:**
+  - **a** – The dividend. 
+  - **b** – The divisor. 
+* **Throws:**
+   – if b is zero.
+* **Returns:**
+  The quotient (a / b).
+
+### [std](#_CPPv4St)::vector<[OperationResult](#_CPPv4N4calc15OperationResultE)> getHistory() const
+
+Get the history of all operations. 
+
+* **Returns:**
+  A vector containing all operation results. 
+
+### void clearHistory()
+
+Clear the operation history. 
+
+### size_t getOperationCount() const
+
+Get the number of operations performed. 
+
+* **Returns:**
+  The count of operations in history. 
+
+### class ScientificCalculator : public [calc](#_CPPv44calc)::[Calculator](#_CPPv4N4calc10CalculatorE)
+
+An extended calculator with scientific functions. 
+
+This class inherits from [Calculator](../../examples/cpp/docs/api.md#calculatorclasscalc_1_1_calculator) and adds advanced mathematical operations like power and square root. 
+
+### Public Functions
+
+### double power(double base, double exponent)
+
+Calculate the power of a number. 
+
+* **Parameters:**
+  - **base** – The base number. 
+  - **exponent** – The exponent. 
+* **Returns:**
+  base raised to the power of exponent. 
+
+### double squareRoot(double value)
+
+Calculate the square root of a number. 
+
+* **Parameters:**
+  **value** – The number to find the square root of. 
+* **Throws:**
+   – if value is negative. 
+* **Returns:**
+  The square root of value.
+
+<a id="rust-example"></a>
+
+## Rust Example
+
+This is an example of documenting Rust code using sphinx-rust integration.
+
+<a id="document-a-crate"></a>
+
+### Document a Crate
+
+Use `rust:crate` to document an entire Rust crate:
+
+Version: 0.1.0
+
+<a id="calculator"></a>
+
+### pub mod calculator;[[source]](../../api/crates/calculator/code/calculator.md#rust-code-calculator)
+
+<a id="calculator-library"></a>
+
+#### Calculator Library
+
+A simple calculator library demonstrating Rust documentation with sphinx-rust.
+
+This crate provides basic arithmetic operations and a calculator struct that maintains a history of operations.
+
+<a id="example"></a>
+
+##### Example
+
+```rust
+use calculator::{Calculator, Operation};  let mut calc = Calculator::new(); let result = calc.calculate(5.0, 3.0, Operation::Add); assert_eq!(result, 8.0); 
+```
+
+<a id="id1"></a>
+
+#### Structs
+
+| [`Calculator`](../../api/crates/calculator/structs/calculator::Calculator.md#calculator-Calculator)                               | A calculator that performs basic arithmetic operations.         |
+|-----------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| [`ScientificCalculator`](../../api/crates/calculator/structs/calculator::ScientificCalculator.md#calculator-ScientificCalculator) | A scientific calculator with additional mathematical functions. |
+
+<a id="id2"></a>
+
+#### Enums
+
+| [`CalculatorError`](../../api/crates/calculator/enums/calculator::CalculatorError.md#calculator-CalculatorError)   | Errors that can occur during calculator operations.   |
+|--------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------|
+
+<a id="document-individual-items"></a>
+
+### Document Individual Items
+
+Or document specific structs, enums, and functions:
+
+<a id="calculator-Calculator"></a>
+
+### pub struct Calculator(/\* private fields \*/);
+
+A calculator that performs basic arithmetic operations.
+
+The `Calculator` struct maintains a history of all operations performed, allowing users to review previous calculations.
+
+<a id="examples"></a>
+
+#### Examples
+
+```rust
+use calculator::Calculator;  let mut calc = Calculator::new(); let sum = calc.add(10.0, 5.0); assert_eq!(sum, 15.0); 
+```
+
+<a id="calculator-ScientificCalculator"></a>
+
+### pub struct ScientificCalculator(/\* private fields \*/);
+
+A scientific calculator with additional mathematical functions.
+
+Extends the basic [`Calculator`] with trigonometric, logarithmic, and other advanced mathematical operations.
+
+<a id="calculator-CalculatorError"></a>
+
+### pub struct CalculatorError {    DivisionByZero(...),    Overflow(...),}
+
+Errors that can occur during calculator operations.
+
+#### Variants
+
+* **DivisionByZero:**
+  Attempted to divide by zero.
+* **Overflow:**
+  The result overflowed.
+
+<a id="javascript-example"></a>
+
+## JavaScript Example
+
+This is an example of documenting JavaScript code using sphinx-js integration.
+
+<a id="document-functions"></a>
+
+### Document Functions
+
+Use `js:autofunction` to document individual functions:
+
+<a id="add"></a>
+
+### *static* add(a, b)
+
+Adds two numbers together.
+
+* **Arguments:**
+  - **a** (**number**) – The first number.
+  - **b** (**number**) – The second number.
+* **Returns:**
+  **number** – The sum of a and b.
+
+<a id="subtract"></a>
+
+### *static* subtract(a, b)
+
+Subtracts the second number from the first.
+
+* **Arguments:**
+  - **a** (**number**) – The number to subtract from.
+  - **b** (**number**) – The number to subtract.
+* **Returns:**
+  **number** – The difference of a and b.
+
+<a id="multiply"></a>
+
+### *static* multiply(a, b)
+
+Multiplies two numbers together.
+
+* **Arguments:**
+  - **a** (**number**) – The first number.
+  - **b** (**number**) – The second number.
+* **Returns:**
+  **number** – The product of a and b.
+
+<a id="divide"></a>
+
+### *static* divide(a, b)
+
+Divides the first number by the second.
+
+* **Arguments:**
+  - **a** (**number**) – The dividend.
+  - **b** (**number**) – The divisor.
+* **Throws:**
+  **Error** – If b is zero.
+* **Returns:**
+  **number** – The quotient of a divided by b.
+
+<a id="document-classes"></a>
+
+### Document Classes
+
+Use `js:autoclass` to document classes:
+
+<a id="Calculator"></a>
+
+### *class* Calculator()
+
+A calculator that performs basic arithmetic operations and maintains history.
+
+Creates a new Calculator instance.
+
+<a id="Calculator.calculate"></a>
+
+### Calculator.calculate(a, b, operation)
+
+Performs a calculation with the given operands and operation.
+
+* **Arguments:**
+  - **a** (**number**) – The first operand.
+  - **b** (**number**) – The second operand.
+  - **operation** (**Operation**) – The operation to perform.
+* **Throws:**
+  **Error** – If an invalid operation is provided.
+* **Returns:**
+  **number** – The result of the calculation.
+
+<a id="Calculator.clearHistory"></a>
+
+### Calculator.clearHistory()
+
+Clears the calculation history.
+
+* **Returns:**
+  **void**
+
+<a id="Calculator.getHistory"></a>
+
+### Calculator.getHistory()
+
+Returns the history of all calculations.
+
+* **Returns:**
+  **Array.<CalculationResult>** – An array of calculation results.
+
+<a id="Calculator.getLastResult"></a>
+
+### Calculator.getLastResult()
+
+Gets the last calculation result.
+
+* **Returns:**
+  **CalculationResult|null** – The last calculation result, or null if no calculations have been made.
+
+<a id="ScientificCalculator"></a>
+
+### *class* ScientificCalculator()
+
+A scientific calculator with additional mathematical functions.
+
+<a id="ScientificCalculator.cos"></a>
+
+### ScientificCalculator.cos(radians)
+
+Calculates the cosine of an angle in radians.
+
+* **Arguments:**
+  - **radians** (**number**) – The angle in radians.
+* **Returns:**
+  **number** – The cosine of the angle.
+
+<a id="ScientificCalculator.ln"></a>
+
+### ScientificCalculator.ln(n)
+
+Calculates the natural logarithm of a number.
+
+* **Arguments:**
+  - **n** (**number**) – The number.
+* **Throws:**
+  **Error** – If n is not positive.
+* **Returns:**
+  **number** – The natural logarithm of n.
+
+<a id="ScientificCalculator.log10"></a>
+
+### ScientificCalculator.log10(n)
+
+Calculates the base-10 logarithm of a number.
+
+* **Arguments:**
+  - **n** (**number**) – The number.
+* **Throws:**
+  **Error** – If n is not positive.
+* **Returns:**
+  **number** – The base-10 logarithm of n.
+
+<a id="ScientificCalculator.sin"></a>
+
+### ScientificCalculator.sin(radians)
+
+Calculates the sine of an angle in radians.
+
+* **Arguments:**
+  - **radians** (**number**) – The angle in radians.
+* **Returns:**
+  **number** – The sine of the angle.
+
+<a id="ScientificCalculator.tan"></a>
+
+### ScientificCalculator.tan(radians)
+
+Calculates the tangent of an angle in radians.
+
+* **Arguments:**
+  - **radians** (**number**) – The angle in radians.
+* **Returns:**
+  **number** – The tangent of the angle.
+
+
+# calculator.html.md
+
+```rust
+//! # Calculator Library //! //! A simple calculator library demonstrating Rust documentation with sphinx-rust. //! //! This crate provides basic arithmetic operations and a calculator struct //! that maintains a history of operations. //! //! ## Example //! //! ```rust //! use calculator::{Calculator, Operation}; //! //! let mut calc = Calculator::new(); //! let result = calc.calculate(5.0, 3.0, Operation::Add); //! assert_eq!(result, 8.0); //! ```  mod operations;  pub use operations::{Operation, OperationResult};  /// A calculator that performs basic arithmetic operations. /// /// The `Calculator` struct maintains a history of all operations performed, /// allowing users to review previous calculations. /// /// # Examples /// /// ```rust /// use calculator::Calculator; /// /// let mut calc = Calculator::new(); /// let sum = calc.add(10.0, 5.0); /// assert_eq!(sum, 15.0); /// ``` #[derive(Debug, Default)] pub struct Calculator {     /// History of operations performed     history: Vec<OperationResult>, }  impl Calculator {     /// Creates a new Calculator instance with an empty history.     ///     /// # Returns     ///     /// A new `Calculator` with no operation history.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let calc = Calculator::new();     /// assert!(calc.history().is_empty());     /// ```     #[must_use]     pub fn new() -> Self {         Self {             history: Vec::new(),         }     }      /// Adds two numbers together.     ///     /// # Arguments     ///     /// * `a` - The first operand     /// * `b` - The second operand     ///     /// # Returns     ///     /// The sum of `a` and `b`.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let mut calc = Calculator::new();     /// assert_eq!(calc.add(2.0, 3.0), 5.0);     /// ```     pub fn add(&mut self, a: f64, b: f64) -> f64 {         let result = a + b;         self.record(a, b, Operation::Add, result);         result     }      /// Subtracts the second number from the first.     ///     /// # Arguments     ///     /// * `a` - The minuend     /// * `b` - The subtrahend     ///     /// # Returns     ///     /// The difference `a - b`.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let mut calc = Calculator::new();     /// assert_eq!(calc.subtract(10.0, 4.0), 6.0);     /// ```     pub fn subtract(&mut self, a: f64, b: f64) -> f64 {         let result = a - b;         self.record(a, b, Operation::Subtract, result);         result     }      /// Multiplies two numbers together.     ///     /// # Arguments     ///     /// * `a` - The first factor     /// * `b` - The second factor     ///     /// # Returns     ///     /// The product of `a` and `b`.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let mut calc = Calculator::new();     /// assert_eq!(calc.multiply(3.0, 4.0), 12.0);     /// ```     pub fn multiply(&mut self, a: f64, b: f64) -> f64 {         let result = a * b;         self.record(a, b, Operation::Multiply, result);         result     }      /// Divides the first number by the second.     ///     /// # Arguments     ///     /// * `a` - The dividend     /// * `b` - The divisor     ///     /// # Returns     ///     /// The quotient `a / b`, or an error if `b` is zero.     ///     /// # Errors     ///     /// Returns a `DivisionByZero` error if `b` is zero.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let mut calc = Calculator::new();     /// assert_eq!(calc.divide(10.0, 2.0).unwrap(), 5.0);     /// assert!(calc.divide(10.0, 0.0).is_err());     /// ```     pub fn divide(&mut self, a: f64, b: f64) -> Result<f64, CalculatorError> {         if b == 0.0 {             return Err(CalculatorError::DivisionByZero);         }         let result = a / b;         self.record(a, b, Operation::Divide, result);         Ok(result)     }      /// Performs a calculation using the specified operation.     ///     /// # Arguments     ///     /// * `a` - The first operand     /// * `b` - The second operand     /// * `op` - The operation to perform     ///     /// # Returns     ///     /// The result of the operation.     ///     /// # Panics     ///     /// Panics if dividing by zero. Use [`Calculator::divide`] for safe division.     pub fn calculate(&mut self, a: f64, b: f64, op: Operation) -> f64 {         match op {             Operation::Add => self.add(a, b),             Operation::Subtract => self.subtract(a, b),             Operation::Multiply => self.multiply(a, b),             Operation::Divide => self.divide(a, b).expect("Division by zero"),         }     }      /// Returns a reference to the operation history.     ///     /// # Returns     ///     /// A slice containing all operations performed by this calculator.     #[must_use]     pub fn history(&self) -> &[OperationResult] {         &self.history     }      /// Clears the operation history.     ///     /// # Examples     ///     /// ```rust     /// use calculator::Calculator;     ///     /// let mut calc = Calculator::new();     /// calc.add(1.0, 2.0);     /// assert!(!calc.history().is_empty());     /// calc.clear_history();     /// assert!(calc.history().is_empty());     /// ```     pub fn clear_history(&mut self) {         self.history.clear();     }      /// Records an operation in the history.     fn record(&mut self, a: f64, b: f64, op: Operation, result: f64) {         self.history.push(OperationResult {             operand_a: a,             operand_b: b,             operation: op,             result,         });     } }  /// Errors that can occur during calculator operations. #[derive(Debug, Clone, PartialEq, Eq)] pub enum CalculatorError {     /// Attempted to divide by zero.     DivisionByZero,     /// The result overflowed.     Overflow, }  impl std::fmt::Display for CalculatorError {     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {         match self {             Self::DivisionByZero => write!(f, "Cannot divide by zero"),             Self::Overflow => write!(f, "Calculation resulted in overflow"),         }     } }  impl std::error::Error for CalculatorError {}  /// A scientific calculator with additional mathematical functions. /// /// Extends the basic [`Calculator`] with trigonometric, logarithmic, /// and other advanced mathematical operations. #[derive(Debug, Default)] pub struct ScientificCalculator {     /// The underlying basic calculator     basic: Calculator,     /// Whether to use degrees (true) or radians (false) for trig functions     use_degrees: bool, }  impl ScientificCalculator {     /// Creates a new ScientificCalculator.     ///     /// By default, trigonometric functions use radians.     #[must_use]     pub fn new() -> Self {         Self {             basic: Calculator::new(),             use_degrees: false,         }     }      /// Sets whether to use degrees for trigonometric functions.     ///     /// # Arguments     ///     /// * `use_degrees` - If true, trig functions expect degrees; if false, radians.     pub fn set_use_degrees(&mut self, use_degrees: bool) {         self.use_degrees = use_degrees;     }      /// Calculates the sine of an angle.     ///     /// # Arguments     ///     /// * `angle` - The angle (in degrees or radians based on settings)     ///     /// # Returns     ///     /// The sine of the angle.     #[must_use]     pub fn sin(&self, angle: f64) -> f64 {         let radians = if self.use_degrees {             angle.to_radians()         } else {             angle         };         radians.sin()     }      /// Calculates the cosine of an angle.     ///     /// # Arguments     ///     /// * `angle` - The angle (in degrees or radians based on settings)     ///     /// # Returns     ///     /// The cosine of the angle.     #[must_use]     pub fn cos(&self, angle: f64) -> f64 {         let radians = if self.use_degrees {             angle.to_radians()         } else {             angle         };         radians.cos()     }      /// Calculates the natural logarithm of a number.     ///     /// # Arguments     ///     /// * `x` - The number (must be positive)     ///     /// # Returns     ///     /// The natural logarithm of x, or an error if x <= 0.     pub fn ln(&self, x: f64) -> Result<f64, CalculatorError> {         if x <= 0.0 {             return Err(CalculatorError::Overflow);         }         Ok(x.ln())     }      /// Calculates the square root of a number.     ///     /// # Arguments     ///     /// * `x` - The number (must be non-negative)     ///     /// # Returns     ///     /// The square root of x, or NaN if x is negative.     #[must_use]     pub fn sqrt(&self, x: f64) -> f64 {         x.sqrt()     }      /// Raises a number to a power.     ///     /// # Arguments     ///     /// * `base` - The base number     /// * `exponent` - The exponent     ///     /// # Returns     ///     /// `base` raised to the power of `exponent`.     #[must_use]     pub fn pow(&self, base: f64, exponent: f64) -> f64 {         base.powf(exponent)     }      /// Returns a reference to the underlying basic calculator.     #[must_use]     pub fn basic(&self) -> &Calculator {         &self.basic     }      /// Returns a mutable reference to the underlying basic calculator.     pub fn basic_mut(&mut self) -> &mut Calculator {         &mut self.basic     } }  #[cfg(test)] mod tests {     use super::*;      #[test]     fn test_add() {         let mut calc = Calculator::new();         assert_eq!(calc.add(2.0, 3.0), 5.0);     }      #[test]     fn test_subtract() {         let mut calc = Calculator::new();         assert_eq!(calc.subtract(10.0, 4.0), 6.0);     }      #[test]     fn test_multiply() {         let mut calc = Calculator::new();         assert_eq!(calc.multiply(3.0, 4.0), 12.0);     }      #[test]     fn test_divide() {         let mut calc = Calculator::new();         assert_eq!(calc.divide(10.0, 2.0).unwrap(), 5.0);     }      #[test]     fn test_divide_by_zero() {         let mut calc = Calculator::new();         assert!(calc.divide(10.0, 0.0).is_err());     }      #[test]     fn test_history() {         let mut calc = Calculator::new();         calc.add(1.0, 2.0);         calc.subtract(5.0, 3.0);         assert_eq!(calc.history().len(), 2);     } } 
+```
+
+
+# calculator::Calculator.html.md
+
+<a id="struct-calculator-calculator"></a>
+
+# Struct `calculator::Calculator`
+
+<a id="calculator-Calculator"></a>
+
+### pub struct Calculator(/\* private fields \*/);
+
+A calculator that performs basic arithmetic operations.
+
+The `Calculator` struct maintains a history of all operations performed, allowing users to review previous calculations.
+
+<a id="examples"></a>
+
+## Examples
+
+```rust
+use calculator::Calculator;  let mut calc = Calculator::new(); let sum = calc.add(10.0, 5.0); assert_eq!(sum, 15.0); 
+```
+
+
+# calculator::CalculatorError.html.md
+
+<a id="enum-calculator-calculatorerror"></a>
+
+# Enum `calculator::CalculatorError`
+
+<a id="calculator-CalculatorError"></a>
+
+### pub struct CalculatorError {    DivisionByZero(...),    Overflow(...),}
+
+Errors that can occur during calculator operations.
+
+<a id="id1"></a>
+
+## Variants
+
+* **DivisionByZero:**
+  Attempted to divide by zero.
+* **Overflow:**
+  The result overflowed.
+
+
+# calculator::ScientificCalculator.html.md
+
+<a id="struct-calculator-scientificcalculator"></a>
+
+# Struct `calculator::ScientificCalculator`
+
+<a id="calculator-ScientificCalculator"></a>
+
+### pub struct ScientificCalculator(/\* private fields \*/);
+
+A scientific calculator with additional mathematical functions.
+
+Extends the basic [`Calculator`] with trigonometric, logarithmic, and other advanced mathematical operations.
+
+
+# configuration.html.md
+
+<a id="configuration"></a>
+
+# Configuration
+
+Configuration for `yardang` is driven from the `pyproject.toml`, either via standard sections like `project` or from the dedicated `tool.yardang` section. Each option below corresponds to the [Sphinx configuration](https://www.sphinx-doc.org/en/master/usage/configuration.html).
+
+Here is `yardang`’s own configuration, in `pyproject.toml`
+
+```toml
+[tool.yardang] root = "docs/src/home.md" cname = "yardang.python-templates.dev" pages = [     "docs/src/overview.md",     "docs/src/installation.md",     "docs/src/configuration.md", ] use-autoapi = true 
+```
+
+<a id="name"></a>
+
+## [`name`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project)
+
+The project name is taken from the standard section, or from the `cwd`.
+
+```toml
+[project] name = "your project name" 
+```
+
+<a id="title"></a>
+
+## `title`
+
+Same as `name`
+
+<a id="module"></a>
+
+## `module`
+
+The module title is taken from the `name`, replacing `-` with `_`, or from the `cwd` doing the same.
+
+<a id="description"></a>
+
+## `description`
+
+```toml
+[project] description = "your project description" 
+```
+
+<a id="author"></a>
+
+## [`author`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-author)
+
+```toml
+[project] authors = "your project authors" 
+```
+
+<a id="version"></a>
+
+## [`version`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-version)
+
+```toml
+[project] version = "0.1.0" 
+```
+
+<a id="theme"></a>
+
+## [`theme`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_theme)
+
+The Sphinx HTML theme to build with. Defaults to `furo`.
+
+```toml
+[tool.yardang] theme = "furo" 
+```
+
+`yardang` ships per-theme defaults (sensible CSS tweaks, and an optional dependency) for the following themes:
+
+- [`furo`](https://github.com/pradyunsg/furo) (the default, always installed)
+- [`sphinxawesome_theme`](https://sphinxawesome.xyz/)
+- [`shibuya`](https://shibuya.lepture.com/)
+
+`furo` is always available; install the rest with `pip install yardang[themes]`. Any other installed Sphinx theme works too — you just won’t get the bundled defaults. See [Previewing themes]() below to compare them live.
+
+<a id="custom-css-custom-js"></a>
+
+## `custom-css` / `custom-js`
+
+Inject a custom stylesheet or script. The value may be a path or raw content. When unset, `yardang` looks for a bundled per-theme asset named `{theme}.css` / `{theme}.js`, then falls back to the generic `custom.css` / `custom.js`. This lets each theme ship sensible defaults — for example, `sphinxawesome_theme` and `shibuya` hide the duplicate copy button.
+
+```toml
+[tool.yardang] custom-css = "docs/_static/my.css" 
+```
+
+<a id="previewing-themes"></a>
+
+## Previewing themes
+
+Build the docs once per theme to compare them side-by-side:
+
+```bash
+yardang preview 
+```
+
+This renders the documentation into `docs/html/_previews/<theme>/` for each bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`). Themes whose package is not installed are skipped. Restrict the set with `--themes`:
+
+```bash
+yardang preview --themes furo --themes shibuya 
+```
+
+Install the optional themes with:
+
+```bash
+pip install yardang[themes] 
+```
+
+When this runs in CI before the GitHub Pages deploy (as in `yardang`’s own [`docs.yaml`](https://github.com/python-project-templates/yardang/blob/main/.github/workflows/docs.yaml)), each theme is browsable live at a suburl of the published site:
+
+- [`/_previews/furo/`](https://yardang.python-templates.dev/_previews/furo/)
+- [`/_previews/sphinxawesome_theme/`](https://yardang.python-templates.dev/_previews/sphinxawesome_theme/)
+- [`/_previews/shibuya/`](https://yardang.python-templates.dev/_previews/shibuya/)
+
+<a id="root"></a>
+
+## `root`
+
+The root page to use, defaults to `README.md`.
+
+```toml
+[tool.yardang] root = "docs/src/index.md" 
+```
+
+<a id="cname"></a>
+
+## `cname`
+
+If set, will generate a `CNAME` file for GitHub Pages custom domains.
+
+```toml
+[tool.yardang] cname = "yardang.python-templates.dev" 
+```
+
+<a id="pages"></a>
+
+## `pages`
+
+Pages to include in the contents tree.
+
+```toml
+[tool.yardang] pages = [     "docs/src/overview.md",     "docs/src/installation.md",     "docs/src/configuration.md", ] 
+```
+
+<a id="use-autoapi"></a>
+
+## `use_autoapi`
+
+Whether or not to use [Sphinx AutoAPI](https://sphinx-autoapi.readthedocs.io/en/latest/). **NOTE:** it is recommended to manually autodoc your code.
+
+```toml
+[tool.yardang] use-autoapi = true 
+```
+
+<a id="sphinx-options"></a>
+
+## Sphinx Options
+
+```toml
+[tool.yardang] html_theme_options = {} html_static_path = [] html_css_files = [] html_js_files = [] source_suffix = [] exclude_patterns = [] language = "en" pygments_style = "sphinx" 
+```
+
+<a id="myst"></a>
+
+## [Myst](https://myst-parser.readthedocs.io/en/latest/#)
+
+```toml
+[tool.yardang] myst_enable_extensions = ["amsmath", "colon_fence", "dollarmath", "html_image"] myst_fence_as_directive = ["mermaid"] 
+```
+
+<a id="myst-nb"></a>
+
+## [Myst-NB](https://myst-nb.readthedocs.io/en/latest/#)
+
+```toml
+[tool.yardang] nb_execution_mode = "off" nb_execution_excludepatterns = [] 
+```
+
+Notebooks can be included with:
+
+```raw
+```{eval-rst} .. toctree::   :maxdepth: 1    ../notebooks/example ``` 
+```
+
+An example follows:
+
+- [Example Notebook](../notebooks/example.md)
+
+<a id="autodoc-pydantic-arguments"></a>
+
+## [Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html) arguments
+
+[Configuration for Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/configuration.html).
+
+```toml
+[tool.yardang] autodoc_pydantic_model_show_config_summary = false autodoc_pydantic_model_show_validator_summary = false autodoc_pydantic_model_show_validator_members = false autodoc_pydantic_field_list_validators = false autodoc_pydantic_field_show_constraints = false autodoc_pydantic_model_member_order = "bysource" autodoc_pydantic_model_show_json = true autodoc_pydantic_settings_show_json = false autodoc_pydantic_model_show_field_summary = false 
+```
+
+<a id="mermaid"></a>
+
+## Mermaid
+
+<a id="github-admonitions"></a>
+
+## GitHub Admonitions
+
+GitHub admonitions are automatically translated to sphinx.
+
+#### NOTE
+Note `markdown` content
+
+#### IMPORTANT
+Important content
+
+#### WARNING
+Warning content
+
+<a id="breathe-doxygen-integration"></a>
+
+## Breathe/Doxygen Integration
+
+Yardang provides integration with [Breathe](https://breathe.readthedocs.io/) for documenting C/C++ code using Doxygen. To use this feature, install yardang with the breathe extra:
+
+```bash
+pip install yardang[breathe] 
+```
+
+All breathe configuration is under `[tool.yardang.breathe]`.
+
+<a id="projects"></a>
+
+### `projects`
+
+A dictionary mapping project names to their Doxygen XML output directories.
+
+```toml
+[tool.yardang.breathe] projects = { myproject = "docs/doxygen/xml", another = "path/to/xml" } 
+```
+
+<a id="default-project"></a>
+
+### `default-project`
+
+The default project to use when no project is specified in breathe directives.
+
+```toml
+[tool.yardang.breathe] default-project = "myproject" 
+```
+
+<a id="domain-by-extension"></a>
+
+### `domain-by-extension`
+
+Map file extensions to Sphinx domains.
+
+```toml
+[tool.yardang.breathe] domain-by-extension = { "hpp" = "cpp", "h" = "cpp", "py" = "py" } 
+```
+
+<a id="domain-by-file-pattern"></a>
+
+### `domain-by-file-pattern`
+
+Map file patterns to Sphinx domains.
+
+```toml
+[tool.yardang.breathe] domain-by-file-pattern = { "*.hpp" = "cpp" } 
+```
+
+<a id="projects-source"></a>
+
+### `projects-source`
+
+Configure source files for automatic Doxygen XML generation.
+
+```toml
+[tool.yardang.breathe] projects-source = { auto = ["src", ["file1.hpp", "file2.hpp"]] } 
+```
+
+<a id="build-directory"></a>
+
+### `build-directory`
+
+The directory where Doxygen XML is built.
+
+```toml
+[tool.yardang.breathe] build-directory = "build/doxygen" 
+```
+
+<a id="default-members"></a>
+
+### `default-members`
+
+Default member visibility for doxygenclass directives.
+
+```toml
+[tool.yardang.breathe] default-members = ["members", "protected-members", "private-members"] 
+```
+
+<a id="show-define-initializer"></a>
+
+### `show-define-initializer`
+
+Show the initializer value for #define macros.
+
+```toml
+[tool.yardang.breathe] show-define-initializer = true 
+```
+
+<a id="show-enumvalue-initializer"></a>
+
+### `show-enumvalue-initializer`
+
+Show the initializer value for enum values.
+
+```toml
+[tool.yardang.breathe] show-enumvalue-initializer = true 
+```
+
+<a id="show-include"></a>
+
+### `show-include`
+
+Show the #include directive for documented entities.
+
+```toml
+[tool.yardang.breathe] show-include = true 
+```
+
+<a id="implementation-filename-extensions"></a>
+
+### `implementation-filename-extensions`
+
+List of file extensions considered as implementation files.
+
+```toml
+[tool.yardang.breathe] implementation-filename-extensions = [".c", ".cc", ".cpp"] 
+```
+
+<a id="doxygen-config-options"></a>
+
+### `doxygen-config-options`
+
+Additional Doxygen configuration options for auto-generated XML.
+
+```toml
+[tool.yardang.breathe] doxygen-config-options = { EXTRACT_ALL = "YES", QUIET = "YES" } 
+```
+
+<a id="doxygen-aliases"></a>
+
+### `doxygen-aliases`
+
+Doxygen aliases for custom commands.
+
+```toml
+[tool.yardang.breathe] doxygen-aliases = { "myalias" = "Custom documentation text" } 
+```
+
+<a id="use-project-refids"></a>
+
+### `use-project-refids`
+
+Use project-qualified reference IDs to avoid conflicts.
+
+```toml
+[tool.yardang.breathe] use-project-refids = true 
+```
+
+<a id="order-parameters-first"></a>
+
+### `order-parameters-first`
+
+Order function parameters before other members in documentation.
+
+```toml
+[tool.yardang.breathe] order-parameters-first = true 
+```
+
+<a id="separate-member-pages"></a>
+
+### `separate-member-pages`
+
+Generate separate pages for each class member.
+
+```toml
+[tool.yardang.breathe] separate-member-pages = false 
+```
+
+<a id="complete-example"></a>
+
+### Complete Example
+
+Here’s a complete example configuration for a C++ project:
+
+```toml
+[tool.yardang] title = "My C++ Library" root = "docs/index.md" pages = ["docs/api.md", "docs/examples.md"] use-autoapi = false  [tool.yardang.breathe] projects = { mylib = "docs/doxygen/xml" } default-project = "mylib" domain-by-extension = { "hpp" = "cpp", "cpp" = "cpp", "h" = "cpp" } show-define-initializer = true show-enumvalue-initializer = true show-include = true use-project-refids = true 
+```
+
+Then in your documentation files, you can use breathe directives:
+
+```markdown
+# API Reference  ## MyClass  \`\`\`{doxygenclass} MyNamespace::MyClass :members: :protected-members: \`\`\`  ## Functions  \`\`\`{doxygenfunction} MyNamespace::myFunction \`\`\` 
+```
+
+<a id="sphinx-rust-integration"></a>
+
+## Sphinx-Rust Integration
+
+Yardang provides integration with [sphinx-rust](https://sphinx-rust.readthedocs.io/) for documenting Rust code. To use this feature, install yardang with the sphinx-rust extra:
+
+```bash
+pip install yardang[sphinx-rust] 
+```
+
+All sphinx-rust configuration is under `[tool.yardang.sphinx-rust]`.
+
+<a id="crates"></a>
+
+### `crates`
+
+A list of paths to Rust crates to document.
+
+```toml
+[tool.yardang.sphinx-rust] crates = [     "path/to/crate1",     "path/to/crate2", ] 
+```
+
+<a id="doc-formats"></a>
+
+### `doc-formats`
+
+A dictionary mapping crate names to their docstring format. Valid values are `"restructuredtext"` (default) or `"myst-nb"` (for markdown docstrings).
+
+```toml
+[tool.yardang.sphinx-rust] doc-formats = { mycrate = "myst-nb" } 
+```
+
+**Note:** When using `myst_nb` as your Sphinx parser (which yardang uses by default), use `"myst-nb"` instead of `"markdown"` for markdown docstrings.
+
+<a id="viewcode"></a>
+
+### `viewcode`
+
+Enable links to the source code for documented items. Defaults to `true`.
+
+```toml
+[tool.yardang.sphinx-rust] viewcode = true 
+```
+
+<a id="id1"></a>
+
+### Complete Example
+
+Here’s a complete example configuration for a Rust project:
+
+```toml
+[tool.yardang] title = "My Rust Library" root = "docs/index.md" pages = ["docs/api.md", "docs/examples.md"] use-autoapi = false  [tool.yardang.sphinx-rust] crates = [     "crates/mylib",     "crates/mylib-utils", ] doc-formats = { mylib = "myst-nb", "mylib-utils" = "restructuredtext" } viewcode = true 
+```
+
+Then in your documentation files, you can use sphinx-rust directives:
+
+```markdown
+# API Reference  ## Document a Crate  \`\`\`{eval-rst} .. rust:crate:: mylib  \`\`\`  ## Document Individual Items  \`\`\`{eval-rst} .. rust:struct:: mylib::MyStruct  \`\`\`  \`\`\`{eval-rst} .. rust:enum:: mylib::MyEnum  \`\`\`  \`\`\`{eval-rst} .. rust:function:: mylib::my_function  \`\`\` 
+```
+
+<a id="sphinx-js-integration"></a>
+
+## Sphinx-JS Integration
+
+Yardang provides integration with [sphinx-js](https://pypi.org/project/sphinx-js/) for documenting JavaScript and TypeScript code. To use this feature, you also need JSDoc or TypeDoc installed:
+
+```bash
+# For JavaScript projects npm install jsdoc  # For TypeScript projects npm install typedoc 
+```
+
+All sphinx-js configuration is under `[tool.yardang.sphinx-js]`.
+
+<a id="js-source-path"></a>
+
+### `js-source-path`
+
+A list of directories containing your JS/TS source files, relative to the project root. This is required to enable sphinx-js.
+
+```toml
+[tool.yardang.sphinx-js] js-source-path = ["src", "lib"] 
+```
+
+Or as a single path:
+
+```toml
+[tool.yardang.sphinx-js] js-source-path = "src" 
+```
+
+<a id="js-language"></a>
+
+### `js-language`
+
+The language of your source files. Use `"javascript"` (default) or `"typescript"`.
+
+```toml
+[tool.yardang.sphinx-js] js-language = "typescript" 
+```
+
+<a id="root-for-relative-js-paths"></a>
+
+### `root-for-relative-js-paths`
+
+The root directory for resolving relative JS entity paths. Required if you have multiple `js-source-path` entries.
+
+```toml
+[tool.yardang.sphinx-js] root-for-relative-js-paths = "src" 
+```
+
+<a id="jsdoc-config-path"></a>
+
+### `jsdoc-config-path`
+
+Path to a JSDoc configuration file.
+
+```toml
+[tool.yardang.sphinx-js] jsdoc-config-path = "jsdoc.json" 
+```
+
+<a id="jsdoc-tsconfig-path"></a>
+
+### `jsdoc-tsconfig-path`
+
+Path to a TypeScript configuration file (for TypeDoc).
+
+```toml
+[tool.yardang.sphinx-js] jsdoc-tsconfig-path = "tsconfig.json" 
+```
+
+<a id="ts-type-bold"></a>
+
+### `ts-type-bold`
+
+Make TypeScript types bold in the output. Defaults to `false`.
+
+```toml
+[tool.yardang.sphinx-js] ts-type-bold = true 
+```
+
+<a id="id2"></a>
+
+### Complete Example
+
+Here’s a complete example configuration for a TypeScript project:
+
+```toml
+[tool.yardang] title = "My TypeScript Library" root = "docs/index.md" pages = ["docs/api.md", "docs/examples.md"] use-autoapi = false  [tool.yardang.sphinx-js] js-language = "typescript" js-source-path = ["src"] jsdoc-tsconfig-path = "tsconfig.json" ts-type-bold = true 
+```
+
+Then in your documentation files, you can use sphinx-js directives:
+
+```markdown
+# API Reference  ## Functions  \`\`\`{js:autofunction} myFunction \`\`\`  ## Classes  \`\`\`{js:autoclass} MyClass :members: \`\`\`  ## Modules  \`\`\`{js:automodule} myModule \`\`\` 
+```
+
+<a id="github-wiki-integration"></a>
+
+## GitHub Wiki Integration
+
+Yardang can generate GitHub Wiki compatible markdown documentation using [sphinx-markdown-builder](https://github.com/liran-funaro/sphinx-markdown-builder). This allows you to publish your documentation to a GitHub Wiki in addition to (or instead of) a static HTML site.
+
+To generate wiki output, use the `yardang wiki` command instead of `yardang build`.
+
+Wiki output is configured in the `[tool.yardang.wiki]` section:
+
+```toml
+[tool.yardang.wiki] enabled = true output-dir = "docs/wiki" generate-sidebar = true generate-footer = true fix-links = true footer-docs-url = "https://your-project.dev" footer-repo-url = "https://github.com/your-org/your-project" markdown-flavor = "github" 
+```
+
+<a id="enabled"></a>
+
+### `enabled`
+
+Enable the markdown builder extension. Must be `true` to use `yardang wiki`. Defaults to `false`.
+
+```toml
+[tool.yardang.wiki] enabled = true 
+```
+
+<a id="output-dir"></a>
+
+### `output-dir`
+
+Output directory for the generated markdown files. Defaults to `"docs/wiki"`.
+
+```toml
+[tool.yardang.wiki] output-dir = "docs/wiki" 
+```
+
+<a id="generate-sidebar"></a>
+
+### `generate-sidebar`
+
+Generate a `_Sidebar.md` file for wiki navigation. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki] generate-sidebar = true 
+```
+
+<a id="generate-footer"></a>
+
+### `generate-footer`
+
+Generate a `_Footer.md` file with links to docs and repo. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki] generate-footer = true 
+```
+
+<a id="fix-links"></a>
+
+### `fix-links`
+
+Fix internal markdown links for GitHub Wiki compatibility. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki] fix-links = true 
+```
+
+<a id="footer-docs-url"></a>
+
+### `footer-docs-url`
+
+URL to the full documentation site (for the footer).
+
+```toml
+[tool.yardang.wiki] footer-docs-url = "https://your-project.dev" 
+```
+
+<a id="footer-repo-url"></a>
+
+### `footer-repo-url`
+
+URL to the repository (for the footer).
+
+```toml
+[tool.yardang.wiki] footer-repo-url = "https://github.com/your-org/your-project" 
+```
+
+<a id="markdown-flavor"></a>
+
+### `markdown-flavor`
+
+Markdown flavor to use. Set to `"github"` for GitHub-flavored markdown. Defaults to `"github"`.
+
+```toml
+[tool.yardang.wiki] markdown-flavor = "github" 
+```
+
+<a id="markdown-anchor-sections"></a>
+
+### `markdown-anchor-sections`
+
+Add anchors before each section. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki] markdown-anchor-sections = true 
+```
+
+<a id="markdown-anchor-signatures"></a>
+
+### `markdown-anchor-signatures`
+
+Add anchors before each function/class signature. Defaults to `true`.
+
+```toml
+[tool.yardang.wiki] markdown-anchor-signatures = true 
+```
+
+<a id="markdown-bullet"></a>
+
+### `markdown-bullet`
+
+Bullet character to use for lists. Defaults to `"-"`.
+
+```toml
+[tool.yardang.wiki] markdown-bullet = "-" 
+```
+
+<a id="id3"></a>
+
+### Complete Example
+
+```toml
+[tool.yardang] title = "My Project" root = "docs/index.md" pages = ["docs/overview.md", "docs/api.md"]  [tool.yardang.wiki] enabled = true output-dir = "docs/wiki" generate-sidebar = true generate-footer = true footer-docs-url = "https://myproject.dev" footer-repo-url = "https://github.com/myorg/myproject" markdown-flavor = "github" 
+```
+
+<a id="usage"></a>
+
+### Usage
+
+Generate GitHub Wiki output:
+
+```bash
+yardang wiki 
+```
+
+The output will be in the `docs/wiki/` directory (or the configured output directory). To publish to your GitHub Wiki:
+
+```bash
+# Clone your wiki repository git clone https://github.com/YOUR-ORG/YOUR-REPO.wiki.git  # Copy the generated markdown files cp -r docs/wiki/* YOUR-REPO.wiki/  # Commit and push cd YOUR-REPO.wiki git add . git commit -m "Update wiki documentation" git push 
+```
+
+The generated wiki includes:
+
+- `Home.md` - The main landing page (converted from index.md)
+- `_Sidebar.md` - Navigation sidebar with links to all pages
+- `_Footer.md` - Footer with links to documentation and repository
+- All documentation pages converted to GitHub-flavored markdown
+
+
+# example.html.md
+
+<a id="example-notebook"></a>
+
+# Example Notebook
+
+This is an example notebook.
+
+```python
+print("hello world!")
+```
+
+```myst-ansi
+hello world!  
+```
+
+
+# home.html.md
+
+<div style="display: flex; flex-direction: row; margin-top:50px;">   <a href="https://github.com/python-project-templates/yardang"><img src="https://github.com/python-project-templates/yardang/blob/main/docs/logo.png?raw=true" alt="yardang" width="120"></a>   <h1 style="margin-left: 20px;">yardang</h1> </div> 
+
+[![GitHub](https://img.shields.io/badge/repo-github-181717?logo=github&logoColor=white)](https://github.com/python-project-templates/yardang) [![Build Status](https://github.com/python-project-templates/yardang/actions/workflows/build.yml/badge.svg?branch=main&event=push)](https://github.com/python-project-templates/yardang/actions/workflows/build.yml) [![codecov](https://codecov.io/gh/python-project-templates/yardang/branch/main/graph/badge.svg)](https://codecov.io/gh/python-project-templates/yardang) [![License](https://img.shields.io/github/license/python-project-templates/yardang)](https://github.com/python-project-templates/yardang) [![PyPI](https://img.shields.io/pypi/v/yardang.svg)](https://pypi.python.org/pypi/yardang)
+
+`yardang` is a Python library for generating [Sphinx documentation](https://www.sphinx-doc.org/en/master/) easily, with minimal local configuration overhead.
+
+[`yardang`](https://www.britannica.com/science/yardang) makes building [Sphinx](https://www.sphinx-doc.org/en/master/) easy.
+
+About `yardang` and how it works.
+
+Install `yardang` from PyPI, Conda Forge, or build from source.
+
+Learn how to configure your repository.
+
+Star, Fork, or contribute on GitHub.
+
+---
+
+*This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).*
+
+
+# installation.html.md
+
+<a id="installation"></a>
+
+# Installation
+
+<a id="pypi"></a>
+
+## PyPI
+
+You can install from PyPI via `pip`:
+
+```bash
+pip install yardang 
+```
+
+The `furo` theme is included by default. To pull in the other bundled themes (`sphinxawesome_theme`, `shibuya`), install the `themes` extra:
+
+```bash
+pip install yardang[themes] 
+```
+
+<a id="conda"></a>
+
+## Conda
+
+You can install from `conda-forge` via `conda` (or `mamba`, etc):
+
+```bash
+conda install yardang -c conda-forge 
+```
+
+<a id="source"></a>
+
+## Source
+
+`yardang` can also be built and installed from source:
+
+```bash
+git clone https://github.com/python-project-templates/yardang.git cd yardang pip install -e . 
+```
+
+
+# overview.html.md
+
+<a id="overview"></a>
+
+# Overview
+
+`yardang` is a tool to configure the most common [Sphinx](https://www.sphinx-doc.org/en/master/) options directly from a `pyproject.toml`. Sphinx relies on a `conf.py` file and Makefiles, but these usually overlap a substantial amount with information already stored in the repository (e.g. in the `pyproject.toml`). Within an organization, these files tend to include a substantial amount of overlapping information.
+
+<a id="integrations"></a>
+
+## Integrations
+
+`yardang` takes the most important parts, like theme, title, pages, etc, and extracts them directly from the `pyproject.toml`. It creates a temporary file for the `conf.py`, and builds the project into `docs/html`. Out of the box, it comes with support for several popular Sphinx frameworks:
+
+- [Sphinx Design](https://sphinx-design.readthedocs.io/en/latest/)
+- [Myst Markdown](https://jupyterbook.org/en/stable/content/myst.html)
+- [Sphinx AutoAPI](https://sphinx-autoapi.readthedocs.io/en/latest/)
+- [Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html)
+- [Furo Theme](https://github.com/pradyunsg/furo) (the default), plus bundled defaults for [`sphinxawesome_theme`](https://sphinxawesome.xyz/) and [`shibuya`](https://shibuya.lepture.com/)
+
+`yardang preview` builds the docs once per theme so you can compare them side-by-side. See [Previewing themes](configuration.md#previewing-themes) for the live previews.
+
+<a id="usage"></a>
+
+## Usage
+
+`yardang` builds Sphinx via a CLI, which will build docs into `docs/html`:
+
+```bash
+yardang build 
+```
+
+<a id="github-pages"></a>
+
+### GitHub Pages
+
+The goal of this project is to make it as easy as possible to use Sphinx. The following yaml should be all it takes to integrate your project with GitHub Pages, **without changing anything in your existing repository**.
+
+```yaml
+name: Docs on:   push:     branches: ["main"]     tags: ["v*"]     paths-ignore: ["LICENSE", "README.md"] permissions:     contents: write jobs:   docs:     runs-on: ubuntu-latest     steps:       - uses: actions-ext/yardang@main         with:         token: ${{ secrets.GITHUB_TOKEN }}  
+```
+
+

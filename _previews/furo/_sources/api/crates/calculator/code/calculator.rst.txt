@@ -1,0 +1,6 @@
+:orphan:
+
+.. literalinclude:: ../../../../examples/rust/src/lib.rs
+   :name: rust-code:calculator
+   :language: rust
+   :linenos:

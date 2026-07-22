@@ -1,0 +1,30 @@
+# yardang
+
+> Easily generate sphinx documentation
+
+
+the yardang authors
+
+## Pages
+
+- [Home](index.html.md): <div style="display: flex; flex-direction: row; margin-top:50px;">   <a href="https://github.com/pyt...
+- [Crate `calculator`](api/crates/calculator/index.html.md): Version: 0.1.0
+- [Enums](api/crates/calculator/enums/index.html.md): - [Enum `calculator::CalculatorError`](calculator::CalculatorError.md)
+- [Structs](api/crates/calculator/structs/index.html.md): - [Struct `calculator::Calculator`](calculator::Calculator.md)
+- [JavaScript Calculator Example](examples/js/README.html.md): This is an example JavaScript project demonstrating sphinx-js documentation with yardang.
+- [Calculator Library (Rust)](examples/rust/README.html.md): A simple calculator library demonstrating Rust documentation with sphinx-rust.
+- [Calculator C++ API Documentation](examples/cpp/docs/api.html.md): This page demonstrates how to use breathe to document C++ code with yardang.
+- [API Reference](docs/src/api.html.md): Generate Sphinx documentation configuration from pyproject.toml.
+- [Calculator](api/crates/calculator/code/calculator.html.md): //! # Calculator Library //! //! A simple calculator library demonstrating Rust documentation with s...
+- [Struct `calculator::Calculator`](api/crates/calculator/structs/calculator::Calculator.html.md): A calculator that performs basic arithmetic operations.
+- [Enum `calculator::CalculatorError`](api/crates/calculator/enums/calculator::CalculatorError.html.md): Errors that can occur during calculator operations.
+- [Struct `calculator::ScientificCalculator`](api/crates/calculator/structs/calculator::ScientificCalculator.html.md): A scientific calculator with additional mathematical functions.
+- [Configuration](docs/src/configuration.html.md): Configuration for `yardang` is driven from the `pyproject.toml`, either via standard sections like `...
+- [Example Notebook](docs/notebooks/example.html.md): This is an example notebook.
+- [Home](docs/src/home.html.md): <div style="display: flex; flex-direction: row; margin-top:50px;">   <a href="https://github.com/pyt...
+- [Installation](docs/src/installation.html.md): You can install from PyPI via `pip`:
+- [Overview](docs/src/overview.html.md): `yardang` is a tool to configure the most common [Sphinx](https://www.sphinx-doc.org/en/master/) opt...
+
+---
+
+For more comprehensive documentation, see [llms-full.txt](llms-full.txt)

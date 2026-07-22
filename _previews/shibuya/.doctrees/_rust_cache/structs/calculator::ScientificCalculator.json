@@ -1,0 +1,1 @@
+{"path":["calculator","ScientificCalculator"],"docstring":"A scientific calculator with additional mathematical functions.\n\nExtends the basic [`Calculator`] with trigonometric, logarithmic,\nand other advanced mathematical operations.","fields":[]}

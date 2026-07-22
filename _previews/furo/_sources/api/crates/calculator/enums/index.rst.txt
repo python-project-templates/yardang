@@ -1,0 +1,7 @@
+Enums
+=====
+
+.. toctree::
+    :maxdepth: 1
+
+    calculator::CalculatorError
