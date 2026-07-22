@@ -16,8 +16,11 @@
 
 import os
 import os.path
-from packaging.version import Version
 from pathlib import Path
+
+from packaging.version import Version
+
+from yardang.markdown import copy_relative_html_assets, rebase_relative_references
 
 ########################
 # COMMON CONFIGURATION #
@@ -306,11 +309,14 @@ toctree_root = f"""```{toctree_base}
 ######################
 # INTERNAL FUNCTIONS #
 ######################
-def run_copyreadme(_):
+def run_copyreadme(app):
     out = Path("{{source_dir}}") / "index.md"
     readme = Path(root) if (root != "" and root != "None") else Path("{{source_dir}}") / "README.md"
     if "index.md" not in pages:
-        out.write_text(toctree_root + "\n" + readme.read_text())
+        content = readme.read_text()
+        copy_relative_html_assets(content, source=readme, destination=out, output_dir=Path(app.outdir))
+        content = rebase_relative_references(content, source=readme, destination=out)
+        out.write_text(toctree_root + "\n" + content)
 
 def run_copycname(_):
     out = Path("{{source_dir}}") / "docs" / "html" / "CNAME"
