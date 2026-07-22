@@ -12,10 +12,9 @@ authors = [
 description = "Easily generate sphinx documentation"
 readme = "README.md"
 license = { text = "Apache-2.0" }
-version = "0.6.0"
+version = "0.6.3"
 requires-python = ">=3.10"
-keywords = [
-]
+keywords = []
 
 classifiers = [
     "Development Status :: 3 - Alpha",
@@ -23,7 +22,6 @@ classifiers = [
     "Programming Language :: Python :: Implementation :: CPython",
     "Programming Language :: Python :: Implementation :: PyPy",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
@@ -101,7 +99,7 @@ Repository = "https://github.com/python-project-templates/yardang"
 Homepage = "https://github.com/python-project-templates/yardang"
 
 [tool.bumpversion]
-current_version = "0.6.0"
+current_version = "0.6.3"
 commit = true
 tag = true
 commit_args = "-s"

@@ -111,6 +111,9 @@ suffix-mode = "replace"
                 assert "llms_txt_suffix_mode" in conf_content
                 assert "replace" in conf_content
                 assert "A project for LLMs" in conf_content
+                assert Path("conf.py").read_text() == conf_content
+
+            assert not Path("conf.py").exists()
         finally:
             os.chdir(original_cwd)
 
