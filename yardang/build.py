@@ -1,23 +1,23 @@
 import os.path
 import shutil
 import subprocess
+from collections.abc import Callable
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Callable, Dict, List, Optional, Union
 
 from jinja2 import Environment, FileSystemLoader
 
 from .utils import get_config, get_config_flex
 
-__all__ = ("generate_docs_configuration", "run_doxygen_if_needed", "generate_wiki_configuration", "BUNDLED_THEMES")
+__all__ = ("BUNDLED_THEMES", "generate_docs_configuration", "generate_wiki_configuration", "run_doxygen_if_needed")
 
 # Themes for which yardang ships per-theme defaults (a bundled ``{theme}.css`` and/or
 # an optional dependency). Used as the default set for ``yardang preview``.
 BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya")
 
 
-def _resolve_custom_asset(value: Optional[Union[str, Path]], theme: Optional[str], extension: str, *, assets_dir: Path) -> Optional[str]:
+def _resolve_custom_asset(value: str | Path | None, theme: str | None, extension: str, *, assets_dir: Path) -> str | None:
     """Resolve custom CSS/JS content for the docs build.
 
     Resolution precedence:
@@ -48,11 +48,11 @@ def _resolve_custom_asset(value: Optional[Union[str, Path]], theme: Optional[str
 
 
 def run_doxygen_if_needed(
-    breathe_projects: Dict[str, str],
+    breathe_projects: dict[str, str],
     *,
     force: bool = False,
     quiet: bool = False,
-) -> Dict[str, bool]:
+) -> dict[str, bool]:
     """Run doxygen for breathe projects if needed.
 
     For each project in breathe_projects, checks if the XML output directory
@@ -112,19 +112,23 @@ def run_doxygen_if_needed(
             if not quiet:
                 print(f"Running doxygen for project '{project_name}'...")
 
-            kwargs = {"cwd": doxyfile_path.parent}
             if quiet:
-                kwargs["stdout"] = subprocess.DEVNULL
-                kwargs["stderr"] = subprocess.DEVNULL
-
-            result = subprocess.run([doxygen_path], **kwargs)
+                result = subprocess.run(
+                    [doxygen_path],
+                    cwd=doxyfile_path.parent,
+                    stdout=subprocess.DEVNULL,
+                    stderr=subprocess.DEVNULL,
+                    check=False,
+                )
+            else:
+                result = subprocess.run([doxygen_path], cwd=doxyfile_path.parent, check=False)
             results[project_name] = result.returncode == 0
 
             if not quiet and result.returncode == 0:
                 print(f"  Generated XML documentation in {xml_dir}")
             elif not quiet:
                 print(f"  Doxygen failed with return code {result.returncode}")
-        except Exception as e:
+        except OSError as e:
             if not quiet:
                 print(f"  Error running doxygen: {e}")
             results[project_name] = False
@@ -135,27 +139,27 @@ def run_doxygen_if_needed(
 @contextmanager
 def generate_docs_configuration(
     *,
-    project: Optional[str] = None,
-    title: Optional[str] = None,
-    module: Optional[str] = None,
-    description: Optional[str] = None,
-    author: Optional[str] = None,
-    copyright: Optional[str] = None,
-    version: Optional[str] = None,
-    theme: Optional[str] = None,
-    docs_root: Optional[str] = None,
-    root: Optional[str] = None,
-    cname: Optional[str] = None,
-    pages: Optional[List] = None,
-    use_autoapi: Optional[bool] = None,
-    autoapi_ignore: Optional[List] = None,
-    custom_css: Optional[Path] = None,
-    custom_js: Optional[Path] = None,
-    html_output_dir: Optional[str] = None,
-    config_base: Optional[str] = None,
-    previous_versions: Optional[bool] = False,
-    adjust_arguments: Callable = None,
-    adjust_template: Callable = None,
+    project: str | None = None,
+    title: str | None = None,
+    module: str | None = None,
+    description: str | None = None,
+    author: str | None = None,
+    copyright: str | None = None,
+    version: str | None = None,
+    theme: str | None = None,
+    docs_root: str | None = None,
+    root: str | None = None,
+    cname: str | None = None,
+    pages: list | None = None,
+    use_autoapi: bool | None = None,
+    autoapi_ignore: list | None = None,
+    custom_css: Path | None = None,
+    custom_js: Path | None = None,
+    html_output_dir: str | None = None,
+    config_base: str | None = None,
+    previous_versions: bool | None = False,
+    adjust_arguments: Callable | None = None,
+    adjust_template: Callable | None = None,
 ):
     """Generate Sphinx documentation configuration from pyproject.toml.
 
@@ -651,15 +655,15 @@ def generate_wiki_configuration(
     docs_root: str = "",
     root: str = "",
     cname: str = "",
-    pages: Optional[List] = None,
-    use_autoapi: Optional[bool] = None,
-    autoapi_ignore: Optional[List] = None,
-    custom_css: Optional[Path] = None,
-    custom_js: Optional[Path] = None,
+    pages: list | None = None,
+    use_autoapi: bool | None = None,
+    autoapi_ignore: list | None = None,
+    custom_css: Path | None = None,
+    custom_js: Path | None = None,
     config_base: str = "tool.yardang",
-    previous_versions: Optional[bool] = False,
-    adjust_arguments: Callable = None,
-    adjust_template: Callable = None,
+    previous_versions: bool | None = False,
+    adjust_arguments: Callable | None = None,
+    adjust_template: Callable | None = None,
 ):
     """Generate Sphinx configuration for GitHub Wiki markdown output.
 

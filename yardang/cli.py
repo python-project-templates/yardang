@@ -3,7 +3,6 @@ from pathlib import Path
 from subprocess import Popen
 from sys import executable, stderr, stdout
 from time import sleep
-from typing import List, Optional
 
 from typer import Exit, Typer
 
@@ -17,24 +16,24 @@ def build(
     quiet: bool = False,
     debug: bool = False,
     pdb: bool = False,
-    project: Optional[str] = None,
-    title: Optional[str] = None,
-    module: Optional[str] = None,
-    description: Optional[str] = None,
-    author: Optional[str] = None,
-    copyright: Optional[str] = None,
-    version: Optional[str] = None,
-    theme: Optional[str] = None,
-    docs_root: Optional[str] = None,
-    root: Optional[str] = None,
-    cname: Optional[str] = None,
-    pages: Optional[List[Path]] = None,
-    use_autoapi: Optional[bool] = None,
-    custom_css: Optional[Path] = None,
-    custom_js: Optional[Path] = None,
+    project: str | None = None,
+    title: str | None = None,
+    module: str | None = None,
+    description: str | None = None,
+    author: str | None = None,
+    copyright: str | None = None,
+    version: str | None = None,
+    theme: str | None = None,
+    docs_root: str | None = None,
+    root: str | None = None,
+    cname: str | None = None,
+    pages: list[Path] | None = None,
+    use_autoapi: bool | None = None,
+    custom_css: Path | None = None,
+    custom_js: Path | None = None,
     output: str = "docs/html",
-    config_base: Optional[str] = "tool.yardang",
-    previous_versions: Optional[bool] = False,
+    config_base: str | None = "tool.yardang",
+    previous_versions: bool | None = False,
 ):
     with generate_docs_configuration(
         project=project,
@@ -76,9 +75,9 @@ def build(
             sleep(0.1)
         if process.returncode != 0:
             if pdb:
-                import pdb
+                import pdb  # noqa: T100
 
-                pdb.set_trace()
+                pdb.set_trace()  # noqa: T100
             raise Exit(process.returncode)
 
 
@@ -91,24 +90,24 @@ def wiki(
     quiet: bool = False,
     debug: bool = False,
     pdb: bool = False,
-    project: Optional[str] = None,
-    title: Optional[str] = None,
-    module: Optional[str] = None,
-    description: Optional[str] = None,
-    author: Optional[str] = None,
-    copyright: Optional[str] = None,
-    version: Optional[str] = None,
-    theme: Optional[str] = None,
-    docs_root: Optional[str] = None,
-    root: Optional[str] = None,
-    cname: Optional[str] = None,
-    pages: Optional[List[Path]] = None,
-    use_autoapi: Optional[bool] = None,
-    custom_css: Optional[Path] = None,
-    custom_js: Optional[Path] = None,
-    config_base: Optional[str] = "tool.yardang",
-    previous_versions: Optional[bool] = False,
-    output_dir: Optional[str] = None,
+    project: str | None = None,
+    title: str | None = None,
+    module: str | None = None,
+    description: str | None = None,
+    author: str | None = None,
+    copyright: str | None = None,
+    version: str | None = None,
+    theme: str | None = None,
+    docs_root: str | None = None,
+    root: str | None = None,
+    cname: str | None = None,
+    pages: list[Path] | None = None,
+    use_autoapi: bool | None = None,
+    custom_css: Path | None = None,
+    custom_js: Path | None = None,
+    config_base: str | None = "tool.yardang",
+    previous_versions: bool | None = False,
+    output_dir: str | None = None,
     skip_postprocess: bool = False,
 ):
     """Generate GitHub Wiki compatible markdown documentation.
@@ -174,9 +173,9 @@ def wiki(
             sleep(0.1)
         if process.returncode != 0:
             if pdb:
-                import pdb
+                import pdb  # noqa: T100
 
-                pdb.set_trace()
+                pdb.set_trace()  # noqa: T100
             raise Exit(process.returncode)
 
         # Post-process for GitHub Wiki compatibility
@@ -205,7 +204,7 @@ def wiki(
 
 def preview(
     *,
-    themes: Optional[List[str]] = None,
+    themes: list[str] | None = None,
     output: str = "docs/html/_previews",
     quiet: bool = False,
     debug: bool = False,
