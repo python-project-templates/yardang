@@ -167,6 +167,23 @@ class TestWikiPostProcessor:
         title = get_page_title(md_file)
         assert title == "Home"
 
+    def test_get_page_title_missing_file_falls_back_to_filename(self, tmp_path):
+        from yardang.wiki import get_page_title
+
+        title = get_page_title(tmp_path / "missing-page.md")
+
+        assert title == "Missing Page"
+
+    def test_extract_toctree_entries(self):
+        from yardang.wiki import extract_toctree_entries
+
+        content = """```{toctree}
+---
+overview
+```"""
+
+        assert extract_toctree_entries(content) == [(None, "overview")]
+
     def test_convert_filename_to_wiki_format(self):
         """Test filename conversion for wiki format."""
         from yardang.wiki import convert_filename_to_wiki_format

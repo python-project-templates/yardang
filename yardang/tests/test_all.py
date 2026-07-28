@@ -1,6 +1,9 @@
 import os
 from pathlib import Path
 
+import pytest
+from typer import Exit
+
 from yardang.build import generate_docs_configuration
 from yardang.cli import build, debug
 from yardang.utils import get_config_flex
@@ -14,6 +17,24 @@ def test_build():
 def test_cli():
     build()
     debug()
+
+
+def test_cli_pdb_on_failure(monkeypatch):
+    class FailedProcess:
+        returncode = 1
+
+        @staticmethod
+        def poll():
+            return 1
+
+    traced = []
+    monkeypatch.setattr("yardang.cli.Popen", lambda *_args, **_kwargs: FailedProcess())
+    monkeypatch.setattr("pdb.set_trace", lambda: traced.append(True))
+
+    with pytest.raises(Exit):
+        build(pdb=True)
+
+    assert traced == [True]
 
 
 class TestUseAutoapi:
