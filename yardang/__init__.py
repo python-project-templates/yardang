@@ -7,6 +7,6 @@ __all__ = (
     "BUNDLED_THEMES",
     "generate_docs_configuration",
     "generate_wiki_configuration",
-    "run_doxygen_if_needed",
     "process_wiki_output",
+    "run_doxygen_if_needed",
 )

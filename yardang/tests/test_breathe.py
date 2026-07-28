@@ -431,7 +431,7 @@ class TestDoxygenAutoRun:
 
         monkeypatch.setattr(subprocess, "run", mock_run)
 
-        result = run_doxygen_if_needed({"mylib": str(xml_dir)}, quiet=True)
+        result = run_doxygen_if_needed({"mylib": str(xml_dir)})
         assert result == {"mylib": True}
         assert len(run_called) == 1
         assert run_called[0][1] == tmp_path  # cwd should be Doxyfile's parent

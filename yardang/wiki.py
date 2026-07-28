@@ -8,14 +8,13 @@ to create proper sidebar navigation and fix internal links.
 import re
 import shutil
 from pathlib import Path
-from typing import Dict, List, Optional, Tuple
 
 __all__ = (
-    "generate_sidebar",
-    "generate_footer",
     "fix_wiki_links",
-    "process_wiki_output",
+    "generate_footer",
+    "generate_sidebar",
     "get_page_title",
+    "process_wiki_output",
 )
 
 
@@ -33,16 +32,16 @@ def get_page_title(filepath: Path) -> str:
     """
     try:
         content = filepath.read_text(encoding="utf-8")
-        # Look for first H1 heading
-        match = re.search(r"^#\s+(.+?)(?:\s*\{.*\})?$", content, re.MULTILINE)
-        if match:
-            title = match.group(1).strip()
-            # Remove any remaining markdown formatting
-            title = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", title)
-            title = re.sub(r"`([^`]+)`", r"\1", title)
-            return title
-    except Exception:
-        pass
+    except (OSError, UnicodeError):
+        content = ""
+    # Look for first H1 heading
+    match = re.search(r"^#\s+(.+?)(?:\s*\{.*\})?$", content, re.MULTILINE)
+    if match:
+        title = match.group(1).strip()
+        # Remove any remaining markdown formatting
+        title = re.sub(r"\[([^\]]+)\]\([^)]+\)", r"\1", title)
+        title = re.sub(r"`([^`]+)`", r"\1", title)
+        return title
 
     # Fallback to filename
     name = filepath.stem
@@ -74,7 +73,7 @@ def convert_filename_to_wiki_format(filename: str) -> str:
     return name
 
 
-def fix_wiki_links(content: str, all_pages: Dict[str, str]) -> str:
+def fix_wiki_links(content: str, all_pages: dict[str, str]) -> str:
     """Fix internal links to use GitHub Wiki format.
 
     Converts relative markdown links to GitHub Wiki internal links.
@@ -108,8 +107,7 @@ def fix_wiki_links(content: str, all_pages: Dict[str, str]) -> str:
             anchor = "#" + anchor
 
         # Remove .md extension if present
-        if path.endswith(".md"):
-            path = path[:-3]
+        path = path.removesuffix(".md")
 
         # Convert path to wiki page name
         page_name = convert_filename_to_wiki_format(path)
@@ -454,7 +452,7 @@ def _is_api_page(filename: str, content: str) -> bool:
     return indicator_count >= 2
 
 
-def extract_toctree_entries(content: str) -> List[Tuple[str, str]]:
+def extract_toctree_entries(content: str) -> list[tuple[str, str]]:
     """Extract toctree entries from markdown content.
 
     Parses MyST-style toctree directives to find linked pages.
@@ -478,7 +476,7 @@ def extract_toctree_entries(content: str) -> List[Tuple[str, str]]:
         for line in lines:
             line = line.strip()
             # Skip directive header and options
-            if line.startswith("```") or line.startswith(":") or line.startswith("---"):
+            if line.startswith(("```", ":", "---")):
                 if line == "---":
                     in_content = True
                 continue
@@ -498,7 +496,7 @@ def extract_toctree_entries(content: str) -> List[Tuple[str, str]]:
 
 def generate_sidebar(
     output_dir: Path,
-    pages: List[str],
+    pages: list[str],
     project_name: str = "",
     *,
     include_home: bool = True,
@@ -549,8 +547,7 @@ def generate_sidebar(
 
         # Also try the flattened format (docs-src-overview instead of overview)
         flattened_name = page_path.replace("/", "-").replace(".md", "")
-        if flattened_name.startswith("docs-src-"):
-            flattened_name = flattened_name[9:]  # Remove docs-src- prefix for cleaner names
+        flattened_name = flattened_name.removeprefix("docs-src-")  # Remove docs-src- prefix for cleaner names
 
         # Try to find the file - check both formats
         md_file = None
@@ -656,7 +653,7 @@ def rename_index_to_home(output_dir: Path) -> None:
         shutil.move(str(index_file), str(home_file))
 
 
-def flatten_directory_structure(output_dir: Path, max_filename_length: int = 200) -> Dict[str, str]:
+def flatten_directory_structure(output_dir: Path, max_filename_length: int = 200) -> dict[str, str]:
     """Flatten nested directory structure for GitHub Wiki.
 
     GitHub Wiki doesn't support nested directories, so we need to
@@ -743,7 +740,7 @@ def flatten_directory_structure(output_dir: Path, max_filename_length: int = 200
 
 def process_wiki_output(
     output_dir: Path,
-    pages: Optional[List[str]] = None,
+    pages: list[str] | None = None,
     project_name: str = "",
     docs_url: str = "",
     repo_url: str = "",
