@@ -10,14 +10,14 @@ jobs:
   docs:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v7
+    - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      with:
+        persist-credentials: false
 
     - name: Set up Python
-      uses: actions/setup-python@v6
+      uses: actions-ext/python/setup@6e1b91a408ea89f49bc8aff8724f83826f7b5446
       with:
-        python-version: '3.11'
-        cache: pip
-        cache-dependency-path: pyproject.toml
+        version: '3.11'
 
     - name: Setup Node.js
       uses: actions-ext/node/setup@0ea5bdcd24d2488b28e16bf611b446a2f8e1e12f
