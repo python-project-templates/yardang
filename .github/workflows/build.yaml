@@ -44,9 +44,9 @@ jobs:
           version: ${{ matrix.python-version }}
 
       - name: Setup Node.js
-        uses: actions-ext/node/setup@0ea5bdcd24d2488b28e16bf611b446a2f8e1e12f
+        uses: actions/setup-node@48b55a011bda9f5d6aeb4c2d9c7362e8dae4041e  # v6.0.0
         with:
-          version: "22"
+          node-version: "22"
 
       - name: Setup Rust
         uses: actions-ext/rust/setup@c9cdbe5cc8a2485bf2eb22644302559c741ca763
