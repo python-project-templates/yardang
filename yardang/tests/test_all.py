@@ -1,9 +1,5 @@
-<<<<<<< before updating
 import os
 from pathlib import Path
-=======
-from yardang import *
->>>>>>> after updating
 
 import pytest
 from typer import Exit
