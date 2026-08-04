@@ -76,6 +76,7 @@ extensions = [
     "sphinxcontrib.autodoc_pydantic",
     "sphinx_reredirects",
 ]
+extensions.extend({{extensions}})
 
 # Add breathe extension if configured
 if use_breathe:

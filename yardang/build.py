@@ -295,6 +295,7 @@ def generate_docs_configuration(
         configuration_args = {}
         for config_option, default in {
             # sphinx generic
+            "extensions": [],
             "html_theme_options": {},
             "html_static_path": [],
             "html_extra_path": [],
@@ -626,6 +627,8 @@ def generate_docs_configuration(
                             fp.write("docs/html\n")
                         if not has_index_md:
                             fp.write("index.md\n")
+            if "index.md" not in pages:
+                Path("index.md").touch(exist_ok=True)
             # sphinx-llm starts a nested Sphinx build without forwarding the
             # generated configuration directory. Make the same configuration
             # available from the source directory for that build.
