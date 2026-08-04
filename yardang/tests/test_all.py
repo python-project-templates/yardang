@@ -156,6 +156,33 @@ use-autoapi = false
         finally:
             os.chdir(original_cwd)
 
+    def test_additional_sphinx_extensions(self, tmp_path):
+        (tmp_path / "pyproject.toml").write_text(
+            '[project]\nname = "test-project"\nversion = "1.0.0"\n\n[tool.yardang]\nextensions = ["example.extension"]\n'
+        )
+        (tmp_path / "README.md").write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration() as conf_dir:
+                conf_content = (Path(conf_dir) / "conf.py").read_text()
+                assert "extensions.extend(['example.extension'])" in conf_content
+        finally:
+            os.chdir(original_cwd)
+
+    def test_build_creates_missing_master_document(self, tmp_path):
+        (tmp_path / "pyproject.toml").write_text('[project]\nname = "test-project"\nversion = "1.0.0"\n\n[tool.yardang]\nuse-autoapi = false\n')
+        (tmp_path / "README.md").write_text("# Test Project\n\nTest content.")
+
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            build(quiet=True, output=str(tmp_path / "html"))
+            assert (tmp_path / "html" / "index.html").is_file()
+        finally:
+            os.chdir(original_cwd)
+
 
 class TestGetConfigFlex:
     """Tests for get_config_flex accepting both hyphens and underscores."""

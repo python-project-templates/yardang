@@ -162,6 +162,7 @@ use-autoapi = true
 
 ```toml
 [tool.yardang]
+extensions = ["your_package.sphinx"]
 html_theme_options = {}
 html_static_path = []
 html_css_files = []
