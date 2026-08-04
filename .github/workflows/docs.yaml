@@ -20,9 +20,9 @@ jobs:
         version: '3.11'
 
     - name: Setup Node.js
-      uses: actions-ext/node/setup@0ea5bdcd24d2488b28e16bf611b446a2f8e1e12f
+      uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6.5.0
       with:
-        version: '22'
+        node-version: '22'
 
     - name: Setup Rust
       uses: actions-ext/rust/setup@c9cdbe5cc8a2485bf2eb22644302559c741ca763
