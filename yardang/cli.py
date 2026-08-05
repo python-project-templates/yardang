@@ -35,6 +35,8 @@ def build(
     config_base: str | None = "tool.yardang",
     previous_versions: bool | None = False,
 ):
+    llms_config_base = f"{config_base or 'tool.yardang'}.llms"
+    use_llms = get_config(section="enabled", base=llms_config_base) is True
     with generate_docs_configuration(
         project=project,
         title=title,
@@ -55,30 +57,25 @@ def build(
         config_base=config_base,
         previous_versions=previous_versions,
     ) as file:
-        build_cmd = [
-            executable,
-            "-m",
-            "sphinx",
-            ".",
-            output,
-            "-c",
-            file,
-        ]
+        build_commands = [[executable, "-m", "sphinx", ".", output, "-c", file]]
+        if use_llms:
+            build_commands.append([executable, "-m", "sphinx", "-b", "yardang-llms", ".", output, "-c", file])
 
-        if debug:
-            print(" ".join(build_cmd))
-        if quiet:
-            process = Popen(build_cmd)
-        else:
-            process = Popen(build_cmd, stderr=stderr, stdout=stdout)
-        while process.poll() is None:
-            sleep(0.1)
-        if process.returncode != 0:
-            if pdb:
-                import pdb  # noqa: T100
+        for build_cmd in build_commands:
+            if debug:
+                print(" ".join(build_cmd))
+            if quiet:
+                process = Popen(build_cmd)
+            else:
+                process = Popen(build_cmd, stderr=stderr, stdout=stdout)
+            while process.poll() is None:
+                sleep(0.1)
+            if process.returncode != 0:
+                if pdb:
+                    import pdb  # noqa: T100
 
-                pdb.set_trace()  # noqa: T100
-            raise Exit(process.returncode)
+                    pdb.set_trace()  # noqa: T100
+                raise Exit(process.returncode)
 
 
 def debug():

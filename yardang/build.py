@@ -525,24 +525,15 @@ def generate_docs_configuration(
         # Determine if wiki/markdown output should be generated
         use_wiki = wiki_args["wiki_enabled"]
 
-        # Load sphinx-llm (llms.txt) configuration from tool.yardang.llms
+        # Load LLM-friendly documentation configuration from tool.yardang.llms
         llms_config_base = f"{config_base}.llms"
         llms_args = {}
         for config_option, default in {
-            # yardang gate
             "llms_enabled": False,
-            # sphinx-llm passthrough options
-            "llms_txt_description": "",
-            "llms_txt_build_parallel": True,
-            "llms_txt_suffix_mode": "auto",
-            "llms_txt_full_build": True,
+            "llms_description": "",
+            "llms_full_build": True,
         }.items():
-            # config keys in toml use hyphens, not underscores, and drop the
-            # llms_/llms_txt_ prefix
-            if config_option.startswith("llms_txt_"):
-                toml_key = config_option.replace("llms_txt_", "").replace("_", "-")
-            else:
-                toml_key = config_option.replace("llms_", "").replace("_", "-")
+            toml_key = config_option.replace("llms_", "").replace("_", "-")
             llms_args[config_option] = get_config(section=toml_key, base=llms_config_base)
             if llms_args[config_option] is None:
                 llms_args[config_option] = default
@@ -629,19 +620,8 @@ def generate_docs_configuration(
                             fp.write("index.md\n")
             if "index.md" not in pages:
                 Path("index.md").touch(exist_ok=True)
-            # sphinx-llm starts a nested Sphinx build without forwarding the
-            # generated configuration directory. Make the same configuration
-            # available from the source directory for that build.
-            source_configuration = Path("conf.py")
-            if use_llms:
-                source_configuration.write_text(template)
-
-            try:
-                # yield folder path to sphinx build
-                yield td
-            finally:
-                if use_llms:
-                    source_configuration.unlink(missing_ok=True)
+            # yield folder path to sphinx build
+            yield td
 
 
 @contextmanager
