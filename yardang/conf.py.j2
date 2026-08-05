@@ -95,9 +95,9 @@ if use_sphinx_js:
 if use_wiki:
     extensions.append("sphinx_markdown_builder")
 
-# Add sphinx-llm extension if llms.txt generation is enabled
+# Add Yardang's LLM-friendly documentation builder if enabled
 if use_llms:
-    extensions.append("sphinx_llm.txt")
+    extensions.append("yardang.sphinx.llms")
 
 if use_autoapi in (True, None):
     # add if it is set to true or if it is set to None
@@ -253,14 +253,11 @@ if use_wiki:
     markdown_bullet = "{{markdown_bullet}}"
     markdown_flavor = "{{markdown_flavor}}"
 
-# sphinx-llm (llms.txt) configuration
+# LLM-friendly documentation configuration
 if use_llms:
-    {% if llms_txt_description %}
-    llms_txt_description = """{{llms_txt_description}}"""
-    {% endif %}
-    llms_txt_build_parallel = {{llms_txt_build_parallel}}
-    llms_txt_suffix_mode = "{{llms_txt_suffix_mode}}"
-    llms_txt_full_build = {{llms_txt_full_build}}
+    yardang_llms_title = """{{title}}"""
+    yardang_llms_description = """{{llms_description or description}}"""
+    yardang_llms_full_build = {{llms_full_build}}
 
 # autosummary
 autosummary_generate = True  # if using autosummary, autogenerate
