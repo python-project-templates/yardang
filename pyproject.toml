@@ -38,6 +38,7 @@ dependencies = [
     "sphinx-autoapi",
     "sphinx-copybutton",
     "sphinx-design",
+    "sphinx-markdown-builder>=0.6.9",
     "sphinxcontrib-mermaid>=2.0.0rc0,<2.2",
     "sphinx-reredirects",
     "toml",
@@ -57,9 +58,6 @@ js = [
 wiki = [
     "sphinx-markdown-builder>=0.6.9",
 
-]
-llms = [
-    "sphinx-markdown-builder>=0.6.9",
 ]
 themes = [
     "shibuya",
@@ -84,7 +82,6 @@ develop = [
     "breathe>=4.35.0",
     "sphinx-rust",
     "sphinx-js>=5.0.0",
-    "sphinx-markdown-builder>=0.6.9",
     # Themes
     "shibuya",
     "sphinxawesome-theme",
