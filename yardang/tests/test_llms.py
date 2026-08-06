@@ -1,5 +1,6 @@
 import re
 from pathlib import Path
+from subprocess import Popen
 
 from yardang.build import generate_docs_configuration
 from yardang.cli import build
@@ -24,8 +25,8 @@ description = "A project for LLMs"
 full-build = {str(full_build).lower()}
 """
     )
-    (tmp_path / "README.md").write_text("# Test Project\n\nProject overview.\n")
-    (tmp_path / "guide.md").write_text("# Guide\n\nGuide summary for language models.\n")
+    (tmp_path / "README.md").write_text("# Test Project\n\nProject overview.\n\nSee the [guide](guide.md).\n")
+    (tmp_path / "guide.md").write_text("# Guide\n\nGuide summary for language models.\n\nReturn to the [overview](index.md).\n")
     (tmp_path / "orphan.md").write_text("# Orphan\n\nThis page is not in the toctree.\n")
 
 
@@ -44,19 +45,29 @@ def test_generated_configuration_enables_yardang_llms(tmp_path, monkeypatch):
     assert not (tmp_path / "conf.py").exists()
 
 
-def test_build_generates_llms_outputs(tmp_path, monkeypatch):
+def test_build_generates_llms_outputs_in_one_sphinx_process(tmp_path, monkeypatch):
     _write_project(tmp_path)
     monkeypatch.chdir(tmp_path)
     output = tmp_path / "html"
+    commands = []
+
+    def tracked_popen(command, *args, **kwargs):
+        commands.append(command)
+        return Popen(command, *args, **kwargs)
+
+    monkeypatch.setattr("yardang.cli.Popen", tracked_popen)
 
     build(quiet=True, output=str(output))
 
+    assert len(commands) == 1
     assert (output / "index.html").is_file()
     assert (output / "guide.html").is_file()
     assert (output / "index.html.md").is_file()
     assert (output / "guide.html.md").is_file()
     assert not (output / "orphan.html.md").exists()
     assert (output / "llms-full.txt").is_file()
+    assert "(guide.html.md)" in (output / "index.html.md").read_text()
+    assert "(index.html.md)" in (output / "guide.html.md").read_text()
 
     sitemap = (output / "llms.txt").read_text()
     assert sitemap.startswith("# Test Project\n\n> A project for LLMs\n")
