@@ -37,6 +37,7 @@ class _MarkdownRenderer:
     def __init__(self, app: Sphinx):
         self.app = app
         self.config = app.config
+        self.env = app.env
         self.current_doc_name = ""
 
     def create_translator(self, *args):
