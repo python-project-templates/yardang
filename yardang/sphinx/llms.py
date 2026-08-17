@@ -76,6 +76,7 @@ class LlmsBuilder(MarkdownBuilder):
         return _target_uri(docname)
 
     def finish(self) -> None:
+        super().finish()
         docnames = list(self.env.collect_relations())
         _write_sitemap(self.app, docnames)
         _write_full_document(self.app, docnames)

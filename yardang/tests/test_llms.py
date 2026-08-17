@@ -2,6 +2,8 @@ import re
 from pathlib import Path
 from subprocess import Popen
 
+from sphinx.cmd.build import build_main
+
 from yardang.build import generate_docs_configuration
 from yardang.cli import build
 
@@ -99,6 +101,20 @@ def test_full_build_can_be_disabled(tmp_path, monkeypatch):
     assert (output / "llms.txt").is_file()
     assert not (output / "llms-full.txt").exists()
     assert "llms-full.txt" not in (output / "llms.txt").read_text()
+
+
+def test_explicit_builder_copies_downloads(tmp_path, monkeypatch):
+    _write_project(tmp_path)
+    monkeypatch.chdir(tmp_path)
+    output = tmp_path / "llms"
+
+    with generate_docs_configuration() as conf_dir:
+        result = build_main(["-q", "-b", "yardang-llms", "-c", str(conf_dir), ".", str(output)])
+
+    assert result == 0
+    download = re.search(r"\]\(([^)]*_downloads/[^)]+)\)", (output / "index.html.md").read_text())
+    assert download is not None
+    assert (output / download.group(1)).is_file()
 
 
 def test_llms_generation_is_disabled_by_default(tmp_path, monkeypatch):
