@@ -25,9 +25,13 @@ description = "A project for LLMs"
 full-build = {str(full_build).lower()}
 """
     )
-    (tmp_path / "README.md").write_text("# Test Project\n\nProject overview.\n\nSee the [guide](guide.md).\n")
+    (tmp_path / "README.md").write_text(
+        "# Test Project\n\nProject overview.\n\nSee the [guide](guide.md).\n\n{download}`Download the sample <files/sample.txt>`.\n"
+    )
     (tmp_path / "guide.md").write_text("# Guide\n\nGuide summary for language models.\n\nReturn to the [overview](index.md).\n")
     (tmp_path / "orphan.md").write_text("# Orphan\n\nThis page is not in the toctree.\n")
+    (tmp_path / "files").mkdir(exist_ok=True)
+    (tmp_path / "files" / "sample.txt").write_text("sample\n")
 
 
 def test_generated_configuration_enables_yardang_llms(tmp_path, monkeypatch):
@@ -68,6 +72,7 @@ def test_build_generates_llms_outputs_in_one_sphinx_process(tmp_path, monkeypatc
     assert (output / "llms-full.txt").is_file()
     assert "(guide.html.md)" in (output / "index.html.md").read_text()
     assert "(index.html.md)" in (output / "guide.html.md").read_text()
+    assert "](_downloads/" in (output / "index.html.md").read_text()
 
     sitemap = (output / "llms.txt").read_text()
     assert sitemap.startswith("# Test Project\n\n> A project for LLMs\n")
