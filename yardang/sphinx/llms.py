@@ -33,6 +33,7 @@ class _MarkdownRenderer:
     name = "yardang-llms"
     format = "markdown"
     default_translator_class = _LlmsMarkdownTranslator
+    download_dir = "_downloads"
 
     def __init__(self, app: Sphinx):
         self.app = app
