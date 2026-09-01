@@ -44,7 +44,7 @@ jobs:
           node-version: "22"
 
       - name: Setup Rust
-        uses: actions-ext/rust/setup@3de300f3071e758a1dd8545b884288a35e5d7f81
+        uses: actions-ext/rust/setup@0f0b7c9ab3cdb6e9a1f79e2147974d6762ddafea
 
       - name: Install JSDoc and TypeDoc
         run: npm install -g jsdoc typedoc
