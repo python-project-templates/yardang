@@ -1,0 +1,11 @@
+Crate ``calculator``
+====================
+
+.. rust:crate:: calculator
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    structs/index
+    enums/index

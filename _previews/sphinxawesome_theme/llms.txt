@@ -1,0 +1,23 @@
+# yardang
+
+> Easily generate sphinx documentation
+
+## Pages
+
+- [yardang](index.html.md): yardang is a Python library for generating Sphinx documentation easily, with minimal local configuration overhead.
+- [Overview](docs/src/overview.html.md): yardang is a tool to configure the most common Sphinx options directly from a pyproject.toml. Sphinx relies on a conf.py file and Makefiles, but these usuall...
+- [Installation](docs/src/installation.html.md): You can install from PyPI via pip:
+- [Configuration](docs/src/configuration.html.md): Configuration for yardang is driven from the pyproject.toml, either via standard sections like project or from the dedicated tool.yardang section. Each optio...
+- [Example Notebook](docs/notebooks/example.html.md): This is an example notebook.
+- [API Reference](docs/src/api.html.md): Generate Sphinx documentation configuration from pyproject.toml.
+- [Calculator C++ API Documentation](examples/cpp/docs/api.html.md): This page demonstrates how to use breathe to document C++ code with yardang.
+- [Crate calculator](api/crates/calculator/index.html.md): Version: 0.1.0
+- [Structs](api/crates/calculator/structs/index.html.md): Documentation page.
+- [Struct calculator::Calculator](api/crates/calculator/structs/calculator::Calculator.html.md): A calculator that performs basic arithmetic operations.
+- [Struct calculator::ScientificCalculator](api/crates/calculator/structs/calculator::ScientificCalculator.html.md): A scientific calculator with additional mathematical functions.
+- [Enums](api/crates/calculator/enums/index.html.md): Documentation page.
+- [Enum calculator::CalculatorError](api/crates/calculator/enums/calculator::CalculatorError.html.md): Errors that can occur during calculator operations.
+
+## Full documentation
+
+- [llms-full.txt](llms-full.txt): All pages in one document.

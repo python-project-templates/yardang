@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calculator C++ API Documentation &#8212; yardang &lt;code style=&#39;font-size: var(--font-size--small--4);color: var(--sd-color-primary);&#39;&gt;v0.9.2&lt;/code&gt;</title>
+    <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/fuma.css?v=93dd4431" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/fuma-code.css?v=a950e949" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css?v=fd3f3429" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx_js.css" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/fonts/fuma-fonts.css?v=c2892c73" />
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/custom.css?v=f2290d53" />
+    <script src="../../../_static/documentation_options.js?v=aa3b121e"></script>
+    <script src="../../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-searchlite-index="searchlite-index.json" defer="defer" src="../../../_static/searchlite.js?v=43c3c99e"></script>
+    <script defer="defer" src="../../../_static/fuma.js?v=bef52dc5"></script>
+    <script src="../../../_static/js/custom.js?v=956e5d78"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Crate calculator" href="../../../api/crates/calculator/index.html" />
+    <link rel="prev" title="API Reference" href="../../../docs/src/api.html" />
+    <script>
+      (function () {
+        var root = document.documentElement;
+        try {
+          var stored = localStorage.getItem("fuma-theme");
+          if (stored) {
+            root.classList.add(stored === "dark" ? "dark" : "light");
+            root.style.colorScheme = stored === "dark" ? "dark" : "light";
+          }
+          if (localStorage.getItem("fuma-sidebar") === "collapsed") root.dataset.sidebarCollapsed = "true";
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+<body class="fd-body" data-layout="docs" data-toc-style="normal" data-open-level="1">
+<div id="fd-layout"><header id="fd-subnav">
+  <div class="fd-subnav-inner">
+    <button type="button" class="fd-icon-button fd-sidebar-toggle" aria-controls="fd-sidebar" aria-expanded="false" aria-label="Toggle navigation">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="M4 6h16"/><path d="M4 12h16"/><path d="M4 18h16"/></svg>
+    </button><a class="fd-brand" href="../../../index.html"><span class="fd-brand-name">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.9.2</code></span>
+</a>
+
+    <div class="fd-nav-actions">
+      <button type="button" class="fd-icon-button" data-fd-search-open aria-label="Search"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></button>
+      <button type="button" class="fd-icon-button fd-theme-toggle" aria-label="Toggle theme">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon fd-icon-light"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon fd-icon-dark"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<aside id="fd-sidebar" aria-label="Documentation">
+  <div class="fd-sidebar-header">
+    <div class="fd-sidebar-brand-row"><a class="fd-brand" href="../../../index.html"><span class="fd-brand-name">yardang <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v0.9.2</code></span>
+</a>
+      <button type="button" class="fd-icon-button fd-sidebar-collapse" aria-label="Collapse sidebar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg></button>
+    </div>
+    <button type="button" class="fd-search-trigger" data-fd-search-open>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><span>Search</span><kbd class="fd-kbd">/</kbd>
+    </button>
+  </div>
+
+  <nav class="fd-sidebar-nav">
+    <div class="fd-sidebar-group">
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../docs/src/overview.html">
+      <span class="fd-link-text">Overview</span>
+    </a>
+  </li>
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../docs/src/installation.html">
+      <span class="fd-link-text">Installation</span>
+    </a>
+  </li>
+  <li class="fd-tree-item">
+    <details class="fd-folder" open>
+      <summary class="fd-folder-summary">
+        <a class="fd-link" href="../../../docs/src/configuration.html">
+          <span class="fd-link-text">Configuration</span>
+        </a>
+        <span class="fd-folder-marker" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg></span>
+      </summary>
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../docs/notebooks/example.html">
+      <span class="fd-link-text">Example Notebook</span>
+    </a>
+  </li>
+</ul>
+    </details>
+  </li>
+  <li class="fd-tree-item">
+    <details class="fd-folder" open>
+      <summary class="fd-folder-summary">
+        <a class="fd-link" href="../../../docs/src/api.html">
+          <span class="fd-link-text">API Reference</span>
+        </a>
+        <span class="fd-folder-marker" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg></span>
+      </summary>
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <a class="fd-link fd-current" href="#">
+      <span class="fd-link-text">Calculator C++ API Documentation</span>
+    </a>
+  </li>
+  <li class="fd-tree-item">
+    <details class="fd-folder">
+      <summary class="fd-folder-summary">
+        <a class="fd-link" href="../../../api/crates/calculator/index.html">
+          <span class="fd-link-text">Crate calculator</span>
+        </a>
+        <span class="fd-folder-marker" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg></span>
+      </summary>
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <details class="fd-folder">
+      <summary class="fd-folder-summary">
+        <a class="fd-link" href="../../../api/crates/calculator/structs/index.html">
+          <span class="fd-link-text">Structs</span>
+        </a>
+        <span class="fd-folder-marker" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg></span>
+      </summary>
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../api/crates/calculator/structs/calculator%3A%3ACalculator.html">
+      <span class="fd-link-text">Struct calculator::Calculator</span>
+    </a>
+  </li>
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../api/crates/calculator/structs/calculator%3A%3AScientificCalculator.html">
+      <span class="fd-link-text">Struct calculator::ScientificCalculator</span>
+    </a>
+  </li>
+</ul>
+    </details>
+  </li>
+  <li class="fd-tree-item">
+    <details class="fd-folder">
+      <summary class="fd-folder-summary">
+        <a class="fd-link" href="../../../api/crates/calculator/enums/index.html">
+          <span class="fd-link-text">Enums</span>
+        </a>
+        <span class="fd-folder-marker" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg></span>
+      </summary>
+      
+<ul class="fd-tree">
+  <li class="fd-tree-item">
+    <a class="fd-link" href="../../../api/crates/calculator/enums/calculator%3A%3ACalculatorError.html">
+      <span class="fd-link-text">Enum calculator::CalculatorError</span>
+    </a>
+  </li>
+</ul>
+    </details>
+  </li>
+</ul>
+    </details>
+  </li>
+</ul>
+    </details>
+  </li>
+</ul>
+    </div>
+  </nav>
+
+  <div class="fd-sidebar-footer">
+    <div class="fd-toolbar">
+      <div class="fd-theme-switch" role="group" aria-label="Theme">
+        <button type="button" class="fd-theme-option" data-fd-theme="light" aria-label="Light theme"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg></button>
+        <button type="button" class="fd-theme-option" data-fd-theme="dark" aria-label="Dark theme"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9"/></svg></button>
+      </div>
+    </div>
+  </div>
+</aside>
+<button type="button" id="fd-sidebar-restore" class="fd-icon-button" aria-label="Expand sidebar"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg></button>
+<div class="fd-sidebar-scrim" hidden></div>
+  <div id="fd-toc-popover">
+    <button type="button" class="fd-toc-trigger" aria-expanded="false" aria-controls="fd-toc-mobile">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg><span>On this page</span><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m6 9 6 6 6-6"/></svg>
+    </button>
+    <div id="fd-toc-mobile" hidden><ul class="fd-toc-list">
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#calculator-class">Calculator Class</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc10CalculatorE">calc::Calculator</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator10CalculatorEv">Calculator()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10CalculatorD0Ev">~Calculator()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator3addEdd">add()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator8subtractEdd">subtract()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator8multiplyEdd">multiply()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator6divideEdd">divide()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4NK4calc10Calculator10getHistoryEv">getHistory()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator12clearHistoryEv">clearHistory()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4NK4calc10Calculator17getOperationCountEv">getOperationCount()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator15recordOperationERK15OperationResult">recordOperation()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#scientificcalculator-class">ScientificCalculator Class</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc20ScientificCalculatorE">calc::ScientificCalculator</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc20ScientificCalculator5powerEdd">power()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc20ScientificCalculator10squareRootEd">squareRoot()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#enumerations">Enumerations</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#operation-enum">Operation Enum</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc9OperationE">Operation</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation3ADDE">ADD</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation8SUBTRACTE">SUBTRACT</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation8MULTIPLYE">MULTIPLY</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation6DIVIDEE">DIVIDE</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#structures">Structures</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#operationresult">OperationResult</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc15OperationResultE">calc::OperationResult</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult5valueE">value</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult9operationE">operation</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult11descriptionE">description</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#functions">Functions</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#formatnumber">formatNumber</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc12formatNumberEdi">formatNumber()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#defines">Defines</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#c.MAX_HISTORY_SIZE">MAX_HISTORY_SIZE</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#type-definitions">Type Definitions</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc11HistoryListE">HistoryList</a>
+  </li>
+</ul>
+</div>
+  </div>
+
+  <main id="fd-main">
+    <article class="fd-page">
+<nav class="fd-breadcrumbs" aria-label="Breadcrumbs">
+  <ol>
+    <li>
+      <a href="../../../docs/src/api.html">API Reference</a>
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m9 18 6-6-6-6"/></svg>
+    </li>
+    <li aria-current="page">Calculator C++ API Documentation</li>
+  </ol>
+</nav>
+      <div class="fd-prose">
+  <section class="tex2jax_ignore mathjax_ignore" id="calculator-c-api-documentation">
+<h1>Calculator C++ API Documentation<a class="headerlink" href="#calculator-c-api-documentation" title="Link to this heading">¶</a></h1>
+<p>This page demonstrates how to use breathe to document C++ code with yardang.</p>
+<section id="calculator-class">
+<h2>Calculator Class<a class="headerlink" href="#calculator-class" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10CalculatorE">
+<span id="_CPPv3N4calc10CalculatorE"></span><span id="_CPPv2N4calc10CalculatorE"></span><span id="calc::Calculator"></span><span class="target" id="calculatorclasscalc_1_1_calculator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Calculator</span></span></span><br /></dt>
+<dd><p>A class for performing basic arithmetic operations. </p>
+<p>The <a class="reference internal" href="#calculatorclasscalc_1_1_calculator"><span class="std std-ref">Calculator</span></a> class provides methods for addition, subtraction, multiplication, and division. It also maintains a history of operations performed.</p>
+<p>
+Example usage: <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">calc</span><span class="p">::</span><span class="n">Calculator</span> <span class="n">calc</span><span class="p">;</span>
+<span class="n">double</span> <span class="n">result</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">);</span>
+<span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s2">"Result: "</span> <span class="o">&lt;&lt;</span> <span class="n">result</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+ </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is a thread-safe implementation.</p>
+</div>
+<p>Subclassed by <a class="reference internal" href="#calculatorclasscalc_1_1_scientific_calculator"><span class="std std-ref">calc::ScientificCalculator</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator10CalculatorEv">
+<span id="_CPPv3N4calc10Calculator10CalculatorEv"></span><span id="_CPPv2N4calc10Calculator10CalculatorEv"></span><span id="calc::Calculator::Calculator"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1a56323ff74f01c8fe3239e19b6db41327"></span><span class="sig-name descname"><span class="n"><span class="pre">Calculator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Default constructor. </p>
+<p>Initializes an empty calculator with no operation history. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10CalculatorD0Ev">
+<span id="_CPPv3N4calc10CalculatorD0Ev"></span><span id="_CPPv2N4calc10CalculatorD0Ev"></span><span id="calc::Calculator::~Calculator"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1ab980d2b14ee1f68a035d7d3e23108e2a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Calculator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Destructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator3addEdd">
+<span id="_CPPv3N4calc10Calculator3addEdd"></span><span id="_CPPv2N4calc10Calculator3addEdd"></span><span id="calc::Calculator::add__double.double"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1a02adca23edb571d1230a5b053a626c9a"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Add two numbers. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#calculatorclasscalc_1_1_calculator_1a8a1a4353a488ca5a8e26e967df402b6c"><span class="std std-ref">subtract()</span></a></p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first operand. </p></li>
+<li><p><strong>b</strong> – The second operand. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sum of a and b.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator8subtractEdd">
+<span id="_CPPv3N4calc10Calculator8subtractEdd"></span><span id="_CPPv2N4calc10Calculator8subtractEdd"></span><span id="calc::Calculator::subtract__double.double"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1a8a1a4353a488ca5a8e26e967df402b6c"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">subtract</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Subtract two numbers. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#calculatorclasscalc_1_1_calculator_1a02adca23edb571d1230a5b053a626c9a"><span class="std std-ref">add()</span></a></p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The minuend. </p></li>
+<li><p><strong>b</strong> – The subtrahend. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The difference (a - b).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator8multiplyEdd">
+<span id="_CPPv3N4calc10Calculator8multiplyEdd"></span><span id="_CPPv2N4calc10Calculator8multiplyEdd"></span><span id="calc::Calculator::multiply__double.double"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1a530db79a3c237b4ef5721b601e8e5ae4"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">multiply</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Multiply two numbers. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#calculatorclasscalc_1_1_calculator_1af2da2c13c4da6cffa5b1752ab581e606"><span class="std std-ref">divide()</span></a></p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The first factor. </p></li>
+<li><p><strong>b</strong> – The second factor. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The product of a and b.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator6divideEdd">
+<span id="_CPPv3N4calc10Calculator6divideEdd"></span><span id="_CPPv2N4calc10Calculator6divideEdd"></span><span id="calc::Calculator::divide__double.double"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1af2da2c13c4da6cffa5b1752ab581e606"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">divide</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">a</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Divide two numbers. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#calculatorclasscalc_1_1_calculator_1a530db79a3c237b4ef5721b601e8e5ae4"><span class="std std-ref">multiply()</span></a></p>
+</div>
+</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Division by zero will throw an exception.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> – The dividend. </p></li>
+<li><p><strong>b</strong> – The divisor. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n">std</span></a><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if b is zero.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The quotient (a / b).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4calc10Calculator10getHistoryEv">
+<span id="_CPPv3NK4calc10Calculator10getHistoryEv"></span><span id="_CPPv2NK4calc10Calculator10getHistoryEv"></span><span id="calc::Calculator::getHistoryC"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1ad1927793f610e3b8eddcff435895c6ee"></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4N4calc15OperationResultE" title="calc::OperationResult"><span class="n"><span class="pre">OperationResult</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getHistory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Get the history of all operations. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>A vector containing all operation results. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator12clearHistoryEv">
+<span id="_CPPv3N4calc10Calculator12clearHistoryEv"></span><span id="_CPPv2N4calc10Calculator12clearHistoryEv"></span><span id="calc::Calculator::clearHistory"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1ae1cb01a3f375820b8067f44f3726223f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clearHistory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Clear the operation history. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4calc10Calculator17getOperationCountEv">
+<span id="_CPPv3NK4calc10Calculator17getOperationCountEv"></span><span id="_CPPv2NK4calc10Calculator17getOperationCountEv"></span><span id="calc::Calculator::getOperationCountC"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1a742f7e6080dcba3a378fbe4ce5dcc10b"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">getOperationCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><p>Get the number of operations performed. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The count of operations in history. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-protected-functions">Protected Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc10Calculator15recordOperationERK15OperationResult">
+<span id="_CPPv3N4calc10Calculator15recordOperationERK15OperationResult"></span><span id="_CPPv2N4calc10Calculator15recordOperationERK15OperationResult"></span><span id="calc::Calculator::recordOperation__OperationResultCR"></span><span class="target" id="calculatorclasscalc_1_1_calculator_1ab50a3874e9e65da6562c35d8528849f1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recordOperation</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4N4calc15OperationResultE" title="calc::OperationResult"><span class="n"><span class="pre">OperationResult</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">result</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Record an operation in the history. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>result</strong> – The result to record. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="scientificcalculator-class">
+<h2>ScientificCalculator Class<a class="headerlink" href="#scientificcalculator-class" title="Link to this heading">¶</a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc20ScientificCalculatorE">
+<span id="_CPPv3N4calc20ScientificCalculatorE"></span><span id="_CPPv2N4calc20ScientificCalculatorE"></span><span id="calc::ScientificCalculator"></span><span class="target" id="calculatorclasscalc_1_1_scientific_calculator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ScientificCalculator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../../../docs/src/api.html#_CPPv44calc" title="calc"><span class="n"><span class="pre">calc</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4N4calc10CalculatorE" title="calc::Calculator"><span class="n"><span class="pre">Calculator</span></span></a><br /></dt>
+<dd><p>An extended calculator with scientific functions. </p>
+<p>This class inherits from <a class="reference internal" href="#calculatorclasscalc_1_1_calculator"><span class="std std-ref">Calculator</span></a> and adds advanced mathematical operations like power and square root. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc20ScientificCalculator5powerEdd">
+<span id="_CPPv3N4calc20ScientificCalculator5powerEdd"></span><span id="_CPPv2N4calc20ScientificCalculator5powerEdd"></span><span id="calc::ScientificCalculator::power__double.double"></span><span class="target" id="calculatorclasscalc_1_1_scientific_calculator_1af1078d310326859110830e8c9e882027"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">power</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">base</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">exponent</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Calculate the power of a number. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>base</strong> – The base number. </p></li>
+<li><p><strong>exponent</strong> – The exponent. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>base raised to the power of exponent. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc20ScientificCalculator10squareRootEd">
+<span id="_CPPv3N4calc20ScientificCalculator10squareRootEd"></span><span id="_CPPv2N4calc20ScientificCalculator10squareRootEd"></span><span id="calc::ScientificCalculator::squareRoot__double"></span><span class="target" id="calculatorclasscalc_1_1_scientific_calculator_1aafbc6123daa4a9b0b67ed4cecafee640"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">squareRoot</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Calculate the square root of a number. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – The number to find the square root of. </p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n">std</span></a><span class="p">::</span><span class="n">invalid_argument</span></span></span> – if value is negative. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The square root of value.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+<section id="enumerations">
+<h2>Enumerations<a class="headerlink" href="#enumerations" title="Link to this heading">¶</a></h2>
+<section id="operation-enum">
+<h3>Operation Enum<a class="headerlink" href="#operation-enum" title="Link to this heading">¶</a></h3>
+<dl class="cpp enum-class">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc9OperationE">
+<span id="_CPPv3N4calc9OperationE"></span><span id="_CPPv2N4calc9OperationE"></span><span class="target" id="calculatornamespacecalc_1a59afcc48cada007740a20310e14844fb"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../../../docs/src/api.html#_CPPv44calc" title="calc"><span class="n"><span class="pre">calc</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Operation</span></span></span><br /></dt>
+<dd><p>Enumeration of supported arithmetic operations. </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc9Operation3ADDE">
+<span id="_CPPv3N4calc9Operation3ADDE"></span><span id="_CPPv2N4calc9Operation3ADDE"></span><span class="target" id="calculatornamespacecalc_1a59afcc48cada007740a20310e14844fba9eeb52badb613229884838847294b90d"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ADD</span></span></span><br /></dt>
+<dd><p>Addition operation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc9Operation8SUBTRACTE">
+<span id="_CPPv3N4calc9Operation8SUBTRACTE"></span><span id="_CPPv2N4calc9Operation8SUBTRACTE"></span><span class="target" id="calculatornamespacecalc_1a59afcc48cada007740a20310e14844fba23ebcc4776b613af25dfbe7c8ce4813e"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SUBTRACT</span></span></span><br /></dt>
+<dd><p>Subtraction operation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc9Operation8MULTIPLYE">
+<span id="_CPPv3N4calc9Operation8MULTIPLYE"></span><span id="_CPPv2N4calc9Operation8MULTIPLYE"></span><span class="target" id="calculatornamespacecalc_1a59afcc48cada007740a20310e14844fba080aaf8d817ada96fca7096b7b55bd30"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MULTIPLY</span></span></span><br /></dt>
+<dd><p>Multiplication operation. </p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc9Operation6DIVIDEE">
+<span id="_CPPv3N4calc9Operation6DIVIDEE"></span><span id="_CPPv2N4calc9Operation6DIVIDEE"></span><span class="target" id="calculatornamespacecalc_1a59afcc48cada007740a20310e14844fba210c66d794cec40488f3f8f634d6c33b"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DIVIDE</span></span></span><br /></dt>
+<dd><p>Division operation. </p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+<section id="structures">
+<h2>Structures<a class="headerlink" href="#structures" title="Link to this heading">¶</a></h2>
+<section id="operationresult">
+<h3>OperationResult<a class="headerlink" href="#operationresult" title="Link to this heading">¶</a></h3>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc15OperationResultE">
+<span id="_CPPv3N4calc15OperationResultE"></span><span id="_CPPv2N4calc15OperationResultE"></span><span id="calc::OperationResult"></span><span class="target" id="calculatorstructcalc_1_1_operation_result"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OperationResult</span></span></span><br /></dt>
+<dd><p>Structure to hold the result of a calculation. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-members">Public Members</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc15OperationResult5valueE">
+<span id="_CPPv3N4calc15OperationResult5valueE"></span><span id="_CPPv2N4calc15OperationResult5valueE"></span><span id="calc::OperationResult::value__double"></span><span class="target" id="calculatorstructcalc_1_1_operation_result_1a83082d5be14ed3c26d737def7f0b858b"></span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">value</span></span></span><br /></dt>
+<dd><p>The calculated value. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc15OperationResult9operationE">
+<span id="_CPPv3N4calc15OperationResult9operationE"></span><span id="_CPPv2N4calc15OperationResult9operationE"></span><span id="calc::OperationResult::operation__Operation"></span><span class="target" id="calculatorstructcalc_1_1_operation_result_1a966d4885dbea08eaedb569bc626959c0"></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4N4calc9OperationE" title="calc::Operation"><span class="n"><span class="pre">Operation</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">operation</span></span></span><br /></dt>
+<dd><p>The operation that was performed. </p>
+</dd></dl>
+
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc15OperationResult11descriptionE">
+<span id="_CPPv3N4calc15OperationResult11descriptionE"></span><span id="_CPPv2N4calc15OperationResult11descriptionE"></span><span id="calc::OperationResult::description__ss"></span><span class="target" id="calculatorstructcalc_1_1_operation_result_1a8351c4f467ee955e45ba4df0e937ea1e"></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">description</span></span></span><br /></dt>
+<dd><p>Human-readable description of the operation. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+<section id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Link to this heading">¶</a></h2>
+<section id="formatnumber">
+<h3>formatNumber<a class="headerlink" href="#formatnumber" title="Link to this heading">¶</a></h3>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc12formatNumberEdi">
+<span id="_CPPv3N4calc12formatNumberEdi"></span><span id="_CPPv2N4calc12formatNumberEdi"></span><span id="calc::formatNumber__double.i"></span><span class="target" id="calculatornamespacecalc_1a4eceeaf2cdea71f65eba6882d4e63db8"></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../../../docs/src/api.html#_CPPv44calc" title="calc"><span class="n"><span class="pre">calc</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">formatNumber</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">precision</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">2</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>A helper function to format a number as a string. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The number to format. </p></li>
+<li><p><strong>precision</strong> – The number of decimal places. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A formatted string representation. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+<section id="defines">
+<h2>Defines<a class="headerlink" href="#defines" title="Link to this heading">¶</a></h2>
+<dl class="cpp macro">
+<dt class="sig sig-object cpp" id="c.MAX_HISTORY_SIZE">
+<span class="target" id="calculatorcalculator_8hpp_1a7a7c87173dc0b32eb0086b66359963a5"></span><span class="sig-name descname"><span class="n"><span class="pre">MAX_HISTORY_SIZE</span></span></span> <span class="pre">1000</span><br /></dt>
+<dd><p>Maximum number of operations to store in history. </p>
+</dd></dl>
+
+</section>
+<section id="type-definitions">
+<h2>Type Definitions<a class="headerlink" href="#type-definitions" title="Link to this heading">¶</a></h2>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4calc11HistoryListE">
+<span id="_CPPv3N4calc11HistoryListE"></span><span id="_CPPv2N4calc11HistoryListE"></span><span id="calc::HistoryList"></span><span class="target" id="calculatornamespacecalc_1a3ee4eb2739e190115a165b7c2b8e110c"></span><span class="k"><span class="pre">typedef</span></span><span class="w"> </span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4St" title="std"><span class="n"><span class="pre">std</span></span></a><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../../../docs/src/api.html#_CPPv4N4calc15OperationResultE" title="calc::OperationResult"><span class="n"><span class="pre">OperationResult</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../../../docs/src/api.html#_CPPv44calc" title="calc"><span class="n"><span class="pre">calc</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HistoryList</span></span></span><br /></dt>
+<dd><p>Type alias for the operation history container. </p>
+</dd></dl>
+
+</section>
+</section>
+
+
+      </div>
+<nav class="fd-pagination" aria-label="Pagination">
+  <a class="fd-pagination-card fd-pagination-prev" href="../../../docs/src/api.html">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m15 18-6-6 6-6"/></svg>
+    <span class="fd-pagination-text">
+      <span class="fd-pagination-label">Previous</span>
+      <span class="fd-pagination-title">API Reference</span>
+    </span>
+  </a>
+  <a class="fd-pagination-card fd-pagination-next" href="../../../api/crates/calculator/index.html">
+    <span class="fd-pagination-text">
+      <span class="fd-pagination-label">Next</span>
+      <span class="fd-pagination-title">Crate calculator</span>
+    </span>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="m9 18 6-6-6-6"/></svg>
+  </a>
+</nav>
+<footer id="fd-footer">
+  <p class="fd-footer-meta"><span>&#169; the yardang authors</span><span>Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.4.7.</span>
+  </p>
+</footer>
+    </article>
+  </main>
+<nav id="fd-toc" aria-label="On this page">
+  <p class="fd-toc-title"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="M8 6h13"/><path d="M8 12h13"/><path d="M8 18h13"/><path d="M3 6h.01"/><path d="M3 12h.01"/><path d="M3 18h.01"/></svg>On this page</p>
+  <div class="fd-toc-body"><svg class="fd-toc-rail" aria-hidden="true" preserveAspectRatio="none">
+      <path class="fd-toc-track" fill="none" />
+      <path class="fd-toc-thumb" fill="none" />
+    </svg><ul class="fd-toc-list">
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#calculator-class">Calculator Class</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc10CalculatorE">calc::Calculator</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator10CalculatorEv">Calculator()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10CalculatorD0Ev">~Calculator()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator3addEdd">add()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator8subtractEdd">subtract()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator8multiplyEdd">multiply()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator6divideEdd">divide()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4NK4calc10Calculator10getHistoryEv">getHistory()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator12clearHistoryEv">clearHistory()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4NK4calc10Calculator17getOperationCountEv">getOperationCount()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc10Calculator15recordOperationERK15OperationResult">recordOperation()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#scientificcalculator-class">ScientificCalculator Class</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc20ScientificCalculatorE">calc::ScientificCalculator</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc20ScientificCalculator5powerEdd">power()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc20ScientificCalculator10squareRootEd">squareRoot()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#enumerations">Enumerations</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#operation-enum">Operation Enum</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc9OperationE">Operation</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation3ADDE">ADD</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation8SUBTRACTE">SUBTRACT</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation8MULTIPLYE">MULTIPLY</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc9Operation6DIVIDEE">DIVIDE</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#structures">Structures</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#operationresult">OperationResult</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc15OperationResultE">calc::OperationResult</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult5valueE">value</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult9operationE">operation</a>
+  </li>
+  <li class="fd-toc-item" data-depth="4">
+    <a href="#_CPPv4N4calc15OperationResult11descriptionE">description</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#functions">Functions</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#formatnumber">formatNumber</a>
+  </li>
+  <li class="fd-toc-item" data-depth="3">
+    <a href="#_CPPv4N4calc12formatNumberEdi">formatNumber()</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#defines">Defines</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#c.MAX_HISTORY_SIZE">MAX_HISTORY_SIZE</a>
+  </li>
+  <li class="fd-toc-item" data-depth="1">
+    <a href="#type-definitions">Type Definitions</a>
+  </li>
+  <li class="fd-toc-item" data-depth="2">
+    <a href="#_CPPv4N4calc11HistoryListE">HistoryList</a>
+  </li>
+</ul>
+
+  </div>
+  <div class="fd-toc-actions">
+    <a class="fd-toc-action" href="../../../_sources/examples/cpp/docs/api.md.txt" rel="nofollow"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg><span>View source</span></a>
+  </div>
+</nav>
+</div>
+<dialog id="fd-search-dialog" aria-label="Search">
+  <form class="fd-search-panel" method="dialog" role="search">
+    <div class="fd-search-field">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="fd-icon "><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="search" id="fd-search-input" autocomplete="off" spellcheck="false" placeholder="Search documentation..." aria-label="Search" />
+      <kbd class="fd-kbd">Esc</kbd>
+    </div>
+    <div id="fd-search-results" role="listbox" aria-label="Search results"></div>
+    <p id="fd-search-empty" class="fd-search-empty" hidden>No results found.</p>
+  </form>
+</dialog>
+  </body>
+</html>
