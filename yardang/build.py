@@ -10,11 +10,19 @@ from jinja2 import Environment, FileSystemLoader
 
 from .utils import get_config, get_config_flex
 
-__all__ = ("BUNDLED_THEMES", "generate_docs_configuration", "generate_wiki_configuration", "run_doxygen_if_needed")
+__all__ = ("BUNDLED_THEMES", "generate_docs_configuration", "generate_wiki_configuration", "run_doxygen_if_needed", "theme_module")
 
 # Themes for which yardang ships per-theme defaults (a bundled ``{theme}.css`` and/or
 # an optional dependency). Used as the default set for ``yardang preview``.
-BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya")
+BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya", "fuma")
+
+# Themes whose Sphinx package is not importable under the theme's own name.
+_THEME_MODULES = {"fuma": "sphinx_fuma"}
+
+
+def theme_module(theme: str) -> str:
+    """Return the importable module that provides ``theme``."""
+    return _THEME_MODULES.get(theme, theme)
 
 
 def _resolve_custom_asset(value: str | Path | None, theme: str | None, extension: str, *, assets_dir: Path) -> str | None:
@@ -541,6 +549,11 @@ def generate_docs_configuration(
         # Determine if llms.txt output should be generated
         use_llms = llms_args["llms_enabled"]
 
+        # Search is theme-independent, so it defaults on for every theme.
+        use_search = get_config_flex(section="use-search", base=config_base)
+        if use_search is None:
+            use_search = True
+
         # create a temporary directory to store the conf.py file in
         with TemporaryDirectory() as td:
             templateEnv = Environment(loader=FileSystemLoader(searchpath=str(Path(__file__).parent.resolve())))
@@ -567,6 +580,7 @@ def generate_docs_configuration(
                 use_sphinx_js=use_sphinx_js,
                 use_wiki=use_wiki,
                 use_llms=use_llms,
+                use_search=use_search,
                 **breathe_args,
                 **rust_args,
                 **js_args,

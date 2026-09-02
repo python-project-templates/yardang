@@ -6,7 +6,7 @@ from time import sleep
 
 from typer import Exit, Typer
 
-from .build import BUNDLED_THEMES, generate_docs_configuration, generate_wiki_configuration
+from .build import BUNDLED_THEMES, generate_docs_configuration, generate_wiki_configuration, theme_module
 from .utils import get_config
 from .wiki import process_wiki_output
 
@@ -211,7 +211,7 @@ def preview(
     built = []
     failed = []
     for theme in themes:
-        if find_spec(theme) is None:
+        if find_spec(theme_module(theme)) is None:
             print(f"Skipping theme '{theme}': install it to include it in previews", file=stderr)
             continue
         theme_output = str(Path(output) / theme)

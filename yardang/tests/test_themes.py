@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 from unittest.mock import patch
 
+import pytest
+
 import yardang.build as build_module
 from yardang.build import BUNDLED_THEMES, _resolve_custom_asset, generate_docs_configuration
 from yardang.cli import preview
@@ -18,6 +20,38 @@ title = "Test Project"
 root = "README.md"
 use-autoapi = false
 """
+
+
+class TestThemeModule:
+    """Theme names map to the package that provides them."""
+
+    def test_bundled_theme_maps_to_its_distribution(self):
+        assert build_module.theme_module("fuma") == "sphinx_fuma"
+
+    def test_other_themes_are_unchanged(self):
+        assert build_module.theme_module("furo") == "furo"
+
+
+class TestSearchIntegration:
+    """Search is theme-independent, so it is wired for every first-class theme."""
+
+    def _conf(self, tmp_path, **kwargs):
+        (tmp_path / "pyproject.toml").write_text(MINIMAL_PYPROJECT)
+        (tmp_path / "README.md").write_text("# Test Project\n")
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration(html_output_dir=str(tmp_path / "site"), **kwargs) as config_dir:
+                return Path(config_dir, "conf.py").read_text()
+        finally:
+            os.chdir(original_cwd)
+
+    @pytest.mark.parametrize("theme", ["furo", "shibuya", "sphinxawesome_theme", "fuma"])
+    def test_searchlite_is_enabled_for_first_class_themes(self, tmp_path, theme):
+        assert "sphinx_searchlite" in self._conf(tmp_path, theme=theme)
+
+    def test_fuma_is_registered_as_an_extension(self, tmp_path):
+        assert "sphinx_fuma" in self._conf(tmp_path, theme="fuma")
 
 
 class TestResolveCustomAsset:

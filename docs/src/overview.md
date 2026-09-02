@@ -14,7 +14,7 @@ Out of the box, it comes with support for several popular Sphinx frameworks:
 - [Myst Markdown](https://jupyterbook.org/en/stable/content/myst.html)
 - [Sphinx AutoAPI](https://sphinx-autoapi.readthedocs.io/en/latest/)
 - [Autodoc Pydantic](https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html)
-- [Furo Theme](https://github.com/pradyunsg/furo) (the default), plus bundled defaults for [`sphinxawesome_theme`](https://sphinxawesome.xyz/) and [`shibuya`](https://shibuya.lepture.com/)
+- [Furo Theme](https://github.com/pradyunsg/furo) (the default), plus bundled defaults for [`sphinx-fuma`](https://github.com/python-project-templates/sphinx-fuma), [`sphinxawesome_theme`](https://sphinxawesome.xyz/) and [`shibuya`](https://shibuya.lepture.com/)
 
 `yardang preview` builds the docs once per theme so you can compare them
 side-by-side. See [Previewing themes](configuration.md#previewing-themes) for the
