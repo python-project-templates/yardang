@@ -69,10 +69,195 @@ dependency) for the following themes:
 - [`furo`](https://github.com/pradyunsg/furo) (the default, always installed)
 - [`sphinxawesome_theme`](https://sphinxawesome.xyz/)
 - [`shibuya`](https://shibuya.lepture.com/)
+- [`fuma`](https://github.com/python-project-templates/sphinx-fuma)
 
 `furo` is always available; install the rest with `pip install yardang[themes]`.
 Any other installed Sphinx theme works too — you just won't get the bundled
 defaults. See [Previewing themes](#previewing-themes) below to compare them live.
+
+### The `fuma` theme
+
+[`sphinx-fuma`](https://github.com/python-project-templates/sphinx-fuma) is a
+separate distribution, installed by `pip install yardang[themes]`. It is a
+three-column layout — page tree on the left, content in the middle, page
+headings on the right — with a `/` or `Cmd-K` search dialog, light/dark modes
+that work without JavaScript, and a scroll-following heading indicator that
+traces the outline of the page. Its design system follows
+[fumadocs](https://fumadocs.dev).
+
+Search comes from
+[`sphinx-searchlite`](https://github.com/python-project-templates/sphinx-searchlite),
+which works with any Sphinx theme on its own.
+
+See the [`sphinx-fuma` README](https://github.com/python-project-templates/sphinx-fuma)
+for the full option list; the common ones are below.
+
+```toml
+[tool.yardang]
+theme = "fuma"
+
+[tool.yardang.sphinx]
+html_theme_options = { github_url = "https://github.com/you/project", toc_style = "clerk" }
+```
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `layout` | `docs` | `docs` puts the header beside the sidebar; `notebook` spans it across the top. |
+| `toc_style` | `normal` | `clerk` dims headings away from the current one. |
+| `color_preset` | `neutral` | Accent colour: `neutral`, `amber`, `blue`, `emerald`, `purple`, `rose`. |
+| `fonts` | `bundled` | `system` skips the bundled webfonts and uses the system stack. |
+| `search` | `true` | Enables the search dialog and its index. |
+| `sidebar_hide_name` | `false` | Hides the project name next to the logo. |
+| `default_open_level` | `1` | Sidebar folder depth expanded by default. |
+| `github_url` | — | Adds a GitHub link, and an "Edit this page" link. |
+| `edit_page_url_template` | — | Overrides the edit link, e.g. `https://host/edit/main/{filename}`. |
+| `nav_links` | — | Header links, as `[{title, url}]` or `"Title\|url, Title\|url"`. |
+| `sidebar_tabs` | — | Navigator entries under the search box, as `[{title, url, description, icon, match}]`. |
+| `announcement` | — | Banner text shown above the header. |
+| `footer_text` | — | Extra line in the footer. |
+| `light_css_variables` / `dark_css_variables` | — | CSS custom property overrides, e.g. `{ "color-fd-primary" = "#e11d48" }`. |
+
+#### Content components
+
+The theme adds a `steps` directive for numbered walkthroughs. Each heading
+inside it becomes a step on a numbered rail:
+
+````markdown
+```{steps}
+### Install the package
+
+Pull it from your package index.
+
+### Start the daemon
+
+Run `acme serve`.
+```
+````
+
+Tabbed code blocks use `sphinx-design`, which `yardang` already installs, and are
+styled to read as a single framed block:
+
+````markdown
+::::{tab-set}
+:::{tab-item} pip
+```bash
+pip install acme
+```
+:::
+:::{tab-item} uv
+```bash
+uv add acme
+```
+:::
+::::
+````
+
+A `files` directive renders a project layout from an ordinary nested list. A
+trailing `/` — or having children — marks an entry as a directory:
+
+````markdown
+```{files}
+- src/
+  - acme/
+    - `__init__.py`
+    - server.py
+- pyproject.toml
+```
+````
+
+Wrap names in backticks when Markdown would otherwise reinterpret them, as with
+the leading underscores above.
+
+#### Search
+
+The dialog (`/` or `Cmd-K`) reads a JSON index emitted alongside the build, so it
+works offline and needs no search service. Results are ranked with BM25 over two
+fields — a match on a section's own heading outranks one on the title of the page
+it belongs to — and the word you are still typing is matched as a prefix, so
+`configu` finds "Configuration". Every word must match, so extra words narrow the
+results rather than widening them.
+
+Set `search = false` to drop both the dialog and the index.
+
+#### Colours
+
+The greys are fixed; a preset only recolours `--color-fd-primary`, which drives
+the active sidebar entry, the table-of-contents highlight and its rail. `amber`
+is the grey-and-yellow pairing used on fumadocs' own site.
+
+```toml
+[tool.yardang.sphinx.html_theme_options]
+color_preset = "amber"
+```
+
+Anything in `light_css_variables` / `dark_css_variables` overrides the preset,
+so you can start from one and adjust:
+
+```toml
+[tool.yardang.sphinx.html_theme_options]
+color_preset = "amber"
+dark_css_variables = { "color-fd-background" = "#0a0a0a" }
+```
+
+#### Fonts
+
+The theme ships [Geist](https://github.com/vercel/geist-font) and
+[JetBrains Mono](https://github.com/JetBrains/JetBrainsMono) as variable-weight
+Latin subsets (68 KB together), served from your own build so pages make no
+third-party requests. Both are SIL Open Font License 1.1; the licence texts are
+copied into `_static/fonts/` alongside them.
+
+Set `fonts = "system"` to skip the download and fall back to the system UI and
+monospace stacks.
+
+#### Page icons
+
+Give a page an `icon` in its front matter and it appears beside the entry in the
+sidebar tree:
+
+```markdown
+---
+icon: rocket
+---
+
+# Installation
+```
+
+Available names: `album`, `blocks`, `book`, `bookmark`, `box`, `braces`, `bug`,
+`code`, `cog`, `compass`, `database`, `file`, `files`, `flask`, `folder`,
+`gauge`, `graduation-cap`, `layers`, `lightbulb`, `package`, `play`, `puzzle`,
+`rocket`, `server`, `settings`, `sparkles`, `terminal`, `test-tube`, `wrench`,
+`zap`. Unknown names render nothing.
+
+#### Navigator
+
+`sidebar_tabs` adds a switcher between sections of the documentation. `match` is
+a docname prefix used to decide which entry is current; it defaults to the
+directory part of `url`.
+
+```toml
+[[tool.yardang.sphinx.html_theme_options.sidebar_tabs]]
+title = "Guides"
+url = "guides/index.html"
+description = "Get up and running"
+icon = "rocket"
+match = "guides"
+```
+
+## `use-search`
+
+Client-side search, provided by
+[`sphinx-searchlite`](https://github.com/python-project-templates/sphinx-searchlite)
+and enabled by default for every theme. Bind to `/` or `Cmd-K`.
+
+```toml
+[tool.yardang]
+use-search = false
+```
+
+The `fuma` theme renders the results in its own dialog; every other theme gets
+the one `sphinx-searchlite` ships. Options such as `searchlite_index_filename`
+pass through `[tool.yardang.sphinx]` as normal.
 
 ## `custom-css` / `custom-js`
 
@@ -96,8 +281,8 @@ yardang preview
 ```
 
 This renders the documentation into `docs/html/_previews/<theme>/` for each
-bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`). Themes whose package is
-not installed are skipped. Restrict the set with `--themes`:
+bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`, `fuma`). Themes whose
+package is not installed are skipped. Restrict the set with `--themes`:
 
 ```bash
 yardang preview --themes furo --themes shibuya
@@ -116,6 +301,7 @@ each theme is browsable live at a suburl of the published site:
 - [`/_previews/furo/`](https://yardang.python-templates.dev/_previews/furo/)
 - [`/_previews/sphinxawesome_theme/`](https://yardang.python-templates.dev/_previews/sphinxawesome_theme/)
 - [`/_previews/shibuya/`](https://yardang.python-templates.dev/_previews/shibuya/)
+- [`/_previews/fuma/`](https://yardang.python-templates.dev/_previews/fuma/)
 
 ## `root`
 
