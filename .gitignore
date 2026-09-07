@@ -125,6 +125,10 @@ docs/index.md
 docs/jupyter_execute
 docs/src/_build/
 docs/superpowers
+docs/wiki/
+/jupyter_execute/
+*.wiki/
+.doctrees/
 index.md
 
 # JS
