@@ -472,10 +472,10 @@ auto-run-doxygen = false
 
 
 class TestSphinxRustConfiguration:
-    """Tests for sphinx-rust configuration loading and generation."""
+    """Tests for sphinxcontrib-rust configuration loading and generation."""
 
     def test_sphinx_rust_config_loading_from_pyproject(self, tmp_path):
-        """Test that sphinx-rust configuration is loaded from pyproject.toml."""
+        """Test that sphinxcontrib-rust configuration is loaded from pyproject.toml."""
         pyproject_content = """
 [project]
 name = "test-project"
@@ -487,9 +487,10 @@ root = "README.md"
 use-autoapi = false
 
 [tool.yardang.sphinx-rust]
-crates = ["crates/mylib", "crates/otherlib"]
-doc-formats = { "mylib" = "markdown", "otherlib" = "restructuredtext" }
-viewcode = true
+crates = { mylib = "crates/mylib", otherlib = "crates/otherlib" }
+doc-dir = "api"
+rustdoc-fmt = { "mylib" = "md", "otherlib" = "rst" }
+visibility = "pub"
 """
         pyproject_path = tmp_path / "pyproject.toml"
         pyproject_path.write_text(pyproject_content)
@@ -504,18 +505,21 @@ viewcode = true
             from yardang.utils import get_config
 
             rust_crates = get_config(section="crates", base="tool.yardang.sphinx-rust")
-            assert rust_crates == ["crates/mylib", "crates/otherlib"]
+            assert rust_crates == {"mylib": "crates/mylib", "otherlib": "crates/otherlib"}
 
-            doc_formats = get_config(section="doc-formats", base="tool.yardang.sphinx-rust")
-            assert doc_formats == {"mylib": "markdown", "otherlib": "restructuredtext"}
+            doc_dir = get_config(section="doc-dir", base="tool.yardang.sphinx-rust")
+            assert doc_dir == "api"
 
-            viewcode = get_config(section="viewcode", base="tool.yardang.sphinx-rust")
-            assert viewcode is True
+            rustdoc_fmt = get_config(section="rustdoc-fmt", base="tool.yardang.sphinx-rust")
+            assert rustdoc_fmt == {"mylib": "md", "otherlib": "rst"}
+
+            visibility = get_config(section="visibility", base="tool.yardang.sphinx-rust")
+            assert visibility == "pub"
         finally:
             os.chdir(original_cwd)
 
     def test_sphinx_rust_config_defaults(self, tmp_path):
-        """Test that sphinx-rust configuration has sensible defaults when not specified."""
+        """Test that sphinxcontrib-rust configuration has sensible defaults when not specified."""
         pyproject_content = """
 [project]
 name = "test-project"
@@ -540,13 +544,13 @@ root = "README.md"
             rust_crates = get_config(section="crates", base="tool.yardang.sphinx-rust")
             assert rust_crates is None
 
-            doc_formats = get_config(section="doc-formats", base="tool.yardang.sphinx-rust")
-            assert doc_formats is None
+            doc_dir = get_config(section="doc-dir", base="tool.yardang.sphinx-rust")
+            assert doc_dir is None
         finally:
             os.chdir(original_cwd)
 
     def test_generate_docs_with_sphinx_rust_config(self, tmp_path):
-        """Test that generate_docs_configuration includes sphinx-rust settings."""
+        """Test that generate_docs_configuration includes sphinxcontrib-rust settings."""
         pyproject_content = """
 [project]
 name = "test-project"
@@ -558,9 +562,9 @@ root = "README.md"
 use-autoapi = false
 
 [tool.yardang.sphinx-rust]
-crates = ["crates/mylib"]
-doc-formats = { "mylib" = "markdown" }
-viewcode = true
+crates = { mylib = "crates/mylib" }
+doc-dir = "api"
+rustdoc-fmt = "md"
 """
         pyproject_path = tmp_path / "pyproject.toml"
         pyproject_path.write_text(pyproject_content)
@@ -578,12 +582,12 @@ viewcode = true
                 conf_path = Path(conf_dir) / "conf.py"
                 conf_content = conf_path.read_text()
 
-                # Verify sphinx-rust is enabled
+                # Verify sphinxcontrib-rust is enabled
                 assert "use_sphinx_rust = True" in conf_content
-                assert 'extensions.append("sphinx_rust")' in conf_content
+                assert 'extensions.append("sphinxcontrib_rust")' in conf_content
                 assert "rust_crates = " in conf_content
-                assert "rust_doc_formats = " in conf_content
-                assert "rust_viewcode = True" in conf_content
+                assert 'rust_doc_dir = "api"' in conf_content
+                assert 'rust_rustdoc_fmt = "md"' in conf_content
         finally:
             os.chdir(original_cwd)
 

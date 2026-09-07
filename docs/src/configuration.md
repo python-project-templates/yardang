@@ -705,44 +705,68 @@ Then in your documentation files, you can use breathe directives:
 
 ## Sphinx-Rust Integration
 
-Yardang provides integration with [sphinx-rust](https://sphinx-rust.readthedocs.io/) for documenting Rust code. To use this feature, install yardang with the sphinx-rust extra:
+Yardang provides integration with [sphinxcontrib-rust](https://gitlab.com/munir0b0t/sphinxcontrib-rust) for documenting Rust code. To use this feature, install yardang with the rust extra:
 
 ```bash
-pip install yardang[sphinx-rust]
+pip install yardang[rust]
 ```
 
-All sphinx-rust configuration is under `[tool.yardang.sphinx-rust]`.
+This extra is GPL-3.0 licensed, unlike yardang itself, which is Apache-2.0. It also builds a `sphinx-rustdocgen` helper binary on install, so a Rust toolchain must be available.
+
+All configuration is under `[tool.yardang.sphinx-rust]`.
 
 ### `crates`
 
-A list of paths to Rust crates to document.
+A mapping of crate name to crate directory. Every crate listed here is scanned and documented.
 
 ```toml
 [tool.yardang.sphinx-rust]
-crates = [
-    "path/to/crate1",
-    "path/to/crate2",
-]
+crates = { crate1 = "path/to/crate1", crate2 = "path/to/crate2" }
 ```
 
-### `doc-formats`
+### `doc-dir`
 
-A dictionary mapping crate names to their docstring format. Valid values are `"restructuredtext"` (default) or `"myst-nb"` (for markdown docstrings).
+Where the generated pages are written, relative to the documentation root. Defaults to `"api"`, producing `api/<crate>/lib.rst` for each crate.
 
 ```toml
 [tool.yardang.sphinx-rust]
-doc-formats = { mycrate = "myst-nb" }
+doc-dir = "api"
 ```
 
-**Note:** When using `myst_nb` as your Sphinx parser (which yardang uses by default), use `"myst-nb"` instead of `"markdown"` for markdown docstrings.
+### `rustdoc-fmt`
 
-### `viewcode`
-
-Enable links to the source code for documented items. Defaults to `true`.
+The markup used inside Rust doc comments, either `"rst"` (default) or `"md"`. Accepts a single value for all crates, or a per-crate mapping.
 
 ```toml
 [tool.yardang.sphinx-rust]
-viewcode = true
+rustdoc-fmt = { mycrate = "md" }
+```
+
+### `visibility`
+
+The minimum item visibility to document. Defaults to `"pub"`; use `"crate"` or `"pvt"` to include less visible items.
+
+```toml
+[tool.yardang.sphinx-rust]
+visibility = "pub"
+```
+
+### `strip-src`
+
+Strip the `src` directory from generated paths. Defaults to `true`.
+
+```toml
+[tool.yardang.sphinx-rust]
+strip-src = true
+```
+
+### `generate-mode`
+
+When to regenerate pages: `"changed"` (default), `"always"`, or `"skip"`.
+
+```toml
+[tool.yardang.sphinx-rust]
+generate-mode = "changed"
 ```
 
 ### Complete Example
@@ -757,41 +781,21 @@ pages = ["docs/api.md", "docs/examples.md"]
 use-autoapi = false
 
 [tool.yardang.sphinx-rust]
-crates = [
-    "crates/mylib",
-    "crates/mylib-utils",
-]
-doc-formats = { mylib = "myst-nb", "mylib-utils" = "restructuredtext" }
-viewcode = true
+crates = { mylib = "crates/mylib", mylib-utils = "crates/mylib-utils" }
+doc-dir = "api"
+rustdoc-fmt = { mylib = "md" }
 ```
 
-Then in your documentation files, you can use sphinx-rust directives:
+The pages are generated for you, so your documentation files only need a toctree entry pointing at them:
 
 ````markdown
 # API Reference
 
-## Document a Crate
+\`\`\`{toctree}
+:maxdepth: 2
 
-\`\`\`{eval-rst}
-.. rust:crate:: mylib
-
-\`\`\`
-
-## Document Individual Items
-
-\`\`\`{eval-rst}
-.. rust:struct:: mylib::MyStruct
-
-\`\`\`
-
-\`\`\`{eval-rst}
-.. rust:enum:: mylib::MyEnum
-
-\`\`\`
-
-\`\`\`{eval-rst}
-.. rust:function:: mylib::my_function
-
+/api/mylib/lib
+/api/mylib-utils/lib
 \`\`\`
 ````
 

@@ -118,6 +118,7 @@ dmypy.json
 # Documentation
 /site
 index.md
+/api/
 docs/_build/
 docs/api
 docs/html
