@@ -92,9 +92,9 @@ if use_search:
 if use_breathe:
     extensions.append("breathe")
 
-# Add sphinx-rust extension if configured
+# Add sphinxcontrib-rust extension if configured
 if use_sphinx_rust:
-    extensions.append("sphinx_rust")
+    extensions.append("sphinxcontrib_rust")
 
 # Add sphinx-js extension if configured
 if use_sphinx_js:
@@ -230,11 +230,22 @@ if use_breathe:
     breathe_order_parameters_first = {{breathe_order_parameters_first}}
     breathe_separate_member_pages = {{breathe_separate_member_pages}}
 
-# sphinx-rust configuration
+# sphinxcontrib-rust configuration
 if use_sphinx_rust:
     rust_crates = {{rust_crates}}
-    rust_doc_formats = {{rust_doc_formats}}
-    rust_viewcode = {{rust_viewcode}}
+    rust_doc_dir = "{{rust_doc_dir}}"
+    {% if rust_rustdoc_fmt is string %}
+    rust_rustdoc_fmt = "{{rust_rustdoc_fmt}}"
+    {% else %}
+    rust_rustdoc_fmt = {{rust_rustdoc_fmt}}
+    {% endif %}
+    {% if rust_visibility is string %}
+    rust_visibility = "{{rust_visibility}}"
+    {% else %}
+    rust_visibility = {{rust_visibility}}
+    {% endif %}
+    rust_strip_src = {{rust_strip_src}}
+    rust_generate_mode = "{{rust_generate_mode}}"
 
 # sphinx-js configuration
 if use_sphinx_js:

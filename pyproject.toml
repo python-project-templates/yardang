@@ -52,7 +52,7 @@ breathe = [
     "breathe>=4.35.0",
 ]
 rust = [
-    "sphinx-rust",
+    "sphinxcontrib-rust",
 ]
 js = [
     "sphinx-js>=5.0.0",
@@ -83,7 +83,7 @@ develop = [
     "wheel",
     # Extensions
     "breathe>=4.35.0",
-    "sphinx-rust",
+    "sphinxcontrib-rust",
     "sphinx-js>=5.0.0",
     # Themes
     "klink>=0.1.10",
@@ -208,10 +208,8 @@ projects = { calculator = "examples/cpp/xml" }
 default-project = "calculator"
 
 [tool.yardang.sphinx-rust]
-crates = [
-    "examples/rust",
-]
-doc-formats = { calculator = "myst-nb" }
+crates = { calculator = "examples/rust" }
+doc-dir = "api"
 
 [tool.yardang.sphinx-js]
 js-language = "javascript"

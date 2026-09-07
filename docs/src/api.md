@@ -61,46 +61,18 @@ Or document specific classes with `doxygenclass`:
 
 ## Rust Example
 
-This is an example of documenting Rust code using sphinx-rust integration.
+This is an example of documenting Rust code using sphinxcontrib-rust integration.
 
-### Document a Crate
-
-Use `rust:crate` to document an entire Rust crate:
-
-```{eval-rst}
-.. rust:crate:: calculator
-
-```
+Unlike the C++ and JavaScript examples below, the Rust pages are not written by
+hand. `sphinx-rustdocgen` reads each crate listed under
+`[tool.yardang.sphinx-rust]` and writes a page per module into the configured
+`doc-dir`, so the only thing to author is a toctree pointing at the result:
 
 ```{toctree}
 :hidden:
 :maxdepth: 2
 
-/api/crates/calculator/index
-```
-
-### Document Individual Items
-
-Or document specific structs, enums, and functions:
-
-```{eval-rst}
-.. rust:struct:: calculator::Calculator
-
-```
-
-```{eval-rst}
-.. rust:struct:: calculator::ScientificCalculator
-
-```
-
-```{eval-rst}
-.. rust:enum:: calculator::Operation
-
-```
-
-```{eval-rst}
-.. rust:enum:: calculator::CalculatorError
-
+/api/calculator/lib
 ```
 
 ## JavaScript Example
