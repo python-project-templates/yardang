@@ -130,6 +130,10 @@ os.environ["SPHINX_BUILDING"] = "1"
 # THEMEING #
 ############
 html_theme = "{{theme}}"
+if html_theme == "klink":
+    import klink
+    html_theme_path = [klink.get_html_theme_path()]
+    html_title = f"{title} v{version}"
 html_theme_options = {{html_theme_options}}
 html_static_path = {{html_static_path}}
 html_extra_path = {{html_extra_path}}
@@ -146,7 +150,7 @@ html_js_files = [
 # SPHINX INTERNALS #
 ####################
 
-master_doc = "index"
+master_doc = {{ master_doc | tojson }}
 templates_path = ["_templates"]
 source_suffix = [".rst", ".md", *{{source_suffix}}]
 exclude_patterns = [
@@ -162,7 +166,9 @@ exclude_patterns = [
     ".github/*",
     "AGENTS.md",
     "CLAUDE.md",
+    {% if not existing_source %}
     "README.md",
+    {% endif %}
     "ROADMAP.md",
     "js/*",
     "*.wiki",
@@ -187,6 +193,7 @@ exclude_patterns = [
     *{{exclude_patterns}}
 ]
 language = "{{language}}"
+intersphinx_mapping = {{intersphinx_mapping}}
 pygments_style = "{{pygments_style}}"
 
 # myst / myst-nb
@@ -326,8 +333,8 @@ def run_copyreadme(app):
         content = rebase_relative_references(content, source=readme, destination=out)
         out.write_text(toctree_root + "\n" + content)
 
-def run_copycname(_):
-    out = Path("{{source_dir}}") / "docs" / "html" / "CNAME"
+def run_copycname(app):
+    out = Path(app.outdir) / "CNAME"
     if cname:
         out.write_text(cname)
 
@@ -400,6 +407,8 @@ def setup(app):
     if {{previous_versions}}:
         app.connect("builder-inited", run_create_previous_version_markdown)
         app.connect("doctree-read", run_add_version_links_to_toctree, priority=500)
+    {% if not existing_source %}
     app.connect("builder-inited", run_copyreadme)
+    {% endif %}
     app.connect("builder-inited", run_copycname)
     app.connect("source-read", run_convert_github_admonitions_to_rst)

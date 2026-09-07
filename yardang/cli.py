@@ -7,7 +7,7 @@ from time import sleep
 from typer import Exit, Typer
 
 from .build import BUNDLED_THEMES, generate_docs_configuration, generate_wiki_configuration, theme_module
-from .utils import get_config
+from .utils import get_config, get_config_flex
 from .wiki import process_wiki_output
 
 
@@ -16,6 +16,7 @@ def build(
     quiet: bool = False,
     debug: bool = False,
     pdb: bool = False,
+    warning_is_error: bool = False,
     project: str | None = None,
     title: str | None = None,
     module: str | None = None,
@@ -26,6 +27,7 @@ def build(
     theme: str | None = None,
     docs_root: str | None = None,
     root: str | None = None,
+    source_dir: str | None = None,
     cname: str | None = None,
     pages: list[Path] | None = None,
     use_autoapi: bool | None = None,
@@ -35,6 +37,7 @@ def build(
     config_base: str | None = "tool.yardang",
     previous_versions: bool | None = False,
 ):
+    source_dir = source_dir or get_config_flex(section="source-dir", base=config_base or "tool.yardang")
     with generate_docs_configuration(
         project=project,
         title=title,
@@ -46,6 +49,7 @@ def build(
         theme=theme,
         docs_root=docs_root,
         root=root,
+        source_dir=source_dir,
         cname=cname,
         pages=pages,
         use_autoapi=use_autoapi,
@@ -55,7 +59,9 @@ def build(
         config_base=config_base,
         previous_versions=previous_versions,
     ) as file:
-        build_cmd = [executable, "-m", "sphinx", ".", output, "-c", file]
+        build_cmd = [executable, "-m", "sphinx", source_dir or ".", output, "-c", file]
+        if warning_is_error:
+            build_cmd.extend(["-W", "--keep-going"])
         if debug:
             print(" ".join(build_cmd))
         if quiet:
