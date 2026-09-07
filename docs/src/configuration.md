@@ -766,7 +766,7 @@ crates = { crate1 = "path/to/crate1", crate2 = "path/to/crate2" }
 
 ### `doc-dir`
 
-Where the generated pages are written, relative to the documentation root. Defaults to `"api"`, producing `api/<crate>/lib.rst` for each crate.
+Where the generated pages are written, relative to the documentation root. Defaults to `"api"`, producing `api/<crate>/lib.md` for each crate.
 
 ```toml
 [tool.yardang.sphinx-rust]
@@ -775,11 +775,11 @@ doc-dir = "api"
 
 ### `rustdoc-fmt`
 
-The markup used inside Rust doc comments, either `"rst"` (default) or `"md"`. Accepts a single value for all crates, or a per-crate mapping.
+The markup used inside Rust doc comments, either `"md"` or `"rst"`. Defaults to `"md"`, since Rust doc comments are conventionally markdown. Accepts a single value for all crates, or a per-crate mapping.
 
 ```toml
 [tool.yardang.sphinx-rust]
-rustdoc-fmt = { mycrate = "md" }
+rustdoc-fmt = { mycrate = "rst" }
 ```
 
 ### `visibility`
@@ -823,7 +823,7 @@ use-autoapi = false
 [tool.yardang.sphinx-rust]
 crates = { mylib = "crates/mylib", mylib-utils = "crates/mylib-utils" }
 doc-dir = "api"
-rustdoc-fmt = { mylib = "md" }
+rustdoc-fmt = { mylib-utils = "rst" }
 ```
 
 The pages are generated for you, so your documentation files only need a toctree entry pointing at them:
