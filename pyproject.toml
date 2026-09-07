@@ -38,11 +38,11 @@ dependencies = [
     "sphinx-autoapi",
     "sphinx-copybutton",
     "sphinx-design",
-    "sphinx-fuma",
+    "sphinx-fuma>=0.1.2",
     "sphinx-markdown-builder>=0.6.9",
     "sphinxcontrib-mermaid>=2.0.0rc0,<2.2",
     "sphinx-reredirects",
-    "sphinx-searchlite",
+    "sphinx-searchlite>=0.2.0",
     "toml",
     "typer",
 ]
@@ -86,7 +86,6 @@ develop = [
     "sphinx-js>=5.0.0",
     # Themes
     "shibuya",
-    "sphinx-fuma",
     "sphinxawesome-theme",
 ]
 
