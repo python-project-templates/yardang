@@ -14,7 +14,7 @@ __all__ = ("BUNDLED_THEMES", "generate_docs_configuration", "generate_wiki_confi
 
 # Themes for which yardang ships per-theme defaults (a bundled ``{theme}.css`` and/or
 # an optional dependency). Used as the default set for ``yardang preview``.
-BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya", "fuma")
+BUNDLED_THEMES = ("furo", "sphinxawesome_theme", "shibuya", "fuma", "klink")
 
 # Themes whose Sphinx package is not importable under the theme's own name.
 _THEME_MODULES = {"fuma": "sphinx_fuma"}
@@ -157,6 +157,7 @@ def generate_docs_configuration(
     theme: str | None = None,
     docs_root: str | None = None,
     root: str | None = None,
+    source_dir: str | None = None,
     cname: str | None = None,
     pages: list | None = None,
     use_autoapi: bool | None = None,
@@ -191,6 +192,8 @@ def generate_docs_configuration(
         theme: Sphinx theme name. Defaults to ``"furo"``.
         docs_root: Base URL for hosted documentation. Used for canonical URLs.
         root: Path to README or index file to use as documentation root.
+        source_dir: Existing Sphinx source directory. When set, root names an
+            existing document relative to this directory and no index is generated.
         cname: Custom domain name for GitHub Pages CNAME file.
         pages: List of page paths to include in the toctree.
         use_autoapi: Whether to use sphinx-autoapi for Python API docs.
@@ -298,7 +301,15 @@ def generate_docs_configuration(
         custom_css = _resolve_custom_asset(custom_css, theme, "css", assets_dir=assets_dir)
         custom_js = _resolve_custom_asset(custom_js, theme, "js", assets_dir=assets_dir)
 
-        source_dir = os.path.curdir
+        source_dir = source_dir or get_config_flex(section="source-dir", base=config_base)
+        existing_source = source_dir is not None
+        if existing_source:
+            source_dir = str(Path(source_dir).resolve())
+            root = root or "index.rst"
+            if not (Path(source_dir) / root).is_file():
+                raise FileNotFoundError(str(Path(source_dir) / root))
+        else:
+            source_dir = os.path.curdir
 
         configuration_args = {}
         for config_option, default in {
@@ -309,6 +320,7 @@ def generate_docs_configuration(
             "html_extra_path": [],
             "html_css_files": [],
             "html_js_files": [],
+            "intersphinx_mapping": {},
             "source_suffix": [],
             "exclude_patterns": [],
             "language": "en",
@@ -387,6 +399,10 @@ def generate_docs_configuration(
             configuration_args[config_option] = get_config_flex(section=config_option, base=config_base)
             if configuration_args[config_option] is None:
                 configuration_args[config_option] = default
+
+        if existing_source:
+            for option in ("html_static_path", "html_extra_path"):
+                configuration_args[option] = [str(Path(source_dir) / path) for path in configuration_args[option]]
 
         # Load breathe/doxygen configuration from tool.yardang.breathe
         breathe_config_base = f"{config_base}.breathe"
@@ -574,6 +590,8 @@ def generate_docs_configuration(
                 use_autoapi=use_autoapi,
                 autoapi_ignore=autoapi_ignore,
                 source_dir=source_dir,
+                existing_source=existing_source,
+                master_doc=Path(root).with_suffix("").as_posix() if existing_source else "index",
                 previous_versions=previous_versions,
                 use_breathe=use_breathe,
                 use_sphinx_rust=use_sphinx_rust,
@@ -617,7 +635,7 @@ def generate_docs_configuration(
             (js_dir / "custom.js").write_text(custom_js or "")
 
             # append docs-specific ignores to gitignore
-            if Path(".gitignore").exists():
+            if not existing_source and Path(".gitignore").exists():
                 has_html_build_folder = False
                 has_index_md = False
                 with open(".gitignore", "r+") as fp:
@@ -632,7 +650,7 @@ def generate_docs_configuration(
                             fp.write("docs/html\n")
                         if not has_index_md:
                             fp.write("index.md\n")
-            if "index.md" not in pages:
+            if not existing_source and "index.md" not in pages:
                 Path("index.md").touch(exist_ok=True)
             # yield folder path to sphinx build
             yield td

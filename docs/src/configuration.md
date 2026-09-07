@@ -70,6 +70,7 @@ dependency) for the following themes:
 - [`sphinxawesome_theme`](https://sphinxawesome.xyz/)
 - [`shibuya`](https://shibuya.lepture.com/)
 - [`fuma`](https://github.com/python-project-templates/sphinx-fuma)
+- [`klink`](https://github.com/pmorissette/klink)
 
 `furo` is always available; install the rest with `pip install yardang[themes]`.
 Any other installed Sphinx theme works too — you just won't get the bundled
@@ -302,6 +303,45 @@ each theme is browsable live at a suburl of the published site:
 - [`/_previews/sphinxawesome_theme/`](https://yardang.python-templates.dev/_previews/sphinxawesome_theme/)
 - [`/_previews/shibuya/`](https://yardang.python-templates.dev/_previews/shibuya/)
 - [`/_previews/fuma/`](https://yardang.python-templates.dev/_previews/fuma/)
+
+## `source-dir`
+
+Optional existing Sphinx source directory, relative to the project directory.
+With this option, `yardang build` reads the existing source tree instead of
+generating an `index.md` from a README. It leaves source documents and
+`.gitignore` unchanged. Define navigation in the source documents; `pages`
+does not generate a toctree in this mode.
+
+`root` names an existing document relative to `source-dir` and defaults to
+`index.rst`. Static and extra asset paths are also relative to `source-dir`.
+Yardang still generates its configuration from `pyproject.toml`; a `conf.py`
+inside the source directory is not loaded. The CLI's `--source-dir` overrides
+the configured directory.
+
+Use `yardang build --warning-is-error` to fail the build on Sphinx warnings,
+for example in CI. Sphinx still processes all documents before returning a
+failure status.
+
+```toml
+[tool.yardang]
+source-dir = "docs/source"
+root = "index.rst"
+use-autoapi = false
+html-static-path = ["_static"]
+```
+
+To retain a Klink site, install `klink` (or `yardang[themes]`) and set `theme = "klink"`.
+Yardang registers Klink's theme path, including for releases without a Sphinx
+theme entry point. Theme options go in `[tool.yardang.html-theme-options]`.
+Intersphinx inventories can be configured with explicit inventory URLs:
+
+```toml
+[tool.yardang]
+extensions = ["sphinx.ext.intersphinx"]
+
+[tool.yardang.intersphinx-mapping]
+python = ["https://docs.python.org/3/", "https://docs.python.org/3/objects.inv"]
+```
 
 ## `root`
 

@@ -62,6 +62,7 @@ wiki = [
 
 ]
 themes = [
+    "klink>=0.1.10",
     "shibuya",
     "sphinxawesome-theme",
 ]
@@ -85,6 +86,7 @@ develop = [
     "sphinx-rust",
     "sphinx-js>=5.0.0",
     # Themes
+    "klink>=0.1.10",
     "shibuya",
     "sphinxawesome-theme",
 ]
