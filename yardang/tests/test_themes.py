@@ -32,6 +32,15 @@ class TestThemeModule:
         assert build_module.theme_module("furo") == "furo"
 
 
+class TestDocumentedThemes:
+    """The theme lists in the docs are maintained by hand, so they drift."""
+
+    @pytest.mark.parametrize("theme", BUNDLED_THEMES)
+    def test_theme_has_a_preview_link(self, theme):
+        docs = Path(__file__).parents[2] / "docs" / "src" / "configuration.md"
+        assert f"/_previews/{theme}/" in docs.read_text()
+
+
 class TestSearchIntegration:
     """Search is theme-independent, so it is wired for every first-class theme."""
 
@@ -46,7 +55,7 @@ class TestSearchIntegration:
         finally:
             os.chdir(original_cwd)
 
-    @pytest.mark.parametrize("theme", ["furo", "shibuya", "sphinxawesome_theme", "fuma"])
+    @pytest.mark.parametrize("theme", BUNDLED_THEMES)
     def test_searchlite_is_enabled_for_first_class_themes(self, tmp_path, theme):
         assert "sphinx_searchlite" in self._conf(tmp_path, theme=theme)
 
