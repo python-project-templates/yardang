@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+
+<html :class="{ 'dark' : darkMode === true }" data-content_root="../../" lang="en" x-data="{ darkMode: $persist(window.matchMedia('(prefers-color-scheme: dark)').matches), activeSection: ''}">
+<head>
+<script>
+    (function () {
+      // Set initial color scheme
+      if ((localStorage.getItem("_x_darkMode") === "true") || (window.matchMedia("(prefers-color-scheme: dark)").matches)) {
+        document.documentElement.classList.add("dark");
+      }
+
+      // Watch for media preference changes
+      window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+        localStorage.setItem("_x_darkMode", event.matches);
+        document.documentElement.classList.toggle("dark", event.matches);
+      });
+    })();
+  </script>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta charset="utf-8"/>
+<meta content="#ffffff" media="(prefers-color-scheme: light)" name="theme-color"/>
+<meta content="#030711" media="(prefers-color-scheme: dark)" name="theme-color"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Crate calculator | yardang v0.10.0</title>
+<meta content="Crate calculator | yardang v0.10.0" property="og:title"/>
+<meta content="Crate calculator | yardang v0.10.0" name="twitter:title"/>
+<link href="../../_static/pygments.css?v=03e43079" rel="stylesheet" type="text/css"/>
+<link href="../../_static/theme.css?v=d6d7c91b" rel="stylesheet" type="text/css"/>
+<link href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/copybutton.css?v=76b2166b" rel="stylesheet" type="text/css"/>
+<link href="../../_static/graphviz.css?v=4ae1632d" rel="stylesheet" type="text/css"/>
+<link href="../../_static/autodoc_pydantic.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sphinx_js.css" rel="stylesheet" type="text/css"/>
+<link href="../../_static/sphinx-design.min.css?v=95c83b7e" rel="stylesheet" type="text/css"/>
+<link href="../../_static/searchlite.css?v=4235115c" rel="stylesheet" type="text/css"/>
+<link href="../../_static/styles/custom.css?v=06984300" rel="stylesheet" type="text/css"/>
+<link href="../../_static/awesome-sphinx-design.css?v=a81faafa" rel="stylesheet" type="text/css"/>
+<link href="../../_static/awesome-myst-nb.css?v=7c7ea10c" rel="stylesheet" type="text/css"/>
+<link href="../../search.html" rel="search" title="Search"/>
+<link href="../../genindex.html" rel="index" title="Index"/>
+<link href="../../examples/cpp/docs/api.html" rel="prev" title="Calculator C++ API Documentation"/>
+</head>
+<body :class="{ 'overflow-hidden': showSidebar }" class="min-h-screen font-sans antialiased bg-background text-foreground" x-data="{ showSidebar: false, showScrollTop: false }">
+<div @click.self="showSidebar = false" class="fixed inset-0 z-50 overflow-hidden bg-background/80 backdrop-blur-sm md:hidden" x-cloak="" x-show="showSidebar"></div><div class="relative flex flex-col min-h-screen" id="page"><a class="absolute top-0 left-0 z-[100] block bg-background p-4 text-xl transition -translate-x-full opacity-0 focus:translate-x-0 focus:opacity-100" href="#content">
+      Skip to content
+    </a><header class="sticky top-0 z-40 w-full border-b shadow-xs border-border bg-background/90 backdrop-blur"><div class="container flex items-center h-14">
+<div class="hidden mr-4 md:flex">
+<a class="flex items-center mr-6" href="../../index.html"><span class="hidden font-bold sm:inline-block text-clip whitespace-nowrap">yardang v0.10.0</span>
+</a></div><button @click="showSidebar = true" class="inline-flex items-center justify-center h-10 px-0 py-2 mr-2 text-base font-medium transition-colors rounded-md hover:text-accent-foreground hover:bg-transparent md:hidden" type="button">
+<svg aria-hidden="true" fill="currentColor" height="24" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M152.587 825.087q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440Zm0-203.587q-19.152 0-32.326-13.174T107.087 576q0-19.152 13.174-32.326t32.326-13.174h320q19.152 0 32.326 13.174T518.087 576q0 19.152-13.174 32.326T472.587 621.5h-320Zm0-203.587q-19.152 0-32.326-13.174t-13.174-32.326q0-19.152 13.174-32.326t32.326-13.174h440q19.152 0 32.326 13.174t13.174 32.326q0 19.152-13.174 32.326t-32.326 13.174h-440ZM708.913 576l112.174 112.174q12.674 12.674 12.674 31.826t-12.674 31.826Q808.413 764.5 789.261 764.5t-31.826-12.674l-144-144Q600 594.391 600 576t13.435-31.826l144-144q12.674-12.674 31.826-12.674t31.826 12.674q12.674 12.674 12.674 31.826t-12.674 31.826L708.913 576Z"></path>
+</svg>
+<span class="sr-only">Toggle navigation menu</span>
+</button>
+<div class="flex items-center justify-between flex-1 gap-2 sm:gap-4 md:justify-end">
+<div class="flex-1 w-full md:w-auto md:flex-none"><form @keydown.k.window.meta="$refs.search.focus()" action="../../search.html" class="relative flex items-center group" id="searchbox" method="get">
+<input aria-label="Search the docs" class="inline-flex items-center font-medium transition-colors bg-transparent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 ring-offset-background border border-input hover:bg-accent focus:bg-accent hover:text-accent-foreground focus:text-accent-foreground hover:placeholder-accent-foreground py-2 px-4 relative h-9 w-full justify-start rounded-[0.5rem] text-sm text-muted-foreground sm:pr-12 md:w-40 lg:w-64" id="search-input" name="q" placeholder="Search ..." type="search" x-ref="search"/>
+<kbd class="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none text-muted-foreground items-center gap-1 rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 sm:flex group-hover:bg-accent group-hover:text-accent-foreground">
+<span class="text-xs">⌘</span>
+    K
+  </kbd>
+</form>
+</div>
+<nav class="flex items-center gap-1">
+<button @click="darkMode = !darkMode" class="relative inline-flex items-center justify-center px-0 text-sm font-medium transition-colors rounded-md hover:bg-accent hover:text-accent-foreground h-9 w-9" title="Toggle color scheme" type="button">
+<svg class="absolute transition-all scale-100 rotate-0 dark:-rotate-90 dark:scale-0" fill="currentColor" height="16" viewbox="0 96 960 960" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 685q45.456 0 77.228-31.772Q589 621.456 589 576q0-45.456-31.772-77.228Q525.456 467 480 467q-45.456 0-77.228 31.772Q371 530.544 371 576q0 45.456 31.772 77.228Q434.544 685 480 685Zm0 91q-83 0-141.5-58.5T280 576q0-83 58.5-141.5T480 376q83 0 141.5 58.5T680 576q0 83-58.5 141.5T480 776ZM80 621.5q-19.152 0-32.326-13.174T34.5 576q0-19.152 13.174-32.326T80 530.5h80q19.152 0 32.326 13.174T205.5 576q0 19.152-13.174 32.326T160 621.5H80Zm720 0q-19.152 0-32.326-13.174T754.5 576q0-19.152 13.174-32.326T800 530.5h80q19.152 0 32.326 13.174T925.5 576q0 19.152-13.174 32.326T880 621.5h-80Zm-320-320q-19.152 0-32.326-13.174T434.5 256v-80q0-19.152 13.174-32.326T480 130.5q19.152 0 32.326 13.174T525.5 176v80q0 19.152-13.174 32.326T480 301.5Zm0 720q-19.152 0-32.326-13.17Q434.5 995.152 434.5 976v-80q0-19.152 13.174-32.326T480 850.5q19.152 0 32.326 13.174T525.5 896v80q0 19.152-13.174 32.33-13.174 13.17-32.326 13.17ZM222.174 382.065l-43-42Q165.5 327.391 166 308.239t13.174-33.065q13.435-13.674 32.587-13.674t32.065 13.674l42.239 43q12.674 13.435 12.555 31.706-.12 18.272-12.555 31.946-12.674 13.674-31.445 13.413-18.772-.261-32.446-13.174Zm494 494.761-42.239-43q-12.674-13.435-12.674-32.087t12.674-31.565Q686.609 756.5 705.38 757q18.772.5 32.446 13.174l43 41.761Q794.5 824.609 794 843.761t-13.174 33.065Q767.391 890.5 748.239 890.5t-32.065-13.674Zm-42-494.761Q660.5 369.391 661 350.62q.5-18.772 13.174-32.446l41.761-43Q728.609 261.5 747.761 262t33.065 13.174q13.674 13.435 13.674 32.587t-13.674 32.065l-43 42.239q-13.435 12.674-31.706 12.555-18.272-.12-31.946-12.555Zm-495 494.761Q165.5 863.391 165.5 844.239t13.674-32.065l43-42.239q13.435-12.674 32.087-12.674t31.565 12.674Q299.5 782.609 299 801.38q-.5 18.772-13.174 32.446l-41.761 43Q231.391 890.5 212.239 890t-33.065-13.174ZM480 576Z"></path>
+</svg>
+<svg class="absolute transition-all scale-0 rotate-90 dark:rotate-0 dark:scale-100" fill="currentColor" height="16" viewbox="0 96 960 960" width="16" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 936q-151 0-255.5-104.5T120 576q0-138 90-239.5T440 218q25-3 39 18t-1 44q-17 26-25.5 55t-8.5 61q0 90 63 153t153 63q31 0 61.5-9t54.5-25q21-14 43-1.5t19 39.5q-14 138-117.5 229T480 936Zm0-80q88 0 158-48.5T740 681q-20 5-40 8t-40 3q-123 0-209.5-86.5T364 396q0-20 3-40t8-40q-78 32-126.5 102T200 576q0 116 82 198t198 82Zm-10-270Z"></path>
+</svg>
+</button>
+</nav>
+</div>
+</div>
+</header>
+<div class="flex-1"><div class="container md:grid md:grid-cols-[220px_minmax(0,1fr)] md:gap-6 lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-10"><aside :aria-hidden="!showSidebar" :class="{ 'translate-x-0': showSidebar }" class="fixed inset-y-0 left-0 md:top-14 z-50 md:z-30 bg-background md:bg-transparent transition-all duration-100 -translate-x-full md:translate-x-0 ml-0 p-6 md:p-0 md:-ml-2 md:h-[calc(100vh-3.5rem)] w-5/6 md:w-full overflow-y-auto border-r border-border md:sticky" id="left-sidebar">
+<a class="justify-start text-sm md:!hidden bg-background" href="../../index.html"><span class="font-bold text-clip whitespace-nowrap">yardang v0.10.0</span>
+</a>
+<div class="relative overflow-hidden md:overflow-auto my-4 md:my-0">
+<div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../docs/src/overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../docs/src/installation.html">Installation</a></li>
+<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../../docs/src/configuration.html">Configuration<button @click.prevent.stop="expanded = !expanded" type="button" x-cloak=""><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-cloak="" x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="../../docs/notebooks/example.html">Example Notebook</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../../docs/src/api.html">API Reference<button @click.prevent.stop="expanded = !expanded" type="button" x-cloak=""><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="../../examples/cpp/docs/api.html">Calculator C++ API Documentation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code></a></li>
+</ul>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<button @click="showSidebar = false" class="absolute md:hidden right-4 top-4 rounded-sm opacity-70 transition-opacity hover:opacity-100" type="button">
+<svg class="h-4 w-4" fill="currentColor" height="24" stroke="none" viewbox="0 96 960 960" width="24" xmlns="http://www.w3.org/2000/svg">
+<path d="M480 632 284 828q-11 11-28 11t-28-11q-11-11-11-28t11-28l196-196-196-196q-11-11-11-28t11-28q11-11 28-11t28 11l196 196 196-196q11-11 28-11t28 11q11 11 11 28t-11 28L536 576l196 196q11 11 11 28t-11 28q-11 11-28 11t-28-11L480 632Z"></path>
+</svg>
+</button>
+</aside>
+<main class="relative py-6 lg:gap-10 lg:py-8 xl:grid xl:grid-cols-[1fr_300px]">
+<div class="w-full min-w-0 mx-auto">
+<nav aria-label="breadcrumbs" class="flex items-center mb-4 space-x-1 text-sm text-muted-foreground">
+<a class="overflow-hidden text-ellipsis whitespace-nowrap hover:text-foreground" href="../../index.html">
+<span class="hidden md:inline">yardang v0.10.0</span>
+<svg aria-label="Home" class="md:hidden" fill="currentColor" height="18" stroke="none" viewbox="0 96 960 960" width="18" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
+</svg>
+</a>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="../../docs/src/api.html">API Reference</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code></span>
+</nav>
+<div id="content" role="main">
+<section class="tex2jax_ignore mathjax_ignore" id="crate-calculator">
+<h1>Crate <code class="docutils literal notranslate"><span class="pre">calculator</span></code><a class="headerlink" href="#crate-calculator" title="Link to this heading">¶</a></h1>
+<dl class="rust crate">
+<dt class="sig sig-object rust" id="calculator">
+<span class="sig-name descname"><span class="k"><span class="pre">crate</span></span><span class="w"> </span><span class="n"><span class="pre">calculator</span></span></span><a class="headerlink" href="#calculator" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator'">¶</a></dt>
+<dd><div class="docutils">
+<p class="rubric" id="calculator-library">Calculator Library</p>
+<p>A simple calculator library demonstrating Rust documentation with sphinx-rust.</p>
+<p>This crate provides basic arithmetic operations and a calculator struct
+that maintains a history of operations.</p>
+<p class="rubric" id="example">Example</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::{</span><span class="n">Calculator</span><span class="p">,</span><span class="w"> </span><span class="n">Operation</span><span class="p">};</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="kd">let</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calc</span><span class="p">.</span><span class="n">calculate</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="n">Operation</span><span class="p">::</span><span class="n">Add</span><span class="p">);</span>
+</span><span id="line-5"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">result</span><span class="p">,</span><span class="w"> </span><span class="mf">8.0</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+<p class="rubric">Enums</p>
+<dl class="rust enum">
+<dt class="sig sig-object rust" id="calculator-CalculatorError">
+<span class="sig-name descname"><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="n"><span class="pre">CalculatorError</span></span></span><a class="headerlink" href="#calculator-CalculatorError" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-CalculatorError'">¶</a></dt>
+<dd><div class="docutils">
+<p>Errors that can occur during calculator operations.</p>
+</div>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-CalculatorError-DivisionByZero">
+<span class="sig-name descname"><span class="n"><span class="pre">DivisionByZero</span></span></span><a class="headerlink" href="#calculator-CalculatorError-DivisionByZero" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-CalculatorError-DivisionByZero'">¶</a></dt>
+<dd><div class="docutils">
+<p>Attempted to divide by zero.</p>
+</div>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-CalculatorError-Overflow">
+<span class="sig-name descname"><span class="n"><span class="pre">Overflow</span></span></span><a class="headerlink" href="#calculator-CalculatorError-Overflow" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-CalculatorError-Overflow'">¶</a></dt>
+<dd><div class="docutils">
+<p>The result overflowed.</p>
+</div>
+</dd></dl>
+<p class="rubric">Traits implemented</p>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-CalculatorError-Display">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Display</span></span><span class="w"> </span><span class="k"><span class="pre">for</span></span><span class="w"> </span><a class="reference internal" href="#calculator-CalculatorError" title="calculator::CalculatorError"><span class="n"><span class="pre">CalculatorError</span></span></a></span><a class="headerlink" href="#calculator-CalculatorError-Display" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-CalculatorError-Display'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+</dd></dl>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-CalculatorError-Error">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">error</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Error</span></span><span class="w"> </span><span class="k"><span class="pre">for</span></span><span class="w"> </span><a class="reference internal" href="#calculator-CalculatorError" title="calculator::CalculatorError"><span class="n"><span class="pre">CalculatorError</span></span></a></span><a class="headerlink" href="#calculator-CalculatorError-Error" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-CalculatorError-Error'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+</dd></dl>
+</dd></dl>
+<dl class="rust enum">
+<dt class="sig sig-object rust" id="calculator-Operation">
+<span class="sig-name descname"><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="n"><span class="pre">Operation</span></span></span><a class="headerlink" href="#calculator-Operation" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation'">¶</a></dt>
+<dd><div class="docutils">
+<p>Enumeration of supported arithmetic operations.</p>
+</div>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-Operation-Add">
+<span class="sig-name descname"><span class="n"><span class="pre">Add</span></span></span><a class="headerlink" href="#calculator-Operation-Add" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation-Add'">¶</a></dt>
+<dd><div class="docutils">
+<p>Addition operation (+)</p>
+</div>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-Operation-Subtract">
+<span class="sig-name descname"><span class="n"><span class="pre">Subtract</span></span></span><a class="headerlink" href="#calculator-Operation-Subtract" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation-Subtract'">¶</a></dt>
+<dd><div class="docutils">
+<p>Subtraction operation (-)</p>
+</div>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-Operation-Multiply">
+<span class="sig-name descname"><span class="n"><span class="pre">Multiply</span></span></span><a class="headerlink" href="#calculator-Operation-Multiply" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation-Multiply'">¶</a></dt>
+<dd><div class="docutils">
+<p>Multiplication operation (*)</p>
+</div>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-Operation-Divide">
+<span class="sig-name descname"><span class="n"><span class="pre">Divide</span></span></span><a class="headerlink" href="#calculator-Operation-Divide" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation-Divide'">¶</a></dt>
+<dd><div class="docutils">
+<p>Division operation (/)</p>
+</div>
+</dd></dl>
+<p class="rubric">Traits implemented</p>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-Operation-Display">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Display</span></span><span class="w"> </span><span class="k"><span class="pre">for</span></span><span class="w"> </span><a class="reference internal" href="#calculator-Operation" title="calculator::Operation"><span class="n"><span class="pre">Operation</span></span></a></span><a class="headerlink" href="#calculator-Operation-Display" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Operation-Display'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+</dd></dl>
+</dd></dl>
+<p class="rubric">Structs and Unions</p>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-Calculator">
+<span class="sig-name descname"><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">Calculator</span></span></span><a class="headerlink" href="#calculator-Calculator" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator'">¶</a></dt>
+<dd><div class="docutils">
+<p>A calculator that performs basic arithmetic operations.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> struct maintains a history of all operations performed,
+allowing users to review previous calculations.</p>
+<p class="rubric" id="examples">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="kd">let</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">5.0</span><span class="p">);</span>
+</span><span id="line-5"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">sum</span><span class="p">,</span><span class="w"> </span><span class="mf">15.0</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+<p class="rubric">Implementations</p>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-Calculator">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><a class="reference internal" href="#calculator-Calculator" title="calculator::Calculator"><span class="n"><span class="pre">Calculator</span></span></a></span><a class="headerlink" href="#calculator-Calculator" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+<p class="rubric">Functions</p>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-add">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">add</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-Calculator-add" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-add'">¶</a></dt>
+<dd><div class="docutils">
+<p>Adds two numbers together.</p>
+<p class="rubric" id="arguments">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> - The first operand</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> - The second operand</p></li>
+</ul>
+<p class="rubric" id="returns">Returns</p>
+<p>The sum of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<p class="rubric" id="id1">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span><span class="w"> </span><span class="mf">3.0</span><span class="p">),</span><span class="w"> </span><span class="mf">5.0</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-calculate">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">calculate</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">op</span></span><span class="p"><span class="pre">:</span> </span><a class="reference internal" href="#calculator-Operation" title="calculator::Operation"><span class="n"><span class="pre">Operation</span></span></a><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-Calculator-calculate" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-calculate'">¶</a></dt>
+<dd><div class="docutils">
+<p>Performs a calculation using the specified operation.</p>
+<p class="rubric" id="id2">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> - The first operand</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> - The second operand</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">op</span></code> - The operation to perform</p></li>
+</ul>
+<p class="rubric" id="id3">Returns</p>
+<p>The result of the operation.</p>
+<p class="rubric" id="panics">Panics</p>
+<p>Panics if dividing by zero. Use <a class="reference internal" href="#calculator-Calculator-divide" title="calculator::Calculator::divide"><span class="xref myst rust rust-function"><code class="docutils literal notranslate"><span class="pre">Calculator::divide</span></code></span></a> for safe division.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-clear_history">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">clear_history</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">)</span></span></span><a class="headerlink" href="#calculator-Calculator-clear_history" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-clear_history'">¶</a></dt>
+<dd><div class="docutils">
+<p>Clears the operation history.</p>
+<p class="rubric" id="id4">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="n">calc</span><span class="p">.</span><span class="n">add</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">);</span>
+</span><span id="line-5"><span class="fm">assert!</span><span class="p">(</span><span class="o">!</span><span class="n">calc</span><span class="p">.</span><span class="n">history</span><span class="p">().</span><span class="n">is_empty</span><span class="p">());</span>
+</span><span id="line-6"><span class="n">calc</span><span class="p">.</span><span class="n">clear_history</span><span class="p">();</span>
+</span><span id="line-7"><span class="fm">assert!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">history</span><span class="p">().</span><span class="n">is_empty</span><span class="p">());</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-divide">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">divide</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#calculator-CalculatorError" title="calculator::CalculatorError"><span class="n"><span class="pre">CalculatorError</span></span></a><span class="p"><span class="pre">&gt;</span></span></span><a class="headerlink" href="#calculator-Calculator-divide" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-divide'">¶</a></dt>
+<dd><div class="docutils">
+<p>Divides the first number by the second.</p>
+<p class="rubric" id="id5">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> - The dividend</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> - The divisor</p></li>
+</ul>
+<p class="rubric" id="id6">Returns</p>
+<p>The quotient <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">/</span> <span class="pre">b</span></code>, or an error if <code class="docutils literal notranslate"><span class="pre">b</span></code> is zero.</p>
+<p class="rubric" id="errors">Errors</p>
+<p>Returns a <code class="docutils literal notranslate"><span class="pre">DivisionByZero</span></code> error if <code class="docutils literal notranslate"><span class="pre">b</span></code> is zero.</p>
+<p class="rubric" id="id7">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">divide</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">2.0</span><span class="p">).</span><span class="n">unwrap</span><span class="p">(),</span><span class="w"> </span><span class="mf">5.0</span><span class="p">);</span>
+</span><span id="line-5"><span class="fm">assert!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">divide</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">0.0</span><span class="p">).</span><span class="n">is_err</span><span class="p">());</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-history">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">history</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#calculator-OperationResult" title="calculator::OperationResult"><span class="n"><span class="pre">OperationResult</span></span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#calculator-Calculator-history" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-history'">¶</a></dt>
+<dd><div class="docutils">
+<p>Returns a reference to the operation history.</p>
+<p class="rubric" id="id8">Returns</p>
+<p>A slice containing all operations performed by this calculator.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-multiply">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">multiply</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-Calculator-multiply" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-multiply'">¶</a></dt>
+<dd><div class="docutils">
+<p>Multiplies two numbers together.</p>
+<p class="rubric" id="id9">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> - The first factor</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> - The second factor</p></li>
+</ul>
+<p class="rubric" id="id10">Returns</p>
+<p>The product of <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code>.</p>
+<p class="rubric" id="id11">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">),</span><span class="w"> </span><span class="mf">12.0</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-new">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">new</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">Self</span></span></span><a class="headerlink" href="#calculator-Calculator-new" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-new'">¶</a></dt>
+<dd><div class="docutils">
+<p>Creates a new Calculator instance with an empty history.</p>
+<p class="rubric" id="id12">Returns</p>
+<p>A new <code class="docutils literal notranslate"><span class="pre">Calculator</span></code> with no operation history.</p>
+<p class="rubric" id="id13">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="fm">assert!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">history</span><span class="p">().</span><span class="n">is_empty</span><span class="p">());</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-Calculator-subtract">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">subtract</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-Calculator-subtract" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-Calculator-subtract'">¶</a></dt>
+<dd><div class="docutils">
+<p>Subtracts the second number from the first.</p>
+<p class="rubric" id="id14">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">a</span></code> - The minuend</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">b</span></code> - The subtrahend</p></li>
+</ul>
+<p class="rubric" id="id15">Returns</p>
+<p>The difference <code class="docutils literal notranslate"><span class="pre">a</span> <span class="pre">-</span> <span class="pre">b</span></code>.</p>
+<p class="rubric" id="id16">Examples</p>
+<div class="highlight-rust notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">use</span><span class="w"> </span><span class="n">calculator</span><span class="p">::</span><span class="n">Calculator</span><span class="p">;</span>
+</span><span id="line-2">
+</span><span id="line-3"><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">calc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Calculator</span><span class="p">::</span><span class="n">new</span><span class="p">();</span>
+</span><span id="line-4"><span class="fm">assert_eq!</span><span class="p">(</span><span class="n">calc</span><span class="p">.</span><span class="n">subtract</span><span class="p">(</span><span class="mf">10.0</span><span class="p">,</span><span class="w"> </span><span class="mf">4.0</span><span class="p">),</span><span class="w"> </span><span class="mf">6.0</span><span class="p">);</span>
+</span></code></pre></div>
+</div>
+</div>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-OperationResult">
+<span class="sig-name descname"><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">OperationResult</span></span></span><a class="headerlink" href="#calculator-OperationResult" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult'">¶</a></dt>
+<dd><div class="docutils">
+<p>The result of a calculation, including operands and the operation performed.</p>
+</div>
+<dl class="rust variable">
+<dt class="sig sig-object rust" id="calculator-OperationResult-operand_a">
+<span class="sig-name descname"><span class="n"><span class="pre">operand_a</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-OperationResult-operand_a" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult-operand_a'">¶</a></dt>
+<dd><div class="docutils">
+<p>The first operand</p>
+</div>
+</dd></dl>
+<dl class="rust variable">
+<dt class="sig sig-object rust" id="calculator-OperationResult-operand_b">
+<span class="sig-name descname"><span class="n"><span class="pre">operand_b</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-OperationResult-operand_b" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult-operand_b'">¶</a></dt>
+<dd><div class="docutils">
+<p>The second operand</p>
+</div>
+</dd></dl>
+<dl class="rust variable">
+<dt class="sig sig-object rust" id="calculator-OperationResult-operation">
+<span class="sig-name descname"><span class="n"><span class="pre">operation</span></span><span class="p"><span class="pre">:</span> </span><a class="reference internal" href="#calculator-Operation" title="calculator::Operation"><span class="n"><span class="pre">Operation</span></span></a></span><a class="headerlink" href="#calculator-OperationResult-operation" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult-operation'">¶</a></dt>
+<dd><div class="docutils">
+<p>The operation that was performed</p>
+</div>
+</dd></dl>
+<dl class="rust variable">
+<dt class="sig sig-object rust" id="calculator-OperationResult-result">
+<span class="sig-name descname"><span class="n"><span class="pre">result</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-OperationResult-result" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult-result'">¶</a></dt>
+<dd><div class="docutils">
+<p>The calculated result</p>
+</div>
+</dd></dl>
+<p class="rubric">Traits implemented</p>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-OperationResult-Display">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">fmt</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">Display</span></span><span class="w"> </span><span class="k"><span class="pre">for</span></span><span class="w"> </span><a class="reference internal" href="#calculator-OperationResult" title="calculator::OperationResult"><span class="n"><span class="pre">OperationResult</span></span></a></span><a class="headerlink" href="#calculator-OperationResult-Display" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-OperationResult-Display'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+</dd></dl>
+</dd></dl>
+<dl class="rust struct">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator">
+<span class="sig-name descname"><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="n"><span class="pre">ScientificCalculator</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator'">¶</a></dt>
+<dd><div class="docutils">
+<p>A scientific calculator with additional mathematical functions.</p>
+<p>Extends the basic <a class="reference internal" href="../../docs/src/api.html#Calculator" title="Calculator"><span class="xref myst js js-class"><code class="docutils literal notranslate"><span class="pre">Calculator</span></code></span></a> with trigonometric, logarithmic,
+and other advanced mathematical operations.</p>
+</div>
+<p class="rubric">Implementations</p>
+<dl class="rust impl">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator">
+<span class="sig-name descname"><span class="k"><span class="pre">impl</span></span><span class="w"> </span><a class="reference internal" href="#calculator-ScientificCalculator" title="calculator::ScientificCalculator"><span class="n"><span class="pre">ScientificCalculator</span></span></a></span><a class="headerlink" href="#calculator-ScientificCalculator" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator'">¶</a></dt>
+<dd><div class="docutils">
+</div>
+<p class="rubric">Functions</p>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-basic">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">basic</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><a class="reference internal" href="#calculator-Calculator" title="calculator::Calculator"><span class="n"><span class="pre">Calculator</span></span></a></span><a class="headerlink" href="#calculator-ScientificCalculator-basic" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-basic'">¶</a></dt>
+<dd><div class="docutils">
+<p>Returns a reference to the underlying basic calculator.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-basic_mut">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">basic_mut</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><a class="reference internal" href="#calculator-Calculator" title="calculator::Calculator"><span class="n"><span class="pre">Calculator</span></span></a></span><a class="headerlink" href="#calculator-ScientificCalculator-basic_mut" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-basic_mut'">¶</a></dt>
+<dd><div class="docutils">
+<p>Returns a mutable reference to the underlying basic calculator.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-cos">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">cos</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-cos" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-cos'">¶</a></dt>
+<dd><div class="docutils">
+<p>Calculates the cosine of an angle.</p>
+<p class="rubric" id="id17">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code> - The angle (in degrees or radians based on settings)</p></li>
+</ul>
+<p class="rubric" id="id18">Returns</p>
+<p>The cosine of the angle.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-ln">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">ln</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">Result</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><a class="reference internal" href="#calculator-CalculatorError" title="calculator::CalculatorError"><span class="n"><span class="pre">CalculatorError</span></span></a><span class="p"><span class="pre">&gt;</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-ln" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-ln'">¶</a></dt>
+<dd><div class="docutils">
+<p>Calculates the natural logarithm of a number.</p>
+<p class="rubric" id="id19">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> - The number (must be positive)</p></li>
+</ul>
+<p class="rubric" id="id20">Returns</p>
+<p>The natural logarithm of x, or an error if x &lt;= 0.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-new">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">new</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">Self</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-new" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-new'">¶</a></dt>
+<dd><div class="docutils">
+<p>Creates a new ScientificCalculator.</p>
+<p>By default, trigonometric functions use radians.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-pow">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">pow</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">base</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">exponent</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-pow" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-pow'">¶</a></dt>
+<dd><div class="docutils">
+<p>Raises a number to a power.</p>
+<p class="rubric" id="id21">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">base</span></code> - The base number</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">exponent</span></code> - The exponent</p></li>
+</ul>
+<p class="rubric" id="id22">Returns</p>
+<p><code class="docutils literal notranslate"><span class="pre">base</span></code> raised to the power of <code class="docutils literal notranslate"><span class="pre">exponent</span></code>.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-set_use_degrees">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">set_use_degrees</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">mut</span></span><span class="w"> </span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">use_degrees</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">bool</span></span><span class="p"><span class="pre">)</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-set_use_degrees" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-set_use_degrees'">¶</a></dt>
+<dd><div class="docutils">
+<p>Sets whether to use degrees for trigonometric functions.</p>
+<p class="rubric" id="id23">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">use_degrees</span></code> - If true, trig functions expect degrees; if false, radians.</p></li>
+</ul>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-sin">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">sin</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">angle</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-sin" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-sin'">¶</a></dt>
+<dd><div class="docutils">
+<p>Calculates the sine of an angle.</p>
+<p class="rubric" id="id24">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">angle</span></code> - The angle (in degrees or radians based on settings)</p></li>
+</ul>
+<p class="rubric" id="id25">Returns</p>
+<p>The sine of the angle.</p>
+</div>
+</dd></dl>
+<dl class="rust function">
+<dt class="sig sig-object rust" id="calculator-ScientificCalculator-sqrt">
+<span class="sig-name descname"><span class="k"><span class="pre">fn</span></span><span class="w"> </span><span class="n"><span class="pre">sqrt</span></span><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">&amp;</span></span><span class="k"><span class="pre">self</span></span><span class="p"><span class="pre">,</span> </span><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span> </span><span class="n"><span class="pre">f64</span></span><span class="p"><span class="pre">)</span></span><span class="w"> </span><span class="o"><span class="pre">-&gt;</span></span><span class="w"> </span><span class="n"><span class="pre">f64</span></span></span><a class="headerlink" href="#calculator-ScientificCalculator-sqrt" title="Link to this definition" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#calculator-ScientificCalculator-sqrt'">¶</a></dt>
+<dd><div class="docutils">
+<p>Calculates the square root of a number.</p>
+<p class="rubric" id="id26">Arguments</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">x</span></code> - The number (must be non-negative)</p></li>
+</ul>
+<p class="rubric" id="id27">Returns</p>
+<p>The square root of x, or NaN if x is negative.</p>
+</div>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</dd></dl>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(100vh-5rem)] h-full overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#calculator-CalculatorError'" class="reference internal" href="#calculator-CalculatorError"><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">CalculatorError</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-CalculatorError-DivisionByZero'" class="reference internal" href="#calculator-CalculatorError-DivisionByZero"><code class="docutils literal notranslate"><span class="pre">DivisionByZero</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-CalculatorError-Overflow'" class="reference internal" href="#calculator-CalculatorError-Overflow"><code class="docutils literal notranslate"><span class="pre">Overflow</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-CalculatorError-Display'" class="reference internal" href="#calculator-CalculatorError-Display"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">Display</span> <span class="pre">for</span> <span class="pre">CalculatorError</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-CalculatorError-Error'" class="reference internal" href="#calculator-CalculatorError-Error"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">Error</span> <span class="pre">for</span> <span class="pre">CalculatorError</span></code></a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#calculator-Operation'" class="reference internal" href="#calculator-Operation"><code class="docutils literal notranslate"><span class="pre">enum</span> <span class="pre">Operation</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-Operation-Add'" class="reference internal" href="#calculator-Operation-Add"><code class="docutils literal notranslate"><span class="pre">Add</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Operation-Subtract'" class="reference internal" href="#calculator-Operation-Subtract"><code class="docutils literal notranslate"><span class="pre">Subtract</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Operation-Multiply'" class="reference internal" href="#calculator-Operation-Multiply"><code class="docutils literal notranslate"><span class="pre">Multiply</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Operation-Divide'" class="reference internal" href="#calculator-Operation-Divide"><code class="docutils literal notranslate"><span class="pre">Divide</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Operation-Display'" class="reference internal" href="#calculator-Operation-Display"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">Display</span> <span class="pre">for</span> <span class="pre">Operation</span></code></a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#calculator-Calculator'" class="reference internal" href="#calculator-Calculator"><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">Calculator</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-Calculator'" class="reference internal" href="#calculator-Calculator"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">Calculator</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-Calculator-add'" class="reference internal" href="#calculator-Calculator-add"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">add</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-calculate'" class="reference internal" href="#calculator-Calculator-calculate"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">calculate</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-clear_history'" class="reference internal" href="#calculator-Calculator-clear_history"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">clear_history</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-divide'" class="reference internal" href="#calculator-Calculator-divide"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">divide</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-history'" class="reference internal" href="#calculator-Calculator-history"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">history</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-multiply'" class="reference internal" href="#calculator-Calculator-multiply"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">multiply</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-new'" class="reference internal" href="#calculator-Calculator-new"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">new</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-Calculator-subtract'" class="reference internal" href="#calculator-Calculator-subtract"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">subtract</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#calculator-OperationResult'" class="reference internal" href="#calculator-OperationResult"><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">OperationResult</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-OperationResult-operand_a'" class="reference internal" href="#calculator-OperationResult-operand_a"><code class="docutils literal notranslate"><span class="pre">operand_a</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-OperationResult-operand_b'" class="reference internal" href="#calculator-OperationResult-operand_b"><code class="docutils literal notranslate"><span class="pre">operand_b</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-OperationResult-operation'" class="reference internal" href="#calculator-OperationResult-operation"><code class="docutils literal notranslate"><span class="pre">operation</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-OperationResult-result'" class="reference internal" href="#calculator-OperationResult-result"><code class="docutils literal notranslate"><span class="pre">result</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-OperationResult-Display'" class="reference internal" href="#calculator-OperationResult-Display"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">Display</span> <span class="pre">for</span> <span class="pre">OperationResult</span></code></a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator'" class="reference internal" href="#calculator-ScientificCalculator"><code class="docutils literal notranslate"><span class="pre">struct</span> <span class="pre">ScientificCalculator</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator'" class="reference internal" href="#calculator-ScientificCalculator"><code class="docutils literal notranslate"><span class="pre">impl</span> <span class="pre">ScientificCalculator</span></code></a><ul>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-basic'" class="reference internal" href="#calculator-ScientificCalculator-basic"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">basic</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-basic_mut'" class="reference internal" href="#calculator-ScientificCalculator-basic_mut"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">basic_mut</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-cos'" class="reference internal" href="#calculator-ScientificCalculator-cos"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">cos</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-ln'" class="reference internal" href="#calculator-ScientificCalculator-ln"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">ln</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-new'" class="reference internal" href="#calculator-ScientificCalculator-new"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">new</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-pow'" class="reference internal" href="#calculator-ScientificCalculator-pow"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">pow</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-set_use_degrees'" class="reference internal" href="#calculator-ScientificCalculator-set_use_degrees"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">set_use_degrees</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-sin'" class="reference internal" href="#calculator-ScientificCalculator-sin"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">sin</span></code></a></li>
+<li><a :data-current="activeSection === '#calculator-ScientificCalculator-sqrt'" class="reference internal" href="#calculator-ScientificCalculator-sqrt"><code class="docutils literal notranslate"><span class="pre">fn</span> <span class="pre">sqrt</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
+</main>
+</div>
+</div><footer class="py-6 border-t border-border md:py-0">
+<div class="container flex flex-col items-center justify-between gap-4 md:h-24 md:flex-row">
+<div class="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
+<p class="text-sm leading-loose text-center text-muted-foreground md:text-left">© the yardang authors Built with <a class="font-medium underline underline-offset-4" href="https://www.sphinx-doc.org" rel="noreferrer">Sphinx 8.2.3</a></p>
+</div>
+</div>
+</footer>
+</div>
+<script src="../../_static/documentation_options.js?v=82662543"></script>
+<script src="../../_static/doctools.js?v=9bcbadda"></script>
+<script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+<script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+<script src="../../_static/copybutton.js?v=f281be69"></script>
+<script defer="defer" src="../../_static/theme.js?v=5db23cf8"></script>
+<script src="../../_static/design-tabs.js?v=f930bc37"></script>
+<script data-searchlite-index="searchlite-index.json" defer="defer" src="../../_static/searchlite.js?v=a5320898"></script>
+<script data-searchlite-adopt="true" defer="defer" src="../../_static/searchlite-ui.js?v=4e4bdd69"></script>
+<script src="../../_static/js/custom.js?v=956e5d78"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+
+<html lang="en" data-content_root="../../">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Overview &#8212; yardang v0.10.0</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/klink.css?v=f4590041" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/autodoc_pydantic.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx_js.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+    <link rel="stylesheet" type="text/css" href="../../_static/searchlite.css?v=4235115c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/custom.css?v=890fd012" />
+    <script src="../../_static/documentation_options.js?v=82662543"></script>
+    <script src="../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script data-searchlite-index="searchlite-index.json" defer="defer" src="../../_static/searchlite.js?v=a5320898"></script>
+    <script data-searchlite-adopt="true" defer="defer" src="../../_static/searchlite-ui.js?v=4e4bdd69"></script>
+    <script src="../../_static/js/custom.js?v=956e5d78"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="&lt;no title&gt;" href="../../index.html" />
+         
+        <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9">
+        
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Droid+Sans+Mono:400,500,700' rel='stylesheet' type='text/css'>
+    
+  </head><body>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <section class="tex2jax_ignore mathjax_ignore" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> is a tool to configure the most common <a class="reference external" href="https://www.sphinx-doc.org/en/master/">Sphinx</a> options directly from a <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+Sphinx relies on a <code class="docutils literal notranslate"><span class="pre">conf.py</span></code> file and Makefiles, but these usually overlap a substantial amount with information already stored in the repository (e.g. in the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>).
+Within an organization, these files tend to include a substantial amount of overlapping information.</p>
+<section id="integrations">
+<h2>Integrations<a class="headerlink" href="#integrations" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> takes the most important parts, like theme, title, pages, etc, and extracts them directly from the <code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code>.
+It creates a temporary file for the <code class="docutils literal notranslate"><span class="pre">conf.py</span></code>, and builds the project into <code class="docutils literal notranslate"><span class="pre">docs/html</span></code>.
+Out of the box, it comes with support for several popular Sphinx frameworks:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://sphinx-design.readthedocs.io/en/latest/">Sphinx Design</a></p></li>
+<li><p><a class="reference external" href="https://jupyterbook.org/en/stable/content/myst.html">Myst Markdown</a></p></li>
+<li><p><a class="reference external" href="https://sphinx-autoapi.readthedocs.io/en/latest/">Sphinx AutoAPI</a></p></li>
+<li><p><a class="reference external" href="https://autodoc-pydantic.readthedocs.io/en/stable/users/examples.html">Autodoc Pydantic</a></p></li>
+<li><p><a class="reference external" href="https://github.com/pradyunsg/furo">Furo Theme</a> (the default), plus bundled defaults for <a class="reference external" href="https://github.com/python-project-templates/sphinx-fuma"><code class="docutils literal notranslate"><span class="pre">sphinx-fuma</span></code></a>, <a class="reference external" href="https://sphinxawesome.xyz/"><code class="docutils literal notranslate"><span class="pre">sphinxawesome_theme</span></code></a>, <a class="reference external" href="https://shibuya.lepture.com/"><code class="docutils literal notranslate"><span class="pre">shibuya</span></code></a>, and <a class="reference external" href="https://github.com/pmorissette/klink"><code class="docutils literal notranslate"><span class="pre">klink</span></code></a>.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span> <span class="pre">preview</span></code> builds the docs once per theme so you can compare them
+side-by-side. See <a class="reference internal" href="configuration.html#previewing-themes"><span class="std std-ref">Previewing themes</span></a> for the
+live previews.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading">¶</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">yardang</span></code> builds Sphinx via a CLI, which will build docs into <code class="docutils literal notranslate"><span class="pre">docs/html</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>yardang<span class="w"> </span>build
+</pre></div>
+</div>
+<section id="github-pages">
+<h3>GitHub Pages<a class="headerlink" href="#github-pages" title="Link to this heading">¶</a></h3>
+<p>The goal of this project is to make it as easy as possible to use Sphinx.
+The following yaml should be all it takes to integrate your project with GitHub Pages, <strong>without changing anything in your existing repository</strong>.</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Docs</span>
+<span class="nt">on</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">push</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"main"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"v*"</span><span class="p p-Indicator">]</span>
+<span class="w">    </span><span class="nt">paths-ignore</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="s">"LICENSE"</span><span class="p p-Indicator">,</span><span class="w"> </span><span class="s">"README.md"</span><span class="p p-Indicator">]</span>
+<span class="nt">permissions</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">contents</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">write</span>
+<span class="nt">jobs</span><span class="p">:</span>
+<span class="w">  </span><span class="nt">docs</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ubuntu-latest</span>
+<span class="w">    </span><span class="nt">steps</span><span class="p">:</span>
+<span class="w">      </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">actions-ext/yardang@main</span>
+<span class="w">        </span><span class="nt">with</span><span class="p">:</span>
+<span class="w">        </span><span class="nt">token</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">${{ secrets.GITHUB_TOKEN }}</span>
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+            <div class="clearer"></div>
+          </div>
+        </div>
+      </div>
+        <aside>
+
+            
+            
+            
+
+            
+<search id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</search>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+        </aside>
+    
+      <div class="clearer"></div>
+    </div>
+        <div class="footer">
+            the yardang authors
+        </div>
+
+        
+  </body>
+</html>
