@@ -282,7 +282,7 @@ yardang preview
 ```
 
 This renders the documentation into `docs/html/_previews/<theme>/` for each
-bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`, `fuma`). Themes whose
+bundled theme (`furo`, `sphinxawesome_theme`, `shibuya`, `fuma`, `klink`). Themes whose
 package is not installed are skipped. Restrict the set with `--themes`:
 
 ```bash
@@ -303,6 +303,7 @@ each theme is browsable live at a suburl of the published site:
 - [`/_previews/sphinxawesome_theme/`](https://yardang.python-templates.dev/_previews/sphinxawesome_theme/)
 - [`/_previews/shibuya/`](https://yardang.python-templates.dev/_previews/shibuya/)
 - [`/_previews/fuma/`](https://yardang.python-templates.dev/_previews/fuma/)
+- [`/_previews/klink/`](https://yardang.python-templates.dev/_previews/klink/)
 
 ## `source-dir`
 
