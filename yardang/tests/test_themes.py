@@ -46,7 +46,7 @@ class TestSearchIntegration:
         finally:
             os.chdir(original_cwd)
 
-    @pytest.mark.parametrize("theme", ["furo", "shibuya", "sphinxawesome_theme", "fuma"])
+    @pytest.mark.parametrize("theme", BUNDLED_THEMES)
     def test_searchlite_is_enabled_for_first_class_themes(self, tmp_path, theme):
         assert "sphinx_searchlite" in self._conf(tmp_path, theme=theme)
 
