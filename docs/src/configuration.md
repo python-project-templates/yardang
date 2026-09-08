@@ -751,7 +751,13 @@ Yardang provides integration with [sphinxcontrib-rust](https://gitlab.com/munir0
 pip install yardang[rust]
 ```
 
-This extra is GPL-3.0 licensed, unlike yardang itself, which is Apache-2.0. It also builds a `sphinx-rustdocgen` helper binary on install, so a Rust toolchain must be available.
+This extra is GPL-3.0 licensed, unlike yardang itself, which is Apache-2.0.
+
+It also relies on a `sphinx-rustdocgen` binary, which the Python package only builds as a side effect of compiling its sdist. Installing from a cached wheel skips that step, so install the binary explicitly to be sure it is present:
+
+```bash
+cargo install sphinx-rustdocgen
+```
 
 All configuration is under `[tool.yardang.sphinx-rust]`.
 
