@@ -38,8 +38,6 @@ class TestDocumentedThemes:
     @pytest.mark.parametrize("theme", BUNDLED_THEMES)
     def test_theme_has_a_preview_link(self, theme):
         docs = Path(__file__).parents[2] / "docs" / "src" / "configuration.md"
-        if not docs.is_file():
-            pytest.skip("documentation sources are not shipped with the package")
         assert f"/_previews/{theme}/" in docs.read_text()
 
 
