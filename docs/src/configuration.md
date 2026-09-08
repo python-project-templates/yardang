@@ -751,7 +751,13 @@ Yardang provides integration with [sphinxcontrib-rust](https://gitlab.com/munir0
 pip install yardang[rust]
 ```
 
-This extra is GPL-3.0 licensed, unlike yardang itself, which is Apache-2.0. It also builds a `sphinx-rustdocgen` helper binary on install, so a Rust toolchain must be available.
+This extra is GPL-3.0 licensed, unlike yardang itself, which is Apache-2.0.
+
+It also relies on a `sphinx-rustdocgen` binary, which the Python package only builds as a side effect of compiling its sdist. Installing from a cached wheel skips that step, so install the binary explicitly to be sure it is present:
+
+```bash
+cargo install sphinx-rustdocgen
+```
 
 All configuration is under `[tool.yardang.sphinx-rust]`.
 
@@ -766,7 +772,7 @@ crates = { crate1 = "path/to/crate1", crate2 = "path/to/crate2" }
 
 ### `doc-dir`
 
-Where the generated pages are written, relative to the documentation root. Defaults to `"api"`, producing `api/<crate>/lib.rst` for each crate.
+Where the generated pages are written, relative to the documentation root. Defaults to `"api"`, producing `api/<crate>/lib.md` for each crate.
 
 ```toml
 [tool.yardang.sphinx-rust]
@@ -775,11 +781,11 @@ doc-dir = "api"
 
 ### `rustdoc-fmt`
 
-The markup used inside Rust doc comments, either `"rst"` (default) or `"md"`. Accepts a single value for all crates, or a per-crate mapping.
+The markup used inside Rust doc comments, either `"md"` or `"rst"`. Defaults to `"md"`, since Rust doc comments are conventionally markdown. Accepts a single value for all crates, or a per-crate mapping.
 
 ```toml
 [tool.yardang.sphinx-rust]
-rustdoc-fmt = { mycrate = "md" }
+rustdoc-fmt = { mycrate = "rst" }
 ```
 
 ### `visibility`
@@ -823,7 +829,7 @@ use-autoapi = false
 [tool.yardang.sphinx-rust]
 crates = { mylib = "crates/mylib", mylib-utils = "crates/mylib-utils" }
 doc-dir = "api"
-rustdoc-fmt = { mylib = "md" }
+rustdoc-fmt = { mylib-utils = "rst" }
 ```
 
 The pages are generated for you, so your documentation files only need a toctree entry pointing at them:

@@ -463,7 +463,8 @@ def generate_docs_configuration(
             # sphinxcontrib-rust
             "rust_crates": {},
             "rust_doc_dir": "api",
-            "rust_rustdoc_fmt": "rst",
+            # Rust doc comments are markdown, unlike the extension's own "rst" default
+            "rust_rustdoc_fmt": "md",
             "rust_visibility": "pub",
             "rust_strip_src": True,
             "rust_generate_mode": "changed",

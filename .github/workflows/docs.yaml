@@ -27,6 +27,11 @@ jobs:
     - name: Setup Rust
       uses: actions-ext/rust/setup@0f0b7c9ab3cdb6e9a1f79e2147974d6762ddafea
 
+    # sphinxcontrib-rust shells out to this binary. Installing the Python
+    # package only builds it as a side effect, which a cached wheel skips.
+    - name: Install sphinx-rustdocgen
+      run: cargo install sphinx-rustdocgen --version 1.2.1
+
     - name: Install JSDoc/TypeDoc
       run: npm install -g jsdoc typedoc
 
