@@ -34,7 +34,9 @@ copyright = """{{copyright}}"""
 title = """{{title}}"""
 version = "{{version}}"
 release = "{{version}}"
-html_title = """{{title}} <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v{{version}}</code>"""
+# Sphinx reuses this as the <title> tag, so it has to stay plain text; markup
+# here shows up escaped in browser tabs and search results.
+html_title = """{{title}} v{{version}}"""
 docs_host_root = "{{docs_root}}"
 root = "{{root}}"
 cname = "{{ cname or '' }}"
@@ -133,8 +135,11 @@ html_theme = "{{theme}}"
 if html_theme == "klink":
     import klink
     html_theme_path = [klink.get_html_theme_path()]
-    html_title = f"{title} v{version}"
 html_theme_options = {{html_theme_options}}
+# klink's theme.conf points at _static/logo.png by default, which yardang does
+# not ship, so drop it unless a logo was configured explicitly.
+if html_theme == "klink":
+    html_theme_options.setdefault("logo", "")
 html_static_path = {{html_static_path}}
 html_extra_path = {{html_extra_path}}
 html_css_files = [
@@ -414,6 +419,14 @@ def run_convert_github_admonitions_to_rst(app, filename, lines):
         lines[i] = "\n".join(orig_line_splits)
 
 
+def run_title_fallback(app, pagename, templatename, context, doctree):
+    # Sphinx only takes a document title when the page opens with a single top
+    # level section, so a README that leads with a logo or badges leaves the
+    # root page reading "<no title>".
+    if context.get("title") in (None, "", "&lt;no title&gt;", "<no title>"):
+        context["title"] = title
+
+
 def setup(app):
     if {{previous_versions}}:
         app.connect("builder-inited", run_create_previous_version_markdown)
@@ -423,3 +436,4 @@ def setup(app):
     {% endif %}
     app.connect("builder-inited", run_copycname)
     app.connect("source-read", run_convert_github_admonitions_to_rst)
+    app.connect("html-page-context", run_title_fallback)
