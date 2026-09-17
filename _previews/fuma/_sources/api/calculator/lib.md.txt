@@ -1,0 +1,617 @@
+# Crate `calculator`
+
+:::::::{rust:crate} calculator
+:index: 0
+
+  :::
+  # Calculator Library
+  
+  A simple calculator library demonstrating Rust documentation with sphinx-rust.
+  
+  This crate provides basic arithmetic operations and a calculator struct
+  that maintains a history of operations.
+  
+  ## Example
+  
+  ```rust
+  use calculator::{Calculator, Operation};
+  
+  let mut calc = Calculator::new();
+  let result = calc.calculate(5.0, 3.0, Operation::Add);
+  assert_eq!(result, 8.0);
+  ```
+  :::
+:::{rust:use} calculator
+:used_name: self
+
+:::
+:::{rust:use} calculator
+:used_name: crate
+
+:::
+:::{rust:use} calculator::Operation
+:used_name: Operation
+
+:::
+:::{rust:use} calculator::OperationResult
+:used_name: OperationResult
+
+:::
+
+:::{rubric} Enums
+:::
+
+::::::{rust:enum} calculator::CalculatorError
+:index: 1
+:vis: pub
+:layout: [{"type":"keyword","value":"enum"},{"type":"space"},{"type":"name","value":"CalculatorError"}]
+
+  :::
+  Errors that can occur during calculator operations.
+  :::
+:::::{rust:struct} calculator::CalculatorError::DivisionByZero
+:index: 2
+:vis: pub
+:toc: DivisionByZero
+:layout: [{"type":"name","value":"DivisionByZero"}]
+
+  :::
+  Attempted to divide by zero.
+  :::
+:::::
+:::::{rust:struct} calculator::CalculatorError::Overflow
+:index: 2
+:vis: pub
+:toc: Overflow
+:layout: [{"type":"name","value":"Overflow"}]
+
+  :::
+  The result overflowed.
+  :::
+:::::
+
+:::{rubric} Traits implemented
+:::
+
+:::::{rust:impl} calculator::CalculatorError::Display
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"std","target":"std"},{"type":"punctuation","value":"::"},{"type":"name","value":"fmt"},{"type":"punctuation","value":"::"},{"type":"name","value":"Display"},{"type":"space"},{"type":"keyword","value":"for"},{"type":"space"},{"type":"link","value":"CalculatorError","target":"CalculatorError"}]
+:toc: impl Display for CalculatorError
+
+  :::
+  :::
+:::::
+:::::{rust:impl} calculator::CalculatorError::Error
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"std","target":"std"},{"type":"punctuation","value":"::"},{"type":"name","value":"error"},{"type":"punctuation","value":"::"},{"type":"name","value":"Error"},{"type":"space"},{"type":"keyword","value":"for"},{"type":"space"},{"type":"link","value":"CalculatorError","target":"CalculatorError"}]
+:toc: impl Error for CalculatorError
+
+  :::
+  :::
+:::::
+::::::
+::::::{rust:enum} calculator::Operation
+:index: 1
+:vis: pub
+:layout: [{"type":"keyword","value":"enum"},{"type":"space"},{"type":"name","value":"Operation"}]
+
+  :::
+  Enumeration of supported arithmetic operations.
+  
+  
+  :::
+:::::{rust:struct} calculator::Operation::Add
+:index: 2
+:vis: pub
+:toc: Add
+:layout: [{"type":"name","value":"Add"}]
+
+  :::
+  Addition operation (+)
+  :::
+:::::
+:::::{rust:struct} calculator::Operation::Subtract
+:index: 2
+:vis: pub
+:toc: Subtract
+:layout: [{"type":"name","value":"Subtract"}]
+
+  :::
+  Subtraction operation (-)
+  :::
+:::::
+:::::{rust:struct} calculator::Operation::Multiply
+:index: 2
+:vis: pub
+:toc: Multiply
+:layout: [{"type":"name","value":"Multiply"}]
+
+  :::
+  Multiplication operation (*)
+  :::
+:::::
+:::::{rust:struct} calculator::Operation::Divide
+:index: 2
+:vis: pub
+:toc: Divide
+:layout: [{"type":"name","value":"Divide"}]
+
+  :::
+  Division operation (/)
+  :::
+:::::
+
+:::{rubric} Traits implemented
+:::
+
+:::::{rust:impl} calculator::Operation::Display
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"std","target":"std"},{"type":"punctuation","value":"::"},{"type":"name","value":"fmt"},{"type":"punctuation","value":"::"},{"type":"name","value":"Display"},{"type":"space"},{"type":"keyword","value":"for"},{"type":"space"},{"type":"link","value":"Operation","target":"Operation"}]
+:toc: impl Display for Operation
+
+  :::
+  :::
+:::::
+::::::
+
+:::{rubric} Structs and Unions
+:::
+
+::::::{rust:struct} calculator::Calculator
+:index: 1
+:vis: pub
+:toc: struct Calculator
+:layout: [{"type":"keyword","value":"struct"},{"type":"space"},{"type":"name","value":"Calculator"}]
+
+  :::
+  A calculator that performs basic arithmetic operations.
+  
+  The `Calculator` struct maintains a history of all operations performed,
+  allowing users to review previous calculations.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  let sum = calc.add(10.0, 5.0);
+  assert_eq!(sum, 15.0);
+  ```
+  :::
+
+:::{rubric} Implementations
+:::
+
+:::::{rust:impl} calculator::Calculator
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"Calculator","target":"Calculator"}]
+:toc: impl Calculator
+
+  :::
+  :::
+
+:::{rubric} Functions
+:::
+
+::::{rust:function} calculator::Calculator::add
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"add"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Adds two numbers together.
+  
+  # Arguments
+  
+  * `a` - The first operand
+  * `b` - The second operand
+  
+  # Returns
+  
+  The sum of `a` and `b`.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  assert_eq!(calc.add(2.0, 3.0), 5.0);
+  ```
+  :::
+::::
+::::{rust:function} calculator::Calculator::calculate
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"calculate"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"op"},{"type":"punctuation","value":": "},{"type":"link","value":"Operation","target":"Operation"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Performs a calculation using the specified operation.
+  
+  # Arguments
+  
+  * `a` - The first operand
+  * `b` - The second operand
+  * `op` - The operation to perform
+  
+  # Returns
+  
+  The result of the operation.
+  
+  # Panics
+  
+  Panics if dividing by zero. Use [`Calculator::divide`] for safe division.
+  :::
+::::
+::::{rust:function} calculator::Calculator::clear_history
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"clear_history"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":")"}]
+
+  :::
+  Clears the operation history.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  calc.add(1.0, 2.0);
+  assert!(!calc.history().is_empty());
+  calc.clear_history();
+  assert!(calc.history().is_empty());
+  ```
+  :::
+::::
+::::{rust:function} calculator::Calculator::divide
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"divide"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"Result","target":"Result"},{"type":"punctuation","value":"<"},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"link","value":"CalculatorError","target":"CalculatorError"},{"type":"punctuation","value":">"}]
+
+  :::
+  Divides the first number by the second.
+  
+  # Arguments
+  
+  * `a` - The dividend
+  * `b` - The divisor
+  
+  # Returns
+  
+  The quotient `a / b`, or an error if `b` is zero.
+  
+  # Errors
+  
+  Returns a `DivisionByZero` error if `b` is zero.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  assert_eq!(calc.divide(10.0, 2.0).unwrap(), 5.0);
+  assert!(calc.divide(10.0, 0.0).is_err());
+  ```
+  :::
+::::
+::::{rust:function} calculator::Calculator::history
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"history"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"punctuation","value":"&"},{"type":"punctuation","value":"["},{"type":"link","value":"OperationResult","target":"OperationResult"},{"type":"punctuation","value":"]"}]
+
+  :::
+  Returns a reference to the operation history.
+  
+  # Returns
+  
+  A slice containing all operations performed by this calculator.
+  :::
+::::
+::::{rust:function} calculator::Calculator::multiply
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"multiply"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Multiplies two numbers together.
+  
+  # Arguments
+  
+  * `a` - The first factor
+  * `b` - The second factor
+  
+  # Returns
+  
+  The product of `a` and `b`.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  assert_eq!(calc.multiply(3.0, 4.0), 12.0);
+  ```
+  :::
+::::
+::::{rust:function} calculator::Calculator::new
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"new"},{"type":"punctuation","value":"("},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"Self","target":"Self"}]
+
+  :::
+  Creates a new Calculator instance with an empty history.
+  
+  # Returns
+  
+  A new `Calculator` with no operation history.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let calc = Calculator::new();
+  assert!(calc.history().is_empty());
+  ```
+  :::
+::::
+::::{rust:function} calculator::Calculator::subtract
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"subtract"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Subtracts the second number from the first.
+  
+  # Arguments
+  
+  * `a` - The minuend
+  * `b` - The subtrahend
+  
+  # Returns
+  
+  The difference `a - b`.
+  
+  # Examples
+  
+  ```rust
+  use calculator::Calculator;
+  
+  let mut calc = Calculator::new();
+  assert_eq!(calc.subtract(10.0, 4.0), 6.0);
+  ```
+  :::
+::::
+:::::
+::::::
+::::::{rust:struct} calculator::OperationResult
+:index: 1
+:vis: pub
+:toc: struct OperationResult
+:layout: [{"type":"keyword","value":"struct"},{"type":"space"},{"type":"name","value":"OperationResult"}]
+
+  :::
+  The result of a calculation, including operands and the operation performed.
+  
+  
+  :::
+:::::{rust:variable} calculator::OperationResult::operand_a
+:index: 2
+:vis: pub
+:toc: operand_a
+:layout: [{"type":"name","value":"operand_a"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  The first operand
+  :::
+:::::
+:::::{rust:variable} calculator::OperationResult::operand_b
+:index: 2
+:vis: pub
+:toc: operand_b
+:layout: [{"type":"name","value":"operand_b"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  The second operand
+  :::
+:::::
+:::::{rust:variable} calculator::OperationResult::operation
+:index: 2
+:vis: pub
+:toc: operation
+:layout: [{"type":"name","value":"operation"},{"type":"punctuation","value":": "},{"type":"link","value":"Operation","target":"Operation"}]
+
+  :::
+  The operation that was performed
+  :::
+:::::
+:::::{rust:variable} calculator::OperationResult::result
+:index: 2
+:vis: pub
+:toc: result
+:layout: [{"type":"name","value":"result"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  The calculated result
+  :::
+:::::
+
+:::{rubric} Traits implemented
+:::
+
+:::::{rust:impl} calculator::OperationResult::Display
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"std","target":"std"},{"type":"punctuation","value":"::"},{"type":"name","value":"fmt"},{"type":"punctuation","value":"::"},{"type":"name","value":"Display"},{"type":"space"},{"type":"keyword","value":"for"},{"type":"space"},{"type":"link","value":"OperationResult","target":"OperationResult"}]
+:toc: impl Display for OperationResult
+
+  :::
+  :::
+:::::
+::::::
+::::::{rust:struct} calculator::ScientificCalculator
+:index: 1
+:vis: pub
+:toc: struct ScientificCalculator
+:layout: [{"type":"keyword","value":"struct"},{"type":"space"},{"type":"name","value":"ScientificCalculator"}]
+
+  :::
+  A scientific calculator with additional mathematical functions.
+  
+  Extends the basic [`Calculator`] with trigonometric, logarithmic,
+  and other advanced mathematical operations.
+  :::
+
+:::{rubric} Implementations
+:::
+
+:::::{rust:impl} calculator::ScientificCalculator
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"impl"},{"type":"space"},{"type":"link","value":"ScientificCalculator","target":"ScientificCalculator"}]
+:toc: impl ScientificCalculator
+
+  :::
+  :::
+
+:::{rubric} Functions
+:::
+
+::::{rust:function} calculator::ScientificCalculator::basic
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"basic"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"punctuation","value":"&"},{"type":"link","value":"Calculator","target":"Calculator"}]
+
+  :::
+  Returns a reference to the underlying basic calculator.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::basic_mut
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"basic_mut"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"link","value":"Calculator","target":"Calculator"}]
+
+  :::
+  Returns a mutable reference to the underlying basic calculator.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::cos
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"cos"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"angle"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Calculates the cosine of an angle.
+  
+  # Arguments
+  
+  * `angle` - The angle (in degrees or radians based on settings)
+  
+  # Returns
+  
+  The cosine of the angle.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::ln
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"ln"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"x"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"Result","target":"Result"},{"type":"punctuation","value":"<"},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"link","value":"CalculatorError","target":"CalculatorError"},{"type":"punctuation","value":">"}]
+
+  :::
+  Calculates the natural logarithm of a number.
+  
+  # Arguments
+  
+  * `x` - The number (must be positive)
+  
+  # Returns
+  
+  The natural logarithm of x, or an error if x <= 0.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::new
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"new"},{"type":"punctuation","value":"("},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"Self","target":"Self"}]
+
+  :::
+  Creates a new ScientificCalculator.
+  
+  By default, trigonometric functions use radians.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::pow
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"pow"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"base"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":", "},{"type":"name","value":"exponent"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Raises a number to a power.
+  
+  # Arguments
+  
+  * `base` - The base number
+  * `exponent` - The exponent
+  
+  # Returns
+  
+  `base` raised to the power of `exponent`.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::set_use_degrees
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"set_use_degrees"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"mut"},{"type":"space"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"use_degrees"},{"type":"punctuation","value":": "},{"type":"link","value":"bool","target":"bool"},{"type":"punctuation","value":")"}]
+
+  :::
+  Sets whether to use degrees for trigonometric functions.
+  
+  # Arguments
+  
+  * `use_degrees` - If true, trig functions expect degrees; if false, radians.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::sin
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"sin"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"angle"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Calculates the sine of an angle.
+  
+  # Arguments
+  
+  * `angle` - The angle (in degrees or radians based on settings)
+  
+  # Returns
+  
+  The sine of the angle.
+  :::
+::::
+::::{rust:function} calculator::ScientificCalculator::sqrt
+:index: -1
+:vis: pub
+:layout: [{"type":"keyword","value":"fn"},{"type":"space"},{"type":"name","value":"sqrt"},{"type":"punctuation","value":"("},{"type":"punctuation","value":"&"},{"type":"keyword","value":"self"},{"type":"punctuation","value":", "},{"type":"name","value":"x"},{"type":"punctuation","value":": "},{"type":"link","value":"f64","target":"f64"},{"type":"punctuation","value":")"},{"type":"space"},{"type":"returns"},{"type":"space"},{"type":"link","value":"f64","target":"f64"}]
+
+  :::
+  Calculates the square root of a number.
+  
+  # Arguments
+  
+  * `x` - The number (must be non-negative)
+  
+  # Returns
+  
+  The square root of x, or NaN if x is negative.
+  :::
+::::
+:::::
+::::::
