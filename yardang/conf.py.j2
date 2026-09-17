@@ -21,6 +21,7 @@ from pathlib import Path
 from packaging.version import Version
 
 from yardang.markdown import copy_relative_html_assets, rebase_relative_references
+from yardang.utils import HtmlTitle
 
 ########################
 # COMMON CONFIGURATION #
@@ -34,9 +35,12 @@ copyright = """{{copyright}}"""
 title = """{{title}}"""
 version = "{{version}}"
 release = "{{version}}"
-# Sphinx reuses this as the <title> tag, so it has to stay plain text; markup
-# here shows up escaped in browser tabs and search results.
+# Sphinx type-checks this as a plain str, so the styled form goes into the page
+# context instead (see run_title_fallback).
 html_title = """{{title}} v{{version}}"""
+styled_html_title = HtmlTitle(
+    """{{title}} <code style='font-size: var(--font-size--small--4);color: var(--sd-color-primary);'>v{{version}}</code>"""
+)
 docs_host_root = "{{docs_root}}"
 root = "{{root}}"
 cname = "{{ cname or '' }}"
@@ -425,6 +429,10 @@ def run_title_fallback(app, pagename, templatename, context, doctree):
     # root page reading "<no title>".
     if context.get("title") in (None, "", "&lt;no title&gt;", "<no title>"):
         context["title"] = title
+    # furo's search page is the one template that drops docstitle into <title>
+    # unfiltered, so it keeps the plain form.
+    if pagename != "search":
+        context["docstitle"] = styled_html_title
 
 
 def setup(app):

@@ -1,9 +1,21 @@
 import os
+import re
 from pathlib import Path
 
 import toml
 
-__all__ = ("get_config", "get_config_flex")
+__all__ = ("HtmlTitle", "get_config", "get_config_flex")
+
+
+class HtmlTitle(str):
+    """A title carrying markup that degrades to plain text for the ``<title>`` tag.
+
+    Themes render ``docstitle`` into the header verbatim but escape it for the
+    browser tab; ``__html__`` is what the ``|e`` and ``|striptags`` filters pick up.
+    """
+
+    def __html__(self):
+        return re.sub(r"<[^>]+>", "", self)
 
 
 def get_pyproject_toml():
