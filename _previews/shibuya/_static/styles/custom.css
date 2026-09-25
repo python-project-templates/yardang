@@ -1,0 +1,15 @@
+/* Inline references and the images they wrap */
+a.reference {
+    display: inline;
+}
+
+a.reference > img {
+    display: inline;
+    max-width: unset;
+}
+
+/* Shibuya ships its own copy button; hide the sphinx-copybutton duplicate.
+   Must match copybutton.css's `button.copybtn` specificity to win. */
+button.copybtn {
+    display: none;
+}
