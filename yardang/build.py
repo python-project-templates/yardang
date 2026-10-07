@@ -560,7 +560,7 @@ def generate_docs_configuration(
         llms_args = {}
         for config_option, default in {
             "llms_enabled": False,
-            "llms_description": "",
+            "llms_description": get_config(section="description", base="project") or "",
             "llms_full_build": True,
         }.items():
             toml_key = config_option.replace("llms_", "").replace("_", "-")

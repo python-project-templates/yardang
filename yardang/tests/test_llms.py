@@ -2,6 +2,8 @@ import re
 from pathlib import Path
 from subprocess import Popen
 
+import pytest
+import toml
 from sphinx.cmd.build import build_main
 
 from yardang.build import generate_docs_configuration
@@ -49,6 +51,37 @@ def test_generated_configuration_enables_yardang_llms(tmp_path, monkeypatch):
     assert "yardang_llms_full_build = True" in conf_content
     assert "sphinx_llm" not in conf_content
     assert not (tmp_path / "conf.py").exists()
+
+
+@pytest.mark.parametrize("config_base", ["tool.yardang", "tool.custom.docs"])
+@pytest.mark.parametrize(
+    ("llms_description", "project_description", "expected"),
+    [
+        (None, "Project overview", "Project overview"),
+        ("LLM overview", "Project overview", "LLM overview"),
+        (None, None, "General documentation description"),
+        ("", "Project overview", "General documentation description"),
+    ],
+)
+def test_llms_description_fallback(tmp_path, monkeypatch, config_base, llms_description, project_description, expected):
+    _write_project(tmp_path)
+    configuration = toml.load(tmp_path / "pyproject.toml")
+    if project_description is not None:
+        configuration["project"]["description"] = project_description
+    llms_configuration = configuration["tool"]["yardang"]["llms"]
+    if llms_description is None:
+        del llms_configuration["description"]
+    else:
+        llms_configuration["description"] = llms_description
+    if config_base == "tool.custom.docs":
+        configuration["tool"]["custom"] = {"docs": configuration["tool"].pop("yardang")}
+    (tmp_path / "pyproject.toml").write_text(toml.dumps(configuration))
+    monkeypatch.chdir(tmp_path)
+
+    with generate_docs_configuration(config_base=config_base, description="General documentation description") as conf_dir:
+        conf_content = (Path(conf_dir) / "conf.py").read_text()
+
+    assert f'yardang_llms_description = """{expected}"""' in conf_content
 
 
 def test_build_generates_llms_outputs_in_one_sphinx_process(tmp_path, monkeypatch):
