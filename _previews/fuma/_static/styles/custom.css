@@ -1,0 +1,21 @@
+/* Per-theme overrides layered on top of the bundled fuma theme. */
+
+/* Logo switching for light/dark, matching the theme's `html.dark` toggle. */
+.logo-dark,
+html.dark .logo-light {
+    display: none;
+}
+
+html.dark .logo-dark {
+    display: inline;
+}
+
+@media (prefers-color-scheme: dark) {
+    html:not(.light) .logo-light {
+        display: none;
+    }
+
+    html:not(.light) .logo-dark {
+        display: inline;
+    }
+}
