@@ -136,13 +136,14 @@ def test_full_build_can_be_disabled(tmp_path, monkeypatch):
     assert "llms-full.txt" not in (output / "llms.txt").read_text()
 
 
-def test_explicit_builder_copies_downloads(tmp_path, monkeypatch):
+@pytest.mark.parametrize("builder", ["html", "yardang-llms"])
+def test_llms_builders_copy_downloads(tmp_path, monkeypatch, builder):
     _write_project(tmp_path)
     monkeypatch.chdir(tmp_path)
     output = tmp_path / "llms"
 
     with generate_docs_configuration() as conf_dir:
-        result = build_main(["-q", "-b", "yardang-llms", "-c", str(conf_dir), ".", str(output)])
+        result = build_main(["-q", "-b", builder, "-c", str(conf_dir), ".", str(output)])
 
     assert result == 0
     download = re.search(r"\]\(([^)]*_downloads/[^)]+)\)", (output / "index.html.md").read_text())

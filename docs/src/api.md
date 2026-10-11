@@ -118,4 +118,3 @@ Use `js:autoclass` to document classes:
    :members:
 
 ```
-

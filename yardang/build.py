@@ -298,8 +298,8 @@ def generate_docs_configuration(
         custom_css = custom_css if custom_css is not None else get_config_flex(section="custom-css", base=config_base)
         custom_js = custom_js if custom_js is not None else get_config_flex(section="custom-js", base=config_base)
         assets_dir = Path(__file__).parent
-        custom_css = _resolve_custom_asset(custom_css, theme, "css", assets_dir=assets_dir)
-        custom_js = _resolve_custom_asset(custom_js, theme, "js", assets_dir=assets_dir)
+        custom_css_content = _resolve_custom_asset(custom_css, theme, "css", assets_dir=assets_dir)
+        custom_js_content = _resolve_custom_asset(custom_js, theme, "js", assets_dir=assets_dir)
 
         source_dir = source_dir or get_config_flex(section="source-dir", base=config_base)
         existing_source = source_dir is not None
@@ -635,10 +635,10 @@ def generate_docs_configuration(
             html_output = Path(html_output_dir) if html_output_dir is not None else Path("docs/html")
             styles_dir = html_output / "_static" / "styles"
             styles_dir.mkdir(parents=True, exist_ok=True)
-            (styles_dir / "custom.css").write_text(custom_css or "")
+            (styles_dir / "custom.css").write_text(custom_css_content or "")
             js_dir = html_output / "_static" / "js"
             js_dir.mkdir(parents=True, exist_ok=True)
-            (js_dir / "custom.js").write_text(custom_js or "")
+            (js_dir / "custom.js").write_text(custom_js_content or "")
 
             # append docs-specific ignores to gitignore
             if not existing_source and Path(".gitignore").exists():
@@ -665,23 +665,23 @@ def generate_docs_configuration(
 @contextmanager
 def generate_wiki_configuration(
     *,
-    project: str = "",
-    title: str = "",
-    module: str = "",
-    description: str = "",
-    author: str = "",
-    copyright: str = "",
-    version: str = "",
-    theme: str = "furo",
-    docs_root: str = "",
-    root: str = "",
-    cname: str = "",
+    project: str | None = "",
+    title: str | None = "",
+    module: str | None = "",
+    description: str | None = "",
+    author: str | None = "",
+    copyright: str | None = "",
+    version: str | None = "",
+    theme: str | None = "furo",
+    docs_root: str | None = "",
+    root: str | None = "",
+    cname: str | None = "",
     pages: list | None = None,
     use_autoapi: bool | None = None,
     autoapi_ignore: list | None = None,
     custom_css: Path | None = None,
     custom_js: Path | None = None,
-    config_base: str = "tool.yardang",
+    config_base: str | None = "tool.yardang",
     previous_versions: bool | None = False,
     adjust_arguments: Callable | None = None,
     adjust_template: Callable | None = None,

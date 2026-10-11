@@ -32,6 +32,8 @@ def test_github_admonition_preserves_quoted_blank_lines(tmp_path, monkeypatch):
 
     with generate_docs_configuration() as conf_dir:
         spec = importlib.util.spec_from_file_location("yardang_test_conf", Path(conf_dir) / "conf.py")
+        assert spec is not None
+        assert spec.loader is not None
         conf = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(conf)
 

@@ -16,6 +16,7 @@ pages = [
 ]
 use-autoapi = true
 ```
+
 ## [`name`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-project)
 
 The project name is taken from the standard section, or from the `cwd`.
@@ -101,22 +102,22 @@ theme = "fuma"
 html_theme_options = { github_url = "https://github.com/you/project", toc_style = "clerk" }
 ```
 
-| Option | Default | Description |
-| --- | --- | --- |
-| `layout` | `docs` | `docs` puts the header beside the sidebar; `notebook` spans it across the top. |
-| `toc_style` | `normal` | `clerk` dims headings away from the current one. |
-| `color_preset` | `neutral` | Accent colour: `neutral`, `amber`, `blue`, `emerald`, `purple`, `rose`. |
-| `fonts` | `bundled` | `system` skips the bundled webfonts and uses the system stack. |
-| `search` | `true` | Enables the search dialog and its index. |
-| `sidebar_hide_name` | `false` | Hides the project name next to the logo. |
-| `default_open_level` | `1` | Sidebar folder depth expanded by default. |
-| `github_url` | — | Adds a GitHub link, and an "Edit this page" link. |
-| `edit_page_url_template` | — | Overrides the edit link, e.g. `https://host/edit/main/{filename}`. |
-| `nav_links` | — | Header links, as `[{title, url}]` or `"Title\|url, Title\|url"`. |
-| `sidebar_tabs` | — | Navigator entries under the search box, as `[{title, url, description, icon, match}]`. |
-| `announcement` | — | Banner text shown above the header. |
-| `footer_text` | — | Extra line in the footer. |
-| `light_css_variables` / `dark_css_variables` | — | CSS custom property overrides, e.g. `{ "color-fd-primary" = "#e11d48" }`. |
+| Option                                       | Default   | Description                                                                            |
+| -------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
+| `layout`                                     | `docs`    | `docs` puts the header beside the sidebar; `notebook` spans it across the top.         |
+| `toc_style`                                  | `normal`  | `clerk` dims headings away from the current one.                                       |
+| `color_preset`                               | `neutral` | Accent colour: `neutral`, `amber`, `blue`, `emerald`, `purple`, `rose`.                |
+| `fonts`                                      | `bundled` | `system` skips the bundled webfonts and uses the system stack.                         |
+| `search`                                     | `true`    | Enables the search dialog and its index.                                               |
+| `sidebar_hide_name`                          | `false`   | Hides the project name next to the logo.                                               |
+| `default_open_level`                         | `1`       | Sidebar folder depth expanded by default.                                              |
+| `github_url`                                 | —         | Adds a GitHub link, and an "Edit this page" link.                                      |
+| `edit_page_url_template`                     | —         | Overrides the edit link, e.g. `https://host/edit/main/{filename}`.                     |
+| `nav_links`                                  | —         | Header links, as `[{title, url}]` or `"Title\|url, Title\|url"`.                       |
+| `sidebar_tabs`                               | —         | Navigator entries under the search box, as `[{title, url, description, icon, match}]`. |
+| `announcement`                               | —         | Banner text shown above the header.                                                    |
+| `footer_text`                                | —         | Extra line in the footer.                                                              |
+| `light_css_variables` / `dark_css_variables` | —         | CSS custom property overrides, e.g. `{ "color-fd-primary" = "#e11d48" }`.              |
 
 #### Content components
 
@@ -400,7 +401,6 @@ language = "en"
 pygments_style = "sphinx"
 ```
 
-
 ## [Myst](https://myst-parser.readthedocs.io/en/latest/#)
 
 ```toml
@@ -530,7 +530,6 @@ mindmap
       Pen and paper
       Mermaid
 ```
-
 
 ## GitHub Admonitions
 
@@ -835,7 +834,7 @@ rustdoc-fmt = { mylib-utils = "rst" }
 
 The pages are generated for you, so your documentation files only need a toctree entry pointing at them:
 
-````markdown
+```markdown
 # API Reference
 
 \`\`\`{toctree}
@@ -844,7 +843,7 @@ The pages are generated for you, so your documentation files only need a toctree
 /api/mylib/lib
 /api/mylib-utils/lib
 \`\`\`
-````
+```
 
 ## Sphinx-JS Integration
 
@@ -941,7 +940,7 @@ ts-type-bold = true
 
 Then in your documentation files, you can use sphinx-js directives:
 
-````markdown
+```markdown
 # API Reference
 
 ## Functions
@@ -959,7 +958,7 @@ Then in your documentation files, you can use sphinx-js directives:
 
 \`\`\`{js:automodule} myModule
 \`\`\`
-````
+```
 
 ## GitHub Wiki Integration
 
@@ -1123,6 +1122,7 @@ git push
 ```
 
 The generated wiki includes:
+
 - `Home.md` - The main landing page (converted from index.md)
 - `_Sidebar.md` - Navigation sidebar with links to all pages
 - `_Footer.md` - Footer with links to documentation and repository
