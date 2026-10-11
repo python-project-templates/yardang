@@ -1,8 +1,10 @@
 from pathlib import Path
+from typing import cast
 from urllib.parse import urlsplit, urlunsplit
 
 from docutils import nodes
 from sphinx.application import Sphinx
+from sphinx.builders import Builder
 from sphinx_markdown_builder.builder import MarkdownBuilder
 from sphinx_markdown_builder.translator import MarkdownTranslator
 
@@ -42,7 +44,7 @@ class _MarkdownRenderer:
         self.current_doc_name = ""
 
     def create_translator(self, *args):
-        return self.app.registry.create_translator(self, *args)
+        return self.app.registry.create_translator(cast(Builder, self), *args)
 
     @staticmethod
     def get_target_uri(docname: str, typ: str | None = None) -> str:

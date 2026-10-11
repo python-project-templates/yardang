@@ -72,9 +72,9 @@ def build(
             sleep(0.1)
         if process.returncode != 0:
             if pdb:
-                import pdb  # noqa: T100
+                import pdb as debugger  # noqa: T100
 
-                pdb.set_trace()  # noqa: T100
+                debugger.set_trace()  # noqa: T100
             raise Exit(process.returncode)
 
 
@@ -170,9 +170,9 @@ def wiki(
             sleep(0.1)
         if process.returncode != 0:
             if pdb:
-                import pdb  # noqa: T100
+                import pdb as debugger  # noqa: T100
 
-                pdb.set_trace()  # noqa: T100
+                debugger.set_trace()  # noqa: T100
             raise Exit(process.returncode)
 
         # Post-process for GitHub Wiki compatibility

@@ -452,7 +452,7 @@ def _is_api_page(filename: str, content: str) -> bool:
     return indicator_count >= 2
 
 
-def extract_toctree_entries(content: str) -> list[tuple[str, str]]:
+def extract_toctree_entries(content: str) -> list[tuple[str | None, str]]:
     """Extract toctree entries from markdown content.
 
     Parses MyST-style toctree directives to find linked pages.

@@ -1,5 +1,3 @@
-
-
 <div style="display: flex; flex-direction: row; margin-top:50px;">
   <a href="https://github.com/python-project-templates/yardang"><img src="https://github.com/python-project-templates/yardang/blob/main/docs/logo.png?raw=true" alt="yardang" width="120"></a>
   <h1 style="margin-left: 20px;">yardang</h1>
@@ -14,7 +12,6 @@
 `yardang` is a Python library for generating [Sphinx documentation](https://www.sphinx-doc.org/en/master/) easily, with minimal local configuration overhead.
 
 [`yardang`](https://www.britannica.com/science/yardang) makes building [Sphinx](https://www.sphinx-doc.org/en/master/) easy.
-
 
 ::::{grid} 1 2 2 2
 :margin: 4 4 0 0
@@ -49,6 +46,6 @@ Star, Fork, or contribute on GitHub.
 :::
 ::::
 
--------------
+______________________________________________________________________
 
 *This library was generated using [copier](https://copier.readthedocs.io/en/stable/) from the [Base Python Project Template repository](https://github.com/python-project-templates/base).*
