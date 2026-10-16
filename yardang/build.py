@@ -189,7 +189,7 @@ def generate_docs_configuration(
         author: Author name. Falls back to first entry in ``[project].authors``.
         copyright: Copyright string. Falls back to author name.
         version: Version string. Falls back to ``[project].version``.
-        theme: Sphinx theme name. Defaults to ``"furo"``.
+        theme: Sphinx theme name. Defaults to ``"fuma"``.
         docs_root: Base URL for hosted documentation. Used for canonical URLs.
         root: Path to README or index file to use as documentation root.
         source_dir: Existing Sphinx source directory. When set, root names an
@@ -275,7 +275,7 @@ def generate_docs_configuration(
         if isinstance(author, dict):
             author = author["name"]
         copyright = copyright if copyright is not None else author
-        theme = theme if theme is not None else get_config(section="theme", base=config_base) or "furo"
+        theme = theme if theme is not None else get_config(section="theme", base=config_base) or "fuma"
         version = version if version is not None else get_config(section="version", base="project")
         docs_root = (
             docs_root
@@ -672,7 +672,7 @@ def generate_wiki_configuration(
     author: str | None = "",
     copyright: str | None = "",
     version: str | None = "",
-    theme: str | None = "furo",
+    theme: str | None = "fuma",
     docs_root: str | None = "",
     root: str | None = "",
     cname: str | None = "",
@@ -704,7 +704,7 @@ def generate_wiki_configuration(
         author: Author name. Falls back to first entry in ``[project].authors``.
         copyright: Copyright string. Falls back to author name.
         version: Version string. Falls back to ``[project].version``.
-        theme: Sphinx theme name. Defaults to ``"furo"``.
+        theme: Sphinx theme name. Defaults to ``"fuma"``.
         docs_root: Base URL for hosted documentation. Used for canonical URLs.
         root: Path to README or index file to use as documentation root.
         cname: Custom domain name for GitHub Pages CNAME file.

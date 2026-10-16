@@ -63,6 +63,23 @@ class TestSearchIntegration:
         assert "sphinx_fuma" in self._conf(tmp_path, theme="fuma")
 
 
+class TestDefaultTheme:
+    """An unconfigured build uses the bundled default theme."""
+
+    def test_unconfigured_theme_is_fuma(self, tmp_path):
+        (tmp_path / "pyproject.toml").write_text(MINIMAL_PYPROJECT)
+        (tmp_path / "README.md").write_text("# Test Project\n")
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration(html_output_dir=str(tmp_path / "site")) as config_dir:
+                conf = Path(config_dir, "conf.py").read_text()
+        finally:
+            os.chdir(original_cwd)
+        assert 'html_theme = "fuma"' in conf
+        assert "sphinx_fuma" in conf
+
+
 class TestResolveCustomAsset:
     """Theme-aware resolution of bundled and user-supplied CSS/JS."""
 
