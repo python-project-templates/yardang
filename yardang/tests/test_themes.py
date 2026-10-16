@@ -22,6 +22,11 @@ use-autoapi = false
 """
 
 
+def _bundled(*names: str) -> str:
+    """Expected content for a layered resolution over the named bundled assets."""
+    return "\n".join((ASSETS_DIR / name).read_text().rstrip("\n") for name in names) + "\n"
+
+
 class TestThemeModule:
     """Theme names map to the package that provides them."""
 
@@ -81,23 +86,21 @@ class TestDefaultTheme:
 
 
 class TestResolveCustomAsset:
-    """Theme-aware resolution of bundled and user-supplied CSS/JS."""
+    """Layered resolution of bundled and user-supplied CSS/JS."""
 
-    def test_prefers_theme_specific_file(self):
-        expected = (ASSETS_DIR / "sphinxawesome_theme.css").read_text()
-        assert _resolve_custom_asset(None, "sphinxawesome_theme", "css", assets_dir=ASSETS_DIR) == expected
+    def test_generic_defaults_apply_to_every_theme(self):
+        assert _resolve_custom_asset(None, "klink", "css", assets_dir=ASSETS_DIR) == _bundled("custom.css")
 
-    def test_shibuya_theme_specific_file(self):
-        expected = (ASSETS_DIR / "shibuya.css").read_text()
-        assert _resolve_custom_asset(None, "shibuya", "css", assets_dir=ASSETS_DIR) == expected
+    def test_theme_rules_are_appended_after_generic_defaults(self):
+        resolved = _resolve_custom_asset(None, "shibuya", "css", assets_dir=ASSETS_DIR)
+        assert resolved == _bundled("custom.css", "shibuya.css")
+        assert resolved.index("prefers-color-scheme") < resolved.index("button.copybtn")
 
-    def test_falls_back_to_custom_css(self):
-        expected = (ASSETS_DIR / "custom.css").read_text()
-        assert _resolve_custom_asset(None, "furo", "css", assets_dir=ASSETS_DIR) == expected
+    def test_furo_rules_are_appended_after_generic_defaults(self):
+        assert _resolve_custom_asset(None, "furo", "css", assets_dir=ASSETS_DIR) == _bundled("custom.css", "furo.css")
 
-    def test_falls_back_to_custom_js(self):
-        expected = (ASSETS_DIR / "custom.js").read_text()
-        assert _resolve_custom_asset(None, "furo", "js", assets_dir=ASSETS_DIR) == expected
+    def test_generic_js_is_used_when_theme_ships_no_js(self):
+        assert _resolve_custom_asset(None, "furo", "js", assets_dir=ASSETS_DIR) == _bundled("custom.js")
 
     def test_user_content_takes_precedence(self):
         content = "body { color: red; }"
@@ -109,7 +112,7 @@ class TestResolveCustomAsset:
         assert _resolve_custom_asset(asset, "furo", "css", assets_dir=ASSETS_DIR) == "h1 { color: blue; }"
 
     def test_ignores_missing_path(self):
-        expected = (ASSETS_DIR / "shibuya.css").read_text()
+        expected = _bundled("custom.css", "shibuya.css")
         assert _resolve_custom_asset("does/not/exist/custom.css", "shibuya", "css", assets_dir=ASSETS_DIR) == expected
 
     def test_returns_none_when_nothing_matches(self, tmp_path):
@@ -147,7 +150,21 @@ class TestGenerateDocsThemeAssets:
         finally:
             os.chdir(original_cwd)
         written = (out / "_static" / "styles" / "custom.css").read_text()
-        assert written == (ASSETS_DIR / "shibuya.css").read_text()
+        assert written == _bundled("custom.css", "shibuya.css")
+
+    def test_default_theme_keeps_generic_defaults(self, tmp_path):
+        self._setup_project(tmp_path)
+        out = tmp_path / "site"
+        original_cwd = os.getcwd()
+        try:
+            os.chdir(tmp_path)
+            with generate_docs_configuration(html_output_dir=str(out)):
+                pass
+        finally:
+            os.chdir(original_cwd)
+        written = (out / "_static" / "styles" / "custom.css").read_text()
+        assert written == _bundled("custom.css", "fuma.css")
+        assert "mermaid" in written
 
 
 class TestPreview:

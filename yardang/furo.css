@@ -1,0 +1,52 @@
+/* Per-theme overrides layered on top of the generic custom.css defaults. Furo
+   drives light/dark through a `data-theme` attribute on <body>, so the rules
+   that read that attribute belong here rather than in the generic file. */
+
+/* Wide main page */
+.content {
+    flex: 3;
+}
+aside.sidebar-drawer {
+    width: unset;
+}
+aside.toc-drawer {
+    flex: 1;
+}
+
+/* Left-align tables */
+article table.align-default {
+    margin-left: 0;
+}
+
+/* Logo switching driven by furo's data-theme attribute */
+body[data-theme="light"] .logo-light {
+    display: inline;
+}
+body[data-theme="light"] .logo-dark {
+    display: none;
+}
+body[data-theme="dark"] .logo-light {
+    display: none;
+}
+body[data-theme="dark"] .logo-dark {
+    display: inline;
+}
+
+/* Mermaid diagrams in dark mode */
+body[data-theme="light"] .mermaid-container {
+    background-color: #fafafa;
+}
+body[data-theme="light"] pre.mermaid svg path {
+    stroke: black !important;
+}
+body[data-theme="dark"] .mermaid-container {
+    background-color: #222;
+}
+body[data-theme="dark"] pre.mermaid svg path {
+    stroke: white !important;
+}
+@media (prefers-color-scheme: light) {
+    body[data-theme="dark"] pre.mermaid svg path {
+        stroke: black !important;
+    }
+}

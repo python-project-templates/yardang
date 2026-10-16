@@ -264,10 +264,13 @@ pass through `[tool.yardang.sphinx]` as normal.
 ## `custom-css` / `custom-js`
 
 Inject a custom stylesheet or script. The value may be a path or raw content.
-When unset, `yardang` looks for a bundled per-theme asset named `{theme}.css` /
-`{theme}.js`, then falls back to the generic `custom.css` / `custom.js`. This lets
-each theme ship sensible defaults — for example, `sphinxawesome_theme` and
-`shibuya` hide the duplicate copy button.
+When unset, `yardang` ships sensible defaults: the generic `custom.css` /
+`custom.js` applies to every theme, and a bundled per-theme `{theme}.css` /
+`{theme}.js` is appended when that theme has one, so theme rules win. This lets
+each theme add its own tweaks — for example, `sphinxawesome_theme` and `shibuya`
+hide the duplicate copy button, and `furo` gets the wide-content layout and the
+`data-theme` rules that theme uses for light/dark. An explicit value replaces
+both.
 
 ```toml
 [tool.yardang]
