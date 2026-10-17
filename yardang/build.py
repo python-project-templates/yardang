@@ -32,9 +32,11 @@ def _resolve_custom_asset(value: str | Path | None, theme: str | None, extension
 
     1. An explicit ``value`` (an existing file path is read; a path-like value
        that does not exist is ignored; anything else is treated as raw content).
-    2. A bundled theme-specific asset named ``{theme}.{extension}``.
-    3. A bundled generic ``custom.{extension}``.
-    4. ``None`` when nothing matches.
+       It replaces the bundled content rather than adding to it.
+    2. The bundled generic ``custom.{extension}``, followed by the bundled
+       ``{theme}.{extension}`` when the theme ships one, so per-theme rules win
+       over the generic defaults.
+    3. ``None`` when nothing matches.
     """
     if value:
         try:
@@ -46,13 +48,17 @@ def _resolve_custom_asset(value: str | Path | None, theme: str | None, extension
             looks_like_path = False
         if not looks_like_path:
             return str(value)
-    names = [f"{theme}.{extension}"] if theme else []
-    names.append(f"custom.{extension}")
+    names = [f"custom.{extension}"]
+    if theme:
+        names.append(f"{theme}.{extension}")
+    parts = []
     for name in names:
         asset = assets_dir / name
         if asset.is_file():
-            return asset.read_text()
-    return None
+            parts.append(asset.read_text())
+    if not parts:
+        return None
+    return "\n".join(part.rstrip("\n") for part in parts) + "\n"
 
 
 def run_doxygen_if_needed(
@@ -189,7 +195,7 @@ def generate_docs_configuration(
         author: Author name. Falls back to first entry in ``[project].authors``.
         copyright: Copyright string. Falls back to author name.
         version: Version string. Falls back to ``[project].version``.
-        theme: Sphinx theme name. Defaults to ``"furo"``.
+        theme: Sphinx theme name. Defaults to ``"fuma"``.
         docs_root: Base URL for hosted documentation. Used for canonical URLs.
         root: Path to README or index file to use as documentation root.
         source_dir: Existing Sphinx source directory. When set, root names an
@@ -198,10 +204,12 @@ def generate_docs_configuration(
         pages: List of page paths to include in the toctree.
         use_autoapi: Whether to use sphinx-autoapi for Python API docs.
             Defaults to ``None`` (auto-detect).
-        custom_css: Path or raw content for custom CSS. When unset, falls back to a
-            bundled per-theme ``{theme}.css`` then the generic ``custom.css``.
-        custom_js: Path or raw content for custom JS. When unset, falls back to a
-            bundled per-theme ``{theme}.js`` then the generic ``custom.js``.
+        custom_css: Path or raw content for custom CSS. When unset, the bundled
+            generic ``custom.css`` is used, then the bundled ``{theme}.css`` when
+            the theme ships one. An explicit value replaces both.
+        custom_js: Path or raw content for custom JS. When unset, the bundled
+            generic ``custom.js`` is used, then the bundled ``{theme}.js`` when
+            the theme ships one. An explicit value replaces both.
         html_output_dir: Directory where Sphinx writes HTML output. Custom CSS/JS
             are placed under ``<html_output_dir>/_static``. Defaults to ``docs/html``.
         config_base: Base key in pyproject.toml for configuration.
@@ -275,7 +283,7 @@ def generate_docs_configuration(
         if isinstance(author, dict):
             author = author["name"]
         copyright = copyright if copyright is not None else author
-        theme = theme if theme is not None else get_config(section="theme", base=config_base) or "furo"
+        theme = theme if theme is not None else get_config(section="theme", base=config_base) or "fuma"
         version = version if version is not None else get_config(section="version", base="project")
         docs_root = (
             docs_root
@@ -672,7 +680,7 @@ def generate_wiki_configuration(
     author: str | None = "",
     copyright: str | None = "",
     version: str | None = "",
-    theme: str | None = "furo",
+    theme: str | None = "fuma",
     docs_root: str | None = "",
     root: str | None = "",
     cname: str | None = "",
@@ -704,7 +712,7 @@ def generate_wiki_configuration(
         author: Author name. Falls back to first entry in ``[project].authors``.
         copyright: Copyright string. Falls back to author name.
         version: Version string. Falls back to ``[project].version``.
-        theme: Sphinx theme name. Defaults to ``"furo"``.
+        theme: Sphinx theme name. Defaults to ``"fuma"``.
         docs_root: Base URL for hosted documentation. Used for canonical URLs.
         root: Path to README or index file to use as documentation root.
         cname: Custom domain name for GitHub Pages CNAME file.

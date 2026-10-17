@@ -57,30 +57,30 @@ version = "0.1.0"
 
 ## [`theme`](https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_theme)
 
-The Sphinx HTML theme to build with. Defaults to `furo`.
+The Sphinx HTML theme to build with. Defaults to `fuma`.
 
 ```toml
 [tool.yardang]
-theme = "furo"
+theme = "fuma"
 ```
 
 `yardang` ships per-theme defaults (sensible CSS tweaks, and an optional
 dependency) for the following themes:
 
-- [`furo`](https://github.com/pradyunsg/furo) (the default, always installed)
+- [`fuma`](https://github.com/python-project-templates/sphinx-fuma) (the default, always installed)
+- [`furo`](https://github.com/pradyunsg/furo) (always installed)
 - [`sphinxawesome_theme`](https://sphinxawesome.xyz/)
 - [`shibuya`](https://shibuya.lepture.com/)
-- [`fuma`](https://github.com/python-project-templates/sphinx-fuma)
 - [`klink`](https://github.com/pmorissette/klink)
 
-`furo` is always available; install the rest with `pip install yardang[themes]`.
+`fuma` and `furo` are always available; install the rest with `pip install yardang[themes]`.
 Any other installed Sphinx theme works too — you just won't get the bundled
 defaults. See [Previewing themes](#previewing-themes) below to compare them live.
 
 ### The `fuma` theme
 
 [`sphinx-fuma`](https://github.com/python-project-templates/sphinx-fuma) is a
-separate distribution, installed by `pip install yardang[themes]`. It is a
+separate distribution, installed with `yardang`. It is a
 three-column layout — page tree on the left, content in the middle, page
 headings on the right — with a `/` or `Cmd-K` search dialog, light/dark modes
 that work without JavaScript, and a scroll-following heading indicator that
@@ -264,10 +264,13 @@ pass through `[tool.yardang.sphinx]` as normal.
 ## `custom-css` / `custom-js`
 
 Inject a custom stylesheet or script. The value may be a path or raw content.
-When unset, `yardang` looks for a bundled per-theme asset named `{theme}.css` /
-`{theme}.js`, then falls back to the generic `custom.css` / `custom.js`. This lets
-each theme ship sensible defaults — for example, `sphinxawesome_theme` and
-`shibuya` hide the duplicate copy button.
+When unset, `yardang` ships sensible defaults: the generic `custom.css` /
+`custom.js` applies to every theme, and a bundled per-theme `{theme}.css` /
+`{theme}.js` is appended when that theme has one, so theme rules win. This lets
+each theme add its own tweaks — for example, `sphinxawesome_theme` and `shibuya`
+hide the duplicate copy button, and `furo` gets the wide-content layout and the
+`data-theme` rules that theme uses for light/dark. An explicit value replaces
+both.
 
 ```toml
 [tool.yardang]
