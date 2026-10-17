@@ -203,6 +203,7 @@ pages = [
 ]
 use-autoapi = false
 html_extra_path = ["docs/examples"]
+html_theme_options = { github_url = "https://github.com/python-project-templates/yardang" }
 
 [tool.yardang.breathe]
 projects = { calculator = "examples/cpp/xml" }

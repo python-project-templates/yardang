@@ -98,8 +98,9 @@ for the full option list; the common ones are below.
 [tool.yardang]
 theme = "fuma"
 
-[tool.yardang.sphinx]
-html_theme_options = { github_url = "https://github.com/you/project", toc_style = "clerk" }
+[tool.yardang.html_theme_options]
+github_url = "https://github.com/you/project"
+toc_style = "clerk"
 ```
 
 | Option                                       | Default   | Description                                                                            |
@@ -188,7 +189,7 @@ the active sidebar entry, the table-of-contents highlight and its rail. `amber`
 is the grey-and-yellow pairing used on fumadocs' own site.
 
 ```toml
-[tool.yardang.sphinx.html_theme_options]
+[tool.yardang.html_theme_options]
 color_preset = "amber"
 ```
 
@@ -196,7 +197,7 @@ Anything in `light_css_variables` / `dark_css_variables` overrides the preset,
 so you can start from one and adjust:
 
 ```toml
-[tool.yardang.sphinx.html_theme_options]
+[tool.yardang.html_theme_options]
 color_preset = "amber"
 dark_css_variables = { "color-fd-background" = "#0a0a0a" }
 ```
@@ -238,7 +239,7 @@ a docname prefix used to decide which entry is current; it defaults to the
 directory part of `url`.
 
 ```toml
-[[tool.yardang.sphinx.html_theme_options.sidebar_tabs]]
+[[tool.yardang.html_theme_options.sidebar_tabs]]
 title = "Guides"
 url = "guides/index.html"
 description = "Get up and running"
@@ -258,8 +259,7 @@ use-search = false
 ```
 
 The `fuma` theme renders the results in its own dialog; every other theme gets
-the one `sphinx-searchlite` ships. Options such as `searchlite_index_filename`
-pass through `[tool.yardang.sphinx]` as normal.
+the one `sphinx-searchlite` ships.
 
 ## `custom-css` / `custom-js`
 
