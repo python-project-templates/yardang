@@ -103,6 +103,27 @@ github_url = "https://github.com/you/project"
 toc_style = "clerk"
 ```
 
+For `fuma`, Yardang infers `github_url` from GitHub URLs in `[project.urls]`.
+It checks `Repository`, `Source`, `Source Code`, and `Homepage` first, in that
+order, then remaining entries in declaration order. Labels are case-insensitive.
+HTTP and HTTPS GitHub links are normalized to `https://github.com/owner/repo`,
+removing `.git`, trailing slashes, subpaths, queries, and fragments.
+An explicit `github_url` takes precedence; `github_url = ""` disables the link.
+Other themes receive no inferred option.
+
+Yardang also infers Fuma's `nav_links` from these case-insensitive project URL labels:
+
+| Project URL label           | Link title |
+| --------------------------- | ---------- |
+| `Homepage`                  | Home       |
+| `Documentation` (or `Docs`) | Docs       |
+
+These links appear in the header and sidebar toolbar, in Home, Docs order.
+`Documentation` takes precedence over `Docs`. Duplicate destinations, including
+the GitHub link, are omitted; trailing slashes are ignored when comparing URLs.
+Explicit `nav_links` replaces these defaults; `nav_links = []` disables them.
+Missing URLs produce no link.
+
 | Option                                       | Default   | Description                                                                            |
 | -------------------------------------------- | --------- | -------------------------------------------------------------------------------------- |
 | `layout`                                     | `docs`    | `docs` puts the header beside the sidebar; `notebook` spans it across the top.         |
@@ -114,7 +135,7 @@ toc_style = "clerk"
 | `default_open_level`                         | `1`       | Sidebar folder depth expanded by default.                                              |
 | `github_url`                                 | —         | Adds a GitHub link, and an "Edit this page" link.                                      |
 | `edit_page_url_template`                     | —         | Overrides the edit link, e.g. `https://host/edit/main/{filename}`.                     |
-| `nav_links`                                  | —         | Header links, as `[{title, url}]` or `"Title\|url, Title\|url"`.                       |
+| `nav_links`                                  | —         | Header and sidebar toolbar links, as `[{title, url}]` or `"Title\|url, Title\|url"`.   |
 | `sidebar_tabs`                               | —         | Navigator entries under the search box, as `[{title, url, description, icon, match}]`. |
 | `announcement`                               | —         | Banner text shown above the header.                                                    |
 | `footer_text`                                | —         | Extra line in the footer.                                                              |
