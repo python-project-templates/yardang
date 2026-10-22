@@ -5,6 +5,7 @@ from collections.abc import Callable
 from contextlib import contextmanager
 from pathlib import Path
 from tempfile import TemporaryDirectory
+from urllib.parse import urlsplit
 
 from jinja2 import Environment, FileSystemLoader
 
@@ -23,6 +24,19 @@ _THEME_MODULES = {"fuma": "sphinx_fuma"}
 def theme_module(theme: str) -> str:
     """Return the importable module that provides ``theme``."""
     return _THEME_MODULES.get(theme, theme)
+
+
+def _github_repository_url(urls: dict[str, str]) -> str | None:
+    """Find a GitHub repository in project URLs, preferring source links."""
+    urls = {label.lower(): url for label, url in urls.items()}
+    candidates = [urls.get(label, "") for label in ("repository", "source", "source code", "homepage")]
+    for url in candidates + list(urls.values()):
+        if not url.lower().startswith(("https://github.com/", "http://github.com/")):
+            continue
+        parts = urlsplit(url).path.strip("/").split("/")
+        if len(parts) >= 2 and parts[0] and parts[1]:
+            return f"https://github.com/{parts[0]}/{parts[1].removesuffix('.git')}"
+    return None
 
 
 def _resolve_custom_asset(value: str | Path | None, theme: str | None, extension: str, *, assets_dir: Path) -> str | None:
@@ -407,6 +421,24 @@ def generate_docs_configuration(
             configuration_args[config_option] = get_config_flex(section=config_option, base=config_base)
             if configuration_args[config_option] is None:
                 configuration_args[config_option] = default
+
+        if theme == "fuma":
+            project_urls = get_config(section="urls", base="project") or {}
+            theme_options = configuration_args["html_theme_options"]
+            if "github_url" not in theme_options:
+                github_url = _github_repository_url(project_urls)
+                if github_url:
+                    theme_options["github_url"] = github_url
+            if "nav_links" not in theme_options:
+                urls = {label.lower(): url for label, url in project_urls.items()}
+                links = []
+                seen = {theme_options.get("github_url", "").rstrip("/")}
+                for link_title, url in (("Home", urls.get("homepage")), ("Docs", urls.get("documentation") or urls.get("docs"))):
+                    if url and url.rstrip("/") not in seen:
+                        links.append({"title": link_title, "url": url})
+                        seen.add(url.rstrip("/"))
+                if links:
+                    theme_options["nav_links"] = links
 
         if existing_source:
             for option in ("html_static_path", "html_extra_path"):

@@ -1,8 +1,11 @@
+import ast
 import os
 from pathlib import Path
 from unittest.mock import patch
 
 import pytest
+import toml
+from sphinx.cmd.build import build_main
 
 import yardang.build as build_module
 from yardang.build import BUNDLED_THEMES, _resolve_custom_asset, generate_docs_configuration
@@ -83,6 +86,135 @@ class TestDefaultTheme:
             os.chdir(original_cwd)
         assert 'html_theme = "fuma"' in conf
         assert "sphinx_fuma" in conf
+
+
+class TestProjectLinks:
+    @pytest.fixture
+    def project(self, tmp_path, monkeypatch):
+        monkeypatch.chdir(tmp_path)
+        (tmp_path / "README.md").write_text("# Test Project\n")
+        return toml.loads(MINIMAL_PYPROJECT)
+
+    def _options(self, project, **kwargs):
+        Path("pyproject.toml").write_text(toml.dumps(project))
+        with generate_docs_configuration(**kwargs) as config_dir:
+            conf = Path(config_dir, "conf.py").read_text()
+        line = next(line for line in conf.splitlines() if line.startswith("html_theme_options = "))
+        return ast.literal_eval(line.split(" = ", 1)[1])
+
+    @pytest.mark.parametrize(
+        ("urls", "expected"),
+        [
+            ({}, {}),
+            ({"Homepage": "https://example.com"}, {}),
+            ({"Repository": "https://gitlab.com/owner/repo"}, {}),
+            ({"Homepage": "https://owner.github.io/repo"}, {}),
+            ({"Repository": "https://github.com.evil.test/owner/repo"}, {}),
+            ({"Repository": "https://github.com/owner"}, {}),
+            ({"Repository": "ftp://github.com/owner/repo"}, {}),
+            ({"Repository": "https://github.com/owner/repo"}, {"github_url": "https://github.com/owner/repo"}),
+            ({"Homepage": "https://github.com/owner/repo/"}, {"github_url": "https://github.com/owner/repo"}),
+            ({"Source Code": "https://github.com/owner/repo.git"}, {"github_url": "https://github.com/owner/repo"}),
+            ({"Bug Tracker": "https://github.com/owner/repo/issues?q=open#top"}, {"github_url": "https://github.com/owner/repo"}),
+            (
+                {"Homepage": "https://github.com/owner/home", "rEpOsItOrY": "https://github.com/owner/repo"},
+                {"github_url": "https://github.com/owner/repo"},
+            ),
+            (
+                {"Homepage": "https://github.com/owner/home", "Source": "https://github.com/owner/repo"},
+                {"github_url": "https://github.com/owner/repo"},
+            ),
+            (
+                {"Repository": "https://example.com/repo", "Homepage": "https://github.com/owner/repo"},
+                {"github_url": "https://github.com/owner/repo"},
+            ),
+        ],
+    )
+    def test_infers_github_repository(self, project, urls, expected):
+        project["project"]["urls"] = urls
+        assert self._options(project).get("github_url") == expected.get("github_url")
+
+    @pytest.mark.parametrize(
+        ("urls", "expected"),
+        [
+            ({}, []),
+            ({"Homepage": "https://example.com"}, [{"title": "Home", "url": "https://example.com"}]),
+            ({"Documentation": "https://docs.example.com"}, [{"title": "Docs", "url": "https://docs.example.com"}]),
+            ({"Docs": "https://docs.example.com"}, [{"title": "Docs", "url": "https://docs.example.com"}]),
+            (
+                {"hOmEpAgE": "https://example.com", "dOcUmEnTaTiOn": "https://docs.example.com/guide"},
+                [{"title": "Home", "url": "https://example.com"}, {"title": "Docs", "url": "https://docs.example.com/guide"}],
+            ),
+            (
+                {"Docs": "https://old.example.com", "Documentation": "https://docs.example.com"},
+                [{"title": "Docs", "url": "https://docs.example.com"}],
+            ),
+            (
+                {"Homepage": "https://example.com/", "Documentation": "https://example.com"},
+                [{"title": "Home", "url": "https://example.com/"}],
+            ),
+            ({"Homepage": "https://github.com/owner/repo/"}, []),
+        ],
+    )
+    def test_infers_home_and_docs_links(self, project, urls, expected):
+        project["project"]["urls"] = urls
+        assert self._options(project).get("nav_links", []) == expected
+
+    @pytest.mark.parametrize("nav_links", [[], [{"title": "Blog", "url": "https://example.com/blog"}], "Blog|https://example.com/blog"])
+    @pytest.mark.parametrize("option_key", ["html_theme_options", "html-theme-options"])
+    def test_explicit_navigation_takes_precedence(self, project, nav_links, option_key):
+        project["project"]["urls"] = {
+            "Repository": "https://github.com/owner/repo",
+            "Homepage": "https://example.com",
+            "Documentation": "https://docs.example.com",
+        }
+        project["tool"]["yardang"][option_key] = {"nav_links": nav_links}
+        assert self._options(project) == {"nav_links": nav_links, "github_url": "https://github.com/owner/repo"}
+
+    @pytest.mark.parametrize("github_url", ["https://github.com/other/repo", ""])
+    @pytest.mark.parametrize("option_key", ["html_theme_options", "html-theme-options"])
+    def test_explicit_options_take_precedence(self, project, github_url, option_key):
+        project["project"]["urls"] = {"Repository": "https://github.com/owner/repo", "Homepage": "https://example.com"}
+        options = {"github_url": github_url, "toc_style": "clerk"}
+        project["tool"]["yardang"][option_key] = options
+        assert self._options(project) == {**options, "nav_links": [{"title": "Home", "url": "https://example.com"}]}
+
+    @pytest.mark.parametrize("theme", [theme for theme in BUNDLED_THEMES if theme != "fuma"])
+    def test_other_themes_do_not_receive_project_links(self, project, theme):
+        project["project"]["urls"] = {
+            "Repository": "https://github.com/owner/repo",
+            "Homepage": "https://example.com",
+            "Documentation": "https://docs.example.com",
+        }
+        assert self._options(project, theme=theme) == {}
+
+    def test_custom_config_base_and_existing_options(self, project):
+        project["project"]["urls"] = {"Repository": "https://github.com/owner/repo", "Documentation": "https://docs.example.com"}
+        project["tool"]["custom"] = project["tool"].pop("yardang")
+        project["tool"]["custom"]["html-theme-options"] = {"toc_style": "clerk"}
+        assert self._options(project, config_base="tool.custom") == {
+            "toc_style": "clerk",
+            "github_url": "https://github.com/owner/repo",
+            "nav_links": [{"title": "Docs", "url": "https://docs.example.com"}],
+        }
+
+    def test_inferred_urls_render_project_links(self, project, tmp_path):
+        project["project"]["urls"] = {
+            "Repository": "https://github.com/owner/repo",
+            "Homepage": "https://example.com",
+            "Documentation": "https://docs.example.com",
+        }
+        self._options(project)
+        output = tmp_path / "html"
+        with generate_docs_configuration(html_output_dir=str(output)) as config_dir:
+            result = build_main(["-q", "-b", "html", "-c", str(config_dir), ".", str(output)])
+        assert result == 0
+        html = (output / "index.html").read_text()
+        assert "<title>Test Project" in html
+        assert 'href="https://github.com/owner/repo"' in html
+        assert 'href="https://github.com/owner/repo/edit/HEAD/index.md"' in html
+        assert html.count('href="https://example.com" target="_blank" rel="noopener">Home</a>') == 2
+        assert html.count('href="https://docs.example.com" target="_blank" rel="noopener">Docs</a>') == 2
 
 
 class TestResolveCustomAsset:
