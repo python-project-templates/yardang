@@ -1,5 +1,6 @@
 import ast
 import os
+import re
 from pathlib import Path
 from unittest.mock import patch
 
@@ -213,8 +214,11 @@ class TestProjectLinks:
         assert "<title>Test Project" in html
         assert 'href="https://github.com/owner/repo"' in html
         assert 'href="https://github.com/owner/repo/edit/HEAD/index.md"' in html
-        assert html.count('href="https://example.com" target="_blank" rel="noopener">Home</a>') == 2
-        assert html.count('href="https://docs.example.com" target="_blank" rel="noopener">Docs</a>') == 2
+        for url, title in (("https://example.com", "Home"), ("https://docs.example.com", "Docs")):
+            links = re.findall(r'<a\b([^>]*href="' + re.escape(url) + r'"[^>]*)>(.*?)</a>', html, re.DOTALL)
+            assert len(links) == 2
+            assert all('target="_blank"' in attrs and 'rel="noopener"' in attrs for attrs, _ in links)
+            assert all(f'aria-label="{title}"' in attrs or text == title for attrs, text in links)
 
 
 class TestResolveCustomAsset:
