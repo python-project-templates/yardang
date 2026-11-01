@@ -39,12 +39,12 @@ jobs:
           version: "3.11"
 
       - name: Setup Node.js
-        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v6.0.0
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v6.0.0
         with:
           node-version: "22"
 
       - name: Setup Rust
-        uses: actions-ext/rust/setup@0f0b7c9ab3cdb6e9a1f79e2147974d6762ddafea
+        uses: actions-ext/rust/setup@10df15e12bbd1cc1cf48089f2e232349f98c74e7
 
       # sphinxcontrib-rust shells out to this binary. Installing the Python
       # package only builds it as a side effect, which a cached wheel skips.
@@ -83,7 +83,7 @@ jobs:
         if: always()
 
       - name: Publish test results
-        uses: EnricoMi/publish-unit-test-result-action@d0a4676d0e0b938bc201470d88276b7c74c712b3  # v2.24.0
+        uses: EnricoMi/publish-unit-test-result-action@7622c5bf3d112a72ab4fa3951c2aa5723d8ab92d  # v2.25.0
         with:
           files: '**/junit.xml'
 
