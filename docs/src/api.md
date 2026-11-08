@@ -41,9 +41,10 @@ Use `doxygenindex` to document all symbols from Doxygen XML:
 ```
 
 ```{toctree}
-:hidden:
-:maxdepth: 2
-
+---
+hidden:
+maxdepth: 2
+---
 /examples/cpp/docs/api
 ```
 
@@ -69,9 +70,10 @@ hand. `sphinx-rustdocgen` reads each crate listed under
 `doc-dir`, so the only thing to author is a toctree pointing at the result:
 
 ```{toctree}
-:hidden:
-:maxdepth: 2
-
+---
+hidden:
+maxdepth: 2
+---
 /api/calculator/lib
 ```
 
