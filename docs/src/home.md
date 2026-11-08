@@ -13,32 +13,32 @@
 
 [`yardang`](https://www.britannica.com/science/yardang) makes building [Sphinx](https://www.sphinx-doc.org/en/master/) easy.
 
-::::{grid} 1 2 2 2
+::::\{grid} 1 2 2 2
 :margin: 4 4 0 0
 :gutter: 1
 
-:::{grid-item-card} {octicon}`table` Overview
+:::\{grid-item-card} {octicon}`table` Overview
 :link: docs/src/overview.html
 :link-type: url
 
 About `yardang` and how it works.
 :::
 
-:::{grid-item-card} {octicon}`download` Installation
+:::\{grid-item-card} {octicon}`download` Installation
 :link: docs/src/installation.html
 :link-type: url
 
 Install `yardang` from PyPI, Conda Forge, or build from source.
 :::
 
-:::{grid-item-card} {octicon}`gear` Configuration
+:::\{grid-item-card} {octicon}`gear` Configuration
 :link: docs/src/configuration.html
 :link-type: url
 
 Learn how to configure your repository.
 :::
 
-:::{grid-item-card} {octicon}`mark-github` Repository
+:::\{grid-item-card} {octicon}`mark-github` Repository
 :link: https://github.com/python-project-templates/yardang
 :link-type: url
 
